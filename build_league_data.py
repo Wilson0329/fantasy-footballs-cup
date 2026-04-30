@@ -159,7 +159,7 @@ def build_captain_points(bootstrap, current_gw, player_names):
         total_bonus = 0
         by_gw = []
 
-        for gw in range(1, current_gw + 1):
+        for gw in range(4, current_gw + 1):
             if not gw_finished.get(gw, False):
                 continue
             picks = fetch(f"/entry/{team['entry_id']}/event/{gw}/picks/")

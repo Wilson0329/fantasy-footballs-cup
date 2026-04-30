@@ -1538,32 +1538,8 @@
       "entry_id": 1623042,
       "name": "GVG XI",
       "manager": "George Georgiou",
-      "total_captain_bonus": 224,
+      "total_captain_bonus": 200,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 3,
-          "raw_pts": 8,
-          "bonus": 16
-        },
-        {
-          "gw": 2,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 3,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
         {
           "gw": 4,
           "player_id": 661,
@@ -1818,32 +1794,8 @@
       "entry_id": 6366909,
       "name": "HC XI II",
       "manager": "Dominic Byrne",
-      "total_captain_bonus": 218,
+      "total_captain_bonus": 194,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 3,
-          "raw_pts": 8,
-          "bonus": 16
-        },
-        {
-          "gw": 2,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 3,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
         {
           "gw": 4,
           "player_id": 382,
@@ -2098,32 +2050,8 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "total_captain_bonus": 216,
+      "total_captain_bonus": 186,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 8,
-          "bonus": 8
-        },
-        {
-          "gw": 2,
-          "player_id": 16,
-          "player": "Saka",
-          "multiplier": 3,
-          "raw_pts": 6,
-          "bonus": 12
-        },
-        {
-          "gw": 3,
-          "player_id": 449,
-          "player": "B.Fernandes",
-          "multiplier": 2,
-          "raw_pts": 10,
-          "bonus": 10
-        },
         {
           "gw": 4,
           "player_id": 430,
@@ -2378,32 +2306,8 @@
       "entry_id": 5751594,
       "name": "I love big Gy\u0151k",
       "manager": "Adam Georghiou",
-      "total_captain_bonus": 216,
+      "total_captain_bonus": 175,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 8,
-          "bonus": 8
-        },
-        {
-          "gw": 2,
-          "player_id": 666,
-          "player": "Gy\u00f6keres",
-          "multiplier": 3,
-          "raw_pts": 12,
-          "bonus": 24
-        },
-        {
-          "gw": 3,
-          "player_id": 249,
-          "player": "Jo\u00e3o Pedro",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
         {
           "gw": 4,
           "player_id": 381,
@@ -2658,32 +2562,8 @@
       "entry_id": 5124113,
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
-      "total_captain_bonus": 193,
+      "total_captain_bonus": 170,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 3,
-          "raw_pts": 8,
-          "bonus": 16
-        },
-        {
-          "gw": 2,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 3,
-          "player_id": 525,
-          "player": "Wood",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
         {
           "gw": 4,
           "player_id": 624,
@@ -2938,32 +2818,8 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "total_captain_bonus": 179,
+      "total_captain_bonus": 142,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 430,
-          "player": "Haaland",
-          "multiplier": 3,
-          "raw_pts": 13,
-          "bonus": 26
-        },
-        {
-          "gw": 2,
-          "player_id": 430,
-          "player": "Haaland",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 3,
-          "player_id": 430,
-          "player": "Haaland",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
         {
           "gw": 4,
           "player_id": 249,
@@ -3210,32 +3066,8 @@
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
       "manager": "Arun Quayum",
-      "total_captain_bonus": 170,
+      "total_captain_bonus": 137,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 430,
-          "player": "Haaland",
-          "multiplier": 2,
-          "raw_pts": 13,
-          "bonus": 13
-        },
-        {
-          "gw": 2,
-          "player_id": 430,
-          "player": "Haaland",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 3,
-          "player_id": 249,
-          "player": "Jo\u00e3o Pedro",
-          "multiplier": 3,
-          "raw_pts": 9,
-          "bonus": 18
-        },
         {
           "gw": 4,
           "player_id": 681,
@@ -3471,35 +3303,259 @@
       ]
     },
     {
-      "entry_id": 5155229,
-      "name": "Vik the Impaler",
-      "manager": "David Pontin",
-      "total_captain_bonus": 169,
+      "entry_id": 5191754,
+      "name": "Stay Classy SanDiogo",
+      "manager": "Ed Pragnell",
+      "total_captain_bonus": 136,
       "by_gw": [
         {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 3,
-          "raw_pts": 8,
-          "bonus": 16
+          "gw": 4,
+          "player_id": 597,
+          "player": "Richarlison",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
         },
         {
-          "gw": 2,
-          "player_id": 666,
-          "player": "Gy\u00f6keres",
+          "gw": 5,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 6,
+          "player_id": 597,
+          "player": "Richarlison",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 7,
+          "player_id": 597,
+          "player": "Richarlison",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 8,
+          "player_id": 260,
+          "player": "Gu\u00e9hi",
+          "multiplier": 2,
+          "raw_pts": 4,
+          "bonus": 4
+        },
+        {
+          "gw": 9,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 8,
+          "bonus": 8
+        },
+        {
+          "gw": 10,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 11,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 9,
+          "bonus": 9
+        },
+        {
+          "gw": 12,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 8,
+          "bonus": 8
+        },
+        {
+          "gw": 13,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 14,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 15,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 16,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 6,
+          "bonus": 6
+        },
+        {
+          "gw": 17,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 5,
+          "bonus": 5
+        },
+        {
+          "gw": 18,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 19,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 7,
+          "bonus": 7
+        },
+        {
+          "gw": 20,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 21,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 22,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 9,
+          "bonus": 9
+        },
+        {
+          "gw": 23,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 24,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 25,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 20,
+          "bonus": 20
+        },
+        {
+          "gw": 26,
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
           "raw_pts": 12,
           "bonus": 12
         },
         {
-          "gw": 3,
-          "player_id": 430,
-          "player": "Haaland",
+          "gw": 27,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 3,
+          "raw_pts": 3,
+          "bonus": 6
+        },
+        {
+          "gw": 28,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 29,
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
           "raw_pts": 9,
           "bonus": 9
         },
+        {
+          "gw": 30,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 31,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 32,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 4,
+          "bonus": 4
+        },
+        {
+          "gw": 33,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "entry_id": 5155229,
+      "name": "Vik the Impaler",
+      "manager": "David Pontin",
+      "total_captain_bonus": 132,
+      "by_gw": [
         {
           "gw": 4,
           "player_id": 666,
@@ -3751,271 +3807,255 @@
       ]
     },
     {
-      "entry_id": 5191754,
-      "name": "Stay Classy SanDiogo",
-      "manager": "Ed Pragnell",
-      "total_captain_bonus": 166,
+      "entry_id": 4789233,
+      "name": "Inevitable",
+      "manager": "Jason Knightly",
+      "total_captain_bonus": 124,
       "by_gw": [
         {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 3,
-          "raw_pts": 8,
-          "bonus": 16
-        },
-        {
-          "gw": 2,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 3,
-          "player_id": 430,
-          "player": "Haaland",
+          "gw": 4,
+          "player_id": 714,
+          "player": "Woltemade",
           "multiplier": 2,
           "raw_pts": 9,
           "bonus": 9
         },
         {
-          "gw": 4,
-          "player_id": 597,
-          "player": "Richarlison",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
           "gw": 5,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
+          "raw_pts": 2,
+          "bonus": 2
         },
         {
           "gw": 6,
-          "player_id": 597,
-          "player": "Richarlison",
+          "player_id": 299,
+          "player": "Ndiaye",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
         },
         {
           "gw": 7,
-          "player_id": 597,
-          "player": "Richarlison",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 8,
-          "player_id": 260,
-          "player": "Gu\u00e9hi",
-          "multiplier": 2,
-          "raw_pts": 4,
-          "bonus": 4
-        },
-        {
-          "gw": 9,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 8,
-          "bonus": 8
-        },
-        {
-          "gw": 10,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 11,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
-        {
-          "gw": 12,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 8,
-          "bonus": 8
-        },
-        {
-          "gw": 13,
-          "player_id": 236,
-          "player": "Neto",
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
         },
         {
-          "gw": 14,
-          "player_id": 235,
-          "player": "Palmer",
+          "gw": 8,
+          "player_id": 714,
+          "player": "Woltemade",
+          "multiplier": 2,
+          "raw_pts": 8,
+          "bonus": 8
+        },
+        {
+          "gw": 9,
+          "player_id": 714,
+          "player": "Woltemade",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 10,
+          "player_id": 714,
+          "player": "Woltemade",
           "multiplier": 2,
           "raw_pts": 1,
           "bonus": 1
+        },
+        {
+          "gw": 11,
+          "player_id": 299,
+          "player": "Ndiaye",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 12,
+          "player_id": 654,
+          "player": "Strand Larsen",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 13,
+          "player_id": 64,
+          "player": "Watkins",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 14,
+          "player_id": 714,
+          "player": "Woltemade",
+          "multiplier": 2,
+          "raw_pts": 5,
+          "bonus": 5
         },
         {
           "gw": 15,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 714,
+          "player": "Woltemade",
           "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
+          "raw_pts": 2,
+          "bonus": 2
         },
         {
           "gw": 16,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
+          "raw_pts": 5,
+          "bonus": 5
         },
         {
           "gw": 17,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
           "raw_pts": 5,
           "bonus": 5
         },
         {
           "gw": 18,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 714,
+          "player": "Woltemade",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
         },
         {
           "gw": 19,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 714,
+          "player": "Woltemade",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 20,
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
           "raw_pts": 7,
           "bonus": 7
         },
         {
-          "gw": 20,
-          "player_id": 235,
-          "player": "Palmer",
+          "gw": 21,
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
-        },
-        {
-          "gw": 21,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
         },
         {
           "gw": 22,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
-        {
-          "gw": 23,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 24,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
         },
         {
-          "gw": 25,
-          "player_id": 235,
-          "player": "Palmer",
+          "gw": 23,
+          "player_id": 299,
+          "player": "Ndiaye",
           "multiplier": 2,
-          "raw_pts": 20,
-          "bonus": 20
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 24,
+          "player_id": 517,
+          "player": "Anderson",
+          "multiplier": 2,
+          "raw_pts": 7,
+          "bonus": 7
+        },
+        {
+          "gw": 25,
+          "player_id": 64,
+          "player": "Watkins",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
         },
         {
           "gw": 26,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 654,
+          "player": "Strand Larsen",
           "multiplier": 2,
-          "raw_pts": 12,
-          "bonus": 12
+          "raw_pts": 13,
+          "bonus": 13
         },
         {
           "gw": 27,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 3,
-          "raw_pts": 3,
-          "bonus": 6
+          "player_id": 654,
+          "player": "Strand Larsen",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
         },
         {
           "gw": 28,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 807,
+          "player": "Rayan",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 29,
+          "player_id": 299,
+          "player": "Ndiaye",
+          "multiplier": 2,
+          "raw_pts": 6,
+          "bonus": 6
+        },
+        {
+          "gw": 30,
+          "player_id": 654,
+          "player": "Strand Larsen",
           "multiplier": 2,
           "raw_pts": 1,
           "bonus": 1
         },
         {
-          "gw": 29,
-          "player_id": 235,
-          "player": "Palmer",
+          "gw": 31,
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
           "raw_pts": 9,
           "bonus": 9
         },
         {
-          "gw": 30,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 31,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
           "gw": 32,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
-          "raw_pts": 4,
-          "bonus": 4
+          "raw_pts": 2,
+          "bonus": 2
         },
         {
           "gw": 33,
-          "player_id": 235,
-          "player": "Palmer",
+          "player_id": 417,
+          "player": "Cherki",
+          "multiplier": 2,
+          "raw_pts": 13,
+          "bonus": 13
+        },
+        {
+          "gw": 34,
+          "player_id": 64,
+          "player": "Watkins",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
@@ -4026,32 +4066,8 @@
       "entry_id": 4160647,
       "name": "Forever20",
       "manager": "Joe Wilson",
-      "total_captain_bonus": 141,
+      "total_captain_bonus": 111,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 3,
-          "raw_pts": 8,
-          "bonus": 16
-        },
-        {
-          "gw": 2,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 3,
-          "player_id": 430,
-          "player": "Haaland",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
         {
           "gw": 4,
           "player_id": 283,
@@ -4306,32 +4322,8 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "total_captain_bonus": 136,
+      "total_captain_bonus": 110,
       "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 381,
-          "player": "M.Salah",
-          "multiplier": 3,
-          "raw_pts": 8,
-          "bonus": 16
-        },
-        {
-          "gw": 2,
-          "player_id": 16,
-          "player": "Saka",
-          "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
-        },
-        {
-          "gw": 3,
-          "player_id": 21,
-          "player": "Rice",
-          "multiplier": 2,
-          "raw_pts": 4,
-          "bonus": 4
-        },
         {
           "gw": 4,
           "player_id": 7,
@@ -4579,286 +4571,6 @@
           "multiplier": 2,
           "raw_pts": 8,
           "bonus": 8
-        }
-      ]
-    },
-    {
-      "entry_id": 4789233,
-      "name": "Inevitable",
-      "manager": "Jason Knightly",
-      "total_captain_bonus": 132,
-      "by_gw": [
-        {
-          "gw": 1,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 2,
-          "player_id": 430,
-          "player": "Haaland",
-          "multiplier": 3,
-          "raw_pts": 2,
-          "bonus": 4
-        },
-        {
-          "gw": 3,
-          "player_id": 450,
-          "player": "Cunha",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 4,
-          "player_id": 714,
-          "player": "Woltemade",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
-        {
-          "gw": 5,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 6,
-          "player_id": 299,
-          "player": "Ndiaye",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 7,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 8,
-          "player_id": 714,
-          "player": "Woltemade",
-          "multiplier": 2,
-          "raw_pts": 8,
-          "bonus": 8
-        },
-        {
-          "gw": 9,
-          "player_id": 714,
-          "player": "Woltemade",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 10,
-          "player_id": 714,
-          "player": "Woltemade",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 11,
-          "player_id": 299,
-          "player": "Ndiaye",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 12,
-          "player_id": 654,
-          "player": "Strand Larsen",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 13,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 14,
-          "player_id": 714,
-          "player": "Woltemade",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 15,
-          "player_id": 714,
-          "player": "Woltemade",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 16,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 17,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 18,
-          "player_id": 714,
-          "player": "Woltemade",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 19,
-          "player_id": 714,
-          "player": "Woltemade",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 20,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 7,
-          "bonus": 7
-        },
-        {
-          "gw": 21,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 22,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 23,
-          "player_id": 299,
-          "player": "Ndiaye",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 24,
-          "player_id": 517,
-          "player": "Anderson",
-          "multiplier": 2,
-          "raw_pts": 7,
-          "bonus": 7
-        },
-        {
-          "gw": 25,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 26,
-          "player_id": 654,
-          "player": "Strand Larsen",
-          "multiplier": 2,
-          "raw_pts": 13,
-          "bonus": 13
-        },
-        {
-          "gw": 27,
-          "player_id": 654,
-          "player": "Strand Larsen",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 28,
-          "player_id": 807,
-          "player": "Rayan",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 29,
-          "player_id": 299,
-          "player": "Ndiaye",
-          "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
-        },
-        {
-          "gw": 30,
-          "player_id": 654,
-          "player": "Strand Larsen",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 31,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
-        {
-          "gw": 32,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 33,
-          "player_id": 417,
-          "player": "Cherki",
-          "multiplier": 2,
-          "raw_pts": 13,
-          "bonus": 13
-        },
-        {
-          "gw": 34,
-          "player_id": 64,
-          "player": "Watkins",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
         }
       ]
     }
