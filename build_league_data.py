@@ -120,15 +120,6 @@ def build_trade_differential(player_names):
         print(f"  {team['name']}...")
         all_transfers = fetch(f"/entry/{team['entry_id']}/transfers/")
 
-        # Build a lookup: player_id -> GW they were later sold out of this team
-        # (only the earliest sale matters if a player is bought/sold multiple times)
-        sold_at = {}
-        for t in all_transfers:
-            pid = t["element_out"]
-            gw = t["event"]
-            if pid not in sold_at or gw < sold_at[pid]:
-                sold_at[pid] = gw
-
         trades = []
         for t in sorted(all_transfers, key=lambda x: x["event"]):
             gw = t["event"]
@@ -139,8 +130,11 @@ def build_trade_differential(player_names):
             # player_out: points from transfer GW to now (what you gave up)
             out_pts = player_pts_from_gw(out_id, gw)
 
-            # player_in: points only while they were in your squad
-            later_sold_gw = sold_at.get(in_id)  # GW they were sold, if ever
+            # player_in: find the earliest subsequent transfer where this player
+            # was sold out (i.e. element_out == in_id AND event > gw)
+            later_sales = [t2["event"] for t2 in all_transfers
+                           if t2["element_out"] == in_id and t2["event"] > gw]
+            later_sold_gw = min(later_sales) if later_sales else None
             in_pts = player_pts_window(in_id, gw, later_sold_gw)
             still_in_squad = later_sold_gw is None
 
