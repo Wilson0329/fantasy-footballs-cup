@@ -88,20 +88,41 @@ def gw_is_finished(bootstrap, gw):
 
 # ─── Cup score calculation ───────────────────────────────────────────────────
 
-def cup_score_from_picks(picks_data, live_points):
+def cup_score_from_picks(picks_data, live_elements, first_fixture_by_team, player_team):
     """
-    Cup score = sum of starting XI raw points (no captain bonus).
-    Positions 1-11 are always the starting XI regardless of any chip.
+    Cup score = sum of playing XI raw points (no captain bonus).
+    - Bench boost chip: only positions 1-11 count (chip effect nullified).
+    - Auto-subs (no chip): bench player gets multiplier=1 → counted; displaced starter gets 0 → excluded.
+    - DGW players: only their first-fixture points count.
     """
     score = 0
     captain_pts = 0
     vice_pts = 0
+    bench_boost = picks_data.get("active_chip") == "bboost"
 
     for pick in picks_data["picks"]:
-        if pick["multiplier"] == 0:   # bench player (not playing this GW, even with auto-subs)
-            continue
+        if bench_boost:
+            if pick["position"] > 11:
+                continue
+        else:
+            if pick["multiplier"] == 0:
+                continue
         pid = pick["element"]
-        pts = live_points.get(pid, 0)
+        el = live_elements.get(pid, {})
+        explain = el.get("explain", [])
+
+        if len(explain) > 1:
+            # DGW — only count points from the first fixture
+            team_id = player_team.get(pid)
+            first_fix_id = first_fixture_by_team.get(team_id)
+            pts = 0
+            for fix_explain in explain:
+                if fix_explain.get("fixture") == first_fix_id:
+                    pts = sum(s.get("points", 0) for s in fix_explain.get("stats", []))
+                    break
+        else:
+            pts = el.get("stats", {}).get("total_points", 0)
+
         score += pts
         if pick["is_captain"]:
             captain_pts = pts
@@ -154,13 +175,30 @@ def build_gw17_standings():
 # ─── Live player points ───────────────────────────────────────────────────────
 
 _live_cache = {}
+_fixtures_cache = {}
 
-def get_live_points(gw):
+
+def get_live_elements(gw):
+    """Returns full element data from live endpoint keyed by element id."""
     if gw not in _live_cache:
         print(f"  Fetching live data for GW{gw}...")
         data = fetch(f"/event/{gw}/live/")
-        _live_cache[gw] = {el["id"]: el["stats"]["total_points"] for el in data["elements"]}
+        _live_cache[gw] = {el["id"]: el for el in data["elements"]}
     return _live_cache[gw]
+
+
+def get_first_fixture_by_team(gw):
+    """Returns {team_id: first_fixture_id} — used to isolate first-game points in a DGW."""
+    if gw not in _fixtures_cache:
+        fixtures = fetch(f"/fixtures/?event={gw}")
+        fixtures_sorted = sorted(fixtures, key=lambda f: f.get("kickoff_time") or "")
+        first = {}
+        for fix in fixtures_sorted:
+            for team_id in [fix["team_h"], fix["team_a"]]:
+                if team_id not in first:
+                    first[team_id] = fix["id"]
+        _fixtures_cache[gw] = first
+    return _fixtures_cache[gw]
 
 
 # ─── Group stage ─────────────────────────────────────────────────────────────
@@ -201,13 +239,15 @@ def build_group(group_label, group_teams, bootstrap):
                 })
                 continue
 
-            live = get_live_points(gw)
+            live = get_live_elements(gw)
+            first_fix = get_first_fixture_by_team(gw)
+            player_team = {p["id"]: p["team"] for p in bootstrap["elements"]}
 
             home_picks = fetch(f"/entry/{home_team['entry_id']}/event/{gw}/picks/")
             away_picks = fetch(f"/entry/{away_team['entry_id']}/event/{gw}/picks/")
 
-            home_data = cup_score_from_picks(home_picks, live)
-            away_data = cup_score_from_picks(away_picks, live)
+            home_data = cup_score_from_picks(home_picks, live, first_fix, player_team)
+            away_data = cup_score_from_picks(away_picks, live, first_fix, player_team)
             result = match_result(home_data, away_data)
 
             # Update records
@@ -337,11 +377,13 @@ def build_knockout(group_a_standings, group_b_standings, bootstrap):
                 legs.append({"gw": gw, "score_a": None, "score_b": None, "status": "upcoming"})
                 continue
 
-            live = get_live_points(gw)
+            live = get_live_elements(gw)
+            first_fix = get_first_fixture_by_team(gw)
+            player_team = {p["id"]: p["team"] for p in bootstrap["elements"]}
             picks_a = fetch(f"/entry/{team_a['entry_id']}/event/{gw}/picks/")
             picks_b = fetch(f"/entry/{team_b['entry_id']}/event/{gw}/picks/")
-            data_a = cup_score_from_picks(picks_a, live)
-            data_b = cup_score_from_picks(picks_b, live)
+            data_a = cup_score_from_picks(picks_a, live, first_fix, player_team)
+            data_b = cup_score_from_picks(picks_b, live, first_fix, player_team)
             agg_a += data_a["score"]
             agg_b += data_b["score"]
             legs.append({
@@ -381,11 +423,13 @@ def build_knockout(group_a_standings, group_b_standings, bootstrap):
     final_score_a, final_score_b, final_winner = None, None, None
 
     if final_finished and final_team_a["entry_id"] and final_team_b["entry_id"]:
-        live = get_live_points(FINAL_GW)
+        live = get_live_elements(FINAL_GW)
+        first_fix = get_first_fixture_by_team(FINAL_GW)
+        player_team = {p["id"]: p["team"] for p in bootstrap["elements"]}
         picks_a = fetch(f"/entry/{final_team_a['entry_id']}/event/{FINAL_GW}/picks/")
         picks_b = fetch(f"/entry/{final_team_b['entry_id']}/event/{FINAL_GW}/picks/")
-        data_a = cup_score_from_picks(picks_a, live)
-        data_b = cup_score_from_picks(picks_b, live)
+        data_a = cup_score_from_picks(picks_a, live, first_fix, player_team)
+        data_b = cup_score_from_picks(picks_b, live, first_fix, player_team)
         final_score_a = data_a["score"]
         final_score_b = data_b["score"]
         if data_a["score"] > data_b["score"]:

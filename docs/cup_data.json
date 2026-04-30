@@ -56,7 +56,7 @@
               "home": {
                 "entry_id": 8794696,
                 "name": "Return of the Fox",
-                "score": 42,
+                "score": 35,
                 "captain_pts": 2,
                 "vice_pts": 5
               },
@@ -300,50 +300,50 @@
               "home": {
                 "entry_id": 8794696,
                 "name": "Return of the Fox",
-                "score": 47,
-                "captain_pts": 14,
-                "vice_pts": 13
+                "score": 36,
+                "captain_pts": 5,
+                "vice_pts": 11
               },
               "away": {
                 "entry_id": 6366909,
                 "name": "HC XI II",
-                "score": 50,
+                "score": 34,
                 "captain_pts": 2,
                 "vice_pts": 3
               },
-              "result": "away",
+              "result": "home",
               "status": "complete"
             },
             {
               "home": {
                 "entry_id": 5155229,
                 "name": "Vik the Impaler",
-                "score": 30,
-                "captain_pts": 3,
-                "vice_pts": 3
+                "score": 26,
+                "captain_pts": 1,
+                "vice_pts": 2
               },
               "away": {
                 "entry_id": 1623042,
                 "name": "GVG XI",
-                "score": 37,
-                "captain_pts": 13,
+                "score": 25,
+                "captain_pts": 1,
                 "vice_pts": 2
               },
-              "result": "away",
+              "result": "home",
               "status": "complete"
             },
             {
               "home": {
                 "entry_id": 5751594,
                 "name": "I love big Gy\u0151k",
-                "score": 31,
-                "captain_pts": 7,
+                "score": 27,
+                "captain_pts": 3,
                 "vice_pts": 6
               },
               "away": {
                 "entry_id": 7552664,
                 "name": "Beef Cherki",
-                "score": 39,
+                "score": 38,
                 "captain_pts": 14,
                 "vice_pts": 10
               },
@@ -359,12 +359,12 @@
           "name": "HC XI II",
           "manager": "Dominic Byrne",
           "played": 5,
-          "won": 5,
+          "won": 4,
           "drawn": 0,
-          "lost": 0,
-          "points_for": 218,
-          "points_against": 178,
-          "cup_points": 10,
+          "lost": 1,
+          "points_for": 202,
+          "points_against": 167,
+          "cup_points": 8,
           "position": 1,
           "qualified": true
         },
@@ -376,8 +376,8 @@
           "won": 3,
           "drawn": 0,
           "lost": 2,
-          "points_for": 223,
-          "points_against": 211,
+          "points_for": 222,
+          "points_against": 207,
           "cup_points": 6,
           "position": 2,
           "qualified": true
@@ -387,27 +387,13 @@
           "name": "Return of the Fox",
           "manager": "Charles Smith",
           "played": 5,
-          "won": 2,
+          "won": 3,
           "drawn": 0,
-          "lost": 3,
-          "points_for": 223,
-          "points_against": 214,
-          "cup_points": 4,
+          "lost": 2,
+          "points_for": 205,
+          "points_against": 198,
+          "cup_points": 6,
           "position": 3,
-          "qualified": false
-        },
-        {
-          "entry_id": 1623042,
-          "name": "GVG XI",
-          "manager": "George Georgiou",
-          "played": 5,
-          "won": 2,
-          "drawn": 0,
-          "lost": 3,
-          "points_for": 179,
-          "points_against": 213,
-          "cup_points": 4,
-          "position": 4,
           "qualified": false
         },
         {
@@ -415,12 +401,26 @@
           "name": "Vik the Impaler",
           "manager": "David Pontin",
           "played": 5,
-          "won": 2,
+          "won": 3,
           "drawn": 0,
-          "lost": 3,
-          "points_for": 166,
-          "points_against": 185,
-          "cup_points": 4,
+          "lost": 2,
+          "points_for": 162,
+          "points_against": 166,
+          "cup_points": 6,
+          "position": 4,
+          "qualified": false
+        },
+        {
+          "entry_id": 1623042,
+          "name": "GVG XI",
+          "manager": "George Georgiou",
+          "played": 5,
+          "won": 1,
+          "drawn": 0,
+          "lost": 4,
+          "points_for": 167,
+          "points_against": 209,
+          "cup_points": 2,
           "position": 5,
           "qualified": false
         },
@@ -432,8 +432,8 @@
           "won": 1,
           "drawn": 0,
           "lost": 4,
-          "points_for": 164,
-          "points_against": 172,
+          "points_for": 160,
+          "points_against": 171,
           "cup_points": 2,
           "position": 6,
           "qualified": false
@@ -496,7 +496,7 @@
               "away": {
                 "entry_id": 5124113,
                 "name": "Soucek Madness",
-                "score": 51,
+                "score": 49,
                 "captain_pts": 2,
                 "vice_pts": 8
               },
@@ -514,7 +514,7 @@
               "away": {
                 "entry_id": 5145283,
                 "name": "Habibi Jeebies",
-                "score": 55,
+                "score": 43,
                 "captain_pts": 2,
                 "vice_pts": 1
               },
@@ -733,9 +733,9 @@
               "home": {
                 "entry_id": 4160647,
                 "name": "Forever20",
-                "score": 36,
-                "captain_pts": 1,
-                "vice_pts": 3
+                "score": 34,
+                "captain_pts": 0,
+                "vice_pts": 2
               },
               "away": {
                 "entry_id": 5191754,
@@ -758,11 +758,11 @@
               "away": {
                 "entry_id": 5150105,
                 "name": "Gy\u00f6k, Stock & Barrel",
-                "score": 37,
-                "captain_pts": 2,
+                "score": 22,
+                "captain_pts": 1,
                 "vice_pts": 0
               },
-              "result": "away",
+              "result": "home",
               "status": "complete"
             },
             {
@@ -802,15 +802,15 @@
           "qualified": true
         },
         {
-          "entry_id": 5191754,
-          "name": "Stay Classy SanDiogo",
-          "manager": "Ed Pragnell",
+          "entry_id": 5124113,
+          "name": "Soucek Madness",
+          "manager": "Sam Haseltine",
           "played": 5,
           "won": 3,
           "drawn": 0,
           "lost": 2,
-          "points_for": 176,
-          "points_against": 181,
+          "points_for": 193,
+          "points_against": 164,
           "cup_points": 6,
           "position": 2,
           "qualified": true
@@ -823,38 +823,24 @@
           "won": 3,
           "drawn": 0,
           "lost": 2,
-          "points_for": 193,
+          "points_for": 181,
           "points_against": 159,
           "cup_points": 6,
           "position": 3,
           "qualified": false
         },
         {
-          "entry_id": 5150105,
-          "name": "Gy\u00f6k, Stock & Barrel",
-          "manager": "Aron Rouse",
+          "entry_id": 5191754,
+          "name": "Stay Classy SanDiogo",
+          "manager": "Ed Pragnell",
           "played": 5,
-          "won": 2,
+          "won": 3,
           "drawn": 0,
-          "lost": 3,
-          "points_for": 131,
-          "points_against": 196,
-          "cup_points": 4,
-          "position": 4,
-          "qualified": false
-        },
-        {
-          "entry_id": 5124113,
-          "name": "Soucek Madness",
-          "manager": "Sam Haseltine",
-          "played": 5,
-          "won": 2,
-          "drawn": 0,
-          "lost": 3,
-          "points_for": 195,
+          "lost": 2,
+          "points_for": 176,
           "points_against": 179,
-          "cup_points": 4,
-          "position": 5,
+          "cup_points": 6,
+          "position": 4,
           "qualified": false
         },
         {
@@ -865,8 +851,22 @@
           "won": 1,
           "drawn": 0,
           "lost": 4,
-          "points_for": 164,
-          "points_against": 185,
+          "points_for": 162,
+          "points_against": 183,
+          "cup_points": 2,
+          "position": 5,
+          "qualified": false
+        },
+        {
+          "entry_id": 5150105,
+          "name": "Gy\u00f6k, Stock & Barrel",
+          "manager": "Aron Rouse",
+          "played": 5,
+          "won": 1,
+          "drawn": 0,
+          "lost": 4,
+          "points_for": 116,
+          "points_against": 184,
           "cup_points": 2,
           "position": 6,
           "qualified": false
@@ -884,29 +884,29 @@
           "manager": "Dominic Byrne"
         },
         "team_b": {
-          "entry_id": 5191754,
-          "name": "Stay Classy SanDiogo",
-          "manager": "Ed Pragnell"
+          "entry_id": 5124113,
+          "name": "Soucek Madness",
+          "manager": "Sam Haseltine"
         },
         "legs": [
           {
             "gw": 31,
             "score_a": 37,
-            "score_b": 21,
+            "score_b": 38,
             "status": "complete"
           },
           {
             "gw": 33,
-            "score_a": 49,
-            "score_b": 80,
+            "score_a": 41,
+            "score_b": 27,
             "status": "complete"
           }
         ],
-        "aggregate_a": 86,
-        "aggregate_b": 101,
+        "aggregate_a": 78,
+        "aggregate_b": 65,
         "winner": {
-          "entry_id": 5191754,
-          "name": "Stay Classy SanDiogo"
+          "entry_id": 6366909,
+          "name": "HC XI II"
         }
       },
       {
@@ -930,13 +930,13 @@
           },
           {
             "gw": 33,
-            "score_a": 50,
-            "score_b": 86,
+            "score_a": 31,
+            "score_b": 61,
             "status": "complete"
           }
         ],
-        "aggregate_a": 81,
-        "aggregate_b": 129,
+        "aggregate_a": 62,
+        "aggregate_b": 104,
         "winner": {
           "entry_id": 4789233,
           "name": "Inevitable"
@@ -946,8 +946,8 @@
     "final": {
       "gw": 38,
       "team_a": {
-        "entry_id": 5191754,
-        "name": "Stay Classy SanDiogo"
+        "entry_id": 6366909,
+        "name": "HC XI II"
       },
       "team_b": {
         "entry_id": 4789233,
