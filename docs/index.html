@@ -331,63 +331,113 @@
       text-align: center;
     }
 
-    /* ── Final ── */
-    .final-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    /* ── Final Hero ── */
+    .final-hero {
+      background: linear-gradient(160deg, #0f0c1a 0%, #1a1035 40%, #0d1a0f 100%);
+      border-bottom: 1px solid rgba(245,158,11,0.2);
+      padding: 2.5rem 1.5rem 2rem;
+      position: relative;
       overflow: hidden;
-      max-width: 600px;
+    }
+    .final-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(245,158,11,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(245,158,11,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .final-hero-label {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+      opacity: 0.8;
+    }
+    .final-hero-gw {
+      text-align: center;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+    .final-hero-matchup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      max-width: 700px;
       margin: 0 auto;
     }
-    .final-header {
-      padding: 0.75rem 1rem;
-      background: linear-gradient(90deg, #1e1b4b, #1a2236);
-      border-bottom: 1px solid var(--border);
+    .final-hero-team {
+      flex: 1;
+      text-align: center;
+    }
+    .final-hero-team-name {
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text);
+    }
+    .final-hero-team-name.winner { color: var(--gold); }
+    .final-hero-manager {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+    .final-hero-vs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      flex-shrink: 0;
+      padding: 0 0.5rem;
+    }
+    .final-hero-scores {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-weight: 700;
-      font-size: 0.85rem;
+    }
+    .final-hero-score {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 800;
+      min-width: 2.5rem;
+      text-align: center;
+      color: var(--muted);
+    }
+    .final-hero-score.winner { color: var(--gold); }
+    .final-hero-dash { color: var(--muted); font-size: 1.5rem; font-weight: 300; }
+    .final-hero-upcoming {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .final-hero-q { font-size: 3rem; font-weight: 800; color: rgba(245,158,11,0.25); }
+    .final-hero-upcoming-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(245,158,11,0.6);
+      letter-spacing: 1px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+    }
+    .final-hero-banner {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: rgba(245,158,11,0.7);
+      font-weight: 500;
+    }
+    .final-hero-banner.champion {
+      font-size: 1rem;
+      font-weight: 700;
       color: var(--gold);
     }
-    .final-matchup {
-      padding: 1.5rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .final-team { flex: 1; text-align: center; }
-    .final-team-name { font-weight: 800; font-size: 1rem; }
-    .final-team-name.winner { color: var(--gold); }
-    .final-manager { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
-    .final-score-area { text-align: center; }
-    .final-scores {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-    .final-score {
-      font-size: 2rem;
-      font-weight: 800;
-      min-width: 3rem;
-      text-align: center;
-    }
-    .final-score.winner { color: var(--gold); }
-    .final-dash { color: var(--muted); font-size: 1.5rem; }
-    .upcoming-banner {
-      padding: 0.75rem 1rem;
-      background: rgba(99,102,241,0.1);
-      border-top: 1px solid rgba(99,102,241,0.2);
-      text-align: center;
-      font-size: 0.8rem;
-      color: #a5b4fc;
-      font-weight: 600;
-    }
+
+    /* ── Final card (kept for any reuse) ── */
     .gw-badge {
       display: inline-block;
       padding: 0.15rem 0.5rem;
@@ -397,6 +447,15 @@
       font-size: 0.7rem;
       color: #a5b4fc;
       margin-left: 0.4rem;
+    }
+    .upcoming-banner {
+      padding: 0.75rem 1rem;
+      background: rgba(99,102,241,0.1);
+      border-top: 1px solid rgba(99,102,241,0.2);
+      text-align: center;
+      font-size: 0.8rem;
+      color: #a5b4fc;
+      font-weight: 600;
     }
 
     /* ── Loading / Error ── */
@@ -430,6 +489,7 @@
   <div class="last-updated" id="last-updated"></div>
 </header>
 
+<div id="final-hero-anchor"></div>
 <main class="container" id="app">
   <div class="loading">
     <div class="loading-spinner"></div>
@@ -651,55 +711,52 @@ function buildSFCard(sf) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Final card
+// Final hero (full-width, top of page)
 // ─────────────────────────────────────────────────────────────────────────────
 
-function buildFinalCard(final) {
+function buildFinalHero(final) {
   const ta = final.team_a, tb = final.team_b;
   const winner = final.winner;
   const aWon = winner && winner.entry_id === ta.entry_id;
   const bWon = winner && winner.entry_id === tb.entry_id;
   const upcoming = final.status !== 'complete';
 
-  let scoreArea;
+  let vsArea;
   if (upcoming) {
-    scoreArea = el('div', { className: 'final-score-area' },
-      el('div', { style: 'font-size:2rem; color:var(--muted)' }, '?'),
-      el('div', { style: 'font-size:0.75rem; color:var(--muted); margin-top:0.25rem' }, `GW${final.gw}`)
+    vsArea = el('div', { className: 'final-hero-upcoming' },
+      el('div', { className: 'final-hero-q' }, '?'),
+      el('div', { className: 'final-hero-upcoming-label' }, `GW${final.gw}`)
     );
   } else {
-    scoreArea = el('div', { className: 'final-score-area' },
-      el('div', { className: 'final-scores' },
-        el('span', { className: `final-score${aWon ? ' winner' : ''}` }, String(final.score_a)),
-        el('span', { className: 'final-dash' }, '–'),
-        el('span', { className: `final-score${bWon ? ' winner' : ''}` }, String(final.score_b))
-      )
+    vsArea = el('div', { className: 'final-hero-scores' },
+      el('span', { className: `final-hero-score${aWon ? ' winner' : ''}` }, String(final.score_a)),
+      el('span', { className: 'final-hero-dash' }, '–'),
+      el('span', { className: `final-hero-score${bWon ? ' winner' : ''}` }, String(final.score_b))
     );
   }
 
-  const card = el('div', { className: 'final-card' },
-    el('div', { className: 'final-header' },
-      '🏆 Grand Final',
-      el('span', { className: 'gw-badge' }, `GW${final.gw}`)
-    ),
-    el('div', { className: 'final-matchup' },
-      el('div', { className: 'final-team', style: 'text-align:right' },
-        el('div', { className: `final-team-name${aWon ? ' winner' : ''}` }, ta.name || 'TBD'),
-        el('div', { className: 'final-manager' }, ta.manager || '')
+  const banner = upcoming
+    ? el('div', { className: 'final-hero-banner' }, `⚽  Final kicks off Gameweek ${final.gw} — who lifts the trophy?`)
+    : winner
+      ? el('div', { className: 'final-hero-banner champion' }, `🏆  ${winner.name} are champions!`)
+      : null;
+
+  return el('div', { className: 'final-hero' },
+    el('div', { className: 'final-hero-label' }, '🏆 Grand Final'),
+    el('div', { className: 'final-hero-gw' }, `Gameweek ${final.gw}`),
+    el('div', { className: 'final-hero-matchup' },
+      el('div', { className: 'final-hero-team', style: 'text-align:right' },
+        el('div', { className: `final-hero-team-name${aWon ? ' winner' : ''}` }, ta.name || 'TBD'),
+        el('div', { className: 'final-hero-manager' }, ta.manager || '')
       ),
-      scoreArea,
-      el('div', { className: 'final-team' },
-        el('div', { className: `final-team-name${bWon ? ' winner' : ''}` }, tb.name || 'TBD'),
-        el('div', { className: 'final-manager' }, tb.manager || '')
+      el('div', { className: 'final-hero-vs' }, vsArea),
+      el('div', { className: 'final-hero-team', style: 'text-align:left' },
+        el('div', { className: `final-hero-team-name${bWon ? ' winner' : ''}` }, tb.name || 'TBD'),
+        el('div', { className: 'final-hero-manager' }, tb.manager || '')
       )
     ),
-    upcoming
-      ? el('div', { className: 'upcoming-banner' }, `⚽ Final kicks off Gameweek ${final.gw}`)
-      : winner
-        ? el('div', { className: 'upcoming-banner', style: 'color:var(--gold);background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3)' }, `🏆 Champion: ${winner.name}`)
-        : null
+    banner
   );
-  return card;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -712,30 +769,28 @@ function render(data) {
   document.getElementById('season-badge').textContent = meta.season;
   document.getElementById('last-updated').textContent = `Updated: ${meta.last_updated} · GW${meta.current_gw}`;
 
+  // Final hero sits outside the container, full-width below the header
+  const heroAnchor = document.getElementById('final-hero-anchor');
+  heroAnchor.innerHTML = '';
+  heroAnchor.appendChild(buildFinalHero(data.knockout.final));
+
   const app = document.getElementById('app');
   app.innerHTML = '';
 
+  // Semi-finals
+  app.appendChild(el('div', { className: 'section-title' }, '⚔️ Semi-Finals'));
+  const semis = el('div', { className: 'semis-grid' });
+  data.knockout.semi_finals.forEach(sf => semis.appendChild(buildSFCard(sf)));
+  app.appendChild(semis);
+
   // Group stage
-  app.appendChild(el('div', { className: 'section-title' }, '⚽ Group Stage'));
+  app.appendChild(el('div', { className: 'section-title', style: 'margin-top:1rem' }, '⚽ Group Stage'));
   app.appendChild(
     el('div', { className: 'groups-grid' },
       buildGroupCard('A', data.groups.A),
       buildGroupCard('B', data.groups.B)
     )
   );
-
-  // Knockout
-  app.appendChild(el('div', { className: 'section-title' }, '🏆 Knockout Stage'));
-  const knockout = el('div', { className: 'knockout-section' });
-
-  // Semi-finals
-  const semis = el('div', { className: 'semis-grid' });
-  data.knockout.semi_finals.forEach(sf => semis.appendChild(buildSFCard(sf)));
-  knockout.appendChild(semis);
-
-  // Final
-  knockout.appendChild(buildFinalCard(data.knockout.final));
-  app.appendChild(knockout);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
