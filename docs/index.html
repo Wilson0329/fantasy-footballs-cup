@@ -508,6 +508,277 @@
       margin-left: 4px;
     }
 
+    /* ── Champions tab ── */
+    .champions-intro {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 2rem;
+    }
+    .honour-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .honour-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .honour-card.rank-1 { border-color: rgba(245,158,11,0.5); }
+    .honour-card.rank-2 { border-color: rgba(148,163,184,0.4); }
+    .honour-card.rank-3 { border-color: rgba(180,120,70,0.4); }
+    .honour-card-top {
+      padding: 1.1rem 1.25rem 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .honour-rank {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem; flex-shrink: 0;
+    }
+    .honour-rank.r1 { background: rgba(245,158,11,0.2); color: var(--gold); }
+    .honour-rank.r2 { background: rgba(148,163,184,0.15); color: #94a3b8; }
+    .honour-rank.r3 { background: rgba(180,120,70,0.15); color: #b47846; }
+    .honour-rank.r4 { background: rgba(99,102,241,0.12); color: #818cf8; }
+    .honour-manager { font-weight: 700; font-size: 0.95rem; }
+    .honour-team { font-size: 0.72rem; color: var(--muted); margin-top: 0.1rem; }
+    .honour-team.alumni { font-style: italic; }
+    .honour-total {
+      margin-left: auto;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--muted);
+    }
+    .honour-total.r1 { color: var(--gold); }
+    .honour-trophies {
+      padding: 0.6rem 1.25rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      border-top: 1px solid var(--border);
+    }
+    .trophy-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.73rem;
+      font-weight: 600;
+    }
+    .trophy-pill.league {
+      background: rgba(99,102,241,0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99,102,241,0.25);
+    }
+    .trophy-pill.cup {
+      background: rgba(245,158,11,0.12);
+      color: var(--gold);
+      border: 1px solid rgba(245,158,11,0.25);
+    }
+
+    /* ── History tab ── */
+    .history-founder {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .founder-photo-wrap {
+      flex-shrink: 0;
+      width: 220px;
+    }
+    .founder-photo-wrap img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .founder-content {
+      padding: 1.75rem 1.75rem 1.75rem 0;
+      flex: 1;
+    }
+    .founder-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+    }
+    .founder-name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a5b4fc, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.2rem;
+    }
+    .founder-title {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .founder-quotes {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .founder-quote {
+      position: relative;
+      padding: 0.85rem 1rem 0.85rem 1.25rem;
+      background: rgba(99,102,241,0.07);
+      border-left: 3px solid var(--accent2);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--text);
+      font-style: italic;
+    }
+    .founder-quote::before {
+      content: '"';
+      position: absolute;
+      top: -0.1rem;
+      left: 0.3rem;
+      font-size: 2.5rem;
+      color: var(--accent2);
+      opacity: 0.3;
+      font-style: normal;
+      line-height: 1;
+    }
+    .history-timeline {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .timeline-header {
+      padding: 1rem 1.25rem;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .timeline-row {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+    .timeline-row:last-child { border-bottom: none; }
+    .timeline-season {
+      font-weight: 700;
+      color: var(--muted);
+      font-size: 0.78rem;
+      min-width: 5.5rem;
+    }
+    .timeline-winner {
+      flex: 1;
+      font-weight: 600;
+    }
+    .timeline-trophy {
+      font-size: 0.72rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+    .timeline-trophy.league {
+      background: rgba(99,102,241,0.15);
+      color: #a5b4fc;
+    }
+    .timeline-trophy.cup {
+      background: rgba(245,158,11,0.12);
+      color: var(--gold);
+    }
+    .founder-stats {
+      display: flex;
+      gap: 0;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .fstat {
+      flex: 1;
+      padding: 0.85rem 0.5rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .fstat:last-child { border-right: none; }
+    .fstat-num {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a5b4fc, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .fstat-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    @media (max-width: 600px) {
+      .history-founder { flex-direction: column; gap: 0; }
+      .founder-photo-wrap { width: 100%; }
+      .founder-photo-wrap img { height: 260px; width: 100%; object-position: center 15%; }
+      .founder-content { padding: 1.25rem; }
+      .founder-name { font-size: 1.4rem; }
+      .fstat-num { font-size: 1.2rem; }
+    }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 600px) {
+      .container { padding: 1.25rem 0.75rem; }
+      .site-header { padding: 1rem 0.75rem 0; }
+      .tab-btn { padding: 0.65rem 0.75rem; font-size: 0.78rem; }
+
+      /* Group standings: hide W/D/L on small screens */
+      .standings-table .hide-mobile { display: none; }
+      .standings-table td, .standings-table th { padding: 0.5rem 0.4rem; }
+      .standings-table { font-size: 0.78rem; }
+
+      /* League table */
+      .league-table td, .league-table th { padding: 0.5rem 0.6rem; }
+
+      /* Stats tables: allow horizontal scroll */
+      .stats-card { overflow-x: auto; }
+      .stats-table { min-width: 420px; }
+      .stats-table td, .stats-table th { padding: 0.5rem 0.6rem; }
+
+      /* Semi-final cards */
+      .sf-matchup { gap: 0.4rem; }
+      .sf-team-name { font-size: 0.82rem; }
+      .agg-score { font-size: 1.2rem; padding: 0.2rem 0.5rem; }
+
+      /* Final hero */
+      .final-hero { padding: 1.75rem 1rem 1.5rem; }
+      .final-hero-team-name { font-size: 1rem; }
+      .final-hero-score { font-size: 2rem; }
+
+      /* Honour board: single column */
+      .honour-board { grid-template-columns: 1fr; }
+    }
+
     /* ── Loading / Error ── */
     .loading { text-align: center; padding: 4rem 2rem; color: var(--muted); }
     .loading-spinner {
@@ -533,9 +804,11 @@
     <span class="last-updated" id="last-updated"></span>
   </div>
   <nav class="tab-bar">
-    <button class="tab-btn active" data-tab="cup">🏆 Cup</button>
+    <button class="tab-btn active" data-tab="history">📜 History</button>
     <button class="tab-btn" data-tab="league">📊 League</button>
     <button class="tab-btn" data-tab="stats">📈 Stats</button>
+    <button class="tab-btn" data-tab="cup">🏆 Cup</button>
+    <button class="tab-btn" data-tab="champions">⭐ Champions</button>
   </nav>
 </header>
 
@@ -597,9 +870,9 @@ function buildStandingsTable(standings) {
     return el('tr', {},
       el('td', {}, posCell),
       el('td', {}, String(s.played)),
-      el('td', {}, String(s.won)),
-      el('td', {}, String(s.drawn)),
-      el('td', {}, String(s.lost)),
+      el('td', { className: 'hide-mobile' }, String(s.won)),
+      el('td', { className: 'hide-mobile' }, String(s.drawn)),
+      el('td', { className: 'hide-mobile' }, String(s.lost)),
       el('td', {}, String(s.points_for)),
       el('td', { className: 'pts-cell' }, String(s.cup_points))
     );
@@ -618,7 +891,10 @@ function buildStandingsTable(standings) {
   return el('table', { className: 'standings-table' },
     el('thead', {}, el('tr', {},
       el('th', { style: 'text-align:left;padding-left:0.75rem' }, 'Team'),
-      el('th', {}, 'P'), el('th', {}, 'W'), el('th', {}, 'D'), el('th', {}, 'L'),
+      el('th', {}, 'P'),
+      el('th', { className: 'hide-mobile' }, 'W'),
+      el('th', { className: 'hide-mobile' }, 'D'),
+      el('th', { className: 'hide-mobile' }, 'L'),
       el('th', {}, 'PF'), el('th', {}, 'Pts')
     )),
     tbody
@@ -977,11 +1253,122 @@ function buildStatsTab(data) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Champions tab
+// ─────────────────────────────────────────────────────────────────────────────
+
+const CHAMPIONS_DATA = [
+  { manager: 'Joe Wilson',    team: 'Forever20',            alumni: false, leagues: 4, cups: 1 },
+  { manager: 'Jason Knightly', team: 'Inevitable',          alumni: false, leagues: 3, cups: 0 },
+  { manager: 'Ed Pragnell',   team: 'Stay Classy SanDiogo', alumni: false, leagues: 2, cups: 1 },
+  { manager: 'George Georgiou', team: 'GVG XI',             alumni: false, leagues: 2, cups: 1 },
+  { manager: 'Alex Kalli',    team: 'Alumni',               alumni: true,  leagues: 1, cups: 1 },
+  { manager: 'Ant Savides',   team: 'Alumni',               alumni: true,  leagues: 1, cups: 0 },
+  { manager: 'Arun Quayum',   team: 'Habibi Jeebies',       alumni: false, leagues: 0, cups: 1 },
+];
+
+function buildChampionsTab() {
+  const frag = document.createDocumentFragment();
+  frag.appendChild(el('div', { className: 'section-title' }, '⭐ Hall of Champions'));
+  frag.appendChild(el('p', { className: 'champions-intro' }, 'All-time honour board — league titles and cup wins across every season.'));
+
+  const sorted = [...CHAMPIONS_DATA].sort((a, b) => {
+    const totalA = a.leagues + a.cups, totalB = b.leagues + b.cups;
+    if (totalB !== totalA) return totalB - totalA;
+    if (b.leagues !== a.leagues) return b.leagues - a.leagues;
+    return b.cups - a.cups;
+  });
+
+  const board = el('div', { className: 'honour-board' });
+
+  sorted.forEach((person, i) => {
+    const rank = i + 1;
+    const rankClass = rank <= 3 ? `r${rank}` : 'r4';
+    const cardClass = rank <= 3 ? ` rank-${rank}` : '';
+    const total = person.leagues + person.cups;
+
+    const trophies = el('div', { className: 'honour-trophies' });
+    for (let l = 0; l < person.leagues; l++) {
+      trophies.appendChild(el('span', { className: 'trophy-pill league' }, '🏆 League'));
+    }
+    for (let c = 0; c < person.cups; c++) {
+      trophies.appendChild(el('span', { className: 'trophy-pill cup' }, '🥇 Cup'));
+    }
+
+    board.appendChild(el('div', { className: `honour-card${cardClass}` },
+      el('div', { className: 'honour-card-top' },
+        el('div', { className: `honour-rank ${rankClass}` }, String(rank)),
+        el('div', {},
+          el('div', { className: 'honour-manager' }, person.manager),
+          el('div', { className: `honour-team${person.alumni ? ' alumni' : ''}` },
+            person.alumni ? `${person.team} · Former member` : person.team
+          )
+        ),
+        el('div', { className: `honour-total ${rankClass}` }, String(total))
+      ),
+      trophies
+    ));
+  });
+
+  frag.appendChild(board);
+  return frag;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// History tab
+// ─────────────────────────────────────────────────────────────────────────────
+
+const FOUNDING_YEAR = 2012;
+const TOTAL_SEASONS = new Date().getFullYear() - FOUNDING_YEAR + (new Date().getMonth() >= 7 ? 1 : 0);
+const TOTAL_CUP_SEASONS = 4;
+
+function buildHistoryTab() {
+  const frag = document.createDocumentFragment();
+  frag.appendChild(el('div', { className: 'section-title' }, '📜 The History'));
+
+  const founderCard = el('div', { className: 'history-founder' },
+    el('div', { className: 'founder-photo-wrap' },
+      el('img', { src: './george.jpg', alt: 'George Georgiou', loading: 'lazy' })
+    ),
+    el('div', { className: 'founder-content' },
+      el('div', { className: 'founder-eyebrow' }, 'League Founder \xb7 Commissioner \xb7 Visionary'),
+      el('div', { className: 'founder-name' }, 'George Georgiou'),
+      el('div', { className: 'founder-title' }, 'GVG XI \xb7 Est. ' + FOUNDING_YEAR),
+      el('div', { className: 'founder-quotes' },
+        el('blockquote', { className: 'founder-quote' },
+          "I founded this league because I genuinely believed I would win it every year. " +
+          TOTAL_SEASONS + " seasons later I’m still waiting, but my optimism remains completely untouched."
+        )
+      ),
+      el('div', { className: 'founder-stats' },
+        el('div', { className: 'fstat' },
+          el('div', { className: 'fstat-num' }, String(FOUNDING_YEAR)),
+          el('div', { className: 'fstat-label' }, 'Founded')
+        ),
+        el('div', { className: 'fstat' },
+          el('div', { className: 'fstat-num' }, String(TOTAL_SEASONS)),
+          el('div', { className: 'fstat-label' }, 'Seasons')
+        ),
+        el('div', { className: 'fstat' },
+          el('div', { className: 'fstat-num' }, String(TOTAL_CUP_SEASONS)),
+          el('div', { className: 'fstat-label' }, 'Cup Seasons')
+        ),
+        el('div', { className: 'fstat' },
+          el('div', { className: 'fstat-num' }, '12'),
+          el('div', { className: 'fstat-label' }, 'Managers')
+        )
+      )
+    )
+  );
+  frag.appendChild(founderCard);
+  return frag;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Tab switching
 // ─────────────────────────────────────────────────────────────────────────────
 
 let _cupData = null, _leagueData = null;
-let _activeTab = 'cup';
+let _activeTab = 'history';
 
 function switchTab(tabName) {
   _activeTab = tabName;
@@ -1000,6 +1387,10 @@ function switchTab(tabName) {
   } else if (tabName === 'stats') {
     if (_leagueData) app.appendChild(buildStatsTab(_leagueData));
     else app.appendChild(el('div', { className: 'not-available' }, 'Stats data not yet generated — run build_league_data.py'));
+  } else if (tabName === 'champions') {
+    app.appendChild(buildChampionsTab());
+  } else if (tabName === 'history') {
+    app.appendChild(buildHistoryTab());
   }
 }
 
@@ -1045,7 +1436,7 @@ Promise.all([
   if (meta.season)    document.getElementById('season-badge').textContent = meta.season;
   if (meta.last_updated) document.getElementById('last-updated').textContent = `Updated: ${meta.last_updated} · GW${meta.current_gw}`;
 
-  switchTab('cup');
+  switchTab('history');
 }).catch(err => {
   document.getElementById('app').innerHTML = `
     <div class="error-msg">
