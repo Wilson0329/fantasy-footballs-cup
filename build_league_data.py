@@ -114,6 +114,8 @@ def build_trade_differential(player_names):
         trades = []
         for t in sorted(transfers, key=lambda x: x["event"]):
             gw = t["event"]
+            if gw < 4:
+                continue
             out_id, in_id = t["element_out"], t["element_in"]
             out_pts = player_pts_from_gw(out_id, gw)
             in_pts  = player_pts_from_gw(in_id,  gw)
