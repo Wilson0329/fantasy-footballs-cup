@@ -584,6 +584,36 @@
       border: 1px solid rgba(245,158,11,0.25);
     }
 
+    /* ── Champions sub-tables ── */
+    .champions-sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 600px) { .champions-sub-grid { grid-template-columns: 1fr; } }
+    .sub-table-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .sub-table-header {
+      padding: 0.75rem 1rem;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+    .sub-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .sub-table tr { border-bottom: 1px solid var(--border); }
+    .sub-table tr:last-child { border-bottom: none; }
+    .sub-table td { padding: 0.55rem 1rem; vertical-align: middle; }
+    .sub-rank { color: var(--muted); font-weight: 700; font-size: 0.8rem; width: 1.5rem; }
+    .sub-manager { font-weight: 600; }
+    .sub-alumni { color: var(--muted); font-size: 0.72rem; font-weight: 400; }
+    .sub-count { text-align: right; white-space: nowrap; }
+
     /* ── History tab ── */
     .history-founder {
       display: flex;
@@ -1259,8 +1289,8 @@ function buildStatsTab(data) {
 const CHAMPIONS_DATA = [
   { manager: 'Joe Wilson',    team: 'Forever20',            alumni: false, leagues: 4, cups: 1 },
   { manager: 'Jason Knightly', team: 'Inevitable',          alumni: false, leagues: 3, cups: 0 },
-  { manager: 'Ed Pragnell',   team: 'Stay Classy SanDiogo', alumni: false, leagues: 2, cups: 1 },
-  { manager: 'George Georgiou', team: 'GVG XI',             alumni: false, leagues: 2, cups: 1 },
+  { manager: 'Ed Pragnell',   team: 'Stay Classy SanDiogo', alumni: false, leagues: 1, cups: 2 },
+  { manager: 'George Georgiou', team: 'GVG XI',             alumni: false, leagues: 1, cups: 2 },
   { manager: 'Alex Kalli',    team: 'Alumni',               alumni: true,  leagues: 1, cups: 1 },
   { manager: 'Ant Savides',   team: 'Alumni',               alumni: true,  leagues: 1, cups: 0 },
   { manager: 'Arun Quayum',   team: 'Habibi Jeebies',       alumni: false, leagues: 0, cups: 1 },
@@ -1310,6 +1340,38 @@ function buildChampionsTab() {
   });
 
   frag.appendChild(board);
+
+  // Sub-tables
+  const subGrid = el('div', { className: 'champions-sub-grid' });
+
+  function buildSubTable(title, pill, pillClass, getValue) {
+    const withWins = CHAMPIONS_DATA.filter(m => getValue(m) > 0)
+      .sort((a, b) => getValue(b) - getValue(a));
+    const card = el('div', { className: 'sub-table-card' });
+    card.appendChild(el('div', { className: 'sub-table-header' }, title));
+    const table = el('table', { className: 'sub-table' });
+    withWins.forEach((person, i) => {
+      const count = getValue(person);
+      const tr = el('tr', {},
+        el('td', { className: 'sub-rank' }, String(i + 1)),
+        el('td', { className: 'sub-manager' },
+          el('span', {}, person.manager),
+          person.alumni ? el('span', { className: 'sub-alumni' }, ' · Former') : null
+        ),
+        el('td', { className: 'sub-count' },
+          ...Array.from({ length: count }, () => el('span', { className: `trophy-pill ${pillClass}`, style: 'margin-left:3px' }, pill))
+        )
+      );
+      table.appendChild(tr);
+    });
+    card.appendChild(table);
+    return card;
+  }
+
+  subGrid.appendChild(buildSubTable('🏆 League Titles', '🏆', 'league', m => m.leagues));
+  subGrid.appendChild(buildSubTable('🥇 Cup Wins', '🥇', 'cup', m => m.cups));
+  frag.appendChild(subGrid);
+
   return frag;
 }
 
