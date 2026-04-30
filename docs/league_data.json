@@ -117,206 +117,960 @@
   ],
   "trade_differential": [
     {
-      "entry_id": 5124113,
-      "name": "Soucek Madness",
-      "manager": "Sam Haseltine",
-      "net_gain": 193,
+      "entry_id": 4160647,
+      "name": "Forever20",
+      "manager": "Joe Wilson",
+      "net_gain": 240,
       "trades": [
         {
-          "gw": 4,
-          "time": "2025-09-08T22:19:25.709140Z",
+          "gw": 7,
+          "time": "2025-10-01T08:16:52.130971Z",
           "player_out": {
-            "id": 103,
-            "name": "Cox",
-            "pts_since": 0
+            "id": 375,
+            "name": "Bradley",
+            "pts_since": 39
           },
           "player_in": {
-            "id": 665,
-            "name": "Perri",
-            "pts_since": 31
+            "id": 36,
+            "name": "Cash",
+            "pts_since": 83
           },
-          "differential": 31
+          "differential": 44
         },
         {
-          "gw": 4,
-          "time": "2025-09-08T22:18:31.857044Z",
+          "gw": 10,
+          "time": "2025-10-28T18:50:48.975552Z",
           "player_out": {
-            "id": 21,
-            "name": "Rice",
-            "pts_since": 155
+            "id": 421,
+            "name": "Rodrigo",
+            "pts_since": 51
           },
           "player_in": {
-            "id": 615,
-            "name": "Summerville",
-            "pts_since": 93
+            "id": 20,
+            "name": "Trossard",
+            "pts_since": 76
           },
-          "differential": -62
+          "differential": 25
         },
         {
-          "gw": 4,
-          "time": "2025-09-07T08:48:23.104769Z",
+          "gw": 13,
+          "time": "2025-11-27T18:37:26.407996Z",
           "player_out": {
-            "id": 409,
-            "name": "Stones",
-            "pts_since": 4
-          },
-          "player_in": {
-            "id": 74,
-            "name": "Truffert",
-            "pts_since": 126
-          },
-          "differential": 122
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.941986Z",
-          "player_out": {
-            "id": 249,
-            "name": "Jo\u00e3o Pedro",
-            "pts_since": 140
-          },
-          "player_in": {
-            "id": 337,
-            "name": "Ra\u00fal",
-            "pts_since": 104
-          },
-          "differential": -36
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.941742Z",
-          "player_out": {
-            "id": 525,
-            "name": "Wood",
-            "pts_since": 18
-          },
-          "player_in": {
-            "id": 624,
-            "name": "Bowen",
-            "pts_since": 156
-          },
-          "differential": 138
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.941461Z",
-          "player_out": {
-            "id": 381,
-            "name": "M.Salah",
-            "pts_since": 100
+            "id": 486,
+            "name": "Elanga",
+            "pts_since": 29
           },
           "player_in": {
             "id": 324,
             "name": "Iwobi",
-            "pts_since": 88
+            "pts_since": 55
           },
-          "differential": -12
+          "differential": 26
         },
         {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.941209Z",
+          "gw": 13,
+          "time": "2025-11-27T18:37:26.400416Z",
           "player_out": {
-            "id": 582,
-            "name": "Kudus",
-            "pts_since": 60
-          },
-          "player_in": {
-            "id": 81,
-            "name": "Kluivert",
-            "pts_since": 38
-          },
-          "differential": -22
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.940949Z",
-          "player_out": {
-            "id": 382,
-            "name": "Wirtz",
-            "pts_since": 114
-          },
-          "player_in": {
-            "id": 266,
-            "name": "Eze",
-            "pts_since": 99
-          },
-          "differential": -15
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.940691Z",
-          "player_out": {
-            "id": 370,
-            "name": "Frimpong",
-            "pts_since": 58
-          },
-          "player_in": {
-            "id": 409,
-            "name": "Stones",
-            "pts_since": 4
-          },
-          "differential": -54
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.940415Z",
-          "player_out": {
-            "id": 568,
-            "name": "Pedro Porro",
-            "pts_since": 87
-          },
-          "player_in": {
-            "id": 403,
-            "name": "Gvardiol",
-            "pts_since": 77
-          },
-          "differential": -10
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.940095Z",
-          "player_out": {
-            "id": 505,
-            "name": "Milenkovi\u0107",
-            "pts_since": 106
-          },
-          "player_in": {
-            "id": 292,
-            "name": "Mykolenko",
-            "pts_since": 90
-          },
-          "differential": -16
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.939800Z",
-          "player_out": {
-            "id": 402,
-            "name": "A\u00eft-Nouri",
-            "pts_since": 43
+            "id": 506,
+            "name": "Murillo",
+            "pts_since": 53
           },
           "player_in": {
             "id": 373,
             "name": "Virgil",
-            "pts_since": 142
+            "pts_since": 112
           },
-          "differential": 99
+          "differential": 59
         },
         {
-          "gw": 4,
-          "time": "2025-09-06T11:51:26.939384Z",
+          "gw": 20,
+          "time": "2026-01-02T19:46:03.322870Z",
           "player_out": {
-            "id": 287,
-            "name": "Pickford",
-            "pts_since": 110
+            "id": 252,
+            "name": "Marc Guiu",
+            "pts_since": 1
           },
           "player_in": {
-            "id": 220,
-            "name": "S\u00e1nchez",
-            "pts_since": 91
+            "id": 310,
+            "name": "Barry",
+            "pts_since": 46
           },
-          "differential": -19
+          "differential": 45
         },
+        {
+          "gw": 25,
+          "time": "2026-02-05T10:44:25.439758Z",
+          "player_out": {
+            "id": 582,
+            "name": "Kudus",
+            "pts_since": 0
+          },
+          "player_in": {
+            "id": 796,
+            "name": "Gallagher",
+            "pts_since": 17
+          },
+          "differential": 17
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-03T15:17:45.231378Z",
+          "player_out": {
+            "id": 145,
+            "name": "De Cuyper",
+            "pts_since": 10
+          },
+          "player_in": {
+            "id": 507,
+            "name": "Aina",
+            "pts_since": 40
+          },
+          "differential": 30
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-01T20:53:45.544338Z",
+          "player_out": {
+            "id": 796,
+            "name": "Gallagher",
+            "pts_since": 10
+          },
+          "player_in": {
+            "id": 660,
+            "name": "Stach",
+            "pts_since": 12
+          },
+          "differential": 2
+        },
+        {
+          "gw": 32,
+          "time": "2026-04-01T22:26:22.372909Z",
+          "player_out": {
+            "id": 158,
+            "name": "Georginio",
+            "pts_since": 13
+          },
+          "player_in": {
+            "id": 421,
+            "name": "Rodrigo",
+            "pts_since": 5
+          },
+          "differential": -8
+        }
+      ]
+    },
+    {
+      "entry_id": 5191754,
+      "name": "Stay Classy SanDiogo",
+      "manager": "Ed Pragnell",
+      "net_gain": 207,
+      "trades": [
+        {
+          "gw": 7,
+          "time": "2025-10-01T15:58:37.331415Z",
+          "player_out": {
+            "id": 507,
+            "name": "Aina",
+            "pts_since": 61
+          },
+          "player_in": {
+            "id": 475,
+            "name": "Botman",
+            "pts_since": 54
+          },
+          "differential": -7
+        },
+        {
+          "gw": 10,
+          "time": "2025-10-31T07:06:45.795674Z",
+          "player_out": {
+            "id": 362,
+            "name": "Piroe",
+            "pts_since": 10
+          },
+          "player_in": {
+            "id": 100,
+            "name": "Kroupi.Jr",
+            "pts_since": 68
+          },
+          "differential": 58
+        },
+        {
+          "gw": 14,
+          "time": "2025-11-30T22:40:16.498488Z",
+          "player_out": {
+            "id": 475,
+            "name": "Botman",
+            "pts_since": 42
+          },
+          "player_in": {
+            "id": 411,
+            "name": "O'Reilly",
+            "pts_since": 96
+          },
+          "differential": 54
+        },
+        {
+          "gw": 20,
+          "time": "2026-01-01T22:08:56.715202Z",
+          "player_out": {
+            "id": 648,
+            "name": "Munetsi",
+            "pts_since": 0
+          },
+          "player_in": {
+            "id": 157,
+            "name": "Mitoma",
+            "pts_since": 38
+          },
+          "differential": 38
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-04T22:41:49.773466Z",
+          "player_out": {
+            "id": 37,
+            "name": "Digne",
+            "pts_since": 24
+          },
+          "player_in": {
+            "id": 442,
+            "name": "Maguire",
+            "pts_since": 26
+          },
+          "differential": 2
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-04T22:41:49.768308Z",
+          "player_out": {
+            "id": 474,
+            "name": "Sch\u00e4r",
+            "pts_since": 0
+          },
+          "player_in": {
+            "id": 151,
+            "name": "Van Hecke",
+            "pts_since": 50
+          },
+          "differential": 50
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-02T08:34:33.133888Z",
+          "player_out": {
+            "id": 367,
+            "name": "Mamardashvili",
+            "pts_since": 12
+          },
+          "player_in": {
+            "id": 400,
+            "name": "Ortega Moreno",
+            "pts_since": 0
+          },
+          "differential": -12
+        },
+        {
+          "gw": 32,
+          "time": "2026-04-04T11:22:30.759462Z",
+          "player_out": {
+            "id": 442,
+            "name": "Maguire",
+            "pts_since": 7
+          },
+          "player_in": {
+            "id": 606,
+            "name": "Mavropanos",
+            "pts_since": 31
+          },
+          "differential": 24
+        }
+      ]
+    },
+    {
+      "entry_id": 6366909,
+      "name": "HC XI II",
+      "manager": "Dominic Byrne",
+      "net_gain": 195,
+      "trades": [
+        {
+          "gw": 7,
+          "time": "2025-09-30T13:12:59.547740Z",
+          "player_out": {
+            "id": 232,
+            "name": "Tosin",
+            "pts_since": 23
+          },
+          "player_in": {
+            "id": 636,
+            "name": "S.Bueno",
+            "pts_since": 61
+          },
+          "differential": 38
+        },
+        {
+          "gw": 10,
+          "time": "2025-10-28T17:44:36.864705Z",
+          "player_out": {
+            "id": 410,
+            "name": "Lewis",
+            "pts_since": 4
+          },
+          "player_in": {
+            "id": 440,
+            "name": "Dalot",
+            "pts_since": 88
+          },
+          "differential": 84
+        },
+        {
+          "gw": 14,
+          "time": "2025-12-02T14:12:07.561709Z",
+          "player_out": {
+            "id": 444,
+            "name": "Yoro",
+            "pts_since": 28
+          },
+          "player_in": {
+            "id": 322,
+            "name": "Tete",
+            "pts_since": 37
+          },
+          "differential": 9
+        },
+        {
+          "gw": 20,
+          "time": "2026-01-02T10:15:52.067885Z",
+          "player_out": {
+            "id": 669,
+            "name": "Ndoye",
+            "pts_since": 9
+          },
+          "player_in": {
+            "id": 580,
+            "name": "Johnson",
+            "pts_since": 24
+          },
+          "differential": 15
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-05T10:00:32.938312Z",
+          "player_out": {
+            "id": 477,
+            "name": "Livramento",
+            "pts_since": 10
+          },
+          "player_in": {
+            "id": 290,
+            "name": "Branthwaite",
+            "pts_since": 30
+          },
+          "differential": 20
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-03T11:12:38.188436Z",
+          "player_out": {
+            "id": 726,
+            "name": "Kolo Muani",
+            "pts_since": 20
+          },
+          "player_in": {
+            "id": 791,
+            "name": "Taty",
+            "pts_since": 36
+          },
+          "differential": 16
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-01T20:28:27.038691Z",
+          "player_out": {
+            "id": 636,
+            "name": "S.Bueno",
+            "pts_since": 7
+          },
+          "player_in": {
+            "id": 39,
+            "name": "Maatsen",
+            "pts_since": 7
+          },
+          "differential": 0
+        },
+        {
+          "gw": 32,
+          "time": "2026-04-07T17:38:23.700402Z",
+          "player_out": {
+            "id": 322,
+            "name": "Tete",
+            "pts_since": 0
+          },
+          "player_in": {
+            "id": 342,
+            "name": "Bogle",
+            "pts_since": 13
+          },
+          "differential": 13
+        }
+      ]
+    },
+    {
+      "entry_id": 5155229,
+      "name": "Vik the Impaler",
+      "manager": "David Pontin",
+      "net_gain": 189,
+      "trades": [
+        {
+          "gw": 7,
+          "time": "2025-10-01T15:43:07.904110Z",
+          "player_out": {
+            "id": 438,
+            "name": "Mazraoui",
+            "pts_since": 27
+          },
+          "player_in": {
+            "id": 684,
+            "name": "Thiaw",
+            "pts_since": 108
+          },
+          "differential": 81
+        },
+        {
+          "gw": 10,
+          "time": "2025-10-29T12:42:58.280576Z",
+          "player_out": {
+            "id": 221,
+            "name": "J\u00f6rgensen",
+            "pts_since": 5
+          },
+          "player_in": {
+            "id": 600,
+            "name": "Areola",
+            "pts_since": 41
+          },
+          "differential": 36
+        },
+        {
+          "gw": 14,
+          "time": "2025-11-30T20:30:21.973602Z",
+          "player_out": {
+            "id": 478,
+            "name": "Trippier",
+            "pts_since": 21
+          },
+          "player_in": {
+            "id": 407,
+            "name": "Matheus N.",
+            "pts_since": 96
+          },
+          "differential": 75
+        },
+        {
+          "gw": 20,
+          "time": "2026-01-02T19:45:54.934790Z",
+          "player_out": {
+            "id": 18,
+            "name": "Madueke",
+            "pts_since": 42
+          },
+          "player_in": {
+            "id": 453,
+            "name": "Garnacho",
+            "pts_since": 16
+          },
+          "differential": -26
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-05T09:56:46.420881Z",
+          "player_out": {
+            "id": 453,
+            "name": "Garnacho",
+            "pts_since": 14
+          },
+          "player_in": {
+            "id": 266,
+            "name": "Eze",
+            "pts_since": 34
+          },
+          "differential": 20
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-02T08:41:44.537148Z",
+          "player_out": {
+            "id": 488,
+            "name": "Bruno G.",
+            "pts_since": 3
+          },
+          "player_in": {
+            "id": 325,
+            "name": "Smith Rowe",
+            "pts_since": 9
+          },
+          "differential": 6
+        },
+        {
+          "gw": 32,
+          "time": "2026-04-02T13:59:05.789991Z",
+          "player_out": {
+            "id": 325,
+            "name": "Smith Rowe",
+            "pts_since": 7
+          },
+          "player_in": {
+            "id": 487,
+            "name": "Barnes",
+            "pts_since": 4
+          },
+          "differential": -3
+        }
+      ]
+    },
+    {
+      "entry_id": 5145283,
+      "name": "Habibi Jeebies",
+      "manager": "Arun Quayum",
+      "net_gain": 187,
+      "trades": [
+        {
+          "gw": 7,
+          "time": "2025-09-30T07:25:16.319523Z",
+          "player_out": {
+            "id": 48,
+            "name": "Tielemans",
+            "pts_since": 51
+          },
+          "player_in": {
+            "id": 169,
+            "name": "Gomez",
+            "pts_since": 90
+          },
+          "differential": 39
+        },
+        {
+          "gw": 10,
+          "time": "2025-10-28T15:09:44.596142Z",
+          "player_out": {
+            "id": 574,
+            "name": "Udogie",
+            "pts_since": 11
+          },
+          "player_in": {
+            "id": 694,
+            "name": "Mukiele",
+            "pts_since": 82
+          },
+          "differential": 71
+        },
+        {
+          "gw": 20,
+          "time": "2026-01-02T20:14:57.173430Z",
+          "player_out": {
+            "id": 673,
+            "name": "J.Palhinha",
+            "pts_since": 36
+          },
+          "player_in": {
+            "id": 423,
+            "name": "N.Gonzalez",
+            "pts_since": 6
+          },
+          "differential": -30
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-05T15:09:50.999922Z",
+          "player_out": {
+            "id": 573,
+            "name": "Spence",
+            "pts_since": 14
+          },
+          "player_in": {
+            "id": 706,
+            "name": "Justin",
+            "pts_since": 45
+          },
+          "differential": 31
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-03T08:58:29.369612Z",
+          "player_out": {
+            "id": 423,
+            "name": "N.Gonzalez",
+            "pts_since": 2
+          },
+          "player_in": {
+            "id": 615,
+            "name": "Summerville",
+            "pts_since": 37
+          },
+          "differential": 35
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-01T20:12:21.981303Z",
+          "player_out": {
+            "id": 238,
+            "name": "Est\u00eav\u00e3o",
+            "pts_since": 3
+          },
+          "player_in": {
+            "id": 386,
+            "name": "Mac Allister",
+            "pts_since": 26
+          },
+          "differential": 23
+        },
+        {
+          "gw": 32,
+          "time": "2026-04-08T06:19:29.865808Z",
+          "player_out": {
+            "id": 225,
+            "name": "James",
+            "pts_since": 0
+          },
+          "player_in": {
+            "id": 508,
+            "name": "N.Williams",
+            "pts_since": 18
+          },
+          "differential": 18
+        }
+      ]
+    },
+    {
+      "entry_id": 5150105,
+      "name": "Gy\u00f6k, Stock & Barrel",
+      "manager": "Aron Rouse",
+      "net_gain": 107,
+      "trades": [
+        {
+          "gw": 7,
+          "time": "2025-09-30T09:19:36.331722Z",
+          "player_out": {
+            "id": 561,
+            "name": "Mayenda",
+            "pts_since": 26
+          },
+          "player_in": {
+            "id": 284,
+            "name": "Nketiah",
+            "pts_since": 18
+          },
+          "differential": -8
+        },
+        {
+          "gw": 10,
+          "time": "2025-10-28T13:54:04.997279Z",
+          "player_out": {
+            "id": 389,
+            "name": "Elliott",
+            "pts_since": 1
+          },
+          "player_in": {
+            "id": 200,
+            "name": "Anthony",
+            "pts_since": 66
+          },
+          "differential": 65
+        },
+        {
+          "gw": 14,
+          "time": "2025-12-01T13:40:33.219150Z",
+          "player_out": {
+            "id": 157,
+            "name": "Mitoma",
+            "pts_since": 41
+          },
+          "player_in": {
+            "id": 173,
+            "name": "Wieffer",
+            "pts_since": 47
+          },
+          "differential": 6
+        },
+        {
+          "gw": 20,
+          "time": "2026-01-02T10:29:33.936199Z",
+          "player_out": {
+            "id": 525,
+            "name": "Wood",
+            "pts_since": 10
+          },
+          "player_in": {
+            "id": 31,
+            "name": "G.Jesus",
+            "pts_since": 11
+          },
+          "differential": 1
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-05T10:46:13.437774Z",
+          "player_out": {
+            "id": 173,
+            "name": "Wieffer",
+            "pts_since": 33
+          },
+          "player_in": {
+            "id": 547,
+            "name": "E.Le F\u00e9e",
+            "pts_since": 36
+          },
+          "differential": 3
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-03T10:40:17.306608Z",
+          "player_out": {
+            "id": 284,
+            "name": "Nketiah",
+            "pts_since": 0
+          },
+          "player_in": {
+            "id": 808,
+            "name": "Abraham",
+            "pts_since": 20
+          },
+          "differential": 20
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-01T20:20:54.927752Z",
+          "player_out": {
+            "id": 31,
+            "name": "G.Jesus",
+            "pts_since": 1
+          },
+          "player_in": {
+            "id": 726,
+            "name": "Kolo Muani",
+            "pts_since": 10
+          },
+          "differential": 9
+        },
+        {
+          "gw": 32,
+          "time": "2026-04-07T18:35:58.043752Z",
+          "player_out": {
+            "id": 226,
+            "name": "Chalobah",
+            "pts_since": 2
+          },
+          "player_in": {
+            "id": 110,
+            "name": "Kayode",
+            "pts_since": 13
+          },
+          "differential": 11
+        }
+      ]
+    },
+    {
+      "entry_id": 4789233,
+      "name": "Inevitable",
+      "manager": "Jason Knightly",
+      "net_gain": 100,
+      "trades": [
+        {
+          "gw": 7,
+          "time": "2025-10-01T08:19:34.178695Z",
+          "player_out": {
+            "id": 610,
+            "name": "Wan-Bissaka",
+            "pts_since": 62
+          },
+          "player_in": {
+            "id": 683,
+            "name": "Alderete",
+            "pts_since": 73
+          },
+          "differential": 11
+        },
+        {
+          "gw": 10,
+          "time": "2025-10-31T22:27:30.102994Z",
+          "player_out": {
+            "id": 316,
+            "name": "Robinson",
+            "pts_since": 42
+          },
+          "player_in": {
+            "id": 148,
+            "name": "F.Kad\u0131o\u011flu",
+            "pts_since": 98
+          },
+          "differential": 56
+        },
+        {
+          "gw": 14,
+          "time": "2025-12-01T12:35:05.979564Z",
+          "player_out": {
+            "id": 677,
+            "name": "Guessand",
+            "pts_since": 28
+          },
+          "player_in": {
+            "id": 53,
+            "name": "Malen",
+            "pts_since": 16
+          },
+          "differential": -12
+        },
+        {
+          "gw": 20,
+          "time": "2026-01-02T10:13:49.906049Z",
+          "player_out": {
+            "id": 53,
+            "name": "Malen",
+            "pts_since": 2
+          },
+          "player_in": {
+            "id": 660,
+            "name": "Stach",
+            "pts_since": 41
+          },
+          "differential": 39
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-06T15:15:36.677144Z",
+          "player_out": {
+            "id": 660,
+            "name": "Stach",
+            "pts_since": 25
+          },
+          "player_in": {
+            "id": 50,
+            "name": "Buend\u00eda",
+            "pts_since": 14
+          },
+          "differential": -11
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-03T11:20:53.319835Z",
+          "player_out": {
+            "id": 121,
+            "name": "Damsgaard",
+            "pts_since": 34
+          },
+          "player_in": {
+            "id": 807,
+            "name": "Rayan",
+            "pts_since": 41
+          },
+          "differential": 7
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-02T23:28:38.073233Z",
+          "player_out": {
+            "id": 50,
+            "name": "Buend\u00eda",
+            "pts_since": 10
+          },
+          "player_in": {
+            "id": 121,
+            "name": "Damsgaard",
+            "pts_since": 13
+          },
+          "differential": 3
+        },
+        {
+          "gw": 32,
+          "time": "2026-04-07T13:41:03.343678Z",
+          "player_out": {
+            "id": 714,
+            "name": "Woltemade",
+            "pts_since": 3
+          },
+          "player_in": {
+            "id": 525,
+            "name": "Wood",
+            "pts_since": 10
+          },
+          "differential": 7
+        }
+      ]
+    },
+    {
+      "entry_id": 8794696,
+      "name": "Return of the Fox",
+      "manager": "Charles Smith",
+      "net_gain": 61,
+      "trades": [
+        {
+          "gw": 14,
+          "time": "2025-12-01T08:49:37.670718Z",
+          "player_out": {
+            "id": 580,
+            "name": "Johnson",
+            "pts_since": 29
+          },
+          "player_in": {
+            "id": 487,
+            "name": "Barnes",
+            "pts_since": 46
+          },
+          "differential": 17
+        },
+        {
+          "gw": 20,
+          "time": "2026-01-02T19:51:16.332532Z",
+          "player_out": {
+            "id": 487,
+            "name": "Barnes",
+            "pts_since": 38
+          },
+          "player_in": {
+            "id": 303,
+            "name": "Garner",
+            "pts_since": 63
+          },
+          "differential": 25
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-04T21:11:47.207765Z",
+          "player_out": {
+            "id": 491,
+            "name": "Tonali",
+            "pts_since": 19
+          },
+          "player_in": {
+            "id": 18,
+            "name": "Madueke",
+            "pts_since": 23
+          },
+          "differential": 4
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-02T16:50:05.476905Z",
+          "player_out": {
+            "id": 11,
+            "name": "White",
+            "pts_since": 8
+          },
+          "player_in": {
+            "id": 725,
+            "name": "Hincapie",
+            "pts_since": 23
+          },
+          "differential": 15
+        }
+      ]
+    },
+    {
+      "entry_id": 5124113,
+      "name": "Soucek Madness",
+      "manager": "Sam Haseltine",
+      "net_gain": 49,
+      "trades": [
         {
           "gw": 7,
           "time": "2025-10-02T04:40:13.487431Z",
@@ -485,603 +1239,115 @@
       ]
     },
     {
-      "entry_id": 5150105,
-      "name": "Gy\u00f6k, Stock & Barrel",
-      "manager": "Aron Rouse",
-      "net_gain": 178,
+      "entry_id": 7552664,
+      "name": "Beef Cherki",
+      "manager": "Alexander Bodek",
+      "net_gain": 48,
       "trades": [
         {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.071035Z",
-          "player_out": {
-            "id": 666,
-            "name": "Gy\u00f6keres",
-            "pts_since": 94
-          },
-          "player_in": {
-            "id": 561,
-            "name": "Mayenda",
-            "pts_since": 27
-          },
-          "differential": -67
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.070798Z",
-          "player_out": {
-            "id": 661,
-            "name": "Ekitik\u00e9",
-            "pts_since": 103
-          },
-          "player_in": {
-            "id": 525,
-            "name": "Wood",
-            "pts_since": 18
-          },
-          "differential": -85
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.070539Z",
-          "player_out": {
-            "id": 252,
-            "name": "Marc Guiu",
-            "pts_since": 11
-          },
-          "player_in": {
-            "id": 730,
-            "name": "Brobbey",
-            "pts_since": 77
-          },
-          "differential": 66
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.070273Z",
-          "player_out": {
-            "id": 582,
-            "name": "Kudus",
-            "pts_since": 60
-          },
-          "player_in": {
-            "id": 157,
-            "name": "Mitoma",
-            "pts_since": 52
-          },
-          "differential": -8
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.070028Z",
-          "player_out": {
-            "id": 381,
-            "name": "M.Salah",
-            "pts_since": 100
-          },
-          "player_in": {
-            "id": 389,
-            "name": "Elliott",
-            "pts_since": 4
-          },
-          "differential": -96
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.069790Z",
-          "player_out": {
-            "id": 324,
-            "name": "Iwobi",
-            "pts_since": 88
-          },
-          "player_in": {
-            "id": 242,
-            "name": "Dewsbury-Hall",
-            "pts_since": 124
-          },
-          "differential": 36
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.069549Z",
-          "player_out": {
-            "id": 21,
-            "name": "Rice",
-            "pts_since": 155
-          },
-          "player_in": {
-            "id": 119,
-            "name": "Mbeumo",
-            "pts_since": 115
-          },
-          "differential": -40
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.069274Z",
-          "player_out": {
-            "id": 575,
-            "name": "Van de Ven",
-            "pts_since": 93
-          },
-          "player_in": {
-            "id": 347,
-            "name": "Gudmundsson",
-            "pts_since": 51
-          },
-          "differential": -42
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.069016Z",
-          "player_out": {
-            "id": 541,
-            "name": "Reinildo",
-            "pts_since": 50
-          },
-          "player_in": {
-            "id": 7,
-            "name": "Calafiori",
-            "pts_since": 65
-          },
-          "differential": 15
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.068753Z",
-          "player_out": {
-            "id": 233,
-            "name": "Acheampong",
-            "pts_since": 27
-          },
-          "player_in": {
-            "id": 226,
-            "name": "Chalobah",
-            "pts_since": 106
-          },
-          "differential": 79
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.068365Z",
-          "player_out": {
-            "id": 197,
-            "name": "Sonne",
-            "pts_since": 10
-          },
-          "player_in": {
-            "id": 256,
-            "name": "Mu\u00f1oz",
-            "pts_since": 107
-          },
-          "differential": 97
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:10:40.068041Z",
-          "player_out": {
-            "id": 675,
-            "name": "Gunn",
-            "pts_since": 1
-          },
-          "player_in": {
-            "id": 101,
-            "name": "Kelleher",
-            "pts_since": 117
-          },
-          "differential": 116
-        },
-        {
           "gw": 7,
-          "time": "2025-09-30T09:19:36.331722Z",
+          "time": "2025-10-01T21:42:05.666337Z",
           "player_out": {
-            "id": 561,
-            "name": "Mayenda",
-            "pts_since": 26
+            "id": 386,
+            "name": "Mac Allister",
+            "pts_since": 87
           },
           "player_in": {
-            "id": 284,
-            "name": "Nketiah",
-            "pts_since": 18
+            "id": 81,
+            "name": "Kluivert",
+            "pts_since": 35
           },
-          "differential": -8
+          "differential": -52
         },
         {
           "gw": 10,
-          "time": "2025-10-28T13:54:04.997279Z",
+          "time": "2025-10-29T17:59:41.647398Z",
           "player_out": {
-            "id": 389,
-            "name": "Elliott",
-            "pts_since": 1
+            "id": 310,
+            "name": "Barry",
+            "pts_since": 70
           },
           "player_in": {
-            "id": 200,
-            "name": "Anthony",
-            "pts_since": 66
+            "id": 215,
+            "name": "Flemming",
+            "pts_since": 63
           },
-          "differential": 65
+          "differential": -7
         },
         {
-          "gw": 14,
-          "time": "2025-12-01T13:40:33.219150Z",
+          "gw": 15,
+          "time": "2025-12-02T18:57:53.461686Z",
           "player_out": {
-            "id": 157,
-            "name": "Mitoma",
-            "pts_since": 41
+            "id": 685,
+            "name": "Diakit\u00e9",
+            "pts_since": 11
           },
           "player_in": {
-            "id": 173,
-            "name": "Wieffer",
-            "pts_since": 47
+            "id": 295,
+            "name": "Keane",
+            "pts_since": 53
           },
-          "differential": 6
+          "differential": 42
         },
         {
           "gw": 20,
-          "time": "2026-01-02T10:29:33.936199Z",
+          "time": "2026-01-02T19:46:14.356554Z",
           "player_out": {
-            "id": 525,
-            "name": "Wood",
-            "pts_since": 10
+            "id": 217,
+            "name": "Foster",
+            "pts_since": 21
           },
           "player_in": {
-            "id": 31,
-            "name": "G.Jesus",
-            "pts_since": 11
+            "id": 680,
+            "name": "Broja",
+            "pts_since": 14
           },
-          "differential": 1
+          "differential": -7
         },
         {
           "gw": 25,
-          "time": "2026-02-05T10:46:13.437774Z",
+          "time": "2026-02-04T22:00:01.883269Z",
           "player_out": {
-            "id": 173,
-            "name": "Wieffer",
-            "pts_since": 33
-          },
-          "player_in": {
-            "id": 547,
-            "name": "E.Le F\u00e9e",
-            "pts_since": 36
-          },
-          "differential": 3
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-03T10:40:17.306608Z",
-          "player_out": {
-            "id": 284,
-            "name": "Nketiah",
+            "id": 81,
+            "name": "Kluivert",
             "pts_since": 0
           },
           "player_in": {
-            "id": 808,
-            "name": "Abraham",
-            "pts_since": 20
+            "id": 350,
+            "name": "Aaronson",
+            "pts_since": 28
           },
-          "differential": 20
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-01T20:20:54.927752Z",
-          "player_out": {
-            "id": 31,
-            "name": "G.Jesus",
-            "pts_since": 1
-          },
-          "player_in": {
-            "id": 726,
-            "name": "Kolo Muani",
-            "pts_since": 10
-          },
-          "differential": 9
-        },
-        {
-          "gw": 32,
-          "time": "2026-04-07T18:35:58.043752Z",
-          "player_out": {
-            "id": 226,
-            "name": "Chalobah",
-            "pts_since": 2
-          },
-          "player_in": {
-            "id": 110,
-            "name": "Kayode",
-            "pts_since": 13
-          },
-          "differential": 11
-        }
-      ]
-    },
-    {
-      "entry_id": 8794696,
-      "name": "Return of the Fox",
-      "manager": "Charles Smith",
-      "net_gain": 159,
-      "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:09:52.172764Z",
-          "player_out": {
-            "id": 191,
-            "name": "Est\u00e8ve",
-            "pts_since": 69
-          },
-          "player_in": {
-            "id": 11,
-            "name": "White",
-            "pts_since": 32
-          },
-          "differential": -37
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T17:15:44.464860Z",
-          "player_out": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "player_in": {
-            "id": 670,
-            "name": "Roefs",
-            "pts_since": 105
-          },
-          "differential": 21
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T14:37:25.906934Z",
-          "player_out": {
-            "id": 409,
-            "name": "Stones",
-            "pts_since": 4
-          },
-          "player_in": {
-            "id": 293,
-            "name": "O'Brien",
-            "pts_since": 99
-          },
-          "differential": 95
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.675914Z",
-          "player_out": {
-            "id": 661,
-            "name": "Ekitik\u00e9",
-            "pts_since": 103
-          },
-          "player_in": {
-            "id": 526,
-            "name": "Igor Jesus",
-            "pts_since": 101
-          },
-          "differential": -2
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.675451Z",
-          "player_out": {
-            "id": 252,
-            "name": "Marc Guiu",
-            "pts_since": 11
-          },
-          "player_in": {
-            "id": 97,
-            "name": "Evanilson",
-            "pts_since": 94
-          },
-          "differential": 83
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.675122Z",
-          "player_out": {
-            "id": 249,
-            "name": "Jo\u00e3o Pedro",
-            "pts_since": 140
-          },
-          "player_in": {
-            "id": 430,
-            "name": "Haaland",
-            "pts_since": 188
-          },
-          "differential": 48
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.674895Z",
-          "player_out": {
-            "id": 449,
-            "name": "B.Fernandes",
-            "pts_since": 190
-          },
-          "player_in": {
-            "id": 515,
-            "name": "Gibbs-White",
-            "pts_since": 159
-          },
-          "differential": -31
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.674652Z",
-          "player_out": {
-            "id": 427,
-            "name": "Reijnders",
-            "pts_since": 72
-          },
-          "player_in": {
-            "id": 21,
-            "name": "Rice",
-            "pts_since": 155
-          },
-          "differential": 83
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.674372Z",
-          "player_out": {
-            "id": 381,
-            "name": "M.Salah",
-            "pts_since": 100
-          },
-          "player_in": {
-            "id": 580,
-            "name": "Johnson",
-            "pts_since": 40
-          },
-          "differential": -60
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.673963Z",
-          "player_out": {
-            "id": 299,
-            "name": "Ndiaye",
-            "pts_since": 103
-          },
-          "player_in": {
-            "id": 491,
-            "name": "Tonali",
-            "pts_since": 69
-          },
-          "differential": -34
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.673585Z",
-          "player_out": {
-            "id": 47,
-            "name": "Rogers",
-            "pts_since": 147
-          },
-          "player_in": {
-            "id": 387,
-            "name": "Szoboszlai",
-            "pts_since": 117
-          },
-          "differential": -30
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.673308Z",
-          "player_out": {
-            "id": 569,
-            "name": "Romero",
-            "pts_since": 76
-          },
-          "player_in": {
-            "id": 257,
-            "name": "Lacroix",
-            "pts_since": 124
-          },
-          "differential": 48
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.673005Z",
-          "player_out": {
-            "id": 508,
-            "name": "N.Williams",
-            "pts_since": 118
-          },
-          "player_in": {
-            "id": 409,
-            "name": "Stones",
-            "pts_since": 4
-          },
-          "differential": -114
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.672741Z",
-          "player_out": {
-            "id": 408,
-            "name": "R\u00faben",
-            "pts_since": 104
-          },
-          "player_in": {
-            "id": 505,
-            "name": "Milenkovi\u0107",
-            "pts_since": 106
-          },
-          "differential": 2
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T09:56:46.672336Z",
-          "player_out": {
-            "id": 224,
-            "name": "Cucurella",
-            "pts_since": 78
-          },
-          "player_in": {
-            "id": 106,
-            "name": "Collins",
-            "pts_since": 104
-          },
-          "differential": 26
-        },
-        {
-          "gw": 14,
-          "time": "2025-12-01T08:49:37.670718Z",
-          "player_out": {
-            "id": 580,
-            "name": "Johnson",
-            "pts_since": 29
-          },
-          "player_in": {
-            "id": 487,
-            "name": "Barnes",
-            "pts_since": 46
-          },
-          "differential": 17
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-02T19:51:16.332532Z",
-          "player_out": {
-            "id": 487,
-            "name": "Barnes",
-            "pts_since": 38
-          },
-          "player_in": {
-            "id": 303,
-            "name": "Garner",
-            "pts_since": 63
-          },
-          "differential": 25
+          "differential": 28
         },
         {
           "gw": 25,
-          "time": "2026-02-04T21:11:47.207765Z",
+          "time": "2026-02-04T22:00:01.875066Z",
           "player_out": {
-            "id": 491,
-            "name": "Tonali",
-            "pts_since": 19
+            "id": 419,
+            "name": "Grealish",
+            "pts_since": 0
           },
           "player_in": {
-            "id": 18,
-            "name": "Madueke",
-            "pts_since": 23
+            "id": 90,
+            "name": "Scott",
+            "pts_since": 41
           },
-          "differential": 4
+          "differential": 41
         },
         {
           "gw": 29,
-          "time": "2026-03-02T16:50:05.476905Z",
+          "time": "2026-03-02T08:36:45.765691Z",
           "player_out": {
-            "id": 11,
-            "name": "White",
-            "pts_since": 8
+            "id": 680,
+            "name": "Broja",
+            "pts_since": 4
           },
           "player_in": {
-            "id": 725,
-            "name": "Hincapie",
-            "pts_since": 23
+            "id": 749,
+            "name": "Man\u00e9",
+            "pts_since": 7
           },
-          "differential": 15
+          "differential": 3
         }
       ]
     },
@@ -1089,263 +1355,8 @@
       "entry_id": 1623042,
       "name": "GVG XI",
       "manager": "George Georgiou",
-      "net_gain": 98,
+      "net_gain": 46,
       "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T12:42:12.853575Z",
-          "player_out": {
-            "id": 674,
-            "name": "Ramsdale",
-            "pts_since": 25
-          },
-          "player_in": {
-            "id": 139,
-            "name": "Verbruggen",
-            "pts_since": 113
-          },
-          "differential": 88
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T12:06:09.339651Z",
-          "player_out": {
-            "id": 573,
-            "name": "Spence",
-            "pts_since": 56
-          },
-          "player_in": {
-            "id": 508,
-            "name": "N.Williams",
-            "pts_since": 118
-          },
-          "differential": 62
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T12:06:09.339389Z",
-          "player_out": {
-            "id": 541,
-            "name": "Reinildo",
-            "pts_since": 50
-          },
-          "player_in": {
-            "id": 107,
-            "name": "Lewis-Potter",
-            "pts_since": 84
-          },
-          "differential": 34
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T12:06:09.339044Z",
-          "player_out": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "player_in": {
-            "id": 674,
-            "name": "Ramsdale",
-            "pts_since": 25
-          },
-          "differential": -59
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-07T07:08:37.530022Z",
-          "player_out": {
-            "id": 200,
-            "name": "Anthony",
-            "pts_since": 90
-          },
-          "player_in": {
-            "id": 731,
-            "name": "Kevin",
-            "pts_since": 43
-          },
-          "differential": -47
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T10:04:29.990758Z",
-          "player_out": {
-            "id": 666,
-            "name": "Gy\u00f6keres",
-            "pts_since": 94
-          },
-          "player_in": {
-            "id": 671,
-            "name": "Wilson",
-            "pts_since": 62
-          },
-          "differential": -32
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.385274Z",
-          "player_out": {
-            "id": 597,
-            "name": "Richarlison",
-            "pts_since": 80
-          },
-          "player_in": {
-            "id": 136,
-            "name": "Thiago",
-            "pts_since": 155
-          },
-          "differential": 75
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.385038Z",
-          "player_out": {
-            "id": 219,
-            "name": "Obafemi",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 666,
-            "name": "Gy\u00f6keres",
-            "pts_since": 94
-          },
-          "differential": 94
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.384800Z",
-          "player_out": {
-            "id": 582,
-            "name": "Kudus",
-            "pts_since": 60
-          },
-          "player_in": {
-            "id": 200,
-            "name": "Anthony",
-            "pts_since": 90
-          },
-          "differential": 30
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.384528Z",
-          "player_out": {
-            "id": 449,
-            "name": "B.Fernandes",
-            "pts_since": 190
-          },
-          "player_in": {
-            "id": 424,
-            "name": "Bobb",
-            "pts_since": 25
-          },
-          "differential": -165
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.384184Z",
-          "player_out": {
-            "id": 419,
-            "name": "Grealish",
-            "pts_since": 57
-          },
-          "player_in": {
-            "id": 612,
-            "name": "L.Paquet\u00e1",
-            "pts_since": 48
-          },
-          "differential": -9
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.383958Z",
-          "player_out": {
-            "id": 381,
-            "name": "M.Salah",
-            "pts_since": 100
-          },
-          "player_in": {
-            "id": 717,
-            "name": "Xavi",
-            "pts_since": 80
-          },
-          "differential": -20
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.383707Z",
-          "player_out": {
-            "id": 235,
-            "name": "Palmer",
-            "pts_since": 99
-          },
-          "player_in": {
-            "id": 16,
-            "name": "Saka",
-            "pts_since": 125
-          },
-          "differential": 26
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.383458Z",
-          "player_out": {
-            "id": 508,
-            "name": "N.Williams",
-            "pts_since": 118
-          },
-          "player_in": {
-            "id": 408,
-            "name": "R\u00faben",
-            "pts_since": 104
-          },
-          "differential": -14
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.383175Z",
-          "player_out": {
-            "id": 371,
-            "name": "Kerkez",
-            "pts_since": 74
-          },
-          "player_in": {
-            "id": 436,
-            "name": "De Ligt",
-            "pts_since": 31
-          },
-          "differential": -43
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.382926Z",
-          "player_out": {
-            "id": 349,
-            "name": "Schmidt",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 569,
-            "name": "Romero",
-            "pts_since": 76
-          },
-          "differential": 76
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:55:24.382609Z",
-          "player_out": {
-            "id": 287,
-            "name": "Pickford",
-            "pts_since": 110
-          },
-          "player_in": {
-            "id": 469,
-            "name": "Pope",
-            "pts_since": 66
-          },
-          "differential": -44
-        },
         {
           "gw": 7,
           "time": "2025-09-30T07:17:52.868742Z",
@@ -1469,529 +1480,11 @@
       ]
     },
     {
-      "entry_id": 5155229,
-      "name": "Vik the Impaler",
-      "manager": "David Pontin",
-      "net_gain": 72,
-      "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.258314Z",
-          "player_out": {
-            "id": 623,
-            "name": "Potts",
-            "pts_since": 36
-          },
-          "player_in": {
-            "id": 384,
-            "name": "Gakpo",
-            "pts_since": 99
-          },
-          "differential": 63
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.258062Z",
-          "player_out": {
-            "id": 249,
-            "name": "Jo\u00e3o Pedro",
-            "pts_since": 140
-          },
-          "player_in": {
-            "id": 178,
-            "name": "Welbeck",
-            "pts_since": 113
-          },
-          "differential": -27
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.257820Z",
-          "player_out": {
-            "id": 430,
-            "name": "Haaland",
-            "pts_since": 188
-          },
-          "player_in": {
-            "id": 338,
-            "name": "Muniz",
-            "pts_since": 22
-          },
-          "differential": -166
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.257527Z",
-          "player_out": {
-            "id": 158,
-            "name": "Georginio",
-            "pts_since": 76
-          },
-          "player_in": {
-            "id": 160,
-            "name": "Minteh",
-            "pts_since": 93
-          },
-          "differential": 17
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.257234Z",
-          "player_out": {
-            "id": 582,
-            "name": "Kudus",
-            "pts_since": 60
-          },
-          "player_in": {
-            "id": 488,
-            "name": "Bruno G.",
-            "pts_since": 125
-          },
-          "differential": 65
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.256977Z",
-          "player_out": {
-            "id": 450,
-            "name": "Cunha",
-            "pts_since": 120
-          },
-          "player_in": {
-            "id": 18,
-            "name": "Madueke",
-            "pts_since": 53
-          },
-          "differential": -67
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.256708Z",
-          "player_out": {
-            "id": 447,
-            "name": "Heaven",
-            "pts_since": 40
-          },
-          "player_in": {
-            "id": 146,
-            "name": "Dunk",
-            "pts_since": 74
-          },
-          "differential": 34
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.256392Z",
-          "player_out": {
-            "id": 575,
-            "name": "Van de Ven",
-            "pts_since": 93
-          },
-          "player_in": {
-            "id": 8,
-            "name": "J.Timber",
-            "pts_since": 123
-          },
-          "differential": 30
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.256115Z",
-          "player_out": {
-            "id": 232,
-            "name": "Tosin",
-            "pts_since": 24
-          },
-          "player_in": {
-            "id": 478,
-            "name": "Trippier",
-            "pts_since": 38
-          },
-          "differential": 14
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.255724Z",
-          "player_out": {
-            "id": 441,
-            "name": "Dorgu",
-            "pts_since": 71
-          },
-          "player_in": {
-            "id": 438,
-            "name": "Mazraoui",
-            "pts_since": 35
-          },
-          "differential": -36
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.255411Z",
-          "player_out": {
-            "id": 573,
-            "name": "Spence",
-            "pts_since": 56
-          },
-          "player_in": {
-            "id": 38,
-            "name": "Konsa",
-            "pts_since": 94
-          },
-          "differential": 38
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.255109Z",
-          "player_out": {
-            "id": 139,
-            "name": "Verbruggen",
-            "pts_since": 113
-          },
-          "player_in": {
-            "id": 221,
-            "name": "J\u00f6rgensen",
-            "pts_since": 6
-          },
-          "differential": -107
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:42:30.254734Z",
-          "player_out": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "player_in": {
-            "id": 253,
-            "name": "Henderson",
-            "pts_since": 109
-          },
-          "differential": 25
-        },
-        {
-          "gw": 7,
-          "time": "2025-10-01T15:43:07.904110Z",
-          "player_out": {
-            "id": 438,
-            "name": "Mazraoui",
-            "pts_since": 27
-          },
-          "player_in": {
-            "id": 684,
-            "name": "Thiaw",
-            "pts_since": 108
-          },
-          "differential": 81
-        },
-        {
-          "gw": 10,
-          "time": "2025-10-29T12:42:58.280576Z",
-          "player_out": {
-            "id": 221,
-            "name": "J\u00f6rgensen",
-            "pts_since": 5
-          },
-          "player_in": {
-            "id": 600,
-            "name": "Areola",
-            "pts_since": 41
-          },
-          "differential": 36
-        },
-        {
-          "gw": 14,
-          "time": "2025-11-30T20:30:21.973602Z",
-          "player_out": {
-            "id": 478,
-            "name": "Trippier",
-            "pts_since": 21
-          },
-          "player_in": {
-            "id": 407,
-            "name": "Matheus N.",
-            "pts_since": 96
-          },
-          "differential": 75
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-02T19:45:54.934790Z",
-          "player_out": {
-            "id": 18,
-            "name": "Madueke",
-            "pts_since": 42
-          },
-          "player_in": {
-            "id": 453,
-            "name": "Garnacho",
-            "pts_since": 16
-          },
-          "differential": -26
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-05T09:56:46.420881Z",
-          "player_out": {
-            "id": 453,
-            "name": "Garnacho",
-            "pts_since": 14
-          },
-          "player_in": {
-            "id": 266,
-            "name": "Eze",
-            "pts_since": 34
-          },
-          "differential": 20
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-02T08:41:44.537148Z",
-          "player_out": {
-            "id": 488,
-            "name": "Bruno G.",
-            "pts_since": 3
-          },
-          "player_in": {
-            "id": 325,
-            "name": "Smith Rowe",
-            "pts_since": 9
-          },
-          "differential": 6
-        },
-        {
-          "gw": 32,
-          "time": "2026-04-02T13:59:05.789991Z",
-          "player_out": {
-            "id": 325,
-            "name": "Smith Rowe",
-            "pts_since": 7
-          },
-          "player_in": {
-            "id": 487,
-            "name": "Barnes",
-            "pts_since": 4
-          },
-          "differential": -3
-        }
-      ]
-    },
-    {
       "entry_id": 5751594,
       "name": "I love big Gy\u0151k",
       "manager": "Adam Georghiou",
-      "net_gain": -30,
+      "net_gain": 4,
       "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.325650Z",
-          "player_out": {
-            "id": 249,
-            "name": "Jo\u00e3o Pedro",
-            "pts_since": 140
-          },
-          "player_in": {
-            "id": 560,
-            "name": "Isidor",
-            "pts_since": 53
-          },
-          "differential": -87
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.325042Z",
-          "player_out": {
-            "id": 666,
-            "name": "Gy\u00f6keres",
-            "pts_since": 94
-          },
-          "player_in": {
-            "id": 466,
-            "name": "Zirkzee",
-            "pts_since": 37
-          },
-          "differential": -57
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.324592Z",
-          "player_out": {
-            "id": 661,
-            "name": "Ekitik\u00e9",
-            "pts_since": 103
-          },
-          "player_in": {
-            "id": 30,
-            "name": "Havertz",
-            "pts_since": 22
-          },
-          "differential": -81
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.324070Z",
-          "player_out": {
-            "id": 276,
-            "name": "Devenny",
-            "pts_since": 26
-          },
-          "player_in": {
-            "id": 84,
-            "name": "Tavernier",
-            "pts_since": 102
-          },
-          "differential": 76
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.323584Z",
-          "player_out": {
-            "id": 299,
-            "name": "Ndiaye",
-            "pts_since": 103
-          },
-          "player_in": {
-            "id": 241,
-            "name": "Caicedo",
-            "pts_since": 85
-          },
-          "differential": -18
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.323086Z",
-          "player_out": {
-            "id": 119,
-            "name": "Mbeumo",
-            "pts_since": 115
-          },
-          "player_in": {
-            "id": 516,
-            "name": "Hudson-Odoi",
-            "pts_since": 74
-          },
-          "differential": -41
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.322598Z",
-          "player_out": {
-            "id": 582,
-            "name": "Kudus",
-            "pts_since": 60
-          },
-          "player_in": {
-            "id": 485,
-            "name": "Gordon",
-            "pts_since": 100
-          },
-          "differential": 40
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.322066Z",
-          "player_out": {
-            "id": 198,
-            "name": "Tuanzebe",
-            "pts_since": 27
-          },
-          "player_in": {
-            "id": 476,
-            "name": "Burn",
-            "pts_since": 65
-          },
-          "differential": 38
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.321612Z",
-          "player_out": {
-            "id": 116,
-            "name": "Hickey",
-            "pts_since": 32
-          },
-          "player_in": {
-            "id": 317,
-            "name": "Andersen",
-            "pts_since": 113
-          },
-          "differential": 81
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.321099Z",
-          "player_out": {
-            "id": 506,
-            "name": "Murillo",
-            "pts_since": 79
-          },
-          "player_in": {
-            "id": 575,
-            "name": "Van de Ven",
-            "pts_since": 93
-          },
-          "differential": 14
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.320571Z",
-          "player_out": {
-            "id": 291,
-            "name": "Tarkowski",
-            "pts_since": 134
-          },
-          "player_in": {
-            "id": 10,
-            "name": "Lewis-Skelly",
-            "pts_since": 13
-          },
-          "differential": -121
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.320063Z",
-          "player_out": {
-            "id": 260,
-            "name": "Gu\u00e9hi",
-            "pts_since": 135
-          },
-          "player_in": {
-            "id": 5,
-            "name": "Gabriel",
-            "pts_since": 171
-          },
-          "differential": 36
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.319535Z",
-          "player_out": {
-            "id": 675,
-            "name": "Gunn",
-            "pts_since": 1
-          },
-          "player_in": {
-            "id": 733,
-            "name": "Lammens",
-            "pts_since": 91
-          },
-          "differential": 90
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:43:36.318893Z",
-          "player_out": {
-            "id": 502,
-            "name": "Sels",
-            "pts_since": 83
-          },
-          "player_in": {
-            "id": 366,
-            "name": "A.Becker",
-            "pts_since": 79
-          },
-          "differential": -4
-        },
         {
           "gw": 7,
           "time": "2025-10-02T21:51:28.683669Z",
@@ -2036,2259 +1529,6 @@
             "pts_since": 6
           },
           "differential": 4
-        }
-      ]
-    },
-    {
-      "entry_id": 4160647,
-      "name": "Forever20",
-      "manager": "Joe Wilson",
-      "net_gain": -41,
-      "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:52:37.521561Z",
-          "player_out": {
-            "id": 105,
-            "name": "Valdimarsson",
-            "pts_since": 1
-          },
-          "player_in": {
-            "id": 567,
-            "name": "Kinsky",
-            "pts_since": 9
-          },
-          "differential": 8
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T16:20:45.427275Z",
-          "player_out": {
-            "id": 218,
-            "name": "Barnes",
-            "pts_since": 5
-          },
-          "player_in": {
-            "id": 252,
-            "name": "Marc Guiu",
-            "pts_since": 11
-          },
-          "differential": 6
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T11:08:59.583289Z",
-          "player_out": {
-            "id": 74,
-            "name": "Truffert",
-            "pts_since": 126
-          },
-          "player_in": {
-            "id": 375,
-            "name": "Bradley",
-            "pts_since": 42
-          },
-          "differential": -84
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-07T17:11:10.199439Z",
-          "player_out": {
-            "id": 613,
-            "name": "Sou\u010dek",
-            "pts_since": 89
-          },
-          "player_in": {
-            "id": 421,
-            "name": "Rodrigo",
-            "pts_since": 59
-          },
-          "differential": -30
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T07:42:10.294267Z",
-          "player_out": {
-            "id": 259,
-            "name": "Sosa",
-            "pts_since": 6
-          },
-          "player_in": {
-            "id": 261,
-            "name": "Richards",
-            "pts_since": 107
-          },
-          "differential": 101
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.296901Z",
-          "player_out": {
-            "id": 101,
-            "name": "Kelleher",
-            "pts_since": 117
-          },
-          "player_in": {
-            "id": 565,
-            "name": "Vicario",
-            "pts_since": 69
-          },
-          "differential": -48
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.296714Z",
-          "player_out": {
-            "id": 603,
-            "name": "Diouf",
-            "pts_since": 81
-          },
-          "player_in": {
-            "id": 6,
-            "name": "Saliba",
-            "pts_since": 102
-          },
-          "differential": 21
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.296515Z",
-          "player_out": {
-            "id": 575,
-            "name": "Van de Ven",
-            "pts_since": 93
-          },
-          "player_in": {
-            "id": 506,
-            "name": "Murillo",
-            "pts_since": 79
-          },
-          "differential": -14
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.296302Z",
-          "player_out": {
-            "id": 36,
-            "name": "Cash",
-            "pts_since": 100
-          },
-          "player_in": {
-            "id": 145,
-            "name": "De Cuyper",
-            "pts_since": 62
-          },
-          "differential": -38
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.296111Z",
-          "player_out": {
-            "id": 191,
-            "name": "Est\u00e8ve",
-            "pts_since": 69
-          },
-          "player_in": {
-            "id": 259,
-            "name": "Sosa",
-            "pts_since": 6
-          },
-          "differential": -63
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.295920Z",
-          "player_out": {
-            "id": 347,
-            "name": "Gudmundsson",
-            "pts_since": 51
-          },
-          "player_in": {
-            "id": 74,
-            "name": "Truffert",
-            "pts_since": 126
-          },
-          "differential": 75
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.295722Z",
-          "player_out": {
-            "id": 381,
-            "name": "M.Salah",
-            "pts_since": 100
-          },
-          "player_in": {
-            "id": 120,
-            "name": "Schade",
-            "pts_since": 108
-          },
-          "differential": 8
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.295470Z",
-          "player_out": {
-            "id": 299,
-            "name": "Ndiaye",
-            "pts_since": 103
-          },
-          "player_in": {
-            "id": 613,
-            "name": "Sou\u010dek",
-            "pts_since": 89
-          },
-          "differential": -14
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.295271Z",
-          "player_out": {
-            "id": 249,
-            "name": "Jo\u00e3o Pedro",
-            "pts_since": 140
-          },
-          "player_in": {
-            "id": 499,
-            "name": "Isak",
-            "pts_since": 40
-          },
-          "differential": -100
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.295024Z",
-          "player_out": {
-            "id": 430,
-            "name": "Haaland",
-            "pts_since": 188
-          },
-          "player_in": {
-            "id": 283,
-            "name": "Mateta",
-            "pts_since": 92
-          },
-          "differential": -96
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T19:21:50.294754Z",
-          "player_out": {
-            "id": 525,
-            "name": "Wood",
-            "pts_since": 18
-          },
-          "player_in": {
-            "id": 218,
-            "name": "Barnes",
-            "pts_since": 5
-          },
-          "differential": -13
-        },
-        {
-          "gw": 7,
-          "time": "2025-10-01T08:16:52.130971Z",
-          "player_out": {
-            "id": 375,
-            "name": "Bradley",
-            "pts_since": 39
-          },
-          "player_in": {
-            "id": 36,
-            "name": "Cash",
-            "pts_since": 83
-          },
-          "differential": 44
-        },
-        {
-          "gw": 10,
-          "time": "2025-10-28T18:50:48.975552Z",
-          "player_out": {
-            "id": 421,
-            "name": "Rodrigo",
-            "pts_since": 51
-          },
-          "player_in": {
-            "id": 20,
-            "name": "Trossard",
-            "pts_since": 76
-          },
-          "differential": 25
-        },
-        {
-          "gw": 13,
-          "time": "2025-11-27T18:37:26.407996Z",
-          "player_out": {
-            "id": 486,
-            "name": "Elanga",
-            "pts_since": 29
-          },
-          "player_in": {
-            "id": 324,
-            "name": "Iwobi",
-            "pts_since": 55
-          },
-          "differential": 26
-        },
-        {
-          "gw": 13,
-          "time": "2025-11-27T18:37:26.400416Z",
-          "player_out": {
-            "id": 506,
-            "name": "Murillo",
-            "pts_since": 53
-          },
-          "player_in": {
-            "id": 373,
-            "name": "Virgil",
-            "pts_since": 112
-          },
-          "differential": 59
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-02T19:46:03.322870Z",
-          "player_out": {
-            "id": 252,
-            "name": "Marc Guiu",
-            "pts_since": 1
-          },
-          "player_in": {
-            "id": 310,
-            "name": "Barry",
-            "pts_since": 46
-          },
-          "differential": 45
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-05T10:44:25.439758Z",
-          "player_out": {
-            "id": 582,
-            "name": "Kudus",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 796,
-            "name": "Gallagher",
-            "pts_since": 17
-          },
-          "differential": 17
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-03T15:17:45.231378Z",
-          "player_out": {
-            "id": 145,
-            "name": "De Cuyper",
-            "pts_since": 10
-          },
-          "player_in": {
-            "id": 507,
-            "name": "Aina",
-            "pts_since": 40
-          },
-          "differential": 30
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-01T20:53:45.544338Z",
-          "player_out": {
-            "id": 796,
-            "name": "Gallagher",
-            "pts_since": 10
-          },
-          "player_in": {
-            "id": 660,
-            "name": "Stach",
-            "pts_since": 12
-          },
-          "differential": 2
-        },
-        {
-          "gw": 32,
-          "time": "2026-04-01T22:26:22.372909Z",
-          "player_out": {
-            "id": 158,
-            "name": "Georginio",
-            "pts_since": 13
-          },
-          "player_in": {
-            "id": 421,
-            "name": "Rodrigo",
-            "pts_since": 5
-          },
-          "differential": -8
-        }
-      ]
-    },
-    {
-      "entry_id": 4789233,
-      "name": "Inevitable",
-      "manager": "Jason Knightly",
-      "net_gain": -134,
-      "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T21:51:36.762413Z",
-          "player_out": {
-            "id": 733,
-            "name": "Lammens",
-            "pts_since": 91
-          },
-          "player_in": {
-            "id": 679,
-            "name": "Hermansen",
-            "pts_since": 52
-          },
-          "differential": -39
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T15:14:25.023412Z",
-          "player_out": {
-            "id": 679,
-            "name": "Hermansen",
-            "pts_since": 52
-          },
-          "player_in": {
-            "id": 733,
-            "name": "Lammens",
-            "pts_since": 91
-          },
-          "differential": 39
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T15:14:25.023083Z",
-          "player_out": {
-            "id": 32,
-            "name": "Martinez",
-            "pts_since": 108
-          },
-          "player_in": {
-            "id": 67,
-            "name": "Petrovi\u0107",
-            "pts_since": 93
-          },
-          "differential": -15
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-07T19:47:34.341455Z",
-          "player_out": {
-            "id": 139,
-            "name": "Verbruggen",
-            "pts_since": 113
-          },
-          "player_in": {
-            "id": 679,
-            "name": "Hermansen",
-            "pts_since": 52
-          },
-          "differential": -61
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T21:31:51.828991Z",
-          "player_out": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "player_in": {
-            "id": 32,
-            "name": "Martinez",
-            "pts_since": 108
-          },
-          "differential": 24
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T21:31:51.828724Z",
-          "player_out": {
-            "id": 477,
-            "name": "Livramento",
-            "pts_since": 40
-          },
-          "player_in": {
-            "id": 113,
-            "name": "Van den Berg",
-            "pts_since": 85
-          },
-          "differential": 45
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T21:31:51.828430Z",
-          "player_out": {
-            "id": 257,
-            "name": "Lacroix",
-            "pts_since": 124
-          },
-          "player_in": {
-            "id": 316,
-            "name": "Robinson",
-            "pts_since": 43
-          },
-          "differential": -81
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T21:31:51.828153Z",
-          "player_out": {
-            "id": 603,
-            "name": "Diouf",
-            "pts_since": 81
-          },
-          "player_in": {
-            "id": 610,
-            "name": "Wan-Bissaka",
-            "pts_since": 62
-          },
-          "differential": -19
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T21:31:51.827827Z",
-          "player_out": {
-            "id": 488,
-            "name": "Bruno G.",
-            "pts_since": 125
-          },
-          "player_in": {
-            "id": 677,
-            "name": "Guessand",
-            "pts_since": 40
-          },
-          "differential": -85
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-06T21:31:51.827427Z",
-          "player_out": {
-            "id": 387,
-            "name": "Szoboszlai",
-            "pts_since": 117
-          },
-          "player_in": {
-            "id": 517,
-            "name": "Anderson",
-            "pts_since": 143
-          },
-          "differential": 26
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:55:45.658545Z",
-          "player_out": {
-            "id": 237,
-            "name": "Enzo",
-            "pts_since": 108
-          },
-          "player_in": {
-            "id": 488,
-            "name": "Bruno G.",
-            "pts_since": 125
-          },
-          "differential": 17
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:55:45.658309Z",
-          "player_out": {
-            "id": 82,
-            "name": "Semenyo",
-            "pts_since": 158
-          },
-          "player_in": {
-            "id": 387,
-            "name": "Szoboszlai",
-            "pts_since": 117
-          },
-          "differential": -41
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:55:45.658018Z",
-          "player_out": {
-            "id": 226,
-            "name": "Chalobah",
-            "pts_since": 106
-          },
-          "player_in": {
-            "id": 603,
-            "name": "Diouf",
-            "pts_since": 81
-          },
-          "differential": -25
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:55:45.657726Z",
-          "player_out": {
-            "id": 8,
-            "name": "J.Timber",
-            "pts_since": 123
-          },
-          "player_in": {
-            "id": 257,
-            "name": "Lacroix",
-            "pts_since": 124
-          },
-          "differential": 1
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:55:45.657322Z",
-          "player_out": {
-            "id": 7,
-            "name": "Calafiori",
-            "pts_since": 65
-          },
-          "player_in": {
-            "id": 477,
-            "name": "Livramento",
-            "pts_since": 40
-          },
-          "differential": -25
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.797903Z",
-          "player_out": {
-            "id": 666,
-            "name": "Gy\u00f6keres",
-            "pts_since": 94
-          },
-          "player_in": {
-            "id": 714,
-            "name": "Woltemade",
-            "pts_since": 96
-          },
-          "differential": 2
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.797649Z",
-          "player_out": {
-            "id": 430,
-            "name": "Haaland",
-            "pts_since": 188
-          },
-          "player_in": {
-            "id": 64,
-            "name": "Watkins",
-            "pts_since": 123
-          },
-          "differential": -65
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.797326Z",
-          "player_out": {
-            "id": 450,
-            "name": "Cunha",
-            "pts_since": 120
-          },
-          "player_in": {
-            "id": 82,
-            "name": "Semenyo",
-            "pts_since": 158
-          },
-          "differential": 38
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.797021Z",
-          "player_out": {
-            "id": 449,
-            "name": "B.Fernandes",
-            "pts_since": 190
-          },
-          "player_in": {
-            "id": 237,
-            "name": "Enzo",
-            "pts_since": 108
-          },
-          "differential": -82
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.796532Z",
-          "player_out": {
-            "id": 382,
-            "name": "Wirtz",
-            "pts_since": 114
-          },
-          "player_in": {
-            "id": 121,
-            "name": "Damsgaard",
-            "pts_since": 88
-          },
-          "differential": -26
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.796046Z",
-          "player_out": {
-            "id": 335,
-            "name": "King",
-            "pts_since": 54
-          },
-          "player_in": {
-            "id": 417,
-            "name": "Cherki",
-            "pts_since": 116
-          },
-          "differential": 62
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.795670Z",
-          "player_out": {
-            "id": 573,
-            "name": "Spence",
-            "pts_since": 56
-          },
-          "player_in": {
-            "id": 8,
-            "name": "J.Timber",
-            "pts_since": 123
-          },
-          "differential": 67
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.795287Z",
-          "player_out": {
-            "id": 291,
-            "name": "Tarkowski",
-            "pts_since": 134
-          },
-          "player_in": {
-            "id": 226,
-            "name": "Chalobah",
-            "pts_since": 106
-          },
-          "differential": -28
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.795032Z",
-          "player_out": {
-            "id": 191,
-            "name": "Est\u00e8ve",
-            "pts_since": 69
-          },
-          "player_in": {
-            "id": 7,
-            "name": "Calafiori",
-            "pts_since": 65
-          },
-          "differential": -4
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.794664Z",
-          "player_out": {
-            "id": 106,
-            "name": "Collins",
-            "pts_since": 104
-          },
-          "player_in": {
-            "id": 370,
-            "name": "Frimpong",
-            "pts_since": 58
-          },
-          "differential": -46
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-04T20:52:35.794148Z",
-          "player_out": {
-            "id": 78,
-            "name": "J.Araujo",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 568,
-            "name": "Pedro Porro",
-            "pts_since": 87
-          },
-          "differential": 87
-        },
-        {
-          "gw": 7,
-          "time": "2025-10-01T08:19:34.178695Z",
-          "player_out": {
-            "id": 610,
-            "name": "Wan-Bissaka",
-            "pts_since": 62
-          },
-          "player_in": {
-            "id": 683,
-            "name": "Alderete",
-            "pts_since": 73
-          },
-          "differential": 11
-        },
-        {
-          "gw": 10,
-          "time": "2025-10-31T22:27:30.102994Z",
-          "player_out": {
-            "id": 316,
-            "name": "Robinson",
-            "pts_since": 42
-          },
-          "player_in": {
-            "id": 148,
-            "name": "F.Kad\u0131o\u011flu",
-            "pts_since": 98
-          },
-          "differential": 56
-        },
-        {
-          "gw": 14,
-          "time": "2025-12-01T12:35:05.979564Z",
-          "player_out": {
-            "id": 677,
-            "name": "Guessand",
-            "pts_since": 28
-          },
-          "player_in": {
-            "id": 53,
-            "name": "Malen",
-            "pts_since": 16
-          },
-          "differential": -12
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-02T10:13:49.906049Z",
-          "player_out": {
-            "id": 53,
-            "name": "Malen",
-            "pts_since": 2
-          },
-          "player_in": {
-            "id": 660,
-            "name": "Stach",
-            "pts_since": 41
-          },
-          "differential": 39
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-06T15:15:36.677144Z",
-          "player_out": {
-            "id": 660,
-            "name": "Stach",
-            "pts_since": 25
-          },
-          "player_in": {
-            "id": 50,
-            "name": "Buend\u00eda",
-            "pts_since": 14
-          },
-          "differential": -11
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-03T11:20:53.319835Z",
-          "player_out": {
-            "id": 121,
-            "name": "Damsgaard",
-            "pts_since": 34
-          },
-          "player_in": {
-            "id": 807,
-            "name": "Rayan",
-            "pts_since": 41
-          },
-          "differential": 7
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-02T23:28:38.073233Z",
-          "player_out": {
-            "id": 50,
-            "name": "Buend\u00eda",
-            "pts_since": 10
-          },
-          "player_in": {
-            "id": 121,
-            "name": "Damsgaard",
-            "pts_since": 13
-          },
-          "differential": 3
-        },
-        {
-          "gw": 32,
-          "time": "2026-04-07T13:41:03.343678Z",
-          "player_out": {
-            "id": 714,
-            "name": "Woltemade",
-            "pts_since": 3
-          },
-          "player_in": {
-            "id": 525,
-            "name": "Wood",
-            "pts_since": 10
-          },
-          "differential": 7
-        }
-      ]
-    },
-    {
-      "entry_id": 6366909,
-      "name": "HC XI II",
-      "manager": "Dominic Byrne",
-      "net_gain": -171,
-      "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.042483Z",
-          "player_out": {
-            "id": 661,
-            "name": "Ekitik\u00e9",
-            "pts_since": 103
-          },
-          "player_in": {
-            "id": 311,
-            "name": "Beto",
-            "pts_since": 83
-          },
-          "differential": -20
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.042192Z",
-          "player_out": {
-            "id": 249,
-            "name": "Jo\u00e3o Pedro",
-            "pts_since": 140
-          },
-          "player_in": {
-            "id": 726,
-            "name": "Kolo Muani",
-            "pts_since": 46
-          },
-          "differential": -94
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.041894Z",
-          "player_out": {
-            "id": 64,
-            "name": "Watkins",
-            "pts_since": 123
-          },
-          "player_in": {
-            "id": 250,
-            "name": "Delap",
-            "pts_since": 39
-          },
-          "differential": -84
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.041413Z",
-          "player_out": {
-            "id": 450,
-            "name": "Cunha",
-            "pts_since": 120
-          },
-          "player_in": {
-            "id": 669,
-            "name": "Ndoye",
-            "pts_since": 33
-          },
-          "differential": -87
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.040858Z",
-          "player_out": {
-            "id": 427,
-            "name": "Reijnders",
-            "pts_since": 72
-          },
-          "player_in": {
-            "id": 83,
-            "name": "O.Dango",
-            "pts_since": 97
-          },
-          "differential": 25
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.040359Z",
-          "player_out": {
-            "id": 381,
-            "name": "M.Salah",
-            "pts_since": 100
-          },
-          "player_in": {
-            "id": 382,
-            "name": "Wirtz",
-            "pts_since": 114
-          },
-          "differential": 14
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.039845Z",
-          "player_out": {
-            "id": 211,
-            "name": "A.Ramsey",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 414,
-            "name": "Foden",
-            "pts_since": 113
-          },
-          "differential": 113
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.039318Z",
-          "player_out": {
-            "id": 603,
-            "name": "Diouf",
-            "pts_since": 81
-          },
-          "player_in": {
-            "id": 444,
-            "name": "Yoro",
-            "pts_since": 43
-          },
-          "differential": -38
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.038830Z",
-          "player_out": {
-            "id": 575,
-            "name": "Van de Ven",
-            "pts_since": 93
-          },
-          "player_in": {
-            "id": 410,
-            "name": "Lewis",
-            "pts_since": 6
-          },
-          "differential": -87
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.038290Z",
-          "player_out": {
-            "id": 508,
-            "name": "N.Williams",
-            "pts_since": 118
-          },
-          "player_in": {
-            "id": 228,
-            "name": "Gusto",
-            "pts_since": 86
-          },
-          "differential": -32
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.037766Z",
-          "player_out": {
-            "id": 224,
-            "name": "Cucurella",
-            "pts_since": 78
-          },
-          "player_in": {
-            "id": 232,
-            "name": "Tosin",
-            "pts_since": 24
-          },
-          "differential": -54
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.037210Z",
-          "player_out": {
-            "id": 191,
-            "name": "Est\u00e8ve",
-            "pts_since": 69
-          },
-          "player_in": {
-            "id": 477,
-            "name": "Livramento",
-            "pts_since": 40
-          },
-          "differential": -29
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.036652Z",
-          "player_out": {
-            "id": 502,
-            "name": "Sels",
-            "pts_since": 83
-          },
-          "player_in": {
-            "id": 628,
-            "name": "Jos\u00e9 S\u00e1",
-            "pts_since": 55
-          },
-          "differential": -28
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:55:49.035977Z",
-          "player_out": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "player_in": {
-            "id": 736,
-            "name": "Donnarumma",
-            "pts_since": 119
-          },
-          "differential": 35
-        },
-        {
-          "gw": 7,
-          "time": "2025-09-30T13:12:59.547740Z",
-          "player_out": {
-            "id": 232,
-            "name": "Tosin",
-            "pts_since": 23
-          },
-          "player_in": {
-            "id": 636,
-            "name": "S.Bueno",
-            "pts_since": 61
-          },
-          "differential": 38
-        },
-        {
-          "gw": 10,
-          "time": "2025-10-28T17:44:36.864705Z",
-          "player_out": {
-            "id": 410,
-            "name": "Lewis",
-            "pts_since": 4
-          },
-          "player_in": {
-            "id": 440,
-            "name": "Dalot",
-            "pts_since": 88
-          },
-          "differential": 84
-        },
-        {
-          "gw": 14,
-          "time": "2025-12-02T14:12:07.561709Z",
-          "player_out": {
-            "id": 444,
-            "name": "Yoro",
-            "pts_since": 28
-          },
-          "player_in": {
-            "id": 322,
-            "name": "Tete",
-            "pts_since": 37
-          },
-          "differential": 9
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-02T10:15:52.067885Z",
-          "player_out": {
-            "id": 669,
-            "name": "Ndoye",
-            "pts_since": 9
-          },
-          "player_in": {
-            "id": 580,
-            "name": "Johnson",
-            "pts_since": 24
-          },
-          "differential": 15
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-05T10:00:32.938312Z",
-          "player_out": {
-            "id": 477,
-            "name": "Livramento",
-            "pts_since": 10
-          },
-          "player_in": {
-            "id": 290,
-            "name": "Branthwaite",
-            "pts_since": 30
-          },
-          "differential": 20
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-03T11:12:38.188436Z",
-          "player_out": {
-            "id": 726,
-            "name": "Kolo Muani",
-            "pts_since": 20
-          },
-          "player_in": {
-            "id": 791,
-            "name": "Taty",
-            "pts_since": 36
-          },
-          "differential": 16
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-01T20:28:27.038691Z",
-          "player_out": {
-            "id": 636,
-            "name": "S.Bueno",
-            "pts_since": 7
-          },
-          "player_in": {
-            "id": 39,
-            "name": "Maatsen",
-            "pts_since": 7
-          },
-          "differential": 0
-        },
-        {
-          "gw": 32,
-          "time": "2026-04-07T17:38:23.700402Z",
-          "player_out": {
-            "id": 322,
-            "name": "Tete",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 342,
-            "name": "Bogle",
-            "pts_since": 13
-          },
-          "differential": 13
-        }
-      ]
-    },
-    {
-      "entry_id": 7552664,
-      "name": "Beef Cherki",
-      "manager": "Alexander Bodek",
-      "net_gain": -173,
-      "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.457991Z",
-          "player_out": {
-            "id": 610,
-            "name": "Wan-Bissaka",
-            "pts_since": 62
-          },
-          "player_in": {
-            "id": 531,
-            "name": "Ballard",
-            "pts_since": 100
-          },
-          "differential": 38
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.457709Z",
-          "player_out": {
-            "id": 603,
-            "name": "Diouf",
-            "pts_since": 81
-          },
-          "player_in": {
-            "id": 685,
-            "name": "Diakit\u00e9",
-            "pts_since": 30
-          },
-          "differential": -51
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.457456Z",
-          "player_out": {
-            "id": 575,
-            "name": "Van de Ven",
-            "pts_since": 93
-          },
-          "player_in": {
-            "id": 258,
-            "name": "Mitchell",
-            "pts_since": 110
-          },
-          "differential": 17
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.457148Z",
-          "player_out": {
-            "id": 40,
-            "name": "Mings",
-            "pts_since": 36
-          },
-          "player_in": {
-            "id": 224,
-            "name": "Cucurella",
-            "pts_since": 78
-          },
-          "differential": 42
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.456920Z",
-          "player_out": {
-            "id": 191,
-            "name": "Est\u00e8ve",
-            "pts_since": 69
-          },
-          "player_in": {
-            "id": 291,
-            "name": "Tarkowski",
-            "pts_since": 134
-          },
-          "differential": 65
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.456690Z",
-          "player_out": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "player_in": {
-            "id": 2,
-            "name": "Arrizabalaga",
-            "pts_since": 0
-          },
-          "differential": -84
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.456444Z",
-          "player_out": {
-            "id": 430,
-            "name": "Haaland",
-            "pts_since": 188
-          },
-          "player_in": {
-            "id": 217,
-            "name": "Foster",
-            "pts_since": 47
-          },
-          "differential": -141
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.456160Z",
-          "player_out": {
-            "id": 64,
-            "name": "Watkins",
-            "pts_since": 123
-          },
-          "player_in": {
-            "id": 310,
-            "name": "Barry",
-            "pts_since": 76
-          },
-          "differential": -47
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.455918Z",
-          "player_out": {
-            "id": 417,
-            "name": "Cherki",
-            "pts_since": 116
-          },
-          "player_in": {
-            "id": 416,
-            "name": "Bernardo",
-            "pts_since": 85
-          },
-          "differential": -31
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.455661Z",
-          "player_out": {
-            "id": 449,
-            "name": "B.Fernandes",
-            "pts_since": 190
-          },
-          "player_in": {
-            "id": 386,
-            "name": "Mac Allister",
-            "pts_since": 92
-          },
-          "differential": -98
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.455352Z",
-          "player_out": {
-            "id": 21,
-            "name": "Rice",
-            "pts_since": 155
-          },
-          "player_in": {
-            "id": 237,
-            "name": "Enzo",
-            "pts_since": 108
-          },
-          "differential": -47
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.455059Z",
-          "player_out": {
-            "id": 235,
-            "name": "Palmer",
-            "pts_since": 99
-          },
-          "player_in": {
-            "id": 419,
-            "name": "Grealish",
-            "pts_since": 57
-          },
-          "differential": -42
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:08:20.454724Z",
-          "player_out": {
-            "id": 211,
-            "name": "A.Ramsey",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 82,
-            "name": "Semenyo",
-            "pts_since": 158
-          },
-          "differential": 158
-        },
-        {
-          "gw": 7,
-          "time": "2025-10-01T21:42:05.666337Z",
-          "player_out": {
-            "id": 386,
-            "name": "Mac Allister",
-            "pts_since": 87
-          },
-          "player_in": {
-            "id": 81,
-            "name": "Kluivert",
-            "pts_since": 35
-          },
-          "differential": -52
-        },
-        {
-          "gw": 10,
-          "time": "2025-10-29T17:59:41.647398Z",
-          "player_out": {
-            "id": 310,
-            "name": "Barry",
-            "pts_since": 70
-          },
-          "player_in": {
-            "id": 215,
-            "name": "Flemming",
-            "pts_since": 63
-          },
-          "differential": -7
-        },
-        {
-          "gw": 15,
-          "time": "2025-12-02T18:57:53.461686Z",
-          "player_out": {
-            "id": 685,
-            "name": "Diakit\u00e9",
-            "pts_since": 11
-          },
-          "player_in": {
-            "id": 295,
-            "name": "Keane",
-            "pts_since": 53
-          },
-          "differential": 42
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-02T19:46:14.356554Z",
-          "player_out": {
-            "id": 217,
-            "name": "Foster",
-            "pts_since": 21
-          },
-          "player_in": {
-            "id": 680,
-            "name": "Broja",
-            "pts_since": 14
-          },
-          "differential": -7
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-04T22:00:01.883269Z",
-          "player_out": {
-            "id": 81,
-            "name": "Kluivert",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 350,
-            "name": "Aaronson",
-            "pts_since": 28
-          },
-          "differential": 28
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-04T22:00:01.875066Z",
-          "player_out": {
-            "id": 419,
-            "name": "Grealish",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 90,
-            "name": "Scott",
-            "pts_since": 41
-          },
-          "differential": 41
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-02T08:36:45.765691Z",
-          "player_out": {
-            "id": 680,
-            "name": "Broja",
-            "pts_since": 4
-          },
-          "player_in": {
-            "id": 749,
-            "name": "Man\u00e9",
-            "pts_since": 7
-          },
-          "differential": 3
-        }
-      ]
-    },
-    {
-      "entry_id": 5145283,
-      "name": "Habibi Jeebies",
-      "manager": "Arun Quayum",
-      "net_gain": -209,
-      "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T20:39:37.233496Z",
-          "player_out": {
-            "id": 198,
-            "name": "Tuanzebe",
-            "pts_since": 27
-          },
-          "player_in": {
-            "id": 574,
-            "name": "Udogie",
-            "pts_since": 17
-          },
-          "differential": -10
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T13:12:00.189270Z",
-          "player_out": {
-            "id": 185,
-            "name": "Hladk\u00fd",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "differential": 84
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T12:29:33.026642Z",
-          "player_out": {
-            "id": 183,
-            "name": "Weiss",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 32,
-            "name": "Martinez",
-            "pts_since": 108
-          },
-          "differential": 108
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T11:00:54.113638Z",
-          "player_out": {
-            "id": 419,
-            "name": "Grealish",
-            "pts_since": 57
-          },
-          "player_in": {
-            "id": 48,
-            "name": "Tielemans",
-            "pts_since": 52
-          },
-          "differential": -5
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T10:59:39.067363Z",
-          "player_out": {
-            "id": 249,
-            "name": "Jo\u00e3o Pedro",
-            "pts_since": 140
-          },
-          "player_in": {
-            "id": 691,
-            "name": "Calvert-Lewin",
-            "pts_since": 119
-          },
-          "differential": -21
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.062821Z",
-          "player_out": {
-            "id": 624,
-            "name": "Bowen",
-            "pts_since": 156
-          },
-          "player_in": {
-            "id": 681,
-            "name": "\u0160e\u0161ko",
-            "pts_since": 103
-          },
-          "differential": -53
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.062610Z",
-          "player_out": {
-            "id": 430,
-            "name": "Haaland",
-            "pts_since": 188
-          },
-          "player_in": {
-            "id": 135,
-            "name": "Wissa",
-            "pts_since": 22
-          },
-          "differential": -166
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.062416Z",
-          "player_out": {
-            "id": 582,
-            "name": "Kudus",
-            "pts_since": 60
-          },
-          "player_in": {
-            "id": 419,
-            "name": "Grealish",
-            "pts_since": 57
-          },
-          "differential": -3
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.062222Z",
-          "player_out": {
-            "id": 276,
-            "name": "Devenny",
-            "pts_since": 26
-          },
-          "player_in": {
-            "id": 673,
-            "name": "J.Palhinha",
-            "pts_since": 92
-          },
-          "differential": 66
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.062025Z",
-          "player_out": {
-            "id": 119,
-            "name": "Mbeumo",
-            "pts_since": 115
-          },
-          "player_in": {
-            "id": 238,
-            "name": "Est\u00eav\u00e3o",
-            "pts_since": 50
-          },
-          "differential": -65
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.061831Z",
-          "player_out": {
-            "id": 403,
-            "name": "Gvardiol",
-            "pts_since": 77
-          },
-          "player_in": {
-            "id": 198,
-            "name": "Tuanzebe",
-            "pts_since": 27
-          },
-          "differential": -50
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.061611Z",
-          "player_out": {
-            "id": 373,
-            "name": "Virgil",
-            "pts_since": 142
-          },
-          "player_in": {
-            "id": 402,
-            "name": "A\u00eft-Nouri",
-            "pts_since": 43
-          },
-          "differential": -99
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.061418Z",
-          "player_out": {
-            "id": 292,
-            "name": "Mykolenko",
-            "pts_since": 90
-          },
-          "player_in": {
-            "id": 371,
-            "name": "Kerkez",
-            "pts_since": 74
-          },
-          "differential": -16
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.061207Z",
-          "player_out": {
-            "id": 291,
-            "name": "Tarkowski",
-            "pts_since": 134
-          },
-          "player_in": {
-            "id": 225,
-            "name": "James",
-            "pts_since": 106
-          },
-          "differential": -28
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.060948Z",
-          "player_out": {
-            "id": 43,
-            "name": "Alex Moreno",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 573,
-            "name": "Spence",
-            "pts_since": 56
-          },
-          "differential": 56
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.060682Z",
-          "player_out": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "player_in": {
-            "id": 183,
-            "name": "Weiss",
-            "pts_since": 0
-          },
-          "differential": -84
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-05T13:22:10.060388Z",
-          "player_out": {
-            "id": 287,
-            "name": "Pickford",
-            "pts_since": 110
-          },
-          "player_in": {
-            "id": 185,
-            "name": "Hladk\u00fd",
-            "pts_since": 0
-          },
-          "differential": -110
-        },
-        {
-          "gw": 7,
-          "time": "2025-09-30T07:25:16.319523Z",
-          "player_out": {
-            "id": 48,
-            "name": "Tielemans",
-            "pts_since": 51
-          },
-          "player_in": {
-            "id": 169,
-            "name": "Gomez",
-            "pts_since": 90
-          },
-          "differential": 39
-        },
-        {
-          "gw": 10,
-          "time": "2025-10-28T15:09:44.596142Z",
-          "player_out": {
-            "id": 574,
-            "name": "Udogie",
-            "pts_since": 11
-          },
-          "player_in": {
-            "id": 694,
-            "name": "Mukiele",
-            "pts_since": 82
-          },
-          "differential": 71
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-02T20:14:57.173430Z",
-          "player_out": {
-            "id": 673,
-            "name": "J.Palhinha",
-            "pts_since": 36
-          },
-          "player_in": {
-            "id": 423,
-            "name": "N.Gonzalez",
-            "pts_since": 6
-          },
-          "differential": -30
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-05T15:09:50.999922Z",
-          "player_out": {
-            "id": 573,
-            "name": "Spence",
-            "pts_since": 14
-          },
-          "player_in": {
-            "id": 706,
-            "name": "Justin",
-            "pts_since": 45
-          },
-          "differential": 31
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-03T08:58:29.369612Z",
-          "player_out": {
-            "id": 423,
-            "name": "N.Gonzalez",
-            "pts_since": 2
-          },
-          "player_in": {
-            "id": 615,
-            "name": "Summerville",
-            "pts_since": 37
-          },
-          "differential": 35
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-01T20:12:21.981303Z",
-          "player_out": {
-            "id": 238,
-            "name": "Est\u00eav\u00e3o",
-            "pts_since": 3
-          },
-          "player_in": {
-            "id": 386,
-            "name": "Mac Allister",
-            "pts_since": 26
-          },
-          "differential": 23
-        },
-        {
-          "gw": 32,
-          "time": "2026-04-08T06:19:29.865808Z",
-          "player_out": {
-            "id": 225,
-            "name": "James",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 508,
-            "name": "N.Williams",
-            "pts_since": 18
-          },
-          "differential": 18
-        }
-      ]
-    },
-    {
-      "entry_id": 5191754,
-      "name": "Stay Classy SanDiogo",
-      "manager": "Ed Pragnell",
-      "net_gain": -219,
-      "trades": [
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.341586Z",
-          "player_out": {
-            "id": 447,
-            "name": "Heaven",
-            "pts_since": 40
-          },
-          "player_in": {
-            "id": 507,
-            "name": "Aina",
-            "pts_since": 61
-          },
-          "differential": 21
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.341044Z",
-          "player_out": {
-            "id": 256,
-            "name": "Mu\u00f1oz",
-            "pts_since": 107
-          },
-          "player_in": {
-            "id": 37,
-            "name": "Digne",
-            "pts_since": 83
-          },
-          "differential": -24
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.340551Z",
-          "player_out": {
-            "id": 224,
-            "name": "Cucurella",
-            "pts_since": 78
-          },
-          "player_in": {
-            "id": 474,
-            "name": "Sch\u00e4r",
-            "pts_since": 36
-          },
-          "differential": -42
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.340014Z",
-          "player_out": {
-            "id": 470,
-            "name": "D\u00fabravka",
-            "pts_since": 84
-          },
-          "player_in": {
-            "id": 367,
-            "name": "Mamardashvili",
-            "pts_since": 31
-          },
-          "differential": -53
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.339519Z",
-          "player_out": {
-            "id": 582,
-            "name": "Kudus",
-            "pts_since": 60
-          },
-          "player_in": {
-            "id": 413,
-            "name": "Marmoush",
-            "pts_since": 31
-          },
-          "differential": -29
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.338973Z",
-          "player_out": {
-            "id": 580,
-            "name": "Johnson",
-            "pts_since": 40
-          },
-          "player_in": {
-            "id": 235,
-            "name": "Palmer",
-            "pts_since": 99
-          },
-          "differential": 59
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.338487Z",
-          "player_out": {
-            "id": 384,
-            "name": "Gakpo",
-            "pts_since": 99
-          },
-          "player_in": {
-            "id": 17,
-            "name": "\u00d8degaard",
-            "pts_since": 60
-          },
-          "differential": -39
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.337961Z",
-          "player_out": {
-            "id": 661,
-            "name": "Ekitik\u00e9",
-            "pts_since": 103
-          },
-          "player_in": {
-            "id": 596,
-            "name": "Solanke",
-            "pts_since": 38
-          },
-          "differential": -65
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.337478Z",
-          "player_out": {
-            "id": 430,
-            "name": "Haaland",
-            "pts_since": 188
-          },
-          "player_in": {
-            "id": 597,
-            "name": "Richarlison",
-            "pts_since": 80
-          },
-          "differential": -108
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.336957Z",
-          "player_out": {
-            "id": 249,
-            "name": "Jo\u00e3o Pedro",
-            "pts_since": 140
-          },
-          "player_in": {
-            "id": 362,
-            "name": "Piroe",
-            "pts_since": 12
-          },
-          "differential": -128
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.336418Z",
-          "player_out": {
-            "id": 157,
-            "name": "Mitoma",
-            "pts_since": 52
-          },
-          "player_in": {
-            "id": 648,
-            "name": "Munetsi",
-            "pts_since": 29
-          },
-          "differential": -23
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.335893Z",
-          "player_out": {
-            "id": 502,
-            "name": "Sels",
-            "pts_since": 83
-          },
-          "player_in": {
-            "id": 314,
-            "name": "Leno",
-            "pts_since": 100
-          },
-          "differential": 17
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.335334Z",
-          "player_out": {
-            "id": 5,
-            "name": "Gabriel",
-            "pts_since": 171
-          },
-          "player_in": {
-            "id": 260,
-            "name": "Gu\u00e9hi",
-            "pts_since": 135
-          },
-          "differential": -36
-        },
-        {
-          "gw": 4,
-          "time": "2025-09-08T19:22:31.334692Z",
-          "player_out": {
-            "id": 38,
-            "name": "Konsa",
-            "pts_since": 94
-          },
-          "player_in": {
-            "id": 374,
-            "name": "Konat\u00e9",
-            "pts_since": 118
-          },
-          "differential": 24
-        },
-        {
-          "gw": 7,
-          "time": "2025-10-01T15:58:37.331415Z",
-          "player_out": {
-            "id": 507,
-            "name": "Aina",
-            "pts_since": 61
-          },
-          "player_in": {
-            "id": 475,
-            "name": "Botman",
-            "pts_since": 54
-          },
-          "differential": -7
-        },
-        {
-          "gw": 10,
-          "time": "2025-10-31T07:06:45.795674Z",
-          "player_out": {
-            "id": 362,
-            "name": "Piroe",
-            "pts_since": 10
-          },
-          "player_in": {
-            "id": 100,
-            "name": "Kroupi.Jr",
-            "pts_since": 68
-          },
-          "differential": 58
-        },
-        {
-          "gw": 14,
-          "time": "2025-11-30T22:40:16.498488Z",
-          "player_out": {
-            "id": 475,
-            "name": "Botman",
-            "pts_since": 42
-          },
-          "player_in": {
-            "id": 411,
-            "name": "O'Reilly",
-            "pts_since": 96
-          },
-          "differential": 54
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-01T22:08:56.715202Z",
-          "player_out": {
-            "id": 648,
-            "name": "Munetsi",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 157,
-            "name": "Mitoma",
-            "pts_since": 38
-          },
-          "differential": 38
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-04T22:41:49.773466Z",
-          "player_out": {
-            "id": 37,
-            "name": "Digne",
-            "pts_since": 24
-          },
-          "player_in": {
-            "id": 442,
-            "name": "Maguire",
-            "pts_since": 26
-          },
-          "differential": 2
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-04T22:41:49.768308Z",
-          "player_out": {
-            "id": 474,
-            "name": "Sch\u00e4r",
-            "pts_since": 0
-          },
-          "player_in": {
-            "id": 151,
-            "name": "Van Hecke",
-            "pts_since": 50
-          },
-          "differential": 50
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-02T08:34:33.133888Z",
-          "player_out": {
-            "id": 367,
-            "name": "Mamardashvili",
-            "pts_since": 12
-          },
-          "player_in": {
-            "id": 400,
-            "name": "Ortega Moreno",
-            "pts_since": 0
-          },
-          "differential": -12
-        },
-        {
-          "gw": 32,
-          "time": "2026-04-04T11:22:30.759462Z",
-          "player_out": {
-            "id": 442,
-            "name": "Maguire",
-            "pts_since": 7
-          },
-          "player_in": {
-            "id": 606,
-            "name": "Mavropanos",
-            "pts_since": 31
-          },
-          "differential": 24
         }
       ]
     }
