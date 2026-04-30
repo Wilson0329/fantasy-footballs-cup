@@ -1319,7 +1319,7 @@ function buildChampionsTab() {
 
 const FOUNDING_YEAR = 2012;
 const TOTAL_SEASONS = new Date().getFullYear() - FOUNDING_YEAR + (new Date().getMonth() >= 7 ? 1 : 0);
-const TOTAL_CUP_SEASONS = 4;
+const TOTAL_CUPS = CHAMPIONS_DATA.reduce((sum, m) => sum + m.cups, 0);
 
 function buildHistoryTab() {
   const frag = document.createDocumentFragment();
@@ -1335,8 +1335,8 @@ function buildHistoryTab() {
       el('div', { className: 'founder-title' }, 'GVG XI \xb7 Est. ' + FOUNDING_YEAR),
       el('div', { className: 'founder-quotes' },
         el('blockquote', { className: 'founder-quote' },
-          "I founded this league because I genuinely believed I would win it every year. " +
-          TOTAL_SEASONS + " seasons later I’m still waiting, but my optimism remains completely untouched."
+          "I founded this league in " + FOUNDING_YEAR + " with one simple vision: a fair, competitive " +
+          "tournament that anyone could win. I've since won it twice, so clearly the system works."
         )
       ),
       el('div', { className: 'founder-stats' },
@@ -1349,12 +1349,8 @@ function buildHistoryTab() {
           el('div', { className: 'fstat-label' }, 'Seasons')
         ),
         el('div', { className: 'fstat' },
-          el('div', { className: 'fstat-num' }, String(TOTAL_CUP_SEASONS)),
-          el('div', { className: 'fstat-label' }, 'Cup Seasons')
-        ),
-        el('div', { className: 'fstat' },
-          el('div', { className: 'fstat-num' }, '12'),
-          el('div', { className: 'fstat-label' }, 'Managers')
+          el('div', { className: 'fstat-num' }, String(TOTAL_CUPS)),
+          el('div', { className: 'fstat-label' }, 'Cups Played')
         )
       )
     )
