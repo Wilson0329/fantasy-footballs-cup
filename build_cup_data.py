@@ -440,7 +440,7 @@ def main():
             "league_id": LEAGUE_ID,
             "last_updated": date.today().isoformat(),
             "current_gw": cur_gw,
-            "season": "2024/25",
+            "season": "2025/26",
         },
         "groups": {
             "A": group_a,
