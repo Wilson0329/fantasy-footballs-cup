@@ -828,15 +828,13 @@ function buildTradeDiffTable(tradeDiff) {
     )
   );
 
-  const tbody = el('tbody');
+  const table = el('table', { className: 'stats-table' }, thead);
 
   tradeDiff.forEach((team, idx) => {
     const gainClass = team.net_gain > 0 ? 'pos' : team.net_gain < 0 ? 'neg' : 'zero';
 
-    // Detail panel rows (hidden by default)
     const detailGroup = el('tbody', { className: 'detail-panel' });
 
-    // Header row for the detail
     const detailHeaderRow = document.createElement('tr');
     detailHeaderRow.className = 'trade-detail-row';
     detailHeaderRow.innerHTML = `
@@ -855,7 +853,6 @@ function buildTradeDiffTable(tradeDiff) {
         const diff = t.differential;
         const diffStr = fmtDiff(diff);
         const diffClass = diff > 0 ? 'pos' : diff < 0 ? 'neg' : '';
-
         const row = document.createElement('tr');
         row.className = 'trade-detail-row';
         row.innerHTML = `<td colspan="5" style="padding:0.4rem 1rem 0.4rem 2rem;font-size:0.78rem;border-bottom:1px solid rgba(31,45,69,0.5)">
@@ -873,9 +870,9 @@ function buildTradeDiffTable(tradeDiff) {
       });
     }
 
-    // Summary row
     const expandBtn = el('span', { className: 'expand-btn' }, '▾');
-    const summaryRow = el('tr', { className: 'summary-row',
+    const summaryTbody = el('tbody');
+    summaryTbody.appendChild(el('tr', { className: 'summary-row',
       onClick: () => {
         const open = detailGroup.classList.toggle('open');
         expandBtn.classList.toggle('open', open);
@@ -889,21 +886,10 @@ function buildTradeDiffTable(tradeDiff) {
       el('td', { className: `net-gain ${gainClass}` }, fmtDiff(team.net_gain)),
       el('td', { style: 'color:var(--muted)' }, String(team.trades.length)),
       el('td', {}, expandBtn)
-    );
+    ));
 
-    tbody.appendChild(summaryRow);
-    // Append detailGroup as a separate tbody after the summary row
-    // We do this after the main table is constructed
-    team._detailGroup = detailGroup;
-  });
-
-  const table = el('table', { className: 'stats-table' }, thead, tbody);
-  card.appendChild(table);
-
-  // Append detail tbodys after the main tbody
-  tradeDiff.forEach(team => {
-    table.appendChild(team._detailGroup);
-    delete team._detailGroup;
+    table.appendChild(summaryTbody);
+    table.appendChild(detailGroup);
   });
 
   return card;
@@ -926,14 +912,13 @@ function buildCaptainTable(captainPoints) {
     )
   );
 
-  const tbody = el('tbody');
+  const table2 = el('table', { className: 'stats-table' }, thead);
 
   captainPoints.forEach((team, idx) => {
     const bestGw = team.by_gw.reduce((best, g) => g.bonus > (best ? best.bonus : -1) ? g : best, null);
 
     const detailGroup = el('tbody', { className: 'detail-panel' });
 
-    // Detail header
     const dh = document.createElement('tr');
     dh.innerHTML = `<td colspan="5" style="padding:0.3rem 1rem 0.3rem 2rem;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid rgba(31,45,69,0.5)">
       GW &nbsp;&nbsp; Captain &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Raw Pts &nbsp;&nbsp; Bonus
@@ -955,7 +940,8 @@ function buildCaptainTable(captainPoints) {
     });
 
     const expandBtn = el('span', { className: 'expand-btn' }, '▾');
-    const summaryRow = el('tr', { className: 'summary-row',
+    const summaryTbody = el('tbody');
+    summaryTbody.appendChild(el('tr', { className: 'summary-row',
       onClick: () => {
         const open = detailGroup.classList.toggle('open');
         expandBtn.classList.toggle('open', open);
@@ -971,20 +957,13 @@ function buildCaptainTable(captainPoints) {
         bestGw ? `GW${bestGw.gw} · ${bestGw.player} (+${bestGw.bonus})` : '—'
       ),
       el('td', {}, expandBtn)
-    );
+    ));
 
-    tbody.appendChild(summaryRow);
-    team._detailGroup = detailGroup;
+    table2.appendChild(summaryTbody);
+    table2.appendChild(detailGroup);
   });
 
-  const table = el('table', { className: 'stats-table' }, thead, tbody);
-  card.appendChild(table);
-
-  captainPoints.forEach(team => {
-    table.appendChild(team._detailGroup);
-    delete team._detailGroup;
-  });
-
+  card.appendChild(table2);
   return card;
 }
 
