@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fantasy Footballs Cup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0b0f1a;
+      --surface:   #111827;
+      --surface2:  #1a2236;
+      --border:    #1f2d45;
+      --accent:    #00d4aa;
+      --accent2:   #6366f1;
+      --gold:      #f59e0b;
+      --red:       #ef4444;
+      --text:      #f1f5f9;
+      --muted:     #64748b;
+      --win:       #16a34a;
+      --lose:      #dc2626;
+      --draw:      #ca8a04;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .site-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% -20%, rgba(99,102,241,0.25) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .trophy { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .site-header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #a5b4fc, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .season-badge {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.25rem 0.75rem;
+      background: rgba(99,102,241,0.2);
+      border: 1px solid rgba(99,102,241,0.4);
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      color: #a5b4fc;
+      font-weight: 500;
+    }
+    .last-updated {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ── Layout ── */
+    .container { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Groups ── */
+    .groups-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 900px) { .groups-grid { grid-template-columns: 1fr; } }
+
+    .group-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .group-header {
+      padding: 1rem 1.25rem;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .group-badge {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--accent2);
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .group-header h2 { font-size: 1rem; font-weight: 700; }
+
+    /* ── Standings Table ── */
+    .standings-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .standings-table thead th {
+      padding: 0.5rem 0.75rem;
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .standings-table thead th:first-child { text-align: left; }
+    .standings-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .standings-table tbody tr:last-child { border-bottom: none; }
+    .standings-table tbody tr:hover { background: var(--surface2); }
+    .standings-table td {
+      padding: 0.6rem 0.75rem;
+      text-align: center;
+      color: var(--text);
+    }
+    .standings-table td:first-child { text-align: left; }
+    .pos-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+    .pos-num { font-weight: 700; width: 1.2rem; text-align: right; color: var(--muted); }
+    .team-name { font-weight: 600; }
+    .manager-name { font-size: 0.72rem; color: var(--muted); margin-top: 0.1rem; }
+    .qualified-pill {
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      background: rgba(0, 212, 170, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+      white-space: nowrap;
+    }
+    .pts-cell { font-weight: 700; font-size: 1rem; color: var(--text); }
+    .separator-row td { background: rgba(0,0,0,0.3); padding: 2px 0; }
+
+    /* ── Fixtures ── */
+    .fixtures-accordion { border-top: 1px solid var(--border); }
+    .round-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+    .round-toggle:hover { background: var(--surface2); }
+    .round-toggle:last-of-type { border-bottom: none; }
+    .round-info { display: flex; align-items: center; gap: 0.5rem; }
+    .round-gw {
+      font-size: 0.7rem;
+      color: var(--muted);
+      padding: 0.15rem 0.4rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+    .chevron { transition: transform 0.2s; color: var(--muted); }
+    .chevron.open { transform: rotate(180deg); }
+
+    .round-matches { display: none; }
+    .round-matches.open { display: block; }
+
+    .match-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.82rem;
+      gap: 0.5rem;
+    }
+    .match-row:last-child { border-bottom: none; }
+    .match-team { flex: 1; }
+    .match-team.home { text-align: right; font-weight: 600; }
+    .match-team.away { text-align: left; font-weight: 600; }
+    .match-score {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      min-width: 80px;
+      justify-content: center;
+    }
+    .score-box {
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      min-width: 2.2rem;
+      text-align: center;
+    }
+    .score-box.win  { background: rgba(22,163,74,0.2);  color: #4ade80; }
+    .score-box.lose { background: rgba(220,38,38,0.2);  color: #f87171; }
+    .score-box.draw { background: rgba(202,138,4,0.2);  color: #fbbf24; }
+    .score-box.upcoming { background: var(--surface2); color: var(--muted); }
+    .vs-sep { color: var(--muted); font-size: 0.75rem; }
+    .winner-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--win);
+      flex-shrink: 0;
+    }
+    .winner-dot.invisible { background: transparent; }
+
+    /* ── Knockout ── */
+    .knockout-section { margin-top: 1rem; }
+    .semis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 700px) { .semis-grid { grid-template-columns: 1fr; } }
+
+    .sf-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .sf-header {
+      padding: 0.75rem 1rem;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--accent2);
+    }
+    .sf-matchup {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: space-between;
+    }
+    .sf-team { flex: 1; }
+    .sf-team-name { font-weight: 700; font-size: 0.9rem; }
+    .sf-team-name.winner { color: var(--accent); }
+    .sf-manager { font-size: 0.72rem; color: var(--muted); }
+    .sf-vs { color: var(--muted); font-size: 0.75rem; font-weight: 600; }
+    .sf-agg {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
+      padding: 0.5rem 0;
+    }
+    .agg-score {
+      font-size: 1.6rem;
+      font-weight: 800;
+      padding: 0.25rem 0.75rem;
+      border-radius: 8px;
+    }
+    .agg-score.winner { background: rgba(0,212,170,0.1); color: var(--accent); }
+    .agg-score.loser  { background: rgba(0,0,0,0.3); color: var(--muted); }
+    .agg-dash { color: var(--muted); font-size: 1.2rem; }
+
+    .sf-legs { border-top: 1px solid var(--border); }
+    .sf-leg {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .sf-leg:last-child { border-bottom: none; }
+    .sf-leg-label { color: var(--muted); font-weight: 600; font-size: 0.72rem; }
+    .sf-leg-scores {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .leg-score { font-weight: 700; font-size: 0.9rem; }
+    .leg-score.win  { color: #4ade80; }
+    .leg-score.lose { color: #f87171; }
+    .sf-winner-banner {
+      padding: 0.6rem 1rem;
+      background: rgba(0,212,170,0.08);
+      border-top: 1px solid rgba(0,212,170,0.2);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+    }
+
+    /* ── Final ── */
+    .final-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .final-header {
+      padding: 0.75rem 1rem;
+      background: linear-gradient(90deg, #1e1b4b, #1a2236);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+    }
+    .final-matchup {
+      padding: 1.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .final-team { flex: 1; text-align: center; }
+    .final-team-name { font-weight: 800; font-size: 1rem; }
+    .final-team-name.winner { color: var(--gold); }
+    .final-manager { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+    .final-score-area { text-align: center; }
+    .final-scores {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .final-score {
+      font-size: 2rem;
+      font-weight: 800;
+      min-width: 3rem;
+      text-align: center;
+    }
+    .final-score.winner { color: var(--gold); }
+    .final-dash { color: var(--muted); font-size: 1.5rem; }
+    .upcoming-banner {
+      padding: 0.75rem 1rem;
+      background: rgba(99,102,241,0.1);
+      border-top: 1px solid rgba(99,102,241,0.2);
+      text-align: center;
+      font-size: 0.8rem;
+      color: #a5b4fc;
+      font-weight: 600;
+    }
+    .gw-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      background: rgba(99,102,241,0.2);
+      border: 1px solid rgba(99,102,241,0.4);
+      border-radius: 4px;
+      font-size: 0.7rem;
+      color: #a5b4fc;
+      margin-left: 0.4rem;
+    }
+
+    /* ── Loading / Error ── */
+    .loading {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+    }
+    .loading-spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-msg {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--red);
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="trophy">🏆</div>
+  <h1 id="cup-name">Fantasy Footballs Cup</h1>
+  <div class="season-badge" id="season-badge">2024/25</div>
+  <div class="last-updated" id="last-updated"></div>
+</header>
+
+<main class="container" id="app">
+  <div class="loading">
+    <div class="loading-spinner"></div>
+    Loading cup data…
+  </div>
+</main>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────────────────
+
+function el(tag, attrs = {}, ...children) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === 'className') e.className = v;
+    else if (k === 'onClick') e.addEventListener('click', v);
+    else if (k === 'innerHTML') e.innerHTML = v;
+    else e.setAttribute(k, v);
+  }
+  for (const c of children.flat()) {
+    if (c == null) continue;
+    e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+  }
+  return e;
+}
+
+function scoreClass(score, opponentScore) {
+  if (score === null) return 'upcoming';
+  if (score > opponentScore) return 'win';
+  if (score < opponentScore) return 'lose';
+  return 'draw';
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Group standings table
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildStandingsTable(standings) {
+  const rows = standings.map((s, i) => {
+    const isQ = s.qualified;
+    const separator = i === 1 && isQ;
+
+    const posCell = el('div', { className: 'pos-cell' },
+      el('span', { className: 'pos-num' }, String(s.position)),
+      el('div', {},
+        el('div', { className: 'team-name' },
+          s.name,
+          isQ ? el('span', { className: 'qualified-pill', style: 'margin-left:6px' }, 'Q') : null
+        ),
+        el('div', { className: 'manager-name' }, s.manager)
+      )
+    );
+
+    const tr = el('tr', {},
+      el('td', {}, posCell),
+      el('td', {}, String(s.played)),
+      el('td', {}, String(s.won)),
+      el('td', {}, String(s.drawn)),
+      el('td', {}, String(s.lost)),
+      el('td', {}, String(s.points_for)),
+      el('td', { className: 'pts-cell' }, String(s.cup_points))
+    );
+    return { tr, isQ, i };
+  });
+
+  const tbody = el('tbody');
+  rows.forEach(({ tr, i, isQ }, idx) => {
+    tbody.appendChild(tr);
+    // Separator after qualified zone (after position 2)
+    if (i === 1) {
+      const sep = el('tr', { className: 'separator-row' }, el('td', { colspan: '7', style: 'height:3px;background:rgba(0,212,170,0.15)' }));
+      tbody.appendChild(sep);
+    }
+  });
+
+  return el('table', { className: 'standings-table' },
+    el('thead', {},
+      el('tr', {},
+        el('th', { style: 'text-align:left;padding-left:0.75rem' }, 'Team'),
+        el('th', {}, 'P'),
+        el('th', {}, 'W'),
+        el('th', {}, 'D'),
+        el('th', {}, 'L'),
+        el('th', {}, 'PF'),
+        el('th', {}, 'Pts')
+      )
+    ),
+    tbody
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Fixtures accordion
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildFixtures(fixtures, allStandings) {
+  const accordion = el('div', { className: 'fixtures-accordion' });
+
+  const entryMap = {};
+  allStandings.forEach(s => { entryMap[s.entry_id] = s; });
+
+  fixtures.forEach((round, ri) => {
+    const matchesDiv = el('div', { className: 'round-matches' + (ri === fixtures.length - 1 ? ' open' : '') });
+    const chevron = el('span', { className: 'chevron' + (ri === fixtures.length - 1 ? ' open' : '') }, '▾');
+
+    const toggle = el('button', {
+      className: 'round-toggle',
+      onClick: () => {
+        const open = matchesDiv.classList.toggle('open');
+        chevron.classList.toggle('open', open);
+      }
+    },
+      el('span', { className: 'round-info' },
+        round.label,
+        el('span', { className: 'round-gw' }, `GW${round.gw}`)
+      ),
+      chevron
+    );
+
+    accordion.appendChild(toggle);
+
+    round.matches.forEach(match => {
+      const h = match.home, a = match.away;
+      const upcoming = match.status === 'upcoming';
+
+      const hClass = upcoming ? 'upcoming' : scoreClass(h.score, a.score);
+      const aClass = upcoming ? 'upcoming' : scoreClass(a.score, h.score);
+
+      const hWon = hClass === 'win';
+      const aWon = aClass === 'win';
+
+      const row = el('div', { className: 'match-row' },
+        el('div', { className: 'match-team home' },
+          el('div', { style: `font-weight:${hWon ? '700' : '500'}; color:${hWon ? 'var(--text)' : 'var(--muted)'}` }, h.name),
+        ),
+        el('div', { className: 'match-score' },
+          el('span', { className: `score-box ${hClass}` }, upcoming ? '—' : String(h.score)),
+          el('span', { className: 'vs-sep' }, upcoming ? 'vs' : '-'),
+          el('span', { className: `score-box ${aClass}` }, upcoming ? '—' : String(a.score)),
+        ),
+        el('div', { className: 'match-team away' },
+          el('div', { style: `font-weight:${aWon ? '700' : '500'}; color:${aWon ? 'var(--text)' : 'var(--muted)'}` }, a.name),
+        )
+      );
+      matchesDiv.appendChild(row);
+    });
+
+    accordion.appendChild(matchesDiv);
+  });
+
+  return accordion;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Group card
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildGroupCard(label, group) {
+  return el('div', { className: 'group-card' },
+    el('div', { className: 'group-header' },
+      el('div', { className: 'group-badge' }, label),
+      el('h2', {}, `Group ${label}`)
+    ),
+    buildStandingsTable(group.standings),
+    buildFixtures(group.fixtures, group.standings)
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Semi-final card
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildSFCard(sf) {
+  const ta = sf.team_a, tb = sf.team_b;
+  const winner = sf.winner;
+  const aWon = winner && winner.entry_id === ta.entry_id;
+  const bWon = winner && winner.entry_id === tb.entry_id;
+  const allPlayed = sf.legs.every(l => l.status === 'complete');
+
+  const legsDiv = el('div', { className: 'sf-legs' });
+  sf.legs.forEach((leg, i) => {
+    const upcoming = leg.status !== 'complete';
+    const aClass = upcoming ? '' : (leg.score_a > leg.score_b ? 'win' : leg.score_a < leg.score_b ? 'lose' : '');
+    const bClass = upcoming ? '' : (leg.score_b > leg.score_a ? 'win' : leg.score_b < leg.score_a ? 'lose' : '');
+
+    legsDiv.appendChild(el('div', { className: 'sf-leg' },
+      el('span', { className: 'sf-leg-label' }, `Leg ${i+1} · GW${leg.gw}`),
+      el('div', { className: 'sf-leg-scores' },
+        el('span', { className: `leg-score ${aClass}` }, upcoming ? '—' : String(leg.score_a)),
+        el('span', { style: 'color:var(--muted)' }, ' – '),
+        el('span', { className: `leg-score ${bClass}` }, upcoming ? '—' : String(leg.score_b)),
+      )
+    ));
+  });
+
+  const card = el('div', { className: 'sf-card' },
+    el('div', { className: 'sf-header' }, sf.label),
+    el('div', { className: 'sf-matchup' },
+      el('div', { className: 'sf-team', style: 'text-align:right' },
+        el('div', { className: `sf-team-name${aWon ? ' winner' : ''}` }, ta.name),
+        el('div', { className: 'sf-manager' }, ta.manager)
+      ),
+      el('span', { className: 'sf-vs' }, 'vs'),
+      el('div', { className: 'sf-team' },
+        el('div', { className: `sf-team-name${bWon ? ' winner' : ''}` }, tb.name),
+        el('div', { className: 'sf-manager' }, tb.manager)
+      )
+    ),
+    allPlayed ? el('div', { className: 'sf-agg' },
+      el('span', { className: `agg-score ${aWon ? 'winner' : 'loser'}` }, String(sf.aggregate_a)),
+      el('span', { className: 'agg-dash' }, '–'),
+      el('span', { className: `agg-score ${bWon ? 'winner' : 'loser'}` }, String(sf.aggregate_b))
+    ) : null,
+    legsDiv,
+    winner ? el('div', { className: 'sf-winner-banner' }, `🏅 ${winner.name} advance to the Final`) : null
+  );
+  return card;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Final card
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildFinalCard(final) {
+  const ta = final.team_a, tb = final.team_b;
+  const winner = final.winner;
+  const aWon = winner && winner.entry_id === ta.entry_id;
+  const bWon = winner && winner.entry_id === tb.entry_id;
+  const upcoming = final.status !== 'complete';
+
+  let scoreArea;
+  if (upcoming) {
+    scoreArea = el('div', { className: 'final-score-area' },
+      el('div', { style: 'font-size:2rem; color:var(--muted)' }, '?'),
+      el('div', { style: 'font-size:0.75rem; color:var(--muted); margin-top:0.25rem' }, `GW${final.gw}`)
+    );
+  } else {
+    scoreArea = el('div', { className: 'final-score-area' },
+      el('div', { className: 'final-scores' },
+        el('span', { className: `final-score${aWon ? ' winner' : ''}` }, String(final.score_a)),
+        el('span', { className: 'final-dash' }, '–'),
+        el('span', { className: `final-score${bWon ? ' winner' : ''}` }, String(final.score_b))
+      )
+    );
+  }
+
+  const card = el('div', { className: 'final-card' },
+    el('div', { className: 'final-header' },
+      '🏆 Grand Final',
+      el('span', { className: 'gw-badge' }, `GW${final.gw}`)
+    ),
+    el('div', { className: 'final-matchup' },
+      el('div', { className: 'final-team', style: 'text-align:right' },
+        el('div', { className: `final-team-name${aWon ? ' winner' : ''}` }, ta.name || 'TBD'),
+        el('div', { className: 'final-manager' }, ta.manager || '')
+      ),
+      scoreArea,
+      el('div', { className: 'final-team' },
+        el('div', { className: `final-team-name${bWon ? ' winner' : ''}` }, tb.name || 'TBD'),
+        el('div', { className: 'final-manager' }, tb.manager || '')
+      )
+    ),
+    upcoming
+      ? el('div', { className: 'upcoming-banner' }, `⚽ Final kicks off Gameweek ${final.gw}`)
+      : winner
+        ? el('div', { className: 'upcoming-banner', style: 'color:var(--gold);background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3)' }, `🏆 Champion: ${winner.name}`)
+        : null
+  );
+  return card;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Render
+// ─────────────────────────────────────────────────────────────────────────────
+
+function render(data) {
+  const meta = data.metadata;
+  document.getElementById('cup-name').textContent = meta.cup_name;
+  document.getElementById('season-badge').textContent = meta.season;
+  document.getElementById('last-updated').textContent = `Updated: ${meta.last_updated} · GW${meta.current_gw}`;
+
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+
+  // Group stage
+  app.appendChild(el('div', { className: 'section-title' }, '⚽ Group Stage'));
+  app.appendChild(
+    el('div', { className: 'groups-grid' },
+      buildGroupCard('A', data.groups.A),
+      buildGroupCard('B', data.groups.B)
+    )
+  );
+
+  // Knockout
+  app.appendChild(el('div', { className: 'section-title' }, '🏆 Knockout Stage'));
+  const knockout = el('div', { className: 'knockout-section' });
+
+  // Semi-finals
+  const semis = el('div', { className: 'semis-grid' });
+  data.knockout.semi_finals.forEach(sf => semis.appendChild(buildSFCard(sf)));
+  knockout.appendChild(semis);
+
+  // Final
+  knockout.appendChild(buildFinalCard(data.knockout.final));
+  app.appendChild(knockout);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Boot
+// ─────────────────────────────────────────────────────────────────────────────
+
+fetch('./cup_data.json')
+  .then(r => {
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    return r.json();
+  })
+  .then(data => render(data))
+  .catch(err => {
+    document.getElementById('app').innerHTML = `
+      <div class="error-msg">
+        <div style="font-size:2rem;margin-bottom:0.5rem">⚠️</div>
+        <div>Could not load cup data.</div>
+        <div style="font-size:0.8rem;margin-top:0.5rem;color:var(--muted)">${err.message}</div>
+        <div style="font-size:0.75rem;margin-top:1rem;color:var(--muted)">
+          Run <code style="background:#1f2d45;padding:0.2rem 0.4rem;border-radius:4px">python3 -m http.server</code>
+          from the project folder, then open <code style="background:#1f2d45;padding:0.2rem 0.4rem;border-radius:4px">http://localhost:8000/cup_website/</code>
+        </div>
+      </div>`;
+  });
+</script>
+</body>
+</html>
