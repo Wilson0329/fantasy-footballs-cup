@@ -98,6 +98,14 @@ def player_pts_from_gw(player_id, from_gw):
     return sum(h["total_points"] for h in get_element_history(player_id) if h["round"] >= from_gw)
 
 
+def player_pts_window(player_id, from_gw, to_gw=None):
+    """Points scored from from_gw up to (but not including) to_gw. If to_gw is None, counts all remaining rounds."""
+    history = get_element_history(player_id)
+    if to_gw is None:
+        return sum(h["total_points"] for h in history if h["round"] >= from_gw)
+    return sum(h["total_points"] for h in history if from_gw <= h["round"] < to_gw)
+
+
 def player_pts_in_gw(player_id, gw):
     """Total FPL points for a player in a specific GW (sums both fixtures in a DGW)."""
     return sum(h["total_points"] for h in get_element_history(player_id) if h["round"] == gw)
@@ -110,15 +118,32 @@ def build_trade_differential(player_names):
     result = []
     for team in TEAMS:
         print(f"  {team['name']}...")
-        transfers = fetch(f"/entry/{team['entry_id']}/transfers/")
+        all_transfers = fetch(f"/entry/{team['entry_id']}/transfers/")
+
+        # Build a lookup: player_id -> GW they were later sold out of this team
+        # (only the earliest sale matters if a player is bought/sold multiple times)
+        sold_at = {}
+        for t in all_transfers:
+            pid = t["element_out"]
+            gw = t["event"]
+            if pid not in sold_at or gw < sold_at[pid]:
+                sold_at[pid] = gw
+
         trades = []
-        for t in sorted(transfers, key=lambda x: x["event"]):
+        for t in sorted(all_transfers, key=lambda x: x["event"]):
             gw = t["event"]
             if gw <= 4:
                 continue
             out_id, in_id = t["element_out"], t["element_in"]
+
+            # player_out: points from transfer GW to now (what you gave up)
             out_pts = player_pts_from_gw(out_id, gw)
-            in_pts  = player_pts_from_gw(in_id,  gw)
+
+            # player_in: points only while they were in your squad
+            later_sold_gw = sold_at.get(in_id)  # GW they were sold, if ever
+            in_pts = player_pts_window(in_id, gw, later_sold_gw)
+            still_in_squad = later_sold_gw is None
+
             diff = in_pts - out_pts
             trades.append({
                 "gw": gw,
@@ -131,7 +156,8 @@ def build_trade_differential(player_names):
                 "player_in": {
                     "id": in_id,
                     "name": player_names.get(in_id, f"Player {in_id}"),
-                    "pts_since": in_pts,
+                    "pts_while_held": in_pts,
+                    "still_in_squad": still_in_squad,
                 },
                 "differential": diff,
             })

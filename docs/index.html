@@ -862,7 +862,7 @@ function buildTradeDiffTable(tradeDiff) {
           <span class="trade-player-in">${t.player_in.name}</span>
           <span style="float:right;display:flex;gap:1.5rem;color:var(--muted)">
             <span>${t.player_out.pts_since}pts</span>
-            <span>${t.player_in.pts_since}pts</span>
+            <span>${t.player_in.pts_while_held}pts${t.player_in.still_in_squad ? '<span style="font-size:0.6rem;color:var(--accent);margin-left:2px">▪</span>' : ''}</span>
             <span class="trade-diff ${diffClass}" style="min-width:3rem;text-align:right">${diffStr}</span>
           </span>
         </td>`;
