@@ -411,7 +411,7 @@ def build_knockout(group_a_standings, group_b_standings, bootstrap):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", default="cup_website/cup_data.json")
+    parser.add_argument("--output", default="docs/cup_data.json")
     args = parser.parse_args()
 
     print("Fetching bootstrap data...")
