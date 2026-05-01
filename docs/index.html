@@ -95,9 +95,13 @@
       margin-top: 1rem;
       position: relative;
       z-index: 1;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
+    .tab-bar::-webkit-scrollbar { display: none; }
     .tab-btn {
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem 1.25rem;
       background: none;
       border: none;
       border-bottom: 2px solid transparent;
@@ -109,6 +113,7 @@
       white-space: nowrap;
       transition: color 0.15s, border-color 0.15s;
       letter-spacing: 0.2px;
+      flex-shrink: 0;
     }
     .tab-btn:hover { color: var(--text); }
     .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
@@ -1129,10 +1134,18 @@
     }
     .pitch-right-empty svg { opacity: 0.3; width: 28px; height: 28px; }
     @media (max-width: 640px) {
-      .pitch-split { flex-direction: column; padding: 0.5rem; }
+      .pitch-split { flex-direction: column; padding: 0.5rem; gap: 0.75rem; }
       .pitch-left { width: 100%; }
-      .pitch-right { min-height: 120px; }
-      .pitch-right-empty { height: 120px; }
+      .pitch-right {
+        width: 100%;
+        min-height: auto;
+        border-top: 1px solid var(--border);
+        border-left: none;
+      }
+      .pitch-right-empty { height: 90px; font-size: 0.75rem; }
+      .pitch-right-empty svg { width: 22px; height: 22px; }
+      .psd-stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .psd-history { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.4rem; }
     }
 
     /* ── Final match pitch ── */
@@ -1210,18 +1223,23 @@
       max-width: 56px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .final-bench-panel {
-      width: 88px; flex-shrink: 0;
+      width: 92px; flex-shrink: 0;
       background: var(--surface); border: 1px solid var(--border);
       border-radius: 10px; padding: 0.6rem 0.5rem;
     }
+    .final-bench-header {
+      display: flex; align-items: baseline; gap: 0.3rem;
+      margin-bottom: 0.4rem; white-space: nowrap; overflow: hidden;
+    }
     .final-bench-title {
-      font-size: 0.58rem; font-weight: 700; text-align: center; color: var(--text);
-      margin-bottom: 0.15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      font-size: 0.58rem; font-weight: 700; color: var(--text);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; min-width: 0;
     }
     .final-bench-label {
-      font-size: 0.52rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.5px; color: var(--muted); text-align: center; margin-bottom: 0.4rem;
+      font-size: 0.5rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; color: var(--muted); flex-shrink: 0;
     }
+    .final-bench-players { display: flex; flex-direction: column; }
     .final-bench-player {
       display: flex; align-items: center; gap: 0.3rem;
       padding: 0.2rem 0; border-bottom: 1px solid var(--border);
@@ -1234,18 +1252,33 @@
     .final-bench-pts { font-size: 0.52rem; color: var(--muted); }
     .final-bench-pts.live { color: #4ade80; }
     @media (max-width: 640px) {
-      .final-pitch-container { flex-direction: column; }
-      .final-bench-panel { width: 100%; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: flex-start; }
-      .final-bench-player { width: calc(25% - 0.3rem); flex-direction: column; text-align: center; border-bottom: none; }
-      .mini-player-card { width: 44px; }
-      .mini-name { max-width: 44px; font-size: 0.5rem; }
+      .final-pitch-container { flex-direction: column; gap: 0.5rem; }
+      .final-bench-panel { width: 100%; }
+      .final-bench-header { margin-bottom: 0.5rem; }
+      .final-bench-players {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.4rem;
+      }
+      .final-bench-player {
+        flex-direction: column; align-items: center; text-align: center;
+        border-bottom: none; padding: 0.25rem 0;
+        border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.2rem;
+        background: var(--surface2);
+      }
+      .final-bench-info { min-width: 0; width: 100%; }
+      .final-bench-name { text-align: center; }
+      .final-bench-shirt { margin: 0 auto; }
+      .mini-player-card { width: 40px; }
+      .mini-name { max-width: 40px; font-size: 0.48rem; }
+      .final-pitch-bg { min-height: 200px; }
     }
 
     /* ── Mobile responsive ── */
     @media (max-width: 600px) {
-      .container { padding: 1.25rem 0.75rem; }
-      .site-header { padding: 1rem 0.75rem 0; }
-      .tab-btn { padding: 0.65rem 0.75rem; font-size: 0.78rem; }
+      .container { padding: 1rem 0.75rem; }
+      .site-header { padding: 0.75rem 0.75rem 0; }
+      .tab-btn { padding: 0.6rem 0.85rem; font-size: 0.8rem; }
 
       /* Group standings: hide W/D/L on small screens */
       .standings-table .hide-mobile { display: none; }
@@ -1626,8 +1659,12 @@ function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw) {
 
 function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw) {
   const panel = el('div', { className: 'final-bench-panel' });
-  panel.appendChild(el('div', { className: 'final-bench-title' }, teamName));
-  panel.appendChild(el('div', { className: 'final-bench-label' }, 'Bench'));
+  panel.appendChild(el('div', { className: 'final-bench-header' },
+    el('span', { className: 'final-bench-title' }, teamName),
+    el('span', { className: 'final-bench-label' }, 'Bench')
+  ));
+  const playersContainer = el('div', { className: 'final-bench-players' });
+  panel.appendChild(playersContainer);
 
   bench.forEach(pick => {
     const pm = playerMap[pick.element];
@@ -1659,7 +1696,7 @@ function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw) {
       ptsEl.textContent = '…';
     }
 
-    panel.appendChild(el('div', { className: 'final-bench-player' },
+    playersContainer.appendChild(el('div', { className: 'final-bench-player' },
       shirtEl,
       el('div', { className: 'final-bench-info' },
         el('div', { className: 'final-bench-name' }, pm ? pm.web_name : String(pick.element)),
