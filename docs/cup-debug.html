@@ -202,27 +202,40 @@
     }
     .final-pitch-bg {
       background:
-        repeating-linear-gradient(180deg,
-          rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 40px,
+        repeating-linear-gradient(90deg,
+          rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 40px,
           transparent 40px, transparent 80px),
-        linear-gradient(180deg, #14532d 0%, #166534 50%, #14532d 100%);
+        linear-gradient(90deg, #14532d 0%, #166534 50%, #14532d 100%);
       border-radius: 10px;
-      padding: 0.4rem 0.3rem;
       border: 2px solid rgba(255,255,255,0.15);
       position: relative; overflow: hidden;
+      display: flex; flex-direction: row; align-items: stretch;
+      min-height: 260px;
     }
     .final-pitch-bg::before {
       content: ''; position: absolute; inset: 0;
       border: 2px solid rgba(255,255,255,0.12); border-radius: 9px; pointer-events: none;
     }
-    .final-team-label {
-      text-align: center; font-size: 0.58rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      color: rgba(255,255,255,0.45); padding: 0.2rem 0;
-      position: relative; z-index: 1;
+    .pitch-half {
+      display: flex; flex: 1; flex-direction: column;
     }
-    .mini-pitch-row {
-      display: flex; justify-content: center; gap: 0.15rem; margin-bottom: 0.2rem;
+    .final-team-label {
+      text-align: center; font-size: 0.55rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      color: rgba(255,255,255,0.4); padding: 0.25rem 0.25rem 0.1rem;
+      position: relative; z-index: 1; flex-shrink: 0;
+    }
+    .pitch-cols-row {
+      display: flex; flex: 1; align-items: stretch;
+    }
+    .pitch-col {
+      display: flex; flex: 1; flex-direction: column;
+      align-items: center; justify-content: space-evenly;
+      padding: 0.15rem 0.05rem;
+    }
+    .pitch-midline {
+      width: 1px; background: rgba(255,255,255,0.18);
+      flex-shrink: 0; align-self: stretch; margin: 0.5rem 0;
     }
     .mini-player-card {
       display: flex; flex-direction: column; align-items: center;
@@ -281,6 +294,8 @@
       .final-pitch-container { flex-direction: column; }
       .final-bench-panel { width: 100%; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: flex-start; }
       .final-bench-player { width: calc(25% - 0.3rem); flex-direction: column; text-align: center; border-bottom: none; }
+      .mini-player-card { width: 36px; }
+      .mini-name { max-width: 36px; font-size: 0.42rem; }
     }
 
     @media (max-width: 600px) {
@@ -778,37 +793,41 @@ async function buildFinalPitchView(final, liveGW, container) {
     const teamMap = {};
     bs.teams.forEach(t => { teamMap[t.id] = t; });
 
-    function buildPitchSide(picks, side) {
+    function buildPitchHalf(picks, side, teamName) {
       const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
-      const rows = { 1: [], 2: [], 3: [], 4: [] };
+      const groups = { 1: [], 2: [], 3: [], 4: [] };
       starters.forEach(p => {
         const et = playerMap[p.element] ? playerMap[p.element].element_type : 3;
-        rows[et].push(p);
+        groups[et].push(p);
       });
-      const rowOrder = side === 'home' ? [1, 2, 3, 4] : [4, 3, 2, 1];
-      const frag = document.createDocumentFragment();
-      rowOrder.forEach(et => {
-        if (!rows[et].length) return;
-        const row = el('div', { className: 'mini-pitch-row' });
-        rows[et].forEach(pick => {
+
+      const half = el('div', { className: 'pitch-half' });
+      half.appendChild(el('div', { className: 'final-team-label' }, teamName));
+      const colsRow = el('div', { className: 'pitch-cols-row' });
+
+      const colOrder = side === 'home' ? [1, 2, 3, 4] : [4, 3, 2, 1];
+      colOrder.forEach(et => {
+        if (!groups[et].length) return;
+        const col = el('div', { className: 'pitch-col' });
+        groups[et].forEach(pick => {
           const pm = playerMap[pick.element];
           const teamCode = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
-          row.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, liveGW || final.gw));
+          col.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, liveGW || final.gw));
         });
-        frag.appendChild(row);
+        colsRow.appendChild(col);
       });
-      return frag;
+
+      half.appendChild(colsRow);
+      return half;
     }
 
     const benchA = picksA.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
     const benchB = picksB.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
 
     const pitchBg = el('div', { className: 'final-pitch-bg' });
-    pitchBg.appendChild(el('div', { className: 'final-team-label' }, final.team_a.name));
-    pitchBg.appendChild(buildPitchSide(picksA, 'home'));
-    pitchBg.appendChild(el('div', { style: 'border-top:1px solid rgba(255,255,255,0.2);margin:0.3rem 0.5rem' }));
-    pitchBg.appendChild(buildPitchSide(picksB, 'away'));
-    pitchBg.appendChild(el('div', { className: 'final-team-label' }, final.team_b.name));
+    pitchBg.appendChild(buildPitchHalf(picksA, 'home', final.team_a.name));
+    pitchBg.appendChild(el('div', { className: 'pitch-midline' }));
+    pitchBg.appendChild(buildPitchHalf(picksB, 'away', final.team_b.name));
 
     const pitchMain = el('div', { className: 'final-pitch-main' });
     if (previewLabel) pitchMain.appendChild(el('div', { className: 'final-pitch-preview-label' }, previewLabel));
