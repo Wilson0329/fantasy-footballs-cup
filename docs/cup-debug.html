@@ -943,12 +943,15 @@ function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw) {
 }
 
 async function buildFinalPitchView(final, liveGW, container) {
-  const isLiveFinal = liveGW && liveGW === final.gw;
+  // When the debug GW override is active, treat it as the live GW so player
+  // cards get data-live-player attributes and refreshScores() can update them
+  const effectiveLiveGW = _debugGW || liveGW;
+  const isLiveFinal = !!effectiveLiveGW;
   const isComplete = final.status === 'complete';
 
-  let pickGW = final.gw;
+  let pickGW = effectiveLiveGW || final.gw;
   let previewLabel = null;
-  if (!isLiveFinal && !isComplete) {
+  if (!effectiveLiveGW && !isComplete) {
     try {
       const bs = await fetchFPL('bootstrap-static/');
       const lastFinished = bs.events.filter(e => e.finished).pop();
@@ -957,6 +960,8 @@ async function buildFinalPitchView(final, liveGW, container) {
         previewLabel = `Preview — squads from GW${pickGW}`;
       }
     } catch (_) {}
+  } else if (_debugGW) {
+    previewLabel = `Debug — GW${_debugGW} picks & live scores`;
   }
 
   try {
@@ -990,7 +995,7 @@ async function buildFinalPitchView(final, liveGW, container) {
         groups[et].forEach(pick => {
           const pm = playerMap[pick.element];
           const teamCode = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
-          col.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, liveGW || final.gw));
+          col.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, effectiveLiveGW || final.gw));
         });
         colsRow.appendChild(col);
       });
@@ -1012,9 +1017,9 @@ async function buildFinalPitchView(final, liveGW, container) {
     pitchMain.appendChild(pitchBg);
 
     container.innerHTML = '';
-    container.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
+    container.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, effectiveLiveGW || final.gw));
     container.appendChild(pitchMain);
-    container.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
+    container.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, effectiveLiveGW || final.gw));
 
     if (isLiveFinal) {
       try {
