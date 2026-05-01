@@ -380,6 +380,10 @@
     <button class="debug-btn" id="refresh-btn">Refresh now</button>
     <button class="debug-btn" id="autopoll-btn">Auto-poll (60s)</button>
     <button class="debug-btn danger" id="stop-btn" style="display:none">Stop poll</button>
+    <input id="gw-override-input" type="number" min="1" max="38" placeholder="GW#"
+      style="width:52px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);
+             color:#e2e8f0;border-radius:6px;padding:0.3rem 0.4rem;font-size:0.78rem;text-align:center" />
+    <button class="debug-btn" id="gw-override-btn">Override GW</button>
   </div>
 </div>
 
@@ -1124,6 +1128,18 @@ document.getElementById('stop-btn').addEventListener('click', () => {
   clearInterval(_pollTimer); _pollTimer = null;
   document.getElementById('stop-btn').style.display = 'none';
   document.getElementById('autopoll-btn').style.display = '';
+});
+
+document.getElementById('gw-override-btn').addEventListener('click', () => {
+  const v = Number(document.getElementById('gw-override-input').value);
+  if (!v || v < 1 || v > 38) return;
+  _debugGW = v;
+  const badge = document.getElementById('debug-gw-badge');
+  badge.innerHTML = '';
+  badge.appendChild(document.createTextNode(`GW${v} — Override`));
+  document.getElementById('debug-meta').textContent = `Overriding to GW${v}…`;
+  Object.keys(_fplCache).forEach(k => { if (k.includes('/picks/')) delete _fplCache[k]; });
+  refreshScores();
 });
 
 boot();
