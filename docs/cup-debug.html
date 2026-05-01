@@ -183,6 +183,106 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .error-box { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 1rem 1.25rem; color: #f87171; font-size: 0.83rem; margin: 1rem 0; }
 
+    /* ── Kit fallbacks ── */
+    .kit-img-fallback { border-radius: 4px; }
+    .kit-img-fallback.gkp { background: #92400e; }
+    .kit-img-fallback.def { background: #1e3a5f; }
+    .kit-img-fallback.mid { background: #1e4d2b; }
+    .kit-img-fallback.fwd { background: #7c1d1d; }
+
+    /* ── Final pitch view ── */
+    .final-pitch-section { margin-bottom: 2rem; }
+    .final-pitch-container {
+      display: flex; gap: 0.75rem; align-items: flex-start; padding: 0 0 1rem;
+    }
+    .final-pitch-main { flex: 1; min-width: 0; }
+    .final-pitch-preview-label {
+      text-align: center; font-size: 0.7rem; color: var(--muted);
+      margin-bottom: 0.4rem; letter-spacing: 0.3px;
+    }
+    .final-pitch-bg {
+      background:
+        repeating-linear-gradient(180deg,
+          rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 40px,
+          transparent 40px, transparent 80px),
+        linear-gradient(180deg, #14532d 0%, #166534 50%, #14532d 100%);
+      border-radius: 10px;
+      padding: 0.4rem 0.3rem;
+      border: 2px solid rgba(255,255,255,0.15);
+      position: relative; overflow: hidden;
+    }
+    .final-pitch-bg::before {
+      content: ''; position: absolute; inset: 0;
+      border: 2px solid rgba(255,255,255,0.12); border-radius: 9px; pointer-events: none;
+    }
+    .final-team-label {
+      text-align: center; font-size: 0.58rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: rgba(255,255,255,0.45); padding: 0.2rem 0;
+      position: relative; z-index: 1;
+    }
+    .mini-pitch-row {
+      display: flex; justify-content: center; gap: 0.15rem; margin-bottom: 0.2rem;
+    }
+    .mini-player-card {
+      display: flex; flex-direction: column; align-items: center;
+      width: 44px; gap: 0.1rem; cursor: default;
+    }
+    .mini-shirt {
+      width: 30px; height: 34px; position: relative;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .mini-kit-img { width: 26px; height: 30px; object-fit: contain; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7)); }
+    .mini-cap-badge {
+      position: absolute; top: -3px; right: -3px;
+      width: 11px; height: 11px; border-radius: 50%;
+      background: var(--gold); color: #000; font-size: 0.4rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mini-pts {
+      background: rgba(0,0,0,0.65); color: var(--text);
+      font-size: 0.58rem; font-weight: 700;
+      padding: 0.05rem 0.25rem; border-radius: 3px;
+      min-width: 18px; text-align: center;
+    }
+    .mini-pts.live { color: #4ade80; }
+    .mini-name {
+      font-size: 0.48rem; font-weight: 600;
+      color: rgba(255,255,255,0.85); text-align: center;
+      max-width: 44px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .final-bench-panel {
+      width: 88px; flex-shrink: 0;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.6rem 0.5rem;
+    }
+    .final-bench-title {
+      font-size: 0.58rem; font-weight: 700; text-align: center; color: var(--text);
+      margin-bottom: 0.15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .final-bench-label {
+      font-size: 0.52rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; color: var(--muted); text-align: center; margin-bottom: 0.4rem;
+    }
+    .final-bench-player {
+      display: flex; align-items: center; gap: 0.3rem;
+      padding: 0.2rem 0; border-bottom: 1px solid var(--border);
+    }
+    .final-bench-player:last-child { border-bottom: none; }
+    .final-bench-shirt { width: 22px; height: 24px; flex-shrink: 0; position: relative; display: flex; align-items: center; }
+    .mini-bench-kit { width: 20px; height: 22px; object-fit: contain; }
+    .final-bench-info { flex: 1; min-width: 0; }
+    .final-bench-name { font-size: 0.52rem; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .final-bench-pts { font-size: 0.52rem; color: var(--muted); }
+    .final-bench-pts.live { color: #4ade80; }
+    .pitch-loading { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .pitch-error { text-align: center; padding: 1rem; color: #f87171; font-size: 0.82rem; }
+    @media (max-width: 640px) {
+      .final-pitch-container { flex-direction: column; }
+      .final-bench-panel { width: 100%; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: flex-start; }
+      .final-bench-player { width: calc(25% - 0.3rem); flex-direction: column; text-align: center; border-bottom: none; }
+    }
+
     @media (max-width: 600px) {
       .debug-banner { padding: 0.6rem 1rem; gap: 0.6rem; }
       .debug-meta { display: none; }
@@ -295,6 +395,15 @@ async function refreshScores() {
       if (scores[id] != null) {
         el.textContent = String(scores[id]);
         el.classList.add('score-live');
+      }
+    });
+
+    // Update individual player score elements in the final pitch view
+    document.querySelectorAll(`[data-live-player][data-live-gw="${gw}"]`).forEach(el => {
+      const pid = Number(el.dataset.livePlayer);
+      if (liveMap[pid] != null) {
+        el.textContent = String(liveMap[pid]);
+        el.classList.add('live');
       }
     });
 
@@ -510,9 +619,10 @@ function buildFinalHero(final, liveGW) {
       scoreAEl, el('span', { className: 'final-hero-dash' }, '–'), scoreBEl
     );
   } else if (upcoming) {
-    vsArea = el('div', { className: 'final-hero-upcoming' },
-      el('div', { className: 'final-hero-q' }, '?'),
-      el('div', { className: 'final-hero-upcoming-label' }, `GW${final.gw}`)
+    vsArea = el('div', { className: 'final-hero-scores' },
+      el('span', { className: 'final-hero-score' }, '—'),
+      el('span', { className: 'final-hero-dash' }, '–'),
+      el('span', { className: 'final-hero-score' }, '—')
     );
   } else {
     vsArea = el('div', { className: 'final-hero-scores' },
@@ -522,15 +632,13 @@ function buildFinalHero(final, liveGW) {
     );
   }
 
-  const bannerText = isLive
-    ? 'LIVE — scores updating every 60s'
+  const bannerEl = isLive
+    ? el('div', { className: 'final-hero-banner' }, el('span', { className: 'live-dot' }), ' Live — scores updating every 60s')
     : upcoming
-      ? `Final kicks off Gameweek ${final.gw} — who lifts the trophy?`
-      : winner ? `${winner.name} are champions!` : null;
-
-  const bannerEl = bannerText
-    ? el('div', { className: `final-hero-banner${(!upcoming && !isLive && winner) ? ' champion' : ''}` }, bannerText)
-    : null;
+      ? el('div', { className: 'final-hero-banner' }, `Final kicks off Gameweek ${final.gw} — who lifts the trophy?`)
+      : winner
+        ? el('div', { className: 'final-hero-banner champion' }, `${winner.name} are champions!`)
+        : null;
 
   return el('div', { className: 'final-hero' },
     el('div', { className: 'final-hero-label' }, 'Grand Final'),
@@ -550,6 +658,193 @@ function buildFinalHero(final, liveGW) {
   );
 }
 
+function posTypeClass(elementType) {
+  return ['', 'gkp', 'def', 'mid', 'fwd'][elementType] || 'mid';
+}
+
+function buildMiniShirt(teamCode, isGK, posClass) {
+  const shirt = el('div', { className: 'mini-shirt' });
+  if (teamCode) {
+    const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1-66.png`;
+    const kitUrl = isGK
+      ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1_gk-66.png`
+      : outfieldUrl;
+    const img = el('img', { className: 'mini-kit-img', alt: '', src: kitUrl });
+    img.onerror = () => {
+      if (isGK && img.src !== outfieldUrl) { img.src = outfieldUrl; return; }
+      img.style.display = 'none';
+      shirt.appendChild(el('div', { className: `kit-img-fallback ${posClass}`, style: 'width:20px;height:22px' }));
+    };
+    shirt.appendChild(img);
+  } else {
+    shirt.appendChild(el('div', { className: `kit-img-fallback ${posClass}`, style: 'width:20px;height:22px' }));
+  }
+  return shirt;
+}
+
+function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw) {
+  const isGK = playerMeta && playerMeta.element_type === 1;
+  const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
+  const shirt = buildMiniShirt(teamCode, isGK, posClass);
+  if (pick.is_captain) shirt.appendChild(el('span', { className: 'mini-cap-badge' }, 'C'));
+  else if (pick.is_vice_captain) shirt.appendChild(el('span', { className: 'mini-cap-badge', style: 'background:#94a3b8' }, 'V'));
+
+  const ptsEl = el('div', { className: 'mini-pts' }, '—');
+  if (isLiveFinal) {
+    ptsEl.setAttribute('data-live-player', String(pick.element));
+    ptsEl.setAttribute('data-live-gw', String(gw));
+    ptsEl.textContent = '…';
+  }
+
+  return el('div', { className: 'mini-player-card' },
+    shirt,
+    ptsEl,
+    el('div', { className: 'mini-name' }, playerMeta ? playerMeta.web_name : String(pick.element))
+  );
+}
+
+function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw) {
+  const panel = el('div', { className: 'final-bench-panel' });
+  panel.appendChild(el('div', { className: 'final-bench-title' }, teamName));
+  panel.appendChild(el('div', { className: 'final-bench-label' }, 'Bench'));
+
+  bench.forEach(pick => {
+    const pm = playerMap[pick.element];
+    const isGK = pm && pm.element_type === 1;
+    const posClass = posTypeClass(pm ? pm.element_type : 3);
+    const teamCode = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
+
+    const shirtEl = el('div', { className: 'final-bench-shirt' });
+    if (teamCode) {
+      const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1-66.png`;
+      const kitUrl = isGK
+        ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1_gk-66.png`
+        : outfieldUrl;
+      const img = el('img', { className: 'mini-bench-kit', alt: '', src: kitUrl });
+      img.onerror = () => {
+        if (isGK && img.src !== outfieldUrl) { img.src = outfieldUrl; return; }
+        img.style.display = 'none';
+        shirtEl.appendChild(el('div', { className: `kit-img-fallback ${posClass}`, style: 'width:18px;height:20px' }));
+      };
+      shirtEl.appendChild(img);
+    } else {
+      shirtEl.appendChild(el('div', { className: `kit-img-fallback ${posClass}`, style: 'width:18px;height:20px' }));
+    }
+
+    const ptsEl = el('div', { className: 'final-bench-pts' }, '—');
+    if (isLiveFinal) {
+      ptsEl.setAttribute('data-live-player', String(pick.element));
+      ptsEl.setAttribute('data-live-gw', String(gw));
+      ptsEl.textContent = '…';
+    }
+
+    panel.appendChild(el('div', { className: 'final-bench-player' },
+      shirtEl,
+      el('div', { className: 'final-bench-info' },
+        el('div', { className: 'final-bench-name' }, pm ? pm.web_name : String(pick.element)),
+        ptsEl
+      )
+    ));
+  });
+  return panel;
+}
+
+async function buildFinalPitchView(final, liveGW, container) {
+  const isLiveFinal = liveGW && liveGW === final.gw;
+  const isComplete = final.status === 'complete';
+
+  let pickGW = final.gw;
+  let previewLabel = null;
+  if (!isLiveFinal && !isComplete) {
+    try {
+      const bs = await fetchFPL('bootstrap-static/');
+      const lastFinished = bs.events.filter(e => e.finished).pop();
+      if (lastFinished && lastFinished.id !== final.gw) {
+        pickGW = lastFinished.id;
+        previewLabel = `Preview — squads from GW${pickGW}`;
+      }
+    } catch (_) {}
+  }
+
+  try {
+    const [bs, picksA, picksB] = await Promise.all([
+      fetchFPL('bootstrap-static/'),
+      getPicks(final.team_a.entry_id, pickGW),
+      getPicks(final.team_b.entry_id, pickGW),
+    ]);
+
+    const playerMap = {};
+    bs.elements.forEach(p => { playerMap[p.id] = p; });
+    const teamMap = {};
+    bs.teams.forEach(t => { teamMap[t.id] = t; });
+
+    function buildPitchSide(picks, side) {
+      const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
+      const rows = { 1: [], 2: [], 3: [], 4: [] };
+      starters.forEach(p => {
+        const et = playerMap[p.element] ? playerMap[p.element].element_type : 3;
+        rows[et].push(p);
+      });
+      const rowOrder = side === 'home' ? [1, 2, 3, 4] : [4, 3, 2, 1];
+      const frag = document.createDocumentFragment();
+      rowOrder.forEach(et => {
+        if (!rows[et].length) return;
+        const row = el('div', { className: 'mini-pitch-row' });
+        rows[et].forEach(pick => {
+          const pm = playerMap[pick.element];
+          const teamCode = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
+          row.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, liveGW || final.gw));
+        });
+        frag.appendChild(row);
+      });
+      return frag;
+    }
+
+    const benchA = picksA.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
+    const benchB = picksB.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
+
+    const pitchBg = el('div', { className: 'final-pitch-bg' });
+    pitchBg.appendChild(el('div', { className: 'final-team-label' }, final.team_a.name));
+    pitchBg.appendChild(buildPitchSide(picksA, 'home'));
+    pitchBg.appendChild(el('div', { style: 'border-top:1px solid rgba(255,255,255,0.2);margin:0.3rem 0.5rem' }));
+    pitchBg.appendChild(buildPitchSide(picksB, 'away'));
+    pitchBg.appendChild(el('div', { className: 'final-team-label' }, final.team_b.name));
+
+    const pitchMain = el('div', { className: 'final-pitch-main' });
+    if (previewLabel) pitchMain.appendChild(el('div', { className: 'final-pitch-preview-label' }, previewLabel));
+    pitchMain.appendChild(pitchBg);
+
+    const pitchContainer = el('div', { className: 'final-pitch-container' });
+    pitchContainer.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
+    pitchContainer.appendChild(pitchMain);
+    pitchContainer.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
+
+    container.innerHTML = '';
+    container.appendChild(pitchContainer);
+
+    if (isLiveFinal) {
+      try {
+        const live = await getLive(liveGW);
+        if (live) {
+          const liveMap = {};
+          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+          container.querySelectorAll('[data-live-player]').forEach(pEl => {
+            const id = Number(pEl.dataset.livePlayer);
+            if (liveMap[id] != null) {
+              pEl.textContent = String(liveMap[id]);
+              pEl.classList.add('live');
+            }
+          });
+        }
+      } catch (_) {}
+    }
+
+  } catch (err) {
+    container.innerHTML = '';
+    container.appendChild(el('div', { className: 'pitch-error' }, `Could not load squads: ${err.message}`));
+  }
+}
+
 function renderCupDebug(data, liveGW) {
   const heroAnchor = document.getElementById('final-hero-anchor');
   heroAnchor.innerHTML = '';
@@ -557,6 +852,17 @@ function renderCupDebug(data, liveGW) {
 
   const app = document.getElementById('app');
   app.innerHTML = '';
+
+  // Final pitch view
+  const final = data.knockout.final;
+  if (final.team_a && final.team_b && final.team_a.entry_id && final.team_b.entry_id) {
+    const pitchSection = el('div', { className: 'final-pitch-section' });
+    pitchSection.appendChild(el('div', { className: 'section-title' }, 'The Final — Squads'));
+    const pitchContainer = el('div', { className: 'pitch-loading' }, 'Loading squads…');
+    pitchSection.appendChild(pitchContainer);
+    app.appendChild(pitchSection);
+    buildFinalPitchView(final, liveGW, pitchContainer);
+  }
 
   if (data.knockout.semi_finals && data.knockout.semi_finals.length) {
     app.appendChild(el('div', { className: 'section-title' }, 'Semi-Finals'));
