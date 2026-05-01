@@ -954,9 +954,10 @@ async function buildFinalPitchView(final, liveGW, container) {
   if (!effectiveLiveGW && !isComplete) {
     try {
       const bs = await fetchFPL('bootstrap-static/');
-      const lastFinished = bs.events.filter(e => e.finished).pop();
-      if (lastFinished && lastFinished.id !== final.gw) {
-        pickGW = lastFinished.id;
+      // Use latest GW with a locked squad: finished OR is_current (deadline passed)
+      const latestPlayed = [...bs.events].reverse().find(e => e.finished || e.is_current);
+      if (latestPlayed && latestPlayed.id !== final.gw) {
+        pickGW = latestPlayed.id;
         previewLabel = `Preview — squads from GW${pickGW}`;
       }
     } catch (_) {}
