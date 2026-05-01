@@ -2120,11 +2120,6 @@ function startLivePoll(gw) {
       updateLastPolled();
       refreshOpenPitchViews();
       refreshLeagueScores();
-      // Refresh standings for cumulative total column (best-effort)
-      try {
-        delete _fplCache[`leagues-classic/${LEAGUE_ID}/standings/`];
-        _leagueStandings = await getLeagueStandings();
-      } catch(e2) { /* ignore */ }
     } catch (e) { /* silently ignore poll errors */ }
   }, 60000);
 }
@@ -2238,6 +2233,11 @@ async function refreshLeagueScores() {
       const gwCell = row.querySelector('.league-gw');
       if (gwCell) gwCell.textContent = String(gwScore);
 
+      // Total = JSON base total (last completed GW) + live GW score
+      const baseTotal = Number(row.dataset.baseTotal) || 0;
+      const totalCell = row.querySelector('.league-total');
+      if (totalCell) totalCell.textContent = String(baseTotal + gwScore);
+
       // Playing / to start — rendered inline under manager name
       if (playerFixtureStatus) {
         let playing = 0, toStart = 0;
@@ -2265,13 +2265,6 @@ async function refreshLeagueScores() {
         }
       }
     } catch(e) { /* leave cells unchanged if picks unavailable */ }
-
-    // Cumulative total from standings API (slightly lagging but correct)
-    if (_leagueStandings) {
-      const standing = _leagueStandings[entryId];
-      const totalCell = row.querySelector('.league-total');
-      if (totalCell && standing) totalCell.textContent = String(standing.total_points);
-    }
   }));
 }
 
@@ -2621,7 +2614,7 @@ function buildLeagueTab(data) {
       const displayTotal = live ? live.total_points : s.total_points;
 
       const liveStatusEl = isLiveGW ? el('div', { className: 'team-live-status' }, '—') : null;
-      const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id) },
+      const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id), 'data-base-total': String(s.total_points) },
         el('td', { className: 'rank-cell' }, String(rank + 1), moveEl),
         el('td', {},
           el('div', { className: 'team-name' }, s.name),
