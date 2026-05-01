@@ -48,7 +48,16 @@
       background: radial-gradient(ellipse at 50% -20%, rgba(99,102,241,0.25) 0%, transparent 60%);
       pointer-events: none;
     }
-    .trophy { font-size: 2rem; margin-bottom: 0.4rem; }
+    .trophy { margin-bottom: 0.5rem; line-height: 1; }
+    /* Lucide icon sizing by context */
+    i[data-lucide], i[data-lucide] svg { display: inline-block; }
+    .trophy svg { width: 36px; height: 36px; stroke: var(--gold); }
+    .tab-btn svg { width: 14px; height: 14px; vertical-align: -2px; margin-right: 5px; }
+    .section-title svg { width: 16px; height: 16px; vertical-align: -3px; margin-right: 6px; opacity: 0.7; }
+    .stats-card-header h3 svg { width: 15px; height: 15px; vertical-align: -3px; margin-right: 5px; opacity: 0.8; }
+    .psd-close svg { width: 14px; height: 14px; vertical-align: -2px; }
+    .trophy-pill svg { width: 11px; height: 11px; vertical-align: -1px; margin-right: 2px; }
+    .gw-live-badge svg { width: 10px; height: 10px; vertical-align: -1px; margin-right: 3px; fill: #f87171; stroke: none; }
     .site-header h1 {
       font-size: clamp(1.4rem, 4vw, 2.2rem);
       font-weight: 800;
@@ -1054,22 +1063,23 @@
     .error-msg { text-align: center; padding: 3rem 2rem; color: var(--red); }
     .not-available { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.9rem; }
   </style>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 
 <header class="site-header">
-  <div class="trophy">🏆</div>
+  <div class="trophy"><i data-lucide="trophy"></i></div>
   <h1>Fantasy Footballs</h1>
   <div class="header-meta">
     <span class="season-badge" id="season-badge">2025/26</span>
     <span class="last-updated" id="last-updated"></span>
   </div>
   <nav class="tab-bar">
-    <button class="tab-btn active" data-tab="history">📜 History</button>
-    <button class="tab-btn" data-tab="league">📊 League</button>
-    <button class="tab-btn" data-tab="stats">📈 Stats</button>
-    <button class="tab-btn" data-tab="cup">🏆 Cup</button>
-    <button class="tab-btn" data-tab="champions">⭐ Champions</button>
+    <button class="tab-btn active" data-tab="league"><i data-lucide="bar-chart-2"></i>League</button>
+    <button class="tab-btn" data-tab="stats"><i data-lucide="trending-up"></i>Stats</button>
+    <button class="tab-btn" data-tab="cup"><i data-lucide="trophy"></i>Cup</button>
+    <button class="tab-btn" data-tab="champions"><i data-lucide="award"></i>Champions</button>
+    <button class="tab-btn" data-tab="history"><i data-lucide="book-open"></i>History</button>
   </nav>
 </header>
 
@@ -1252,7 +1262,7 @@ function buildSFCard(sf) {
       el('span', { className: `agg-score ${bWon ? 'winner' : 'loser'}` }, String(sf.aggregate_b))
     ) : null,
     legsDiv,
-    winner ? el('div', { className: 'sf-winner-banner' }, `🏅 ${winner.name} advance to the Final`) : null
+    winner ? el('div', { className: 'sf-winner-banner' }, `${winner.name} advance to the Final`) : null
   );
 }
 
@@ -1275,13 +1285,13 @@ function buildFinalHero(final) {
       );
 
   const banner = upcoming
-    ? el('div', { className: 'final-hero-banner' }, `⚽  Final kicks off Gameweek ${final.gw} — who lifts the trophy?`)
+    ? el('div', { className: 'final-hero-banner' }, `Final kicks off Gameweek ${final.gw} — who lifts the trophy?`)
     : winner
-      ? el('div', { className: 'final-hero-banner champion' }, `🏆  ${winner.name} are champions!`)
+      ? el('div', { className: 'final-hero-banner champion' }, `${winner.name} are champions!`)
       : null;
 
   return el('div', { className: 'final-hero' },
-    el('div', { className: 'final-hero-label' }, '🏆 Grand Final'),
+    el('div', { className: 'final-hero-label' }, 'Grand Final'),
     el('div', { className: 'final-hero-gw' }, `Gameweek ${final.gw}`),
     el('div', { className: 'final-hero-matchup' },
       el('div', { className: 'final-hero-team', style: 'text-align:right' },
@@ -1303,6 +1313,12 @@ function buildFinalHero(final) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const WORKER_URL = 'https://fpl-proxy.josephpwilson3.workers.dev';
+
+function icon(name) {
+  const i = document.createElement('i');
+  i.setAttribute('data-lucide', name);
+  return i;
+}
 const LEAGUE_ID = 286779;
 
 const _fplCache = {};
@@ -1432,7 +1448,7 @@ function buildPlayerCard(pick, playerMeta, livePoints, isActive) {
   const pts = livePoints != null ? livePoints : '—';
   const ptsClass = livePoints != null && _liveData ? 'live' : '';
   const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
-  const shirt = el('div', { className: `player-shirt ${posClass}` }, '⚽');
+  const shirt = el('div', { className: `player-shirt ${posClass}` });
   if (pick.is_captain) shirt.appendChild(el('span', { className: 'cap-badge' }, 'C'));
   else if (pick.is_vice_captain) shirt.appendChild(el('span', { className: 'cap-badge', style: 'background:#94a3b8' }, 'V'));
 
@@ -1510,7 +1526,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
 
           const header = el('div', { className: 'psd-header' },
             el('span', { className: 'psd-name' }, pm ? `${pm.web_name} · ${teamMap[pm.team]?.short_name || ''}` : String(pid)),
-            el('span', { className: 'psd-close', onClick: () => { statsDrawer.remove(); statsDrawer = null; } }, '✕')
+            el('span', { className: 'psd-close', onClick: () => { statsDrawer.remove(); statsDrawer = null; } }, icon('x'))
           );
           statsDrawer.appendChild(header);
           statsDrawer.appendChild(el('div', { className: 'psd-loading' }, 'Loading stats...'));
@@ -1585,6 +1601,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
 
     container.innerHTML = '';
     container.appendChild(wrap);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 
     // Attach handlers after DOM insertion
     container.querySelectorAll('.player-card').forEach(card => {
@@ -1599,7 +1616,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
         drawerEl.dataset.pid = String(pid);
         drawerEl.appendChild(el('div', { className: 'psd-header' },
           el('span', { className: 'psd-name' }, pm ? `${pm.web_name} · ${teamMap[pm.team]?.short_name || ''}` : String(pid)),
-          el('span', { className: 'psd-close' }, '✕')
+          el('span', { className: 'psd-close' }, icon('x'))
         ));
         drawerEl.appendChild(el('div', { className: 'psd-loading' }, 'Loading stats...'));
         drawerEl.querySelector('.psd-close').addEventListener('click', () => drawerEl.remove());
@@ -1660,7 +1677,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
 
 function buildLeagueTab(data) {
   const wrap = el('div');
-  wrap.appendChild(el('div', { className: 'section-title' }, '📊 League Table'));
+  wrap.appendChild(el('div', { className: 'section-title' }, icon('bar-chart-2'), ' League Table'));
 
   const statusBar = el('div', { className: 'gw-selector-bar' },
     el('span', { className: 'gw-status-text' }, 'Loading FPL data...')
@@ -1763,14 +1780,14 @@ function buildLeagueTab(data) {
       availableGWs.forEach(gw => {
         const opt = document.createElement('option');
         opt.value = String(gw);
-        opt.textContent = `GW${gw}${(gw === selectedGW && isLiveGW) ? ' 🔴' : ''}`;
+        opt.textContent = `GW${gw}${(gw === selectedGW && isLiveGW) ? ' ●' : ''}`;
         if (gw === selectedGW) opt.selected = true;
         gwSelect.appendChild(opt);
       });
 
       statusBar.innerHTML = '';
       statusBar.appendChild(isLiveGW
-        ? el('span', { className: 'gw-live-badge' }, '🔴 Live')
+        ? el('span', { className: 'gw-live-badge' }, icon('circle'), ' Live')
         : el('span', { className: 'gw-status-text' }, 'Showing:')
       );
       statusBar.appendChild(gwSelect);
@@ -1810,7 +1827,7 @@ function buildLeagueTab(data) {
 function buildTradeDiffTable(tradeDiff) {
   const card = el('div', { className: 'stats-card' });
   card.appendChild(el('div', { className: 'stats-card-header' },
-    el('h3', {}, '🔄 Transfer Differential'),
+    el('h3', {}, icon('repeat-2'), ' Transfer Differential'),
     el('p', {}, 'Net points gained/lost vs the player sold, calculated from the gameweek of each transfer onwards.')
   ));
 
@@ -1895,7 +1912,7 @@ function buildTradeDiffTable(tradeDiff) {
 function buildCaptainTable(captainPoints) {
   const card = el('div', { className: 'stats-card' });
   card.appendChild(el('div', { className: 'stats-card-header' },
-    el('h3', {}, '🎖️ Captain Points'),
+    el('h3', {}, icon('star'), ' Captain Points'),
     el('p', {}, 'Total bonus points earned from captaincy (raw captain score × 1, or ×2 for triple captain). Includes auto-promoted vice-captain.')
   ));
 
@@ -1967,7 +1984,7 @@ function buildCaptainTable(captainPoints) {
 function buildFormTable(form) {
   const card = el('div', { className: 'stats-card' });
   card.appendChild(el('div', { className: 'stats-card-header' },
-    el('h3', {}, '🔥 Form Table (last 5 GWs)'),
+    el('h3', {}, icon('trending-up'), ' Form — Last 5 GWs'),
     el('p', {}, 'Average score over the last 5 gameweeks, ranked. Ignores total-season standing.')
   ));
   const thead = el('thead', {},
@@ -2007,7 +2024,7 @@ function buildFormTable(form) {
 function buildBenchTable(bench) {
   const card = el('div', { className: 'stats-card' });
   card.appendChild(el('div', { className: 'stats-card-header' },
-    el('h3', {}, '🪑 Bench Points Left'),
+    el('h3', {}, icon('minus-circle'), ' Bench Points'),
     el('p', {}, 'Total points left sitting on the bench all season. The eternal FPL regret metric.')
   ));
   const thead = el('thead', {},
@@ -2042,7 +2059,7 @@ function buildBenchTable(bench) {
 function buildCaptainHitRateTable(hitRate) {
   const card = el('div', { className: 'stats-card' });
   card.appendChild(el('div', { className: 'stats-card-header' },
-    el('h3', {}, '🎯 Captain Hit Rate'),
+    el('h3', {}, icon('target'), ' Captain Hit Rate'),
     el('p', {}, '% of gameweeks where the named captain scored the most points in the starting XI.')
   ));
   const thead = el('thead', {},
@@ -2081,7 +2098,7 @@ function buildCaptainHitRateTable(hitRate) {
 
 function buildStatsTab(data) {
   const frag = document.createDocumentFragment();
-  frag.appendChild(el('div', { className: 'section-title' }, '📈 League Stats'));
+  frag.appendChild(el('div', { className: 'section-title' }, icon('trending-up'), ' Stats'));
   frag.appendChild(buildFormTable(data.form));
   frag.appendChild(buildBenchTable(data.bench_points));
   frag.appendChild(buildCaptainHitRateTable(data.captain_hit_rate));
@@ -2106,7 +2123,7 @@ const CHAMPIONS_DATA = [
 
 function buildChampionsTab() {
   const frag = document.createDocumentFragment();
-  frag.appendChild(el('div', { className: 'section-title' }, '⭐ Hall of Champions'));
+  frag.appendChild(el('div', { className: 'section-title' }, icon('award'), ' Hall of Champions'));
   frag.appendChild(el('p', { className: 'champions-intro' }, 'All-time honour board — league titles and cup wins across every season.'));
 
   const sorted = [...CHAMPIONS_DATA].sort((a, b) => {
@@ -2126,10 +2143,10 @@ function buildChampionsTab() {
 
     const trophies = el('div', { className: 'honour-trophies' });
     for (let l = 0; l < person.leagues; l++) {
-      trophies.appendChild(el('span', { className: 'trophy-pill league' }, '🏆 League'));
+      trophies.appendChild(el('span', { className: 'trophy-pill league' }, icon('trophy'), ' League'));
     }
     for (let c = 0; c < person.cups; c++) {
-      trophies.appendChild(el('span', { className: 'trophy-pill cup' }, '🥇 Cup'));
+      trophies.appendChild(el('span', { className: 'trophy-pill cup' }, icon('trophy'), ' Cup'));
     }
 
     board.appendChild(el('div', { className: `honour-card${cardClass}` },
@@ -2176,8 +2193,8 @@ function buildChampionsTab() {
     return card;
   }
 
-  subGrid.appendChild(buildSubTable('🏆 League Titles', '🏆', 'league', m => m.leagues));
-  subGrid.appendChild(buildSubTable('🥇 Cup Wins', '🥇', 'cup', m => m.cups));
+  subGrid.appendChild(buildSubTable('League Titles', '#', 'league', m => m.leagues));
+  subGrid.appendChild(buildSubTable('Cup Wins', m => m.cups));
   frag.appendChild(subGrid);
 
   return frag;
@@ -2193,7 +2210,7 @@ const TOTAL_CUPS = CHAMPIONS_DATA.reduce((sum, m) => sum + m.cups, 0);
 
 function buildHistoryTab() {
   const frag = document.createDocumentFragment();
-  frag.appendChild(el('div', { className: 'section-title' }, '📜 The History'));
+  frag.appendChild(el('div', { className: 'section-title' }, icon('book-open'), ' History'));
 
   const founderCard = el('div', { className: 'history-founder' },
     el('div', { className: 'founder-photo-wrap' },
@@ -2237,7 +2254,7 @@ function buildHistoryTab() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 let _cupData = null, _leagueData = null;
-let _activeTab = 'history';
+let _activeTab = 'league';
 
 function switchTab(tabName) {
   _activeTab = tabName;
@@ -2260,6 +2277,7 @@ function switchTab(tabName) {
   } else if (tabName === 'history') {
     app.appendChild(buildHistoryTab());
   }
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -2273,11 +2291,11 @@ function renderCup(data) {
 
   const app = document.getElementById('app');
   app.innerHTML = '';
-  app.appendChild(el('div', { className: 'section-title' }, '⚔️ Semi-Finals'));
+  app.appendChild(el('div', { className: 'section-title' }, icon('shield'), ' Semi-Finals'));
   const semis = el('div', { className: 'semis-grid' });
   data.knockout.semi_finals.forEach(sf => semis.appendChild(buildSFCard(sf)));
   app.appendChild(semis);
-  app.appendChild(el('div', { className: 'section-title', style: 'margin-top:1rem' }, '⚽ Group Stage'));
+  app.appendChild(el('div', { className: 'section-title', style: 'margin-top:1rem' }, icon('layout-grid'), ' Group Stage'));
   app.appendChild(el('div', { className: 'groups-grid' },
     buildGroupCard('A', data.groups.A),
     buildGroupCard('B', data.groups.B)
@@ -2304,11 +2322,12 @@ Promise.all([
   if (meta.season)    document.getElementById('season-badge').textContent = meta.season;
   if (meta.last_updated) document.getElementById('last-updated').textContent = `Updated: ${meta.last_updated} · GW${meta.current_gw}`;
 
-  switchTab('history');
+  switchTab('league');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }).catch(err => {
   document.getElementById('app').innerHTML = `
     <div class="error-msg">
-      <div style="font-size:2rem;margin-bottom:0.5rem">⚠️</div>
+      <div style="font-size:2rem;margin-bottom:0.5rem;color:var(--gold)"><i data-lucide="alert-triangle"></i></div>
       <div>Could not load data.</div>
       <div style="font-size:0.8rem;margin-top:0.5rem;color:var(--muted)">${err.message}</div>
     </div>`;
