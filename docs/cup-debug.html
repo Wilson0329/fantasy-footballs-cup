@@ -206,59 +206,50 @@
     .match-pitch-bg {
       background:
         repeating-linear-gradient(180deg,
-          rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 28px,
-          transparent 28px, transparent 56px),
+          rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 36px,
+          transparent 36px, transparent 72px),
         linear-gradient(180deg, #14532d 0%, #166534 50%, #14532d 100%);
       border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.12);
-      padding: 0.25rem 0.3rem;
+      padding: 0.35rem 0.5rem;
       position: relative; overflow: hidden;
     }
     .match-pitch-team-label {
-      text-align: center; font-size: 0.5rem; font-weight: 700;
+      text-align: center; font-size: 0.6rem; font-weight: 700;
       text-transform: uppercase; letter-spacing: 1px;
-      color: rgba(255,255,255,0.4); padding: 0.15rem 0;
+      color: rgba(255,255,255,0.5); padding: 0.2rem 0;
     }
     .match-pitch-row {
-      display: flex; justify-content: center; gap: 0.1rem; margin-bottom: 0.1rem;
+      display: flex; justify-content: center; gap: 0.25rem; margin-bottom: 0.25rem;
     }
     .match-pitch-midline {
-      border-top: 1px solid rgba(255,255,255,0.18); margin: 0.2rem 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.18); margin: 0.35rem 0.5rem;
     }
     .mp-player {
       display: flex; flex-direction: column; align-items: center;
-      width: 36px; gap: 0.04rem;
+      width: 48px; gap: 0.1rem;
     }
     .mp-shirt {
-      width: 24px; height: 28px; position: relative;
+      width: 32px; height: 36px; position: relative;
       display: flex; align-items: center; justify-content: center;
     }
-    .mp-kit-img { width: 20px; height: 24px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6)); }
-    .mp-cap {
-      position: absolute; top: -2px; right: -2px;
-      width: 10px; height: 10px; border-radius: 50%;
-      background: var(--gold); color: #000; font-size: 0.35rem; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-    }
+    .mp-kit-img { width: 28px; height: 32px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6)); }
     .mp-pts {
-      background: rgba(0,0,0,0.6); color: var(--text);
-      font-size: 0.5rem; font-weight: 700;
-      padding: 0.02rem 0.18rem; border-radius: 2px;
-      min-width: 16px; text-align: center;
+      background: rgba(0,0,0,0.65); color: var(--text);
+      font-size: 0.6rem; font-weight: 700;
+      padding: 0.05rem 0.2rem; border-radius: 3px;
+      min-width: 18px; text-align: center;
     }
     .mp-name {
-      font-size: 0.4rem; font-weight: 600;
-      color: rgba(255,255,255,0.8); text-align: center;
-      max-width: 36px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      font-size: 0.52rem; font-weight: 600;
+      color: rgba(255,255,255,0.9); text-align: center;
+      max-width: 48px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .mp-loading { text-align: center; color: var(--muted); font-size: 0.75rem; padding: 1rem 0; }
 
     /* ── Final pitch view ── */
     .final-pitch-section { margin-bottom: 2rem; }
-    .final-pitch-container {
-      display: flex; gap: 0.75rem; align-items: flex-start; padding: 0 0 1rem;
-    }
-    .final-pitch-main { flex: 1; min-width: 0; }
+    .final-pitch-main { width: 100%; }
     .final-pitch-preview-label {
       text-align: center; font-size: 0.7rem; color: var(--muted);
       margin-bottom: 0.4rem; letter-spacing: 0.3px;
@@ -328,9 +319,8 @@
       max-width: 56px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .final-bench-panel {
-      width: 92px; flex-shrink: 0;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 0.6rem 0.5rem;
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.6rem 0.75rem; margin: 0.5rem 0;
     }
     .final-bench-header {
       display: flex; align-items: baseline; gap: 0.3rem;
@@ -344,38 +334,23 @@
       font-size: 0.5rem; font-weight: 700; text-transform: uppercase;
       letter-spacing: 0.5px; color: var(--muted); flex-shrink: 0;
     }
-    .final-bench-players { display: flex; flex-direction: column; }
-    .final-bench-player {
-      display: flex; align-items: center; gap: 0.3rem;
-      padding: 0.2rem 0; border-bottom: 1px solid var(--border);
+    .final-bench-players {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;
     }
-    .final-bench-player:last-child { border-bottom: none; }
-    .final-bench-shirt { width: 22px; height: 24px; flex-shrink: 0; position: relative; display: flex; align-items: center; }
-    .mini-bench-kit { width: 20px; height: 22px; object-fit: contain; }
-    .final-bench-info { flex: 1; min-width: 0; }
-    .final-bench-name { font-size: 0.52rem; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .final-bench-pts { font-size: 0.52rem; color: var(--muted); }
+    .final-bench-player {
+      display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+      padding: 0.3rem 0.2rem; border: 1px solid var(--border);
+      border-radius: 6px; background: var(--surface2);
+    }
+    .final-bench-shirt { width: 28px; height: 30px; flex-shrink: 0; position: relative; display: flex; align-items: center; justify-content: center; }
+    .mini-bench-kit { width: 24px; height: 28px; object-fit: contain; }
+    .final-bench-info { min-width: 0; width: 100%; text-align: center; }
+    .final-bench-name { font-size: 0.58rem; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; }
+    .final-bench-pts { font-size: 0.55rem; color: var(--muted); text-align: center; }
     .final-bench-pts.live { color: #4ade80; }
     .pitch-loading { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
     .pitch-error { text-align: center; padding: 1rem; color: #f87171; font-size: 0.82rem; }
     @media (max-width: 640px) {
-      .final-pitch-container { flex-direction: column; gap: 0.5rem; }
-      .final-bench-panel { width: 100%; }
-      .final-bench-header { margin-bottom: 0.5rem; }
-      .final-bench-players {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.4rem;
-      }
-      .final-bench-player {
-        flex-direction: column; align-items: center; text-align: center;
-        border-bottom: none; border: 1px solid var(--border);
-        border-radius: 6px; padding: 0.3rem 0.2rem;
-        background: var(--surface2);
-      }
-      .final-bench-info { min-width: 0; width: 100%; }
-      .final-bench-name { text-align: center; }
-      .final-bench-shirt { margin: 0 auto; }
       .mini-player-card { width: 40px; }
       .mini-name { max-width: 40px; font-size: 0.48rem; }
       /* Final pitch: portrait (top-to-bottom) on mobile */
@@ -619,7 +594,6 @@ async function buildMatchPitch(entryIdA, nameA, entryIdB, nameB, gw, container) 
           } else {
             shirt.appendChild(el('div', { className: `kit-img-fallback ${posClass}`, style: 'width:16px;height:18px' }));
           }
-          if (pick.is_captain) shirt.appendChild(el('span', { className: 'mp-cap' }, 'C'));
           const pts = liveMap[pick.element] != null ? String(liveMap[pick.element]) : '—';
           row.appendChild(el('div', { className: 'mp-player' },
             shirt,
@@ -893,8 +867,7 @@ function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw) {
   const isGK = playerMeta && playerMeta.element_type === 1;
   const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
   const shirt = buildMiniShirt(teamCode, isGK, posClass);
-  if (pick.is_captain) shirt.appendChild(el('span', { className: 'mini-cap-badge' }, 'C'));
-  else if (pick.is_vice_captain) shirt.appendChild(el('span', { className: 'mini-cap-badge', style: 'background:#94a3b8' }, 'V'));
+  // captain/VC badges omitted — cup scoring ignores captaincy
 
   const ptsEl = el('div', { className: 'mini-pts' }, '—');
   if (isLiveFinal) {
@@ -1029,13 +1002,10 @@ async function buildFinalPitchView(final, liveGW, container) {
     if (previewLabel) pitchMain.appendChild(el('div', { className: 'final-pitch-preview-label' }, previewLabel));
     pitchMain.appendChild(pitchBg);
 
-    const pitchContainer = el('div', { className: 'final-pitch-container' });
-    pitchContainer.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
-    pitchContainer.appendChild(pitchMain);
-    pitchContainer.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
-
     container.innerHTML = '';
-    container.appendChild(pitchContainer);
+    container.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
+    container.appendChild(pitchMain);
+    container.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
 
     if (isLiveFinal) {
       try {
