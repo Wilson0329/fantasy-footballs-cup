@@ -2104,13 +2104,12 @@ function startLivePoll(gw) {
       _liveData = await getLive(gw);
       updateLastPolled();
       refreshOpenPitchViews();
-      // Refresh league standing scores in table
+      refreshLeagueScores();
+      // Refresh standings for cumulative total column (less urgent, best-effort)
       try {
-        // Bust cache for standings
         delete _fplCache[`leagues-classic/${LEAGUE_ID}/standings/`];
         _leagueStandings = await getLeagueStandings();
-        refreshLeagueScores();
-      } catch(e2) { /* ignore standings poll error */ }
+      } catch(e2) { /* ignore */ }
     } catch (e) { /* silently ignore poll errors */ }
   }, 60000);
 }
@@ -2188,19 +2187,31 @@ function refreshOpenPitchViews() {
   Object.values(_openPitchRefresh).forEach(fn => fn());
 }
 
-function refreshLeagueScores() {
-  if (!_leagueStandings) return;
-  document.querySelectorAll('.league-table tbody').forEach(tbody => {
-    const row = tbody.querySelector('tr[data-entry]');
-    if (!row) return;
+async function refreshLeagueScores() {
+  if (!_liveData || !_liveGW) return;
+  const liveMap = {};
+  _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+
+  const rows = [...document.querySelectorAll('.league-table tbody tr[data-entry]')];
+  await Promise.all(rows.map(async row => {
     const entryId = Number(row.dataset.entry);
-    const live = _leagueStandings[entryId];
-    if (!live) return;
-    const gwCell = row.querySelector('.league-gw');
-    const totalCell = row.querySelector('.league-total');
-    if (gwCell) gwCell.textContent = String(live.gw_points);
-    if (totalCell) totalCell.textContent = String(live.total_points);
-  });
+    try {
+      const picksData = await getPicks(entryId, _liveGW);
+      // Sum scores * multiplier — handles captain (2×), triple captain (3×), bench boost (1× all)
+      const gwScore = picksData.picks
+        .filter(p => p.multiplier > 0)
+        .reduce((s, p) => s + (liveMap[p.element] || 0) * p.multiplier, 0);
+      const gwCell = row.querySelector('.league-gw');
+      if (gwCell) gwCell.textContent = String(gwScore);
+    } catch(e) { /* leave cell unchanged if picks unavailable */ }
+
+    // Cumulative total from standings API (slightly lagging but correct)
+    if (_leagueStandings) {
+      const standing = _leagueStandings[entryId];
+      const totalCell = row.querySelector('.league-total');
+      if (totalCell && standing) totalCell.textContent = String(standing.total_points);
+    }
+  }));
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -2651,6 +2662,7 @@ function buildLeagueTab(data) {
       });
 
       buildStandingsTable(selectedGW, isLiveGW);
+      if (isLiveGW) refreshLeagueScores();
 
     } catch(e) {
       statusBar.innerHTML = `<span class="gw-status-text">Could not load FPL data: ${e.message}</span>`;
