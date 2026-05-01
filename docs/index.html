@@ -574,24 +574,31 @@
     .cup-settings-link { text-align: center; margin-top: 2rem; padding-bottom: 1rem; }
     .cup-settings-link a { color: var(--muted); font-size: 0.78rem; text-decoration: none; border-bottom: 1px solid transparent; }
     .cup-settings-link a:hover { color: var(--text); border-bottom-color: var(--border); }
-    .settings-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 2rem 1rem; }
-    .settings-panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 560px; width: 100%; position: relative; margin: auto; }
-    .settings-panel h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; }
-    .settings-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.2rem; }
-    .settings-section { margin-bottom: 1.5rem; }
-    .settings-section h3 { font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .settings-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 2rem 1rem; }
+    .settings-panel { background: #1a2236; border: 1px solid #2d3f5c; border-radius: 14px; padding: 2rem; max-width: 520px; width: 100%; position: relative; margin: auto; box-shadow: 0 24px 64px rgba(0,0,0,0.7); }
+    .settings-panel h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; color: #e2e8f0; }
+    .settings-close { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; cursor: pointer; font-size: 1rem; border-radius: 6px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+    .settings-close:hover { background: rgba(255,255,255,0.12); color: #e2e8f0; }
+    .settings-section { margin-bottom: 1.75rem; }
+    .settings-section h3 { font-size: 0.75rem; font-weight: 700; color: #818cf8; margin-bottom: 0.85rem; text-transform: uppercase; letter-spacing: 0.8px; }
     .rules-list { list-style: none; padding: 0; }
-    .rules-list li { padding: 0.4rem 0; font-size: 0.83rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+    .rules-list li { padding: 0.45rem 0; font-size: 0.82rem; color: #94a3b8; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .rules-list li:last-child { border-bottom: none; }
-    .rules-list li strong { color: var(--text); }
-    .gw-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
-    .gw-tag { display: inline-flex; align-items: center; gap: 4px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3); border-radius: 999px; padding: 0.2rem 0.5rem; font-size: 0.78rem; color: #a5b4fc; }
-    .gw-tag button { background: none; border: none; color: #f87171; cursor: pointer; padding: 0; font-size: 0.75rem; line-height: 1; }
-    .gw-add-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-    .gw-input { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.83rem; width: 80px; }
-    .settings-save-btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.4rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 1rem; }
-    .settings-save-btn:hover { opacity: 0.9; }
-    .settings-saved-msg { text-align: center; font-size: 0.78rem; color: #4ade80; margin-top: 0.5rem; display: none; }
+    .rules-list li strong { color: #e2e8f0; }
+    .gw-list { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.75rem; }
+    .gw-list-row { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 0.4rem 0.6rem; }
+    .gw-list-label { font-size: 0.75rem; color: #64748b; width: 60px; flex-shrink: 0; }
+    .gw-list-input { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: #e2e8f0; border-radius: 6px; padding: 0.25rem 0.5rem; font-size: 0.85rem; width: 70px; text-align: center; }
+    .gw-list-input:focus { outline: none; border-color: #6366f1; background: rgba(99,102,241,0.1); }
+    .gw-list-del { background: none; border: none; color: #64748b; cursor: pointer; padding: 0 4px; font-size: 1rem; line-height: 1; margin-left: auto; }
+    .gw-list-del:hover { color: #f87171; }
+    .gw-add-row { display: flex; gap: 0.5rem; margin-top: 0.25rem; }
+    .gw-add-btn { background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3); color: #a5b4fc; border-radius: 7px; padding: 0.35rem 0.9rem; font-size: 0.82rem; cursor: pointer; }
+    .gw-add-btn:hover { background: rgba(99,102,241,0.25); }
+    .gw-new-input { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); color: #e2e8f0; border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.83rem; width: 80px; }
+    .settings-save-btn { background: #4f46e5; color: #fff; border: none; border-radius: 8px; padding: 0.65rem 1.4rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 0.5rem; }
+    .settings-save-btn:hover { background: #6366f1; }
+    .settings-saved-msg { text-align: center; font-size: 0.78rem; color: #4ade80; margin-top: 0.6rem; display: none; }
 
     /* ── Champions tab ── */
     .champions-intro {
@@ -2564,29 +2571,43 @@ function openCupSettings() {
   // GW editor section
   const gwSection = el('div', { className: 'settings-section' });
   gwSection.appendChild(el('h3', {}, 'Cup Gameweeks'));
-  gwSection.appendChild(el('p', { style: 'font-size:0.78rem;color:var(--muted);margin-bottom:0.75rem' },
-    'These are the gameweeks used for live cup scoring. Changes save to this browser.'));
+  gwSection.appendChild(el('p', { style: 'font-size:0.78rem;color:#64748b;margin-bottom:0.85rem' },
+    'Gameweeks used for live cup scoring. Edit any week number directly, or add/remove rows. Saves to this browser.'));
 
-  let currentGWs = [...getCupGWs()];
-  const tagsContainer = el('div', { className: 'gw-tags' });
+  let currentGWs = [...getCupGWs()].sort((a,b)=>a-b);
+  const listContainer = el('div', { className: 'gw-list' });
 
-  function renderTags() {
-    tagsContainer.innerHTML = '';
-    currentGWs.sort((a,b)=>a-b).forEach(gw => {
-      const removeBtn = el('button', {}, '×');
-      removeBtn.addEventListener('click', () => { currentGWs = currentGWs.filter(g=>g!==gw); renderTags(); });
-      tagsContainer.appendChild(el('span', { className: 'gw-tag' }, `GW${gw}`, removeBtn));
+  const ROUND_LABELS = ['Round 1','Round 2','Round 3','Round 4','Round 5','Semi-Final Leg 1','Semi-Final Leg 2','Final'];
+
+  function renderList() {
+    listContainer.innerHTML = '';
+    currentGWs.forEach((gw, i) => {
+      const label = ROUND_LABELS[i] || `Round ${i+1}`;
+      const inp = el('input', { className: 'gw-list-input', type: 'number', min: '1', max: '38', value: String(gw) });
+      inp.addEventListener('change', () => {
+        const v = parseInt(inp.value);
+        if (v >= 1 && v <= 38) { currentGWs[i] = v; inp.value = String(v); }
+        else inp.value = String(currentGWs[i]);
+      });
+      const delBtn = el('button', { className: 'gw-list-del' }, '×');
+      delBtn.addEventListener('click', () => { currentGWs.splice(i, 1); renderList(); });
+      listContainer.appendChild(el('div', { className: 'gw-list-row' },
+        el('span', { className: 'gw-list-label' }, label),
+        inp,
+        delBtn
+      ));
     });
   }
-  renderTags();
-  gwSection.appendChild(tagsContainer);
+  renderList();
+  gwSection.appendChild(listContainer);
 
-  const addInput = el('input', { className: 'gw-input', type: 'number', min: '1', max: '38', placeholder: 'GW#' });
-  const addBtn = el('button', { className: 'gw-select', style: 'padding:0.3rem 0.8rem;cursor:pointer' }, '+ Add');
+  const addInput = el('input', { className: 'gw-new-input', type: 'number', min: '1', max: '38', placeholder: 'GW #' });
+  const addBtn = el('button', { className: 'gw-add-btn' }, '+ Add gameweek');
   addBtn.addEventListener('click', () => {
     const v = parseInt(addInput.value);
-    if (v >= 1 && v <= 38 && !currentGWs.includes(v)) { currentGWs.push(v); renderTags(); addInput.value = ''; }
+    if (v >= 1 && v <= 38) { currentGWs.push(v); currentGWs.sort((a,b)=>a-b); renderList(); addInput.value = ''; }
   });
+  addInput.addEventListener('keydown', e => { if (e.key === 'Enter') addBtn.click(); });
   gwSection.appendChild(el('div', { className: 'gw-add-row' }, addInput, addBtn));
   panel.appendChild(gwSection);
 
