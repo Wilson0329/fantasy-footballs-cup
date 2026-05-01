@@ -446,10 +446,9 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
     }
-    .league-table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 0.85rem; }
+    .league-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
     .league-table thead th {
       padding: 0.6rem 1rem;
       text-align: center;
@@ -477,9 +476,10 @@
     .rank-move.same { color: var(--muted); }
     .league-total { font-weight: 800; font-size: 1.05rem; color: var(--text); }
     .league-gw { font-weight: 600; color: var(--accent); }
-    .live-count-col { font-size: 0.82rem; color: var(--muted); min-width: 3rem; }
-    .league-playing { color: #34d399 !important; font-weight: 700; }
-    .league-tostart { color: var(--muted) !important; }
+    .team-live-status { font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem; letter-spacing: 0.02em; }
+    .team-live-status .tls-playing { color: #34d399; font-weight: 700; }
+    .team-live-status .tls-sep { margin: 0 0.25rem; opacity: 0.4; }
+    .team-live-status .tls-tostart { color: var(--muted); }
 
     /* ── Stats tables (trade diff + captain pts) ── */
     .stats-card {
@@ -2238,7 +2238,7 @@ async function refreshLeagueScores() {
       const gwCell = row.querySelector('.league-gw');
       if (gwCell) gwCell.textContent = String(gwScore);
 
-      // Players in play / to start
+      // Playing / to start — rendered inline under manager name
       if (playerFixtureStatus) {
         let playing = 0, toStart = 0;
         activePicks.forEach(p => {
@@ -2247,10 +2247,22 @@ async function refreshLeagueScores() {
           if (fixtures.some(f => f.started && !f.finished)) playing++;
           else if (fixtures.some(f => !f.started)) toStart++;
         });
-        const playingCell = row.querySelector('.league-playing');
-        const toStartCell = row.querySelector('.league-tostart');
-        if (playingCell) playingCell.textContent = String(playing);
-        if (toStartCell) toStartCell.textContent = String(toStart);
+        const statusEl = row.querySelector('.team-live-status');
+        if (statusEl) {
+          statusEl.innerHTML = '';
+          const playSpan = document.createElement('span');
+          playSpan.className = 'tls-playing';
+          playSpan.textContent = `▶ ${playing} playing`;
+          const sep = document.createElement('span');
+          sep.className = 'tls-sep';
+          sep.textContent = '·';
+          const leftSpan = document.createElement('span');
+          leftSpan.className = 'tls-tostart';
+          leftSpan.textContent = `${toStart} to start`;
+          statusEl.appendChild(playSpan);
+          statusEl.appendChild(sep);
+          statusEl.appendChild(leftSpan);
+        }
       }
     } catch(e) { /* leave cells unchanged if picks unavailable */ }
 
@@ -2571,17 +2583,12 @@ function buildLeagueTab(data) {
     const dataGW = data.metadata ? data.metadata.current_gw : null;
     const isCurrentDataGW = !selectedGW || selectedGW === dataGW || isLiveGW;
 
-    const colCount = isLiveGW ? 7 : 5;
     const thead = el('thead', {},
       el('tr', {},
         el('th', {}, 'Rank'),
         el('th', {}, 'Team'),
         el('th', {}, selectedGW ? `GW${selectedGW}` : 'GW'),
         el('th', {}, 'Total'),
-        ...(isLiveGW ? [
-          el('th', { className: 'live-count-col', title: 'Players currently in a live game' }, 'Playing'),
-          el('th', { className: 'live-count-col', title: 'Players whose game has not kicked off yet' }, 'To start'),
-        ] : []),
         el('th', {}, '')
       )
     );
@@ -2606,25 +2613,23 @@ function buildLeagueTab(data) {
 
       const expandBtn = el('span', { className: 'expand-btn' }, '▾');
       const pitchPanelDiv = el('div', { className: 'pitch-panel', 'data-entry': String(s.entry_id) });
-      const pitchRow = el('tr', {}, el('td', { colspan: String(colCount), style: 'padding:0' }, pitchPanelDiv));
+      const pitchRow = el('tr', {}, el('td', { colspan: '5', style: 'padding:0' }, pitchPanelDiv));
 
       const displayGW = isCurrentDataGW
         ? (live ? live.gw_points : s.gw_points)
         : (gwHistories && gwHistories[s.entry_id] != null ? gwHistories[s.entry_id] : '—');
       const displayTotal = live ? live.total_points : s.total_points;
 
+      const liveStatusEl = isLiveGW ? el('div', { className: 'team-live-status' }, '—') : null;
       const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id) },
         el('td', { className: 'rank-cell' }, String(rank + 1), moveEl),
         el('td', {},
           el('div', { className: 'team-name' }, s.name),
-          el('div', { className: 'manager-name' }, s.manager)
+          el('div', { className: 'manager-name' }, s.manager),
+          ...(liveStatusEl ? [liveStatusEl] : [])
         ),
         el('td', { className: 'league-gw' }, String(displayGW)),
         el('td', { className: 'league-total' }, String(displayTotal)),
-        ...(isLiveGW ? [
-          el('td', { className: 'league-playing live-count-col' }, '—'),
-          el('td', { className: 'league-tostart live-count-col' }, '—'),
-        ] : []),
         el('td', {}, expandBtn)
       );
 
