@@ -452,71 +452,32 @@ async function calcCupScore(entryId, gw, liveMap) {
     .reduce((s, p) => s + (liveMap[p.element] || 0), 0);
 }
 
-function getAllTeamsFromCupData() {
-  if (!_cupData) return [];
-  const teams = [];
-  ['A', 'B'].forEach(g => {
-    (_cupData.groups[g]?.teams || []).forEach(t => teams.push(t));
-  });
-  return teams;
-}
-
-function renderTestPanel(gw, scores, teams) {
-  let panel = document.getElementById('gw-test-panel');
-  if (!panel) {
-    panel = document.createElement('div');
-    panel.id = 'gw-test-panel';
-    panel.style.cssText = 'background:#111827;border-bottom:1px solid #1f2d45;padding:0.75rem 1.5rem';
-    document.querySelector('.debug-banner').insertAdjacentElement('afterend', panel);
-  }
-  const sorted = [...teams].sort((a, b) => (scores[b.entry_id] ?? -1) - (scores[a.entry_id] ?? -1));
-  panel.innerHTML = `
-    <div style="font-size:0.7rem;font-weight:700;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem">
-      GW${gw} Cup Scores (live test)
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.35rem">
-      ${sorted.map((t, i) => `
-        <div style="display:flex;justify-content:space-between;align-items:center;
-                    background:rgba(255,255,255,0.04);border:1px solid #1f2d45;
-                    border-radius:6px;padding:0.3rem 0.6rem;font-size:0.78rem">
-          <span style="color:#f1f5f9;font-weight:${i < 2 ? '700' : '400'}">${t.name}</span>
-          <span style="color:#00d4aa;font-weight:700;min-width:2rem;text-align:right">
-            ${scores[t.entry_id] != null ? scores[t.entry_id] : '…'}
-          </span>
-        </div>`).join('')}
-    </div>`;
-}
 
 async function refreshScores() {
   if (!_debugGW) return;
-  const gw = _debugGW;
+  const liveGW = _debugGW; // GW to fetch live data from (may differ from cup fixture GW)
 
-  // Find cup-tagged score elements for this GW
-  const cupEntryIds = new Set();
-  document.querySelectorAll(`[data-cup-entry][data-cup-gw="${gw}"]`).forEach(e => {
-    cupEntryIds.add(Number(e.dataset.cupEntry));
-  });
-
-  // If no cup fixtures are rendered for this GW (e.g. override to a non-cup GW),
-  // fall back to all 12 teams so we can still show live cup scores in the test panel
-  const allTeams = getAllTeamsFromCupData();
-  const isCupGW = cupEntryIds.size > 0;
-  const entryIds = isCupGW ? cupEntryIds : new Set(allTeams.map(t => t.entry_id));
+  // Collect all rendered cup-entry elements regardless of their tagged GW.
+  // When overriding (e.g. GW35 to test GW38 final), data-cup-gw won't match
+  // but we still want to update the score elements using the override GW's live data.
+  const allCupEls = document.querySelectorAll('[data-cup-entry]');
+  const entryIds = new Set();
+  allCupEls.forEach(e => entryIds.add(Number(e.dataset.cupEntry)));
 
   if (!entryIds.size) return;
 
   try {
-    const live = await getLive(gw);
+    const live = await getLive(liveGW);
     const liveMap = {};
     live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
 
     const scores = {};
     await Promise.all([...entryIds].map(async id => {
-      scores[id] = await calcCupScore(id, gw, liveMap);
+      scores[id] = await calcCupScore(id, liveGW, liveMap);
     }));
 
-    // Update cup score elements in the rendered cup fixtures
-    document.querySelectorAll(`[data-cup-entry][data-cup-gw="${gw}"]`).forEach(el => {
+    // Update all cup score elements (regardless of their tagged GW)
+    allCupEls.forEach(el => {
       const id = Number(el.dataset.cupEntry);
       if (scores[id] != null) {
         el.textContent = String(scores[id]);
@@ -525,7 +486,7 @@ async function refreshScores() {
     });
 
     // Update individual player score elements in the final pitch view
-    document.querySelectorAll(`[data-live-player][data-live-gw="${gw}"]`).forEach(el => {
+    document.querySelectorAll('[data-live-player]').forEach(el => {
       const pid = Number(el.dataset.livePlayer);
       if (liveMap[pid] != null) {
         el.textContent = String(liveMap[pid]);
@@ -533,16 +494,12 @@ async function refreshScores() {
       }
     });
 
-    // For non-cup GWs show the test panel; hide it when back on a real cup GW
-    if (!isCupGW) {
-      renderTestPanel(gw, scores, allTeams);
-    } else {
-      const panel = document.getElementById('gw-test-panel');
-      if (panel) panel.remove();
-    }
+    // Remove any leftover test panel from previous logic
+    const panel = document.getElementById('gw-test-panel');
+    if (panel) panel.remove();
 
     document.getElementById('debug-meta').textContent =
-      `Last refreshed ${new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', second:'2-digit' })}`;
+      `Last refreshed ${new Date().toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', second:'2-digit' })} (live data: GW${liveGW})`;
   } catch(e) {
     document.getElementById('debug-meta').textContent = `Error: ${e.message}`;
   }
