@@ -428,6 +428,10 @@
       background: var(--surface2);
       border-bottom: 1px solid var(--border);
     }
+    .stats-table-scroll {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     .stats-card-header h3 { font-size: 0.95rem; font-weight: 700; }
     .stats-card-header p { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
 
@@ -964,6 +968,8 @@
       gap: 0.2rem;
     }
     .player-card:hover .player-shirt { transform: scale(1.08); }
+    .player-card.selected .player-shirt { transform: scale(1.1); filter: drop-shadow(0 0 6px rgba(99,102,241,0.7)); }
+    .player-card.selected .player-name-txt { color: #a5b4fc; }
     .player-shirt {
       width: 44px; height: 50px;
       position: relative;
@@ -1082,6 +1088,46 @@
     .psd-bar-gw { font-size: 0.55rem; color: var(--muted); }
     .psd-loading { text-align: center; color: var(--muted); font-size: 0.78rem; padding: 0.5rem; }
 
+    /* ── Pitch split layout ── */
+    .pitch-split {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 0.75rem;
+    }
+    .pitch-left {
+      flex: 0 0 auto;
+      width: 58%;
+      min-width: 0;
+    }
+    .pitch-right {
+      flex: 1 1 0;
+      min-width: 0;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      min-height: 200px;
+    }
+    .pitch-right-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+    .pitch-right-empty svg { opacity: 0.3; width: 28px; height: 28px; }
+    @media (max-width: 640px) {
+      .pitch-split { flex-direction: column; padding: 0.5rem; }
+      .pitch-left { width: 100%; }
+      .pitch-right { min-height: 120px; }
+      .pitch-right-empty { height: 120px; }
+    }
+
     /* ── Mobile responsive ── */
     @media (max-width: 600px) {
       .container { padding: 1.25rem 0.75rem; }
@@ -1096,10 +1142,10 @@
       /* League table */
       .league-table td, .league-table th { padding: 0.5rem 0.6rem; }
 
-      /* Stats tables: allow horizontal scroll */
-      .stats-card { overflow-x: auto; }
-      .stats-table { min-width: 420px; }
-      .stats-table td, .stats-table th { padding: 0.5rem 0.6rem; }
+      /* Stats tables: scroll only the table, header stays */
+      .stats-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .stats-table { min-width: 380px; }
+      .stats-table td, .stats-table th { padding: 0.5rem 0.5rem; }
 
       /* Semi-final cards */
       .sf-matchup { gap: 0.4rem; }
@@ -1647,7 +1693,6 @@ async function buildPitchView(entryId, gw, container, isLive) {
     const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
     const bench    = picks.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
 
-    // Infer formation
     const rows = { 1: [], 2: [], 3: [], 4: [] };
     starters.forEach(p => {
       const et = playerMap[p.element] ? playerMap[p.element].element_type : 3;
@@ -1661,6 +1706,63 @@ async function buildPitchView(entryId, gw, container, isLive) {
       return s + raw * Math.min(mult, 2);
     }, 0);
 
+    // ── Split layout: left = pitch, right = player stats panel ──
+    const split = el('div', { className: 'pitch-split' });
+    const leftCol = el('div', { className: 'pitch-left' });
+    const rightCol = el('div', { className: 'pitch-right' });
+
+    // Default right panel
+    function showRightEmpty() {
+      rightCol.innerHTML = '';
+      rightCol.appendChild(el('div', { className: 'pitch-right-empty' },
+        icon('user'),
+        el('span', {}, 'Select a player to view stats')
+      ));
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+    showRightEmpty();
+
+    async function showPlayerStats(pid) {
+      const pm = playerMap[pid];
+      rightCol.innerHTML = '';
+      rightCol.appendChild(el('div', { className: 'psd-header' },
+        el('span', { className: 'psd-name' }, pm ? `${pm.web_name}` : String(pid)),
+        pm && teamMap[pm.team] ? el('span', { style: 'font-size:0.75rem;color:var(--muted);font-weight:400;margin-left:6px' }, teamMap[pm.team].short_name) : null
+      ));
+      rightCol.appendChild(el('div', { className: 'psd-loading' }, 'Loading...'));
+      try {
+        const summary = await getPlayerHistory(pid);
+        const history = summary.history || [];
+        const seasonTotal = history.reduce((s, h) => s + h.total_points, 0);
+        const last5 = history.slice(-5);
+
+        rightCol.querySelector('.psd-loading').remove();
+        const grid = el('div', { className: 'psd-stats-grid' },
+          el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, String(seasonTotal)), el('div', { className: 'psd-stat-label' }, 'Season Pts')),
+          el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `\xA3${(pm.now_cost/10).toFixed(1)}m` : '—'), el('div', { className: 'psd-stat-label' }, 'Price')),
+          el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `${pm.selected_by_percent}%` : '—'), el('div', { className: 'psd-stat-label' }, 'Owned'))
+        );
+        rightCol.appendChild(grid);
+        if (last5.length) {
+          const maxPts = Math.max(...last5.map(h => h.total_points), 1);
+          const histEl = el('div', { className: 'psd-history' });
+          last5.forEach(h => {
+            const barH = Math.max(4, Math.round((h.total_points / maxPts) * 48));
+            histEl.appendChild(el('div', { className: 'psd-gw-bar' },
+              el('div', { className: 'psd-bar-pts' }, String(h.total_points)),
+              el('div', { className: 'psd-bar', style: `height:${barH}px` }),
+              el('div', { className: 'psd-bar-gw' }, `GW${h.round}`)
+            ));
+          });
+          rightCol.appendChild(histEl);
+        }
+      } catch(e) {
+        const l = rightCol.querySelector('.psd-loading');
+        if (l) l.textContent = 'Could not load stats.';
+      }
+    }
+
+    // Pitch
     const wrap = el('div', { className: 'pitch-wrap' });
     wrap.appendChild(el('div', { className: 'pitch-gw-badge' },
       gwLabel,
@@ -1673,78 +1775,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
     pitchBg.appendChild(el('div', { className: 'pitch-center-spot' }));
     pitchBg.appendChild(el('div', { className: 'pitch-penalty-box top' }));
     pitchBg.appendChild(el('div', { className: 'pitch-penalty-box bottom' }));
-    let statsDrawer = null;
 
-    function attachCardHandlers(cards) {
-      cards.forEach(card => {
-        card.addEventListener('click', async () => {
-          const pid = Number(card.dataset.playerId);
-          // Toggle: if same player clicked again, close
-          if (statsDrawer && statsDrawer.dataset.pid === String(pid)) {
-            statsDrawer.remove();
-            statsDrawer = null;
-            return;
-          }
-          if (statsDrawer) statsDrawer.remove();
-
-          statsDrawer = el('div', { className: 'player-stats-drawer' });
-          statsDrawer.dataset.pid = String(pid);
-          const pm = playerMap[pid];
-
-          const header = el('div', { className: 'psd-header' },
-            el('span', { className: 'psd-name' }, pm ? `${pm.web_name} · ${teamMap[pm.team]?.short_name || ''}` : String(pid)),
-            el('span', { className: 'psd-close', onClick: () => { statsDrawer.remove(); statsDrawer = null; } }, icon('x'))
-          );
-          statsDrawer.appendChild(header);
-          statsDrawer.appendChild(el('div', { className: 'psd-loading' }, 'Loading stats...'));
-          wrap.appendChild(statsDrawer);
-
-          try {
-            const summary = await getPlayerHistory(pid);
-            const history = summary.history || [];
-            const seasonTotal = history.reduce((s, h) => s + h.total_points, 0);
-            const last5 = history.slice(-5);
-
-            statsDrawer.innerHTML = '';
-            statsDrawer.appendChild(header);
-
-            const grid = el('div', { className: 'psd-stats-grid' },
-              el('div', { className: 'psd-stat' },
-                el('div', { className: 'psd-stat-num' }, String(seasonTotal)),
-                el('div', { className: 'psd-stat-label' }, 'Season Pts')
-              ),
-              el('div', { className: 'psd-stat' },
-                el('div', { className: 'psd-stat-num' }, pm ? `£${(pm.now_cost / 10).toFixed(1)}m` : '—'),
-                el('div', { className: 'psd-stat-label' }, 'Price')
-              ),
-              el('div', { className: 'psd-stat' },
-                el('div', { className: 'psd-stat-num' }, pm ? `${pm.selected_by_percent}%` : '—'),
-                el('div', { className: 'psd-stat-label' }, 'Owned')
-              )
-            );
-            statsDrawer.appendChild(grid);
-
-            if (last5.length) {
-              const maxPts = Math.max(...last5.map(h => h.total_points), 1);
-              const histEl = el('div', { className: 'psd-history' });
-              last5.forEach(h => {
-                const barH = Math.max(4, Math.round((h.total_points / maxPts) * 48));
-                histEl.appendChild(el('div', { className: 'psd-gw-bar' },
-                  el('div', { className: 'psd-bar-pts' }, String(h.total_points)),
-                  el('div', { className: 'psd-bar', style: `height:${barH}px` }),
-                  el('div', { className: 'psd-bar-gw' }, `GW${h.round}`)
-                ));
-              });
-              statsDrawer.appendChild(histEl);
-            }
-          } catch (e) {
-            statsDrawer.querySelector('.psd-loading').textContent = 'Could not load stats.';
-          }
-        });
-      });
-    }
-
-    // Render starting XI by position row
     [1, 2, 3, 4].forEach(et => {
       if (!rows[et].length) return;
       const row = el('div', { className: 'pitch-row' });
@@ -1755,12 +1786,8 @@ async function buildPitchView(entryId, gw, container, isLive) {
       });
       pitchBg.appendChild(row);
     });
-
-    // Attach click handlers to all starting player cards
-    attachCardHandlers(pitchBg.querySelectorAll ? [] : []);
     wrap.appendChild(pitchBg);
 
-    // Bench
     const benchSection = el('div', { className: 'bench-section' });
     benchSection.appendChild(el('div', { className: 'bench-label' }, 'Bench'));
     const benchRow = el('div', { className: 'bench-row' });
@@ -1772,60 +1799,28 @@ async function buildPitchView(entryId, gw, container, isLive) {
     benchSection.appendChild(benchRow);
     wrap.appendChild(benchSection);
 
+    leftCol.appendChild(wrap);
+    split.appendChild(leftCol);
+    split.appendChild(rightCol);
+
     container.innerHTML = '';
-    container.appendChild(wrap);
+    container.appendChild(split);
     if (typeof lucide !== 'undefined') lucide.createIcons();
 
-    // Attach handlers after DOM insertion
+    // Player click → update right panel
+    let activePid = null;
     container.querySelectorAll('.player-card').forEach(card => {
-      card.addEventListener('click', async () => {
+      card.addEventListener('click', () => {
         const pid = Number(card.dataset.playerId);
-        const existing = container.querySelector('.player-stats-drawer');
-        if (existing && existing.dataset.pid === String(pid)) { existing.remove(); return; }
-        if (existing) existing.remove();
-
-        const pm = playerMap[pid];
-        const drawerEl = el('div', { className: 'player-stats-drawer' });
-        drawerEl.dataset.pid = String(pid);
-        drawerEl.appendChild(el('div', { className: 'psd-header' },
-          el('span', { className: 'psd-name' }, pm ? `${pm.web_name} · ${teamMap[pm.team]?.short_name || ''}` : String(pid)),
-          el('span', { className: 'psd-close' }, icon('x'))
-        ));
-        drawerEl.appendChild(el('div', { className: 'psd-loading' }, 'Loading stats...'));
-        drawerEl.querySelector('.psd-close').addEventListener('click', () => drawerEl.remove());
-        container.querySelector('.pitch-wrap').appendChild(drawerEl);
-
-        try {
-          const summary = await getPlayerHistory(pid);
-          const history = summary.history || [];
-          const seasonTotal = history.reduce((s, h) => s + h.total_points, 0);
-          const last5 = history.slice(-5);
-
-          drawerEl.querySelector('.psd-loading').remove();
-          const grid = el('div', { className: 'psd-stats-grid' },
-            el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, String(seasonTotal)), el('div', { className: 'psd-stat-label' }, 'Season Pts')),
-            el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `\xA3${(pm.now_cost/10).toFixed(1)}m` : '—'), el('div', { className: 'psd-stat-label' }, 'Price')),
-            el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `${pm.selected_by_percent}%` : '—'), el('div', { className: 'psd-stat-label' }, 'Owned'))
-          );
-          drawerEl.appendChild(grid);
-
-          if (last5.length) {
-            const maxPts = Math.max(...last5.map(h => h.total_points), 1);
-            const histEl = el('div', { className: 'psd-history' });
-            last5.forEach(h => {
-              const barH = Math.max(4, Math.round((h.total_points / maxPts) * 48));
-              histEl.appendChild(el('div', { className: 'psd-gw-bar' },
-                el('div', { className: 'psd-bar-pts' }, String(h.total_points)),
-                el('div', { className: 'psd-bar', style: `height:${barH}px` }),
-                el('div', { className: 'psd-bar-gw' }, `GW${h.round}`)
-              ));
-            });
-            drawerEl.appendChild(histEl);
-          }
-        } catch(e) {
-          const l = drawerEl.querySelector('.psd-loading');
-          if (l) l.textContent = 'Could not load stats.';
+        container.querySelectorAll('.player-card').forEach(c => c.classList.remove('selected'));
+        if (activePid === pid) {
+          activePid = null;
+          showRightEmpty();
+          return;
         }
+        activePid = pid;
+        card.classList.add('selected');
+        showPlayerStats(pid);
       });
     });
 
@@ -2078,7 +2073,7 @@ function buildTradeDiffTable(tradeDiff) {
     table.appendChild(detailGroup);
   });
 
-  card.appendChild(table);
+  { const s = el("div",{className:"stats-table-scroll"}); s.appendChild(table); card.appendChild(s); }
   addTeamSelector(card, () => Array.from(card.querySelectorAll('tr.summary-row[data-manager]')));
   return card;
 }
@@ -2151,7 +2146,7 @@ function buildCaptainTable(captainPoints) {
     table2.appendChild(detailGroup);
   });
 
-  card.appendChild(table2);
+  { const s = el("div",{className:"stats-table-scroll"}); s.appendChild(table2); card.appendChild(s); }
   addTeamSelector(card, () => Array.from(card.querySelectorAll('tr.summary-row[data-manager]')));
   return card;
 }
@@ -2234,7 +2229,7 @@ function buildFormTable(form) {
     tbody.appendChild(row);
   });
   table.appendChild(tbody);
-  card.appendChild(table);
+  { const s = el("div",{className:"stats-table-scroll"}); s.appendChild(table); card.appendChild(s); }
   addTeamSelector(card, () => Array.from(card.querySelectorAll('tr[data-manager]')));
   return card;
 }
@@ -2270,7 +2265,7 @@ function buildBenchTable(bench) {
     tbody.appendChild(row);
   });
   table.appendChild(tbody);
-  card.appendChild(table);
+  { const s = el("div",{className:"stats-table-scroll"}); s.appendChild(table); card.appendChild(s); }
   addTeamSelector(card, () => Array.from(card.querySelectorAll('tr[data-manager]')));
   return card;
 }
@@ -2311,7 +2306,7 @@ function buildCaptainHitRateTable(hitRate) {
     tbody.appendChild(row);
   });
   table.appendChild(tbody);
-  card.appendChild(table);
+  { const s = el("div",{className:"stats-table-scroll"}); s.appendChild(table); card.appendChild(s); }
   addTeamSelector(card, () => Array.from(card.querySelectorAll('tr[data-manager]')));
   return card;
 }
@@ -2374,9 +2369,7 @@ function buildChampionsTab() {
         el('div', { className: `honour-rank ${rankClass}` }, String(rank)),
         el('div', {},
           el('div', { className: 'honour-manager' }, person.manager),
-          el('div', { className: `honour-team${person.alumni ? ' alumni' : ''}` },
-            person.alumni ? `${person.team} · Former member` : person.team
-          )
+          el('div', { className: 'honour-team' }, person.team)
         ),
         el('div', { className: `honour-total ${rankClass}` }, String(total))
       ),
@@ -2406,14 +2399,13 @@ function buildChampionsTab() {
       const tr = el('tr', {},
         el('td', { className: 'sub-rank' }, String(i + 1)),
         el('td', { className: 'sub-manager' },
-          el('span', {}, person.manager),
-          person.alumni ? el('span', { className: 'sub-alumni' }, ' · Former') : null
+          el('span', {}, person.manager)
         ),
         pills
       );
       table.appendChild(tr);
     });
-    card.appendChild(table);
+    { const s = el("div",{className:"stats-table-scroll"}); s.appendChild(table); card.appendChild(s); }
     return card;
   }
 
