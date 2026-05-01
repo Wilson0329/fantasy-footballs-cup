@@ -1865,19 +1865,34 @@ function buildLeagueTab(data) {
   function buildStandingsTable(selectedGW, isLiveGW) {
     if (!data) return;
     tableWrap.innerHTML = '';
+
+    // Determine which GW the JSON data covers (the most recently finished one)
+    const dataGW = data.metadata ? data.metadata.current_gw : null;
+    const isCurrentDataGW = !selectedGW || selectedGW === dataGW || isLiveGW;
+
     const thead = el('thead', {},
       el('tr', {},
         el('th', {}, 'Rank'),
         el('th', {}, 'Team'),
-        el('th', {}, 'GW'),
+        el('th', {}, selectedGW ? `GW${selectedGW}` : 'GW'),
         el('th', {}, 'Total'),
         el('th', {}, '')
       )
     );
     const table = el('table', { className: 'league-table' }, thead);
 
-    data.standings.forEach(s => {
-      const delta = s.rank_last === 0 ? 0 : s.rank_last - s.rank;
+    // Sort by total points (live if available, else JSON)
+    const standings = [...data.standings].sort((a, b) => {
+      const liveA = _leagueStandings && _leagueStandings[a.entry_id];
+      const liveB = _leagueStandings && _leagueStandings[b.entry_id];
+      return (liveB ? liveB.total_points : b.total_points) - (liveA ? liveA.total_points : a.total_points);
+    });
+
+    standings.forEach((s, rank) => {
+      const live = _leagueStandings && _leagueStandings[s.entry_id];
+      const prevTotal = live ? live.total_points : s.total_points;
+      const prevRank = s.rank_last || s.rank;
+      const delta = prevRank === 0 ? 0 : prevRank - (rank + 1);
       let moveEl;
       if (delta > 0)      moveEl = el('span', { className: 'rank-move up' }, ` ▲${delta}`);
       else if (delta < 0) moveEl = el('span', { className: 'rank-move down' }, ` ▼${Math.abs(delta)}`);
@@ -1887,12 +1902,11 @@ function buildLeagueTab(data) {
       const pitchPanelDiv = el('div', { className: 'pitch-panel', 'data-entry': String(s.entry_id) });
       const pitchRow = el('tr', {}, el('td', { colspan: '5', style: 'padding:0' }, pitchPanelDiv));
 
-      const live = _leagueStandings && _leagueStandings[s.entry_id];
-      const displayGW = live ? live.gw_points : s.gw_points;
+      const displayGW = isCurrentDataGW ? (live ? live.gw_points : s.gw_points) : '—';
       const displayTotal = live ? live.total_points : s.total_points;
 
       const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id) },
-        el('td', { className: 'rank-cell' }, String(s.rank), moveEl),
+        el('td', { className: 'rank-cell' }, String(rank + 1), moveEl),
         el('td', {},
           el('div', { className: 'team-name' }, s.name),
           el('div', { className: 'manager-name' }, s.manager)
