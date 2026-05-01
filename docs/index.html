@@ -446,9 +446,10 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      overflow: hidden;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
-    .league-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .league-table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 0.85rem; }
     .league-table thead th {
       padding: 0.6rem 1rem;
       text-align: center;
@@ -476,6 +477,9 @@
     .rank-move.same { color: var(--muted); }
     .league-total { font-weight: 800; font-size: 1.05rem; color: var(--text); }
     .league-gw { font-weight: 600; color: var(--accent); }
+    .live-count-col { font-size: 0.82rem; color: var(--muted); min-width: 3rem; }
+    .league-playing { color: #34d399 !important; font-weight: 700; }
+    .league-tostart { color: var(--muted) !important; }
 
     /* ── Stats tables (trade diff + captain pts) ── */
     .stats-card {
@@ -2045,6 +2049,16 @@ async function getLive(gw) {
   return res.json();
 }
 
+let _gwFixtures = null;
+async function getGWFixtures(gw) {
+  // Bust cache each call during live GW — fixture started/finished changes during the day
+  const url = `${WORKER_URL}/fixtures/?event=${gw}&t=${Math.floor(Date.now()/60000)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Fixtures fetch failed: ${res.status}`);
+  _gwFixtures = await res.json();
+  return _gwFixtures;
+}
+
 async function getPicks(entryId, gw) {
   const key = `entry/${entryId}/event/${gw}/picks/`;
   // Bust cache per minute for picks too
@@ -2101,11 +2115,11 @@ function startLivePoll(gw) {
   _liveGW = gw;
   _liveInterval = setInterval(async () => {
     try {
-      _liveData = await getLive(gw);
+      [_liveData, _gwFixtures] = await Promise.all([getLive(gw), getGWFixtures(gw)]);
       updateLastPolled();
       refreshOpenPitchViews();
       refreshLeagueScores();
-      // Refresh standings for cumulative total column (less urgent, best-effort)
+      // Refresh standings for cumulative total column (best-effort)
       try {
         delete _fplCache[`leagues-classic/${LEAGUE_ID}/standings/`];
         _leagueStandings = await getLeagueStandings();
@@ -2192,18 +2206,52 @@ async function refreshLeagueScores() {
   const liveMap = {};
   _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
 
+  // Build player→fixture status map from latest fixture data
+  let playerFixtureStatus = null;
+  if (_gwFixtures) {
+    const bs = await getBootstrap().catch(() => null);
+    if (bs) {
+      const playerTeam = {};
+      bs.elements.forEach(e => { playerTeam[e.id] = e.team; });
+      // Map team_id → array of fixture statuses (handles DGW)
+      const teamFixtures = {};
+      _gwFixtures.forEach(f => {
+        [f.team_h, f.team_a].forEach(tid => {
+          if (!teamFixtures[tid]) teamFixtures[tid] = [];
+          teamFixtures[tid].push({ started: f.started, finished: f.finished });
+        });
+      });
+      playerFixtureStatus = { playerTeam, teamFixtures };
+    }
+  }
+
   const rows = [...document.querySelectorAll('.league-table tbody tr[data-entry]')];
   await Promise.all(rows.map(async row => {
     const entryId = Number(row.dataset.entry);
     try {
       const picksData = await getPicks(entryId, _liveGW);
-      // Sum scores * multiplier — handles captain (2×), triple captain (3×), bench boost (1× all)
-      const gwScore = picksData.picks
-        .filter(p => p.multiplier > 0)
-        .reduce((s, p) => s + (liveMap[p.element] || 0) * p.multiplier, 0);
+      const activePicks = picksData.picks.filter(p => p.multiplier > 0);
+
+      // GW score: sum live points × multiplier (captain 2×, TC 3×, BB 1× all)
+      const gwScore = activePicks.reduce((s, p) => s + (liveMap[p.element] || 0) * p.multiplier, 0);
       const gwCell = row.querySelector('.league-gw');
       if (gwCell) gwCell.textContent = String(gwScore);
-    } catch(e) { /* leave cell unchanged if picks unavailable */ }
+
+      // Players in play / to start
+      if (playerFixtureStatus) {
+        let playing = 0, toStart = 0;
+        activePicks.forEach(p => {
+          const tid = playerFixtureStatus.playerTeam[p.element];
+          const fixtures = playerFixtureStatus.teamFixtures[tid] || [];
+          if (fixtures.some(f => f.started && !f.finished)) playing++;
+          else if (fixtures.some(f => !f.started)) toStart++;
+        });
+        const playingCell = row.querySelector('.league-playing');
+        const toStartCell = row.querySelector('.league-tostart');
+        if (playingCell) playingCell.textContent = String(playing);
+        if (toStartCell) toStartCell.textContent = String(toStart);
+      }
+    } catch(e) { /* leave cells unchanged if picks unavailable */ }
 
     // Cumulative total from standings API (slightly lagging but correct)
     if (_leagueStandings) {
@@ -2522,12 +2570,17 @@ function buildLeagueTab(data) {
     const dataGW = data.metadata ? data.metadata.current_gw : null;
     const isCurrentDataGW = !selectedGW || selectedGW === dataGW || isLiveGW;
 
+    const colCount = isLiveGW ? 7 : 5;
     const thead = el('thead', {},
       el('tr', {},
         el('th', {}, 'Rank'),
         el('th', {}, 'Team'),
         el('th', {}, selectedGW ? `GW${selectedGW}` : 'GW'),
         el('th', {}, 'Total'),
+        ...(isLiveGW ? [
+          el('th', { className: 'live-count-col', title: 'Players currently in a live game' }, 'Playing'),
+          el('th', { className: 'live-count-col', title: 'Players whose game has not kicked off yet' }, 'To start'),
+        ] : []),
         el('th', {}, '')
       )
     );
@@ -2552,7 +2605,7 @@ function buildLeagueTab(data) {
 
       const expandBtn = el('span', { className: 'expand-btn' }, '▾');
       const pitchPanelDiv = el('div', { className: 'pitch-panel', 'data-entry': String(s.entry_id) });
-      const pitchRow = el('tr', {}, el('td', { colspan: '5', style: 'padding:0' }, pitchPanelDiv));
+      const pitchRow = el('tr', {}, el('td', { colspan: String(colCount), style: 'padding:0' }, pitchPanelDiv));
 
       const displayGW = isCurrentDataGW
         ? (live ? live.gw_points : s.gw_points)
@@ -2567,6 +2620,10 @@ function buildLeagueTab(data) {
         ),
         el('td', { className: 'league-gw' }, String(displayGW)),
         el('td', { className: 'league-total' }, String(displayTotal)),
+        ...(isLiveGW ? [
+          el('td', { className: 'league-playing live-count-col' }, '—'),
+          el('td', { className: 'league-tostart live-count-col' }, '—'),
+        ] : []),
         el('td', {}, expandBtn)
       );
 
@@ -2613,7 +2670,10 @@ function buildLeagueTab(data) {
         return;
       }
 
-      _liveData = await getLive(selectedGW);
+      [_liveData, _gwFixtures] = await Promise.all([
+        getLive(selectedGW),
+        isLiveGW ? getGWFixtures(selectedGW) : Promise.resolve(null),
+      ]);
       _liveGW = selectedGW;
       updateLastPolled();
       if (isLiveGW) startLivePoll(selectedGW);
