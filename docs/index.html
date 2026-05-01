@@ -2556,11 +2556,11 @@ function openCupSettings() {
   rulesSection.appendChild(el('h3', {}, 'Scoring Rules'));
   const rulesList = el('ul', { className: 'rules-list' });
   [
-    ['Starting XI only', 'Positions 1–11 from each manager's selected team are counted.'],
+    ['Starting XI only', "Positions 1–11 from each manager's selected team are counted."],
     ['No captain bonus', 'The 2× captain multiplier is ignored — all players count as ×1.'],
     ['No chip effects', 'Bench Boost is ignored; only the starting XI counts regardless of chip played.'],
     ['Triple captain stripped', 'TC multiplier (3×) is reduced to ×1 like all other players.'],
-    ['Tiebreaker — single match', 'If scores are level, captain's raw points decide. If still tied, vice-captain's raw points.'],
+    ['Tiebreaker — single match', "If scores are level, captain's raw points decide. If still tied, vice-captain's raw points."],
     ['Tiebreaker — group stage', 'Points; then head-to-head record; then total cup points scored.'],
   ].forEach(([term, def]) => {
     rulesList.appendChild(el('li', {}, el('strong', {}, term + ': '), def));
