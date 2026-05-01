@@ -2190,7 +2190,8 @@ function addTeamSelector(cardEl, getRows) {
     });
   });
   bar.appendChild(sel);
-  cardEl.insertBefore(bar, cardEl.querySelector('table'));
+  const insertBefore = cardEl.querySelector('.stats-table-scroll') || cardEl.querySelector('table');
+  cardEl.insertBefore(bar, insertBefore);
 }
 
 function buildFormTable(form) {
