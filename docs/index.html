@@ -1156,6 +1156,34 @@
     .psd-bar-pts { font-size: 0.62rem; font-weight: 700; color: var(--text); }
     .psd-bar-gw { font-size: 0.55rem; color: var(--muted); }
     .psd-loading { text-align: center; color: var(--muted); font-size: 0.78rem; padding: 0.5rem; }
+    .psd-section-label {
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; color: var(--muted); padding: 0.5rem 0.75rem 0.25rem;
+    }
+    .psd-breakdown {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      margin: 0 0 0.25rem;
+    }
+    .psd-fixture-label {
+      font-size: 0.65rem; font-weight: 600; color: var(--muted);
+      padding: 0.3rem 0.75rem 0.1rem; letter-spacing: 0.2px;
+    }
+    .psd-breakdown-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.3rem 0.75rem; border-bottom: 1px solid rgba(31,45,69,0.5);
+      font-size: 0.78rem;
+    }
+    .psd-breakdown-row:last-of-type { border-bottom: none; }
+    .psd-breakdown-label { color: var(--text); }
+    .psd-breakdown-pts { font-weight: 700; min-width: 2rem; text-align: right; }
+    .psd-breakdown-pts.pos { color: #4ade80; }
+    .psd-breakdown-pts.neg { color: #f87171; }
+    .psd-breakdown-total {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.35rem 0.75rem; background: rgba(0,0,0,0.2);
+      font-size: 0.8rem; font-weight: 700; color: var(--text);
+      border-top: 1px solid var(--border);
+    }
 
     /* ── Pitch split layout ── */
     .pitch-split {
@@ -1990,9 +2018,9 @@ let _liveData = null;
 let _liveGW = null;
 let _liveInterval = null;
 
-async function fetchFPL(path) {
-  if (_fplCache[path]) return _fplCache[path];
-  const url = `${WORKER_URL}/${path}`;
+async function fetchFPL(path, bustCache = false) {
+  if (!bustCache && _fplCache[path]) return _fplCache[path];
+  const url = `${WORKER_URL}/${path}${bustCache ? `?t=${Math.floor(Date.now()/300000)}` : ''}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`FPL fetch failed: ${res.status}`);
   const data = await res.json();
@@ -2000,9 +2028,12 @@ async function fetchFPL(path) {
   return data;
 }
 
+let _bootstrapTs = 0;
 async function getBootstrap() {
-  if (_bootstrap) return _bootstrap;
-  _bootstrap = await fetchFPL('bootstrap-static/');
+  // Re-fetch bootstrap every 5 minutes so new GW transitions are picked up
+  if (_bootstrap && Date.now() - _bootstrapTs < 300000) return _bootstrap;
+  _bootstrap = await fetchFPL('bootstrap-static/', true);
+  _bootstrapTs = Date.now();
   return _bootstrap;
 }
 
@@ -2265,27 +2296,101 @@ async function buildPitchView(entryId, gw, container, isLive) {
     }
     showRightEmpty();
 
+    const EXPLAIN_LABELS = {
+      minutes:           v => v >= 60 ? '60+ mins' : `${v} mins`,
+      goals_scored:      v => `${v} goal${v !== 1 ? 's' : ''} scored`,
+      assists:           v => `${v} assist${v !== 1 ? 's' : ''}`,
+      clean_sheets:      () => 'Clean sheet',
+      goals_conceded:    v => `${v} goal${v !== 1 ? 's' : ''} conceded`,
+      own_goals:         v => `${v} own goal${v !== 1 ? 's' : ''}`,
+      penalties_saved:   v => `${v} pen${v !== 1 ? 's' : ''} saved`,
+      penalties_missed:  v => `${v} pen${v !== 1 ? 's' : ''} missed`,
+      yellow_cards:      () => 'Yellow card',
+      red_cards:         () => 'Red card',
+      saves:             v => `${v} save${v !== 1 ? 's' : ''}`,
+      bonus:             v => `Bonus (${v} BPS rank)`,
+    };
+
+    function buildBreakdown(explainFixtures, fixtureMap) {
+      const wrap = el('div', { className: 'psd-breakdown' });
+      explainFixtures.forEach(fx => {
+        const nonZero = fx.stats.filter(s => s.points !== 0);
+        if (!nonZero.length) return;
+        const fxMeta = fixtureMap[fx.fixture];
+        if (fxMeta) {
+          const homeTeam = teamMap[fxMeta.team_h]?.short_name || '?';
+          const awayTeam = teamMap[fxMeta.team_a]?.short_name || '?';
+          const score = fxMeta.finished ? `${fxMeta.team_h_score}–${fxMeta.team_a_score}` : 'vs';
+          wrap.appendChild(el('div', { className: 'psd-fixture-label' }, `${homeTeam} ${score} ${awayTeam}`));
+        }
+        nonZero.forEach(s => {
+          const label = EXPLAIN_LABELS[s.identifier]
+            ? EXPLAIN_LABELS[s.identifier](s.value)
+            : s.identifier.replace(/_/g, ' ');
+          const pts = s.points;
+          wrap.appendChild(el('div', { className: 'psd-breakdown-row' },
+            el('span', { className: 'psd-breakdown-label' }, label),
+            el('span', { className: `psd-breakdown-pts${pts > 0 ? ' pos' : pts < 0 ? ' neg' : ''}` },
+              `${pts > 0 ? '+' : ''}${pts}`)
+          ));
+        });
+        const total = nonZero.reduce((s, r) => s + r.points, 0);
+        wrap.appendChild(el('div', { className: 'psd-breakdown-total' },
+          el('span', {}, 'Total'),
+          el('span', {}, String(total))
+        ));
+      });
+      return wrap;
+    }
+
     async function showPlayerStats(pid) {
       const pm = playerMap[pid];
       rightCol.innerHTML = '';
       rightCol.appendChild(el('div', { className: 'psd-header' },
-        el('span', { className: 'psd-name' }, pm ? `${pm.web_name}` : String(pid)),
+        el('span', { className: 'psd-name' }, pm ? pm.web_name : String(pid)),
         pm && teamMap[pm.team] ? el('span', { style: 'font-size:0.75rem;color:var(--muted);font-weight:400;margin-left:6px' }, teamMap[pm.team].short_name) : null
       ));
       rightCol.appendChild(el('div', { className: 'psd-loading' }, 'Loading...'));
       try {
-        const summary = await getPlayerHistory(pid);
+        const [summary, liveGwData] = await Promise.all([
+          getPlayerHistory(pid),
+          (_liveData && _liveGW === gw) ? Promise.resolve(_liveData) : getLive(gw),
+        ]);
+        if (liveGwData) { _liveData = liveGwData; _liveGW = gw; }
+
         const history = summary.history || [];
+        const fixtures = summary.fixtures || [];
         const seasonTotal = history.reduce((s, h) => s + h.total_points, 0);
         const last5 = history.slice(-5);
 
+        // Build fixture lookup from bootstrap
+        const bs = await getBootstrap();
+        const fixtureMap = {};
+        (bs.events || []).forEach(ev => (ev.fixtures || []).forEach(f => { fixtureMap[f.id] = f; }));
+        // Also check live endpoint fixtures field
+        (liveGwData?.elements || []).forEach(() => {});
+
+        // GW breakdown from live endpoint explain
+        const livePlayer = liveGwData?.elements?.find(e => e.id === pid);
+        const explainFixtures = livePlayer?.explain || [];
+
         rightCol.querySelector('.psd-loading').remove();
-        const grid = el('div', { className: 'psd-stats-grid' },
-          el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, String(seasonTotal)), el('div', { className: 'psd-stat-label' }, 'Season Pts')),
-          el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `\xA3${(pm.now_cost/10).toFixed(1)}m` : '—'), el('div', { className: 'psd-stat-label' }, 'Price')),
+
+        // ── GW breakdown ──
+        if (explainFixtures.length) {
+          rightCol.appendChild(el('div', { className: 'psd-section-label' }, `GW${gw} Points`));
+          rightCol.appendChild(buildBreakdown(explainFixtures, fixtureMap));
+        }
+
+        // ── Season stats ──
+        rightCol.appendChild(el('div', { className: 'psd-section-label', style: 'margin-top:0.75rem' }, 'Season'));
+        rightCol.appendChild(el('div', { className: 'psd-stats-grid' },
+          el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, String(seasonTotal)), el('div', { className: 'psd-stat-label' }, 'Total Pts')),
+          el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `£${(pm.now_cost/10).toFixed(1)}m` : '—'), el('div', { className: 'psd-stat-label' }, 'Price')),
           el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `${pm.selected_by_percent}%` : '—'), el('div', { className: 'psd-stat-label' }, 'Owned'))
-        );
-        rightCol.appendChild(grid);
+        ));
+
+        // ── Last 5 GW bar chart ──
         if (last5.length) {
           const maxPts = Math.max(...last5.map(h => h.total_points), 1);
           const histEl = el('div', { className: 'psd-history' });
