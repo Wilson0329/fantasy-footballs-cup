@@ -457,6 +457,35 @@
     }
     .expand-btn.open { transform: rotate(180deg); }
 
+    /* GW selector bar */
+    .gw-selector-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .gw-live-badge {
+      background: rgba(239,68,68,0.15);
+      color: #f87171;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(239,68,68,0.3);
+      letter-spacing: 0.03em;
+    }
+    .gw-select {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
     /* Trade detail panel */
     .detail-panel {
       display: none;
@@ -1312,12 +1341,22 @@ async function getPlayerHistory(playerId) {
   return data;
 }
 
+function updateLastPolled() {
+  const span = document.getElementById('last-updated');
+  if (!span) return;
+  const t = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const meta = ((_cupData || _leagueData || {}).metadata || {});
+  const base = meta.last_updated ? `Data: ${meta.last_updated} · ` : '';
+  span.textContent = `${base}FPL polled ${t}`;
+}
+
 function startLivePoll(gw) {
   if (_liveInterval) return;
   _liveGW = gw;
   _liveInterval = setInterval(async () => {
     try {
       _liveData = await getLive(gw);
+      updateLastPolled();
       refreshOpenPitchViews();
     } catch (e) { /* silently ignore poll errors */ }
   }, 60000);
@@ -1365,10 +1404,10 @@ async function buildPitchView(entryId, gw, container, isLive) {
     const [bs, picks, live] = await Promise.all([
       getBootstrap(),
       getPicks(entryId, gw),
-      isLive ? getLive(gw) : Promise.resolve(_liveData),
+      (_liveData && _liveGW === gw) ? Promise.resolve(_liveData) : getLive(gw),
     ]);
 
-    if (isLive && live) _liveData = live;
+    if (live) { _liveData = live; _liveGW = gw; }
 
     const playerMap = {};
     bs.elements.forEach(p => { playerMap[p.id] = p; });
@@ -1572,73 +1611,139 @@ async function buildPitchView(entryId, gw, container, isLive) {
 }
 
 function buildLeagueTab(data) {
-  const frag = document.createDocumentFragment();
-  frag.appendChild(el('div', { className: 'section-title' }, '📊 League Table'));
+  const wrap = el('div');
+  wrap.appendChild(el('div', { className: 'section-title' }, '📊 League Table'));
 
-  const currentGW = (_leagueData && _leagueData.metadata) ? _leagueData.metadata.current_gw : null;
-
-  const thead = el('thead', {},
-    el('tr', {},
-      el('th', {}, 'Rank'),
-      el('th', {}, 'Team'),
-      el('th', {}, 'GW'),
-      el('th', {}, 'Total'),
-      el('th', {}, '')
-    )
+  const statusBar = el('div', { className: 'gw-selector-bar' },
+    el('span', { className: 'gw-status-text' }, 'Loading FPL data...')
   );
+  wrap.appendChild(statusBar);
 
   const tableWrap = el('div', { className: 'league-table-wrap' });
-  const table = el('table', { className: 'league-table' }, thead);
+  wrap.appendChild(tableWrap);
 
-  data.standings.forEach(s => {
-    const delta = s.rank_last === 0 ? 0 : s.rank_last - s.rank;
-    let moveEl;
-    if (delta > 0)      moveEl = el('span', { className: 'rank-move up' }, ` ▲${delta}`);
-    else if (delta < 0) moveEl = el('span', { className: 'rank-move down' }, ` ▼${Math.abs(delta)}`);
-    else                moveEl = el('span', { className: 'rank-move same' }, ' —');
-
-    const expandBtn = el('span', { className: 'expand-btn' }, '▾');
-    const pitchPanel = el('tr', {},
-      el('td', { colspan: '5', style: 'padding:0' },
-        el('div', { className: 'pitch-panel', 'data-entry': String(s.entry_id) })
+  function buildStandingsTable(selectedGW, isLiveGW) {
+    if (!data) return;
+    tableWrap.innerHTML = '';
+    const thead = el('thead', {},
+      el('tr', {},
+        el('th', {}, 'Rank'),
+        el('th', {}, 'Team'),
+        el('th', {}, 'GW'),
+        el('th', {}, 'Total'),
+        el('th', {}, '')
       )
     );
+    const table = el('table', { className: 'league-table' }, thead);
 
-    const summaryRow = el('tr', { style: 'cursor:pointer' },
-      el('td', { className: 'rank-cell' }, String(s.rank), moveEl),
-      el('td', {},
-        el('div', { className: 'team-name' }, s.name),
-        el('div', { className: 'manager-name' }, s.manager)
-      ),
-      el('td', { className: 'league-gw' }, String(s.gw_points)),
-      el('td', { className: 'league-total' }, String(s.total_points)),
-      el('td', {}, expandBtn)
-    );
+    data.standings.forEach(s => {
+      const delta = s.rank_last === 0 ? 0 : s.rank_last - s.rank;
+      let moveEl;
+      if (delta > 0)      moveEl = el('span', { className: 'rank-move up' }, ` ▲${delta}`);
+      else if (delta < 0) moveEl = el('span', { className: 'rank-move down' }, ` ▼${Math.abs(delta)}`);
+      else                moveEl = el('span', { className: 'rank-move same' }, ' —');
 
-    let loaded = false;
-    summaryRow.addEventListener('click', () => {
-      const panel = pitchPanel.querySelector('.pitch-panel');
-      const open = panel.classList.toggle('open');
-      expandBtn.classList.toggle('open', open);
-      if (open && !loaded) {
-        loaded = true;
-        const isLive = false; // set to true when GW is in-play
-        buildPitchView(s.entry_id, currentGW, panel, isLive);
-      }
-      if (!open) {
-        delete _openPitchRefresh[s.entry_id];
-      }
+      const expandBtn = el('span', { className: 'expand-btn' }, '▾');
+      const pitchPanelDiv = el('div', { className: 'pitch-panel', 'data-entry': String(s.entry_id) });
+      const pitchRow = el('tr', {}, el('td', { colspan: '5', style: 'padding:0' }, pitchPanelDiv));
+
+      const summaryRow = el('tr', { style: 'cursor:pointer' },
+        el('td', { className: 'rank-cell' }, String(s.rank), moveEl),
+        el('td', {},
+          el('div', { className: 'team-name' }, s.name),
+          el('div', { className: 'manager-name' }, s.manager)
+        ),
+        el('td', { className: 'league-gw' }, String(s.gw_points)),
+        el('td', { className: 'league-total' }, String(s.total_points)),
+        el('td', {}, expandBtn)
+      );
+
+      let loaded = false;
+      summaryRow.addEventListener('click', () => {
+        const open = pitchPanelDiv.classList.toggle('open');
+        expandBtn.classList.toggle('open', open);
+        if (open && !loaded) {
+          loaded = true;
+          buildPitchView(s.entry_id, selectedGW, pitchPanelDiv, isLiveGW);
+        }
+        if (!open) delete _openPitchRefresh[s.entry_id];
+      });
+
+      const tbody = el('tbody');
+      tbody.appendChild(summaryRow);
+      tbody.appendChild(pitchRow);
+      table.appendChild(tbody);
     });
 
-    const tbody = el('tbody');
-    tbody.appendChild(summaryRow);
-    tbody.appendChild(pitchPanel);
-    table.appendChild(tbody);
-  });
+    tableWrap.appendChild(table);
+  }
 
-  tableWrap.appendChild(table);
-  frag.appendChild(tableWrap);
-  return frag;
+  if (!data) {
+    statusBar.innerHTML = '<span class="gw-status-text">League data not available — standings will load when league_data.json is generated.</span>';
+  }
+
+  (async () => {
+    try {
+      const bs = await getBootstrap();
+      const events = bs.events;
+      const liveEvent = events.find(e => e.is_current && !e.finished);
+      const lastFinished = [...events].reverse().find(e => e.finished);
+      let selectedGW = liveEvent ? liveEvent.id : (lastFinished ? lastFinished.id : null);
+      const isLiveGW = !!liveEvent;
+
+      if (!selectedGW) {
+        statusBar.innerHTML = '<span class="gw-status-text">No gameweek data available.</span>';
+        return;
+      }
+
+      _liveData = await getLive(selectedGW);
+      _liveGW = selectedGW;
+      updateLastPolled();
+      if (isLiveGW) startLivePoll(selectedGW);
+
+      const availableGWs = events.filter(e => e.finished || e.is_current).map(e => e.id).reverse();
+      const gwSelect = el('select', { className: 'gw-select' });
+      availableGWs.forEach(gw => {
+        const opt = document.createElement('option');
+        opt.value = String(gw);
+        opt.textContent = `GW${gw}${(gw === selectedGW && isLiveGW) ? ' 🔴' : ''}`;
+        if (gw === selectedGW) opt.selected = true;
+        gwSelect.appendChild(opt);
+      });
+
+      statusBar.innerHTML = '';
+      statusBar.appendChild(isLiveGW
+        ? el('span', { className: 'gw-live-badge' }, '🔴 Live')
+        : el('span', { className: 'gw-status-text' }, 'Showing:')
+      );
+      statusBar.appendChild(gwSelect);
+
+      gwSelect.addEventListener('change', async () => {
+        const newGW = Number(gwSelect.value);
+        const newIsLive = !!(liveEvent && newGW === liveEvent.id);
+        tableWrap.querySelectorAll('.pitch-panel.open').forEach(p => p.classList.remove('open'));
+        tableWrap.querySelectorAll('.expand-btn.open').forEach(b => b.classList.remove('open'));
+        Object.keys(_openPitchRefresh).forEach(k => delete _openPitchRefresh[k]);
+        try {
+          _liveData = await getLive(newGW);
+          _liveGW = newGW;
+          updateLastPolled();
+        } catch(e) { _liveData = null; _liveGW = null; }
+        buildStandingsTable(newGW, newIsLive);
+      });
+
+      buildStandingsTable(selectedGW, isLiveGW);
+
+    } catch(e) {
+      statusBar.innerHTML = `<span class="gw-status-text">Could not load FPL data: ${e.message}</span>`;
+      if (data) {
+        const fallbackGW = (_leagueData && _leagueData.metadata) ? _leagueData.metadata.current_gw : null;
+        if (fallbackGW) buildStandingsTable(fallbackGW, false);
+      }
+    }
+  })();
+
+  return wrap;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1971,8 +2076,7 @@ function switchTab(tabName) {
     if (_cupData) renderCup(_cupData);
     else app.appendChild(el('div', { className: 'not-available' }, 'Cup data not available.'));
   } else if (tabName === 'league') {
-    if (_leagueData) app.appendChild(buildLeagueTab(_leagueData));
-    else app.appendChild(el('div', { className: 'not-available' }, 'League data not yet generated — run build_league_data.py'));
+    app.appendChild(buildLeagueTab(_leagueData));
   } else if (tabName === 'stats') {
     if (_leagueData) app.appendChild(buildStatsTab(_leagueData));
     else app.appendChild(el('div', { className: 'not-available' }, 'Stats data not yet generated — run build_league_data.py'));
