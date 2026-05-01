@@ -537,6 +537,20 @@
       margin-left: 4px;
     }
 
+    /* Form table */
+    .form-bars { display: flex; align-items: flex-end; gap: 3px; height: 32px; }
+    .form-bar {
+      width: 14px; border-radius: 2px 2px 0 0;
+      background: var(--accent); opacity: 0.75;
+    }
+    .form-avg { font-weight: 700; color: var(--accent); font-size: 0.95rem; }
+
+    /* Bench / hit-rate cells */
+    .stat-num-lg { font-size: 1.05rem; font-weight: 800; }
+    .stat-sub { font-size: 0.72rem; color: var(--muted); }
+    .hit-bar-wrap { width: 72px; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; display: inline-block; vertical-align: middle; margin-left: 5px; }
+    .hit-bar-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+
     /* ── Champions tab ── */
     .champions-intro {
       text-align: center;
@@ -1950,9 +1964,127 @@ function buildCaptainTable(captainPoints) {
   return card;
 }
 
+function buildFormTable(form) {
+  const card = el('div', { className: 'stats-card' });
+  card.appendChild(el('div', { className: 'stats-card-header' },
+    el('h3', {}, '🔥 Form Table (last 5 GWs)'),
+    el('p', {}, 'Average score over the last 5 gameweeks, ranked. Ignores total-season standing.')
+  ));
+  const thead = el('thead', {},
+    el('tr', {},
+      el('th', {}, '#'),
+      el('th', {}, 'Manager'),
+      el('th', {}, 'Last 5 GWs'),
+      el('th', {}, 'Avg')
+    )
+  );
+  const table = el('table', { className: 'stats-table' }, thead);
+  const tbody = el('tbody');
+  (form || []).forEach((t, i) => {
+    const maxScore = Math.max(...t.last5_scores, 1);
+    const barsEl = el('div', { className: 'form-bars' });
+    t.last5_scores.forEach((s, si) => {
+      const h = Math.max(4, Math.round((s / maxScore) * 28));
+      const bar = el('div', { className: 'form-bar', style: `height:${h}px`, title: `GW${t.last5_gws[si]}: ${s} pts` });
+      barsEl.appendChild(bar);
+    });
+    const row = el('tr', { className: 'summary-row' },
+      el('td', {}, String(i + 1)),
+      el('td', {},
+        el('div', { className: 'team-name' }, t.name),
+        el('div', { className: 'manager-name' }, t.manager)
+      ),
+      el('td', {}, barsEl),
+      el('td', {}, el('span', { className: 'form-avg' }, String(t.form_avg)))
+    );
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+  card.appendChild(table);
+  return card;
+}
+
+function buildBenchTable(bench) {
+  const card = el('div', { className: 'stats-card' });
+  card.appendChild(el('div', { className: 'stats-card-header' },
+    el('h3', {}, '🪑 Bench Points Left'),
+    el('p', {}, 'Total points left sitting on the bench all season. The eternal FPL regret metric.')
+  ));
+  const thead = el('thead', {},
+    el('tr', {},
+      el('th', {}, '#'),
+      el('th', {}, 'Manager'),
+      el('th', {}, 'Total'),
+      el('th', {}, 'Per GW')
+    )
+  );
+  const table = el('table', { className: 'stats-table' }, thead);
+  const tbody = el('tbody');
+  (bench || []).forEach((t, i) => {
+    const row = el('tr', { className: 'summary-row' },
+      el('td', {}, String(i + 1)),
+      el('td', {},
+        el('div', { className: 'team-name' }, t.name),
+        el('div', { className: 'manager-name' }, t.manager)
+      ),
+      el('td', {}, el('span', { className: 'stat-num-lg' }, String(t.total_bench_points))),
+      el('td', {},
+        el('span', { className: 'stat-sub' }, `${t.avg_bench_per_gw} avg`)
+      )
+    );
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+  card.appendChild(table);
+  return card;
+}
+
+function buildCaptainHitRateTable(hitRate) {
+  const card = el('div', { className: 'stats-card' });
+  card.appendChild(el('div', { className: 'stats-card-header' },
+    el('h3', {}, '🎯 Captain Hit Rate'),
+    el('p', {}, '% of gameweeks where the named captain scored the most points in the starting XI.')
+  ));
+  const thead = el('thead', {},
+    el('tr', {},
+      el('th', {}, '#'),
+      el('th', {}, 'Manager'),
+      el('th', {}, 'Hits / GWs'),
+      el('th', {}, 'Rate')
+    )
+  );
+  const table = el('table', { className: 'stats-table' }, thead);
+  const tbody = el('tbody');
+  (hitRate || []).forEach((t, i) => {
+    const pct = t.hit_rate;
+    const barEl = el('div', { className: 'hit-bar-wrap' },
+      el('div', { className: 'hit-bar-fill', style: `width:${pct}%` })
+    );
+    const row = el('tr', { className: 'summary-row' },
+      el('td', {}, String(i + 1)),
+      el('td', {},
+        el('div', { className: 'team-name' }, t.name),
+        el('div', { className: 'manager-name' }, t.manager)
+      ),
+      el('td', {}, el('span', { className: 'stat-sub' }, `${t.captain_hits} / ${t.gws_played}`)),
+      el('td', {},
+        el('span', { className: 'stat-num-lg' }, `${pct}%`),
+        barEl
+      )
+    );
+    tbody.appendChild(row);
+  });
+  table.appendChild(tbody);
+  card.appendChild(table);
+  return card;
+}
+
 function buildStatsTab(data) {
   const frag = document.createDocumentFragment();
   frag.appendChild(el('div', { className: 'section-title' }, '📈 League Stats'));
+  frag.appendChild(buildFormTable(data.form));
+  frag.appendChild(buildBenchTable(data.bench_points));
+  frag.appendChild(buildCaptainHitRateTable(data.captain_hit_rate));
   frag.appendChild(buildTradeDiffTable(data.trade_differential));
   frag.appendChild(buildCaptainTable(data.captain_points));
   return frag;

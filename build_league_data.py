@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Fantasy Footballs League — data builder.
-Outputs docs/league_data.json with standings, trade differential, and captain points.
+Outputs docs/league_data.json with standings, trade differential, captain points,
+form table, bench points, and captain hit rate.
 
 Usage:
     python3 build_league_data.py
@@ -80,9 +81,28 @@ def build_standings():
     return out
 
 
-# ─── Element history cache ────────────────────────────────────────────────────
+# ─── Caches ───────────────────────────────────────────────────────────────────
 
 _element_cache = {}
+_picks_cache = {}
+_team_history_cache = {}
+
+
+def get_picks(entry_id, gw):
+    key = (entry_id, gw)
+    if key not in _picks_cache:
+        _picks_cache[key] = fetch(f"/entry/{entry_id}/event/{gw}/picks/")
+    return _picks_cache[key]
+
+
+def get_team_history(entry_id):
+    if entry_id not in _team_history_cache:
+        data = fetch(f"/entry/{entry_id}/history/")
+        _team_history_cache[entry_id] = data.get("current", [])
+    return _team_history_cache[entry_id]
+
+
+# ─── Element history cache ────────────────────────────────────────────────────
 
 
 def get_element_history(player_id):
@@ -182,7 +202,7 @@ def build_captain_points(bootstrap, current_gw, player_names):
         for gw in range(4, current_gw + 1):
             if not gw_finished.get(gw, False):
                 continue
-            picks = fetch(f"/entry/{team['entry_id']}/event/{gw}/picks/")
+            picks = get_picks(team["entry_id"], gw)
 
             # Find effective captain: pick with the highest multiplier
             # (handles auto-promoted VC if original captain played 0 mins)
@@ -221,6 +241,102 @@ def build_captain_points(bootstrap, current_gw, player_names):
     return result
 
 
+# ─── Form table ───────────────────────────────────────────────────────────────
+
+def build_form():
+    print("\nBuilding form table...")
+    result = []
+    for team in TEAMS:
+        history = get_team_history(team["entry_id"])
+        last5 = history[-5:]
+        scores = [gw["points"] for gw in last5]
+        gws = [gw["event"] for gw in last5]
+        avg = round(sum(scores) / len(scores), 1) if scores else 0
+        result.append({
+            "entry_id": team["entry_id"],
+            "name": team["name"],
+            "manager": team["manager"],
+            "last5_scores": scores,
+            "last5_gws": gws,
+            "form_avg": avg,
+        })
+    result.sort(key=lambda x: -x["form_avg"])
+    for i, r in enumerate(result):
+        r["form_rank"] = i + 1
+    return result
+
+
+# ─── Bench points ─────────────────────────────────────────────────────────────
+
+def build_bench_points():
+    print("\nBuilding bench points...")
+    result = []
+    for team in TEAMS:
+        history = get_team_history(team["entry_id"])
+        total = sum(gw["points_on_bench"] for gw in history)
+        gws_played = len(history)
+        result.append({
+            "entry_id": team["entry_id"],
+            "name": team["name"],
+            "manager": team["manager"],
+            "total_bench_points": total,
+            "avg_bench_per_gw": round(total / gws_played, 1) if gws_played else 0,
+            "by_gw": [{"gw": h["event"], "bench_pts": h["points_on_bench"]} for h in history],
+        })
+    result.sort(key=lambda x: -x["total_bench_points"])
+    return result
+
+
+# ─── Captain hit rate ─────────────────────────────────────────────────────────
+
+def build_captain_hit_rate(bootstrap, current_gw):
+    print("\nBuilding captain hit rate...")
+    gw_finished = {e["id"]: e["finished"] for e in bootstrap["events"]}
+    result = []
+
+    for team in TEAMS:
+        print(f"  {team['name']}...")
+        hits = 0
+        played = 0
+
+        for gw in range(1, current_gw + 1):
+            if not gw_finished.get(gw, False):
+                continue
+            try:
+                picks_data = get_picks(team["entry_id"], gw)
+            except Exception:
+                continue
+
+            starters = [p for p in picks_data["picks"] if p["position"] <= 11]
+            captain = next((p for p in starters if p["is_captain"]), None)
+            if not captain:
+                continue
+
+            try:
+                starter_pts = {p["element"]: player_pts_in_gw(p["element"], gw) for p in starters}
+            except Exception:
+                continue
+
+            cap_pts = starter_pts.get(captain["element"], 0)
+            max_pts = max(starter_pts.values()) if starter_pts else 0
+
+            played += 1
+            if cap_pts >= max_pts:
+                hits += 1
+
+        result.append({
+            "entry_id": team["entry_id"],
+            "name": team["name"],
+            "manager": team["manager"],
+            "captain_hits": hits,
+            "gws_played": played,
+            "hit_rate": round(hits / played * 100, 1) if played else 0,
+        })
+
+    result.sort(key=lambda x: -x["hit_rate"])
+    return result
+
+
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
 def main():
@@ -235,9 +351,12 @@ def main():
 
     player_names = {p["id"]: p["web_name"] for p in bootstrap["elements"]}
 
-    standings   = build_standings()
-    trade_diff  = build_trade_differential(player_names)
-    captain_pts = build_captain_points(bootstrap, current_gw, player_names)
+    standings      = build_standings()
+    trade_diff     = build_trade_differential(player_names)
+    captain_pts    = build_captain_points(bootstrap, current_gw, player_names)
+    form           = build_form()
+    bench_pts      = build_bench_points()
+    captain_hr     = build_captain_hit_rate(bootstrap, current_gw)
 
     league_data = {
         "metadata": {
@@ -249,6 +368,9 @@ def main():
         "standings": standings,
         "trade_differential": trade_diff,
         "captain_points": captain_pts,
+        "form": form,
+        "bench_points": bench_pts,
+        "captain_hit_rate": captain_hr,
     }
 
     with open(args.output, "w") as f:
