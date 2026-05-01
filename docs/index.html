@@ -560,6 +560,12 @@
     .hit-bar-wrap { width: 72px; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; display: inline-block; vertical-align: middle; margin-left: 5px; }
     .hit-bar-fill { height: 100%; border-radius: 3px; background: var(--accent); }
 
+    /* Stats team selector */
+    .stats-team-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem 0; font-size: 0.8rem; color: var(--muted); }
+    .stats-team-select { background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 0.2rem 0.5rem; font-size: 0.8rem; cursor: pointer; }
+    .stats-table tr.highlighted { background: rgba(99,102,241,0.12) !important; outline: 1px solid rgba(99,102,241,0.35); }
+    .stats-table tr.dimmed { opacity: 0.3; }
+
     /* ── Champions tab ── */
     .champions-intro {
       text-align: center;
@@ -897,19 +903,17 @@
     }
     .player-card:hover .player-shirt { transform: scale(1.08); }
     .player-shirt {
-      width: 36px; height: 36px;
-      border-radius: 6px;
-      background: var(--accent2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1rem;
+      width: 44px; height: 50px;
       position: relative;
-      transition: transform 0.15s;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .player-shirt.gkp { background: #92400e; }
-    .player-shirt.def { background: #1e3a5f; }
-    .player-shirt.mid { background: #1e4d2b; }
-    .player-shirt.fwd { background: #7c1d1d; }
+    .kit-img { width: 40px; height: 46px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6)); }
+    .kit-img-fallback { width: 36px; height: 36px; border-radius: 6px; }
+    .kit-img-fallback.gkp { background: #92400e; }
+    .kit-img-fallback.def { background: #1e3a5f; }
+    .kit-img-fallback.mid { background: #1e4d2b; }
+    .kit-img-fallback.fwd { background: #7c1d1d; }
     .player-shirt .cap-badge {
       position: absolute;
       top: -4px; right: -4px;
@@ -1172,7 +1176,7 @@ function buildStandingsTable(standings) {
   );
 }
 
-function buildFixtures(fixtures) {
+function buildFixtures(fixtures, liveGW) {
   const accordion = el('div', { className: 'fixtures-accordion' });
   fixtures.forEach((round, ri) => {
     const isLast = ri === fixtures.length - 1;
@@ -1188,17 +1192,30 @@ function buildFixtures(fixtures) {
     round.matches.forEach(m => {
       const h = m.home, a = m.away;
       const upcoming = m.status === 'upcoming';
-      const hClass = upcoming ? 'upcoming' : scoreClass(h.score, a.score);
-      const aClass = upcoming ? 'upcoming' : scoreClass(a.score, h.score);
+      const isLiveRound = liveGW && round.gw === liveGW;
+      const hClass = (upcoming || isLiveRound) ? 'upcoming' : scoreClass(h.score, a.score);
+      const aClass = (upcoming || isLiveRound) ? 'upcoming' : scoreClass(a.score, h.score);
       const hWon = hClass === 'win', aWon = aClass === 'win';
+      const hScoreEl = el('span', { className: `score-box ${hClass}` });
+      const aScoreEl = el('span', { className: `score-box ${aClass}` });
+      if (isLiveRound) {
+        hScoreEl.setAttribute('data-cup-entry', String(h.entry_id));
+        hScoreEl.setAttribute('data-cup-gw', String(liveGW));
+        aScoreEl.setAttribute('data-cup-entry', String(a.entry_id));
+        aScoreEl.setAttribute('data-cup-gw', String(liveGW));
+        hScoreEl.textContent = '…'; aScoreEl.textContent = '…';
+      } else {
+        hScoreEl.textContent = upcoming ? '—' : String(h.score);
+        aScoreEl.textContent = upcoming ? '—' : String(a.score);
+      }
       matchesDiv.appendChild(el('div', { className: 'match-row' },
         el('div', { className: 'match-team home' },
           el('div', { style: `font-weight:${hWon?'700':'500'};color:${hWon?'var(--text)':'var(--muted)'}` }, h.name)
         ),
         el('div', { className: 'match-score' },
-          el('span', { className: `score-box ${hClass}` }, upcoming ? '—' : String(h.score)),
-          el('span', { className: 'vs-sep' }, upcoming ? 'vs' : '-'),
-          el('span', { className: `score-box ${aClass}` }, upcoming ? '—' : String(a.score))
+          hScoreEl,
+          el('span', { className: 'vs-sep' }, isLiveRound ? el('span', { className: 'live-dot' }) : (upcoming ? 'vs' : '-')),
+          aScoreEl
         ),
         el('div', { className: 'match-team away' },
           el('div', { style: `font-weight:${aWon?'700':'500'};color:${aWon?'var(--text)':'var(--muted)'}` }, a.name)
@@ -1210,18 +1227,18 @@ function buildFixtures(fixtures) {
   return accordion;
 }
 
-function buildGroupCard(label, group) {
+function buildGroupCard(label, group, liveGW) {
   return el('div', { className: 'group-card' },
     el('div', { className: 'group-header' },
       el('div', { className: 'group-badge' }, label),
       el('h2', {}, `Group ${label}`)
     ),
     buildStandingsTable(group.standings),
-    buildFixtures(group.fixtures)
+    buildFixtures(group.fixtures, liveGW)
   );
 }
 
-function buildSFCard(sf) {
+function buildSFCard(sf, liveGW) {
   const ta = sf.team_a, tb = sf.team_b;
   const winner = sf.winner;
   const aWon = winner && winner.entry_id === ta.entry_id;
@@ -1230,15 +1247,30 @@ function buildSFCard(sf) {
 
   const legsDiv = el('div', { className: 'sf-legs' });
   sf.legs.forEach((leg, i) => {
-    const upcoming = leg.status !== 'complete';
-    const aC = upcoming ? '' : (leg.score_a > leg.score_b ? 'win' : leg.score_a < leg.score_b ? 'lose' : '');
-    const bC = upcoming ? '' : (leg.score_b > leg.score_a ? 'win' : leg.score_b < leg.score_a ? 'lose' : '');
+    const isLiveLeg = liveGW && leg.gw === liveGW;
+    const upcoming = leg.status !== 'complete' && !isLiveLeg;
+    const aC = (upcoming || isLiveLeg) ? '' : (leg.score_a > leg.score_b ? 'win' : leg.score_a < leg.score_b ? 'lose' : '');
+    const bC = (upcoming || isLiveLeg) ? '' : (leg.score_b > leg.score_a ? 'win' : leg.score_b < leg.score_a ? 'lose' : '');
+    const scoreAEl = el('span', { className: `leg-score ${aC}` });
+    const scoreBEl = el('span', { className: `leg-score ${bC}` });
+    if (isLiveLeg) {
+      scoreAEl.setAttribute('data-cup-entry', String(ta.entry_id));
+      scoreAEl.setAttribute('data-cup-gw', String(liveGW));
+      scoreBEl.setAttribute('data-cup-entry', String(tb.entry_id));
+      scoreBEl.setAttribute('data-cup-gw', String(liveGW));
+      scoreAEl.textContent = '…'; scoreBEl.textContent = '…';
+    } else {
+      scoreAEl.textContent = upcoming ? '—' : String(leg.score_a);
+      scoreBEl.textContent = upcoming ? '—' : String(leg.score_b);
+    }
     legsDiv.appendChild(el('div', { className: 'sf-leg' },
-      el('span', { className: 'sf-leg-label' }, `Leg ${i+1} · GW${leg.gw}`),
+      el('span', { className: 'sf-leg-label' },
+        `Leg ${i+1} · GW${leg.gw}`, isLiveLeg ? el('span', { className: 'live-dot', style: 'margin-left:6px' }) : null
+      ),
       el('div', { className: 'sf-leg-scores' },
-        el('span', { className: `leg-score ${aC}` }, upcoming ? '—' : String(leg.score_a)),
+        scoreAEl,
         el('span', { style: 'color:var(--muted)' }, ' – '),
-        el('span', { className: `leg-score ${bC}` }, upcoming ? '—' : String(leg.score_b))
+        scoreBEl
       )
     ));
   });
@@ -1415,6 +1447,59 @@ function stopLivePoll() {
   if (_liveInterval) { clearInterval(_liveInterval); _liveInterval = null; }
 }
 
+// ── Cup live scoring ─────────────────────────────────
+let _cupLiveInterval = null;
+let _cupLiveGW = null;
+
+async function calcCupScore(entryId, gw, liveMap) {
+  const picks = await getPicks(entryId, gw);
+  return picks.picks
+    .filter(p => p.position <= 11)
+    .reduce((s, p) => s + (liveMap[p.element] || 0), 0);
+}
+
+async function refreshCupLiveScores() {
+  if (!_cupLiveGW || !_cupData) return;
+  const gw = _cupLiveGW;
+  const live = await getLive(gw);
+  const liveMap = {};
+  live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+
+  // Collect all entry IDs visible in current GW's cup fixtures
+  const entryIds = new Set();
+  document.querySelectorAll(`[data-cup-entry][data-cup-gw="${gw}"]`).forEach(el => {
+    entryIds.add(Number(el.dataset.cupEntry));
+  });
+  if (!entryIds.size) return;
+
+  // Calculate cup scores in parallel
+  const scores = {};
+  await Promise.all([...entryIds].map(async id => {
+    scores[id] = await calcCupScore(id, gw, liveMap);
+  }));
+
+  // Update DOM
+  document.querySelectorAll(`[data-cup-entry][data-cup-gw="${gw}"]`).forEach(el => {
+    const id = Number(el.dataset.cupEntry);
+    if (scores[id] != null) {
+      el.textContent = String(scores[id]);
+      el.classList.add('score-live');
+    }
+  });
+  updateLastPolled();
+}
+
+function startCupLivePoll(gw) {
+  if (_cupLiveInterval) return;
+  _cupLiveGW = gw;
+  _cupLiveInterval = setInterval(refreshCupLiveScores, 60000);
+  refreshCupLiveScores(); // immediate first run
+}
+
+function stopCupLivePoll() {
+  if (_cupLiveInterval) { clearInterval(_cupLiveInterval); _cupLiveInterval = null; _cupLiveGW = null; }
+}
+
 const _openPitchRefresh = {};
 
 function refreshOpenPitchViews() {
@@ -1444,11 +1529,21 @@ function posTypeClass(elementType) {
   return ['', 'gkp', 'def', 'mid', 'fwd'][elementType] || 'mid';
 }
 
-function buildPlayerCard(pick, playerMeta, livePoints, isActive) {
+function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode) {
   const pts = livePoints != null ? livePoints : '—';
   const ptsClass = livePoints != null && _liveData ? 'live' : '';
   const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
-  const shirt = el('div', { className: `player-shirt ${posClass}` });
+  const isGK = playerMeta && playerMeta.element_type === 1;
+  const shirt = el('div', { className: 'player-shirt' });
+  if (teamCode) {
+    const suffix = isGK ? '_1_gk-66' : '_1-66';
+    const img = el('img', { className: 'kit-img', alt: '',
+      src: `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}${suffix}.png` });
+    img.onerror = () => { img.style.display='none'; const fb = el('div', { className: `kit-img-fallback ${posClass}` }); shirt.appendChild(fb); };
+    shirt.appendChild(img);
+  } else {
+    shirt.appendChild(el('div', { className: `kit-img-fallback ${posClass}` }));
+  }
   if (pick.is_captain) shirt.appendChild(el('span', { className: 'cap-badge' }, 'C'));
   else if (pick.is_vice_captain) shirt.appendChild(el('span', { className: 'cap-badge', style: 'background:#94a3b8' }, 'V'));
 
@@ -1582,7 +1677,9 @@ async function buildPitchView(entryId, gw, container, isLive) {
       if (!rows[et].length) return;
       const row = el('div', { className: 'pitch-row' });
       rows[et].forEach(p => {
-        row.appendChild(buildPlayerCard(p, playerMap[p.element], liveMap[p.element], isLive));
+        const pm = playerMap[p.element];
+        const tc = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
+        row.appendChild(buildPlayerCard(p, pm, liveMap[p.element], isLive, tc));
       });
       pitchBg.appendChild(row);
     });
@@ -1595,7 +1692,11 @@ async function buildPitchView(entryId, gw, container, isLive) {
     const benchSection = el('div', { className: 'bench-section' });
     benchSection.appendChild(el('div', { className: 'bench-label' }, 'Bench'));
     const benchRow = el('div', { className: 'bench-row' });
-    bench.forEach(p => benchRow.appendChild(buildPlayerCard(p, playerMap[p.element], liveMap[p.element], false)));
+    bench.forEach(p => {
+      const pm = playerMap[p.element];
+      const tc = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
+      benchRow.appendChild(buildPlayerCard(p, pm, liveMap[p.element], false, tc));
+    });
     benchSection.appendChild(benchRow);
     wrap.appendChild(benchSection);
 
@@ -1885,7 +1986,7 @@ function buildTradeDiffTable(tradeDiff) {
 
     const expandBtn = el('span', { className: 'expand-btn' }, '▾');
     const summaryTbody = el('tbody');
-    summaryTbody.appendChild(el('tr', { className: 'summary-row',
+    summaryTbody.appendChild(el('tr', { className: 'summary-row', 'data-manager': team.manager,
       onClick: () => {
         const open = detailGroup.classList.toggle('open');
         expandBtn.classList.toggle('open', open);
@@ -1906,6 +2007,7 @@ function buildTradeDiffTable(tradeDiff) {
   });
 
   card.appendChild(table);
+  addTeamSelector(card, () => Array.from(card.querySelectorAll('tr.summary-row[data-manager]')));
   return card;
 }
 
@@ -1955,7 +2057,7 @@ function buildCaptainTable(captainPoints) {
 
     const expandBtn = el('span', { className: 'expand-btn' }, '▾');
     const summaryTbody = el('tbody');
-    summaryTbody.appendChild(el('tr', { className: 'summary-row',
+    summaryTbody.appendChild(el('tr', { className: 'summary-row', 'data-manager': team.manager,
       onClick: () => {
         const open = detailGroup.classList.toggle('open');
         expandBtn.classList.toggle('open', open);
@@ -1978,7 +2080,50 @@ function buildCaptainTable(captainPoints) {
   });
 
   card.appendChild(table2);
+  addTeamSelector(card, () => Array.from(card.querySelectorAll('tr.summary-row[data-manager]')));
   return card;
+}
+
+function addTeamSelector(cardEl, getRows) {
+  const bar = el('div', { className: 'stats-team-bar' });
+  bar.appendChild(el('span', {}, 'Focus:'));
+  const sel = el('select', { className: 'stats-team-select' });
+  const allOpt = document.createElement('option');
+  allOpt.value = '';
+  allOpt.textContent = 'All managers';
+  sel.appendChild(allOpt);
+  // Populate options lazily once rows exist
+  sel.addEventListener('focus', () => {
+    if (sel.options.length > 1) return;
+    getRows().forEach(tr => {
+      const name = tr.dataset.manager;
+      if (!name) return;
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      sel.appendChild(opt);
+    });
+  });
+  sel.addEventListener('change', () => {
+    const val = sel.value;
+    getRows().forEach(tr => {
+      if (!val) { tr.classList.remove('highlighted', 'dimmed'); }
+      else if (tr.dataset.manager === val) {
+        tr.classList.add('highlighted');
+        tr.classList.remove('dimmed');
+        tr.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        // auto-expand detail panel if present
+        const btn = tr.querySelector('.expand-btn, .cap-expand-btn');
+        const detail = tr.nextElementSibling;
+        if (btn && detail && !detail.classList.contains('open')) btn.click();
+      } else {
+        tr.classList.add('dimmed');
+        tr.classList.remove('highlighted');
+      }
+    });
+  });
+  bar.appendChild(sel);
+  cardEl.insertBefore(bar, cardEl.querySelector('table'));
 }
 
 function buildFormTable(form) {
@@ -2005,7 +2150,7 @@ function buildFormTable(form) {
       const bar = el('div', { className: 'form-bar', style: `height:${h}px`, title: `GW${t.last5_gws[si]}: ${s} pts` });
       barsEl.appendChild(bar);
     });
-    const row = el('tr', { className: 'summary-row' },
+    const row = el('tr', { className: 'summary-row', 'data-manager': t.manager },
       el('td', {}, String(i + 1)),
       el('td', {},
         el('div', { className: 'team-name' }, t.name),
@@ -2018,6 +2163,7 @@ function buildFormTable(form) {
   });
   table.appendChild(tbody);
   card.appendChild(table);
+  addTeamSelector(card, () => Array.from(card.querySelectorAll('tr[data-manager]')));
   return card;
 }
 
@@ -2038,7 +2184,7 @@ function buildBenchTable(bench) {
   const table = el('table', { className: 'stats-table' }, thead);
   const tbody = el('tbody');
   (bench || []).forEach((t, i) => {
-    const row = el('tr', { className: 'summary-row' },
+    const row = el('tr', { className: 'summary-row', 'data-manager': t.manager },
       el('td', {}, String(i + 1)),
       el('td', {},
         el('div', { className: 'team-name' }, t.name),
@@ -2053,6 +2199,7 @@ function buildBenchTable(bench) {
   });
   table.appendChild(tbody);
   card.appendChild(table);
+  addTeamSelector(card, () => Array.from(card.querySelectorAll('tr[data-manager]')));
   return card;
 }
 
@@ -2077,7 +2224,7 @@ function buildCaptainHitRateTable(hitRate) {
     const barEl = el('div', { className: 'hit-bar-wrap' },
       el('div', { className: 'hit-bar-fill', style: `width:${pct}%` })
     );
-    const row = el('tr', { className: 'summary-row' },
+    const row = el('tr', { className: 'summary-row', 'data-manager': t.manager },
       el('td', {}, String(i + 1)),
       el('td', {},
         el('div', { className: 'team-name' }, t.name),
@@ -2093,6 +2240,7 @@ function buildCaptainHitRateTable(hitRate) {
   });
   table.appendChild(tbody);
   card.appendChild(table);
+  addTeamSelector(card, () => Array.from(card.querySelectorAll('tr[data-manager]')));
   return card;
 }
 
@@ -2169,7 +2317,7 @@ function buildChampionsTab() {
   // Sub-tables
   const subGrid = el('div', { className: 'champions-sub-grid' });
 
-  function buildSubTable(title, pill, pillClass, getValue) {
+  function buildSubTable(title, pillClass, getValue) {
     const withWins = CHAMPIONS_DATA.filter(m => getValue(m) > 0)
       .sort((a, b) => getValue(b) - getValue(a));
     const card = el('div', { className: 'sub-table-card' });
@@ -2177,15 +2325,19 @@ function buildChampionsTab() {
     const table = el('table', { className: 'sub-table' });
     withWins.forEach((person, i) => {
       const count = getValue(person);
+      const pills = el('td', { className: 'sub-count' });
+      for (let j = 0; j < count; j++) {
+        const p = el('span', { className: `trophy-pill ${pillClass}`, style: 'margin-left:3px' });
+        p.appendChild(icon('trophy'));
+        pills.appendChild(p);
+      }
       const tr = el('tr', {},
         el('td', { className: 'sub-rank' }, String(i + 1)),
         el('td', { className: 'sub-manager' },
           el('span', {}, person.manager),
           person.alumni ? el('span', { className: 'sub-alumni' }, ' · Former') : null
         ),
-        el('td', { className: 'sub-count' },
-          ...Array.from({ length: count }, () => el('span', { className: `trophy-pill ${pillClass}`, style: 'margin-left:3px' }, pill))
-        )
+        pills
       );
       table.appendChild(tr);
     });
@@ -2193,8 +2345,8 @@ function buildChampionsTab() {
     return card;
   }
 
-  subGrid.appendChild(buildSubTable('League Titles', '#', 'league', m => m.leagues));
-  subGrid.appendChild(buildSubTable('Cup Wins', m => m.cups));
+  subGrid.appendChild(buildSubTable('League Titles', 'league', m => m.leagues));
+  subGrid.appendChild(buildSubTable('Cup Wins', 'cup', m => m.cups));
   frag.appendChild(subGrid);
 
   return frag;
@@ -2258,6 +2410,7 @@ let _activeTab = 'league';
 
 function switchTab(tabName) {
   _activeTab = tabName;
+  if (tabName !== 'cup') stopCupLivePoll();
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
   document.getElementById('final-hero-anchor').style.display = tabName === 'cup' ? '' : 'none';
 
@@ -2265,8 +2418,29 @@ function switchTab(tabName) {
   app.innerHTML = '';
 
   if (tabName === 'cup') {
-    if (_cupData) renderCup(_cupData);
-    else app.appendChild(el('div', { className: 'not-available' }, 'Cup data not available.'));
+    stopCupLivePoll();
+    if (_cupData) {
+      // Detect if current GW is a live cup gameweek
+      (async () => {
+        let cupLiveGW = null;
+        try {
+          const bs = _bootstrap || await getBootstrap();
+          const liveEvent = bs.events.find(e => e.is_current && !e.finished);
+          if (liveEvent) {
+            // Check if this GW is in any cup fixture
+            const cupGWs = new Set();
+            ['A','B'].forEach(g => _cupData.groups[g].fixtures.forEach(f => cupGWs.add(f.gw)));
+            _cupData.knockout.semi_finals.forEach(sf => sf.legs.forEach(l => cupGWs.add(l.gw)));
+            if (_cupData.knockout.final.gw) cupGWs.add(_cupData.knockout.final.gw);
+            if (cupGWs.has(liveEvent.id)) cupLiveGW = liveEvent.id;
+          }
+        } catch(e) { /* ignore */ }
+        renderCup(_cupData, cupLiveGW);
+        if (cupLiveGW) startCupLivePoll(cupLiveGW);
+      })();
+    } else {
+      app.appendChild(el('div', { className: 'not-available' }, 'Cup data not available.'));
+    }
   } else if (tabName === 'league') {
     app.appendChild(buildLeagueTab(_leagueData));
   } else if (tabName === 'stats') {
@@ -2284,7 +2458,7 @@ function switchTab(tabName) {
 // Cup render
 // ─────────────────────────────────────────────────────────────────────────────
 
-function renderCup(data) {
+function renderCup(data, liveGW) {
   const heroAnchor = document.getElementById('final-hero-anchor');
   heroAnchor.innerHTML = '';
   heroAnchor.appendChild(buildFinalHero(data.knockout.final));
@@ -2293,13 +2467,14 @@ function renderCup(data) {
   app.innerHTML = '';
   app.appendChild(el('div', { className: 'section-title' }, icon('shield'), ' Semi-Finals'));
   const semis = el('div', { className: 'semis-grid' });
-  data.knockout.semi_finals.forEach(sf => semis.appendChild(buildSFCard(sf)));
+  data.knockout.semi_finals.forEach(sf => semis.appendChild(buildSFCard(sf, liveGW)));
   app.appendChild(semis);
   app.appendChild(el('div', { className: 'section-title', style: 'margin-top:1rem' }, icon('layout-grid'), ' Group Stage'));
   app.appendChild(el('div', { className: 'groups-grid' },
-    buildGroupCard('A', data.groups.A),
-    buildGroupCard('B', data.groups.B)
+    buildGroupCard('A', data.groups.A, liveGW),
+    buildGroupCard('B', data.groups.B, liveGW)
   ));
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
