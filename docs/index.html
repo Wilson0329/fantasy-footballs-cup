@@ -776,6 +776,194 @@
       .fstat-num { font-size: 1.2rem; }
     }
 
+    /* ── Pitch view ── */
+    .pitch-panel {
+      display: none;
+      background: var(--surface2);
+      border-top: 1px solid var(--border);
+    }
+    .pitch-panel.open { display: block; }
+    .pitch-loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .pitch-wrap {
+      padding: 1rem 0.75rem 0.75rem;
+    }
+    .pitch-gw-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .live-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #ef4444;
+      margin-right: 4px;
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .pitch-bg {
+      background: linear-gradient(180deg, #14532d 0%, #166534 30%, #15803d 60%, #166534 80%, #14532d 100%);
+      border-radius: 10px;
+      padding: 0.75rem 0.5rem;
+      border: 2px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .pitch-bg::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+    }
+    .pitch-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+    .pitch-row:last-child { margin-bottom: 0; }
+    .player-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      width: 58px;
+      gap: 0.2rem;
+    }
+    .player-card:hover .player-shirt { transform: scale(1.08); }
+    .player-shirt {
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      background: var(--accent2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      position: relative;
+      transition: transform 0.15s;
+      flex-shrink: 0;
+    }
+    .player-shirt.gkp { background: #92400e; }
+    .player-shirt.def { background: #1e3a5f; }
+    .player-shirt.mid { background: #1e4d2b; }
+    .player-shirt.fwd { background: #7c1d1d; }
+    .player-shirt .cap-badge {
+      position: absolute;
+      top: -4px; right: -4px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #000;
+      font-size: 0.5rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .player-pts-badge {
+      background: rgba(0,0,0,0.6);
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.1rem 0.3rem;
+      border-radius: 4px;
+      min-width: 22px;
+      text-align: center;
+    }
+    .player-pts-badge.live { color: #4ade80; }
+    .player-name-txt {
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
+      line-height: 1.2;
+      max-width: 58px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .bench-section {
+      margin-top: 0.75rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 0.5rem;
+    }
+    .bench-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 0.4rem;
+    }
+    .bench-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    /* Player stats drawer */
+    .player-stats-drawer {
+      background: rgba(0,0,0,0.5);
+      border-radius: 8px;
+      margin: 0.75rem 0.5rem 0;
+      padding: 0.85rem 1rem;
+      animation: fadeIn 0.15s ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+    .psd-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .psd-name { font-weight: 700; font-size: 0.9rem; }
+    .psd-close { color: var(--muted); cursor: pointer; font-size: 1rem; padding: 0 0.25rem; }
+    .psd-close:hover { color: var(--text); }
+    .psd-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .psd-stat {
+      background: rgba(255,255,255,0.05);
+      border-radius: 6px;
+      padding: 0.4rem 0.5rem;
+      text-align: center;
+    }
+    .psd-stat-num { font-size: 1.1rem; font-weight: 800; color: var(--accent); }
+    .psd-stat-label { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .psd-history {
+      display: flex;
+      gap: 0.3rem;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .psd-gw-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .psd-bar {
+      width: 28px;
+      background: var(--accent2);
+      border-radius: 3px 3px 0 0;
+      min-height: 3px;
+    }
+    .psd-bar-pts { font-size: 0.62rem; font-weight: 700; color: var(--text); }
+    .psd-bar-gw { font-size: 0.55rem; color: var(--muted); }
+    .psd-loading { text-align: center; color: var(--muted); font-size: 0.78rem; padding: 0.5rem; }
+
     /* ── Mobile responsive ── */
     @media (max-width: 600px) {
       .container { padding: 1.25rem 0.75rem; }
@@ -1068,48 +1256,388 @@ function buildFinalHero(final) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// FPL proxy + live data
+// ─────────────────────────────────────────────────────────────────────────────
+
+const WORKER_URL = 'https://fpl-proxy.josephpwilson3.workers.dev';
+
+const _fplCache = {};
+let _bootstrap = null;
+let _liveData = null;
+let _liveGW = null;
+let _liveInterval = null;
+
+async function fetchFPL(path) {
+  if (_fplCache[path]) return _fplCache[path];
+  const url = `${WORKER_URL}/${path}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`FPL fetch failed: ${res.status}`);
+  const data = await res.json();
+  _fplCache[path] = data;
+  return data;
+}
+
+async function getBootstrap() {
+  if (_bootstrap) return _bootstrap;
+  _bootstrap = await fetchFPL('bootstrap-static/');
+  return _bootstrap;
+}
+
+async function getLive(gw) {
+  // Always bust cache for live endpoint
+  const url = `${WORKER_URL}/event/${gw}/live/?t=${Math.floor(Date.now()/60000)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Live fetch failed: ${res.status}`);
+  return res.json();
+}
+
+async function getPicks(entryId, gw) {
+  const key = `entry/${entryId}/event/${gw}/picks/`;
+  // Bust cache per minute for picks too
+  if (_fplCache[key] && _fplCache[key]._ts > Date.now() - 120000) return _fplCache[key];
+  const url = `${WORKER_URL}/${key}?t=${Math.floor(Date.now()/120000)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Picks fetch failed: ${res.status}`);
+  const data = await res.json();
+  data._ts = Date.now();
+  _fplCache[key] = data;
+  return data;
+}
+
+async function getPlayerHistory(playerId) {
+  const key = `element-summary/${playerId}/`;
+  if (_fplCache[key]) return _fplCache[key];
+  const data = await fetchFPL(key);
+  _fplCache[key] = data;
+  return data;
+}
+
+function startLivePoll(gw) {
+  if (_liveInterval) return;
+  _liveGW = gw;
+  _liveInterval = setInterval(async () => {
+    try {
+      _liveData = await getLive(gw);
+      refreshOpenPitchViews();
+    } catch (e) { /* silently ignore poll errors */ }
+  }, 60000);
+}
+
+function stopLivePoll() {
+  if (_liveInterval) { clearInterval(_liveInterval); _liveInterval = null; }
+}
+
+const _openPitchRefresh = {};
+
+function refreshOpenPitchViews() {
+  Object.values(_openPitchRefresh).forEach(fn => fn());
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // League tab
 // ─────────────────────────────────────────────────────────────────────────────
 
+function posTypeClass(elementType) {
+  return ['', 'gkp', 'def', 'mid', 'fwd'][elementType] || 'mid';
+}
+
+function buildPlayerCard(pick, playerMeta, livePoints, isActive) {
+  const pts = livePoints != null ? livePoints : '—';
+  const ptsClass = livePoints != null && _liveData ? 'live' : '';
+  const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
+  const shirt = el('div', { className: `player-shirt ${posClass}` }, '⚽');
+  if (pick.is_captain) shirt.appendChild(el('span', { className: 'cap-badge' }, 'C'));
+  else if (pick.is_vice_captain) shirt.appendChild(el('span', { className: 'cap-badge', style: 'background:#94a3b8' }, 'V'));
+
+  const card = el('div', { className: 'player-card', 'data-player-id': String(pick.element) },
+    shirt,
+    el('div', { className: `player-pts-badge${ptsClass ? ' ' + ptsClass : ''}` }, String(pts)),
+    el('div', { className: 'player-name-txt' }, playerMeta ? playerMeta.web_name : String(pick.element))
+  );
+  return card;
+}
+
+async function buildPitchView(entryId, gw, container, isLive) {
+  container.innerHTML = '';
+  container.appendChild(el('div', { className: 'pitch-loading' }, 'Loading squad...'));
+
+  try {
+    const [bs, picks, live] = await Promise.all([
+      getBootstrap(),
+      getPicks(entryId, gw),
+      isLive ? getLive(gw) : Promise.resolve(_liveData),
+    ]);
+
+    if (isLive && live) _liveData = live;
+
+    const playerMap = {};
+    bs.elements.forEach(p => { playerMap[p.id] = p; });
+
+    const teamMap = {};
+    bs.teams.forEach(t => { teamMap[t.id] = t; });
+
+    const liveMap = {};
+    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+
+    const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
+    const bench    = picks.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
+
+    // Infer formation
+    const rows = { 1: [], 2: [], 3: [], 4: [] };
+    starters.forEach(p => {
+      const et = playerMap[p.element] ? playerMap[p.element].element_type : 3;
+      rows[et].push(p);
+    });
+
+    const gwLabel = isLive ? el('span', {}, el('span', { className: 'live-dot' }), 'Live GW' + gw) : el('span', {}, 'GW' + gw);
+    const totalPts = starters.reduce((s, p) => {
+      const raw = liveMap[p.element] || 0;
+      const mult = picks.active_chip === 'bboost' ? 1 : (p.multiplier || 1);
+      return s + raw * Math.min(mult, 2);
+    }, 0);
+
+    const wrap = el('div', { className: 'pitch-wrap' });
+    wrap.appendChild(el('div', { className: 'pitch-gw-badge' },
+      gwLabel,
+      el('span', {}, `${picks.active_chip ? picks.active_chip.toUpperCase() + ' · ' : ''}${totalPts} pts`)
+    ));
+
+    const pitchBg = el('div', { className: 'pitch-bg' });
+    let statsDrawer = null;
+
+    function attachCardHandlers(cards) {
+      cards.forEach(card => {
+        card.addEventListener('click', async () => {
+          const pid = Number(card.dataset.playerId);
+          // Toggle: if same player clicked again, close
+          if (statsDrawer && statsDrawer.dataset.pid === String(pid)) {
+            statsDrawer.remove();
+            statsDrawer = null;
+            return;
+          }
+          if (statsDrawer) statsDrawer.remove();
+
+          statsDrawer = el('div', { className: 'player-stats-drawer' });
+          statsDrawer.dataset.pid = String(pid);
+          const pm = playerMap[pid];
+
+          const header = el('div', { className: 'psd-header' },
+            el('span', { className: 'psd-name' }, pm ? `${pm.web_name} · ${teamMap[pm.team]?.short_name || ''}` : String(pid)),
+            el('span', { className: 'psd-close', onClick: () => { statsDrawer.remove(); statsDrawer = null; } }, '✕')
+          );
+          statsDrawer.appendChild(header);
+          statsDrawer.appendChild(el('div', { className: 'psd-loading' }, 'Loading stats...'));
+          wrap.appendChild(statsDrawer);
+
+          try {
+            const summary = await getPlayerHistory(pid);
+            const history = summary.history || [];
+            const seasonTotal = history.reduce((s, h) => s + h.total_points, 0);
+            const last5 = history.slice(-5);
+
+            statsDrawer.innerHTML = '';
+            statsDrawer.appendChild(header);
+
+            const grid = el('div', { className: 'psd-stats-grid' },
+              el('div', { className: 'psd-stat' },
+                el('div', { className: 'psd-stat-num' }, String(seasonTotal)),
+                el('div', { className: 'psd-stat-label' }, 'Season Pts')
+              ),
+              el('div', { className: 'psd-stat' },
+                el('div', { className: 'psd-stat-num' }, pm ? `£${(pm.now_cost / 10).toFixed(1)}m` : '—'),
+                el('div', { className: 'psd-stat-label' }, 'Price')
+              ),
+              el('div', { className: 'psd-stat' },
+                el('div', { className: 'psd-stat-num' }, pm ? `${pm.selected_by_percent}%` : '—'),
+                el('div', { className: 'psd-stat-label' }, 'Owned')
+              )
+            );
+            statsDrawer.appendChild(grid);
+
+            if (last5.length) {
+              const maxPts = Math.max(...last5.map(h => h.total_points), 1);
+              const histEl = el('div', { className: 'psd-history' });
+              last5.forEach(h => {
+                const barH = Math.max(4, Math.round((h.total_points / maxPts) * 48));
+                histEl.appendChild(el('div', { className: 'psd-gw-bar' },
+                  el('div', { className: 'psd-bar-pts' }, String(h.total_points)),
+                  el('div', { className: 'psd-bar', style: `height:${barH}px` }),
+                  el('div', { className: 'psd-bar-gw' }, `GW${h.round}`)
+                ));
+              });
+              statsDrawer.appendChild(histEl);
+            }
+          } catch (e) {
+            statsDrawer.querySelector('.psd-loading').textContent = 'Could not load stats.';
+          }
+        });
+      });
+    }
+
+    // Render starting XI by position row
+    [1, 2, 3, 4].forEach(et => {
+      if (!rows[et].length) return;
+      const row = el('div', { className: 'pitch-row' });
+      rows[et].forEach(p => {
+        row.appendChild(buildPlayerCard(p, playerMap[p.element], liveMap[p.element], isLive));
+      });
+      pitchBg.appendChild(row);
+    });
+
+    // Attach click handlers to all starting player cards
+    attachCardHandlers(pitchBg.querySelectorAll ? [] : []);
+    wrap.appendChild(pitchBg);
+
+    // Bench
+    const benchSection = el('div', { className: 'bench-section' });
+    benchSection.appendChild(el('div', { className: 'bench-label' }, 'Bench'));
+    const benchRow = el('div', { className: 'bench-row' });
+    bench.forEach(p => benchRow.appendChild(buildPlayerCard(p, playerMap[p.element], liveMap[p.element], false)));
+    benchSection.appendChild(benchRow);
+    wrap.appendChild(benchSection);
+
+    container.innerHTML = '';
+    container.appendChild(wrap);
+
+    // Attach handlers after DOM insertion
+    container.querySelectorAll('.player-card').forEach(card => {
+      card.addEventListener('click', async () => {
+        const pid = Number(card.dataset.playerId);
+        const existing = container.querySelector('.player-stats-drawer');
+        if (existing && existing.dataset.pid === String(pid)) { existing.remove(); return; }
+        if (existing) existing.remove();
+
+        const pm = playerMap[pid];
+        const drawerEl = el('div', { className: 'player-stats-drawer' });
+        drawerEl.dataset.pid = String(pid);
+        drawerEl.appendChild(el('div', { className: 'psd-header' },
+          el('span', { className: 'psd-name' }, pm ? `${pm.web_name} · ${teamMap[pm.team]?.short_name || ''}` : String(pid)),
+          el('span', { className: 'psd-close' }, '✕')
+        ));
+        drawerEl.appendChild(el('div', { className: 'psd-loading' }, 'Loading stats...'));
+        drawerEl.querySelector('.psd-close').addEventListener('click', () => drawerEl.remove());
+        container.querySelector('.pitch-wrap').appendChild(drawerEl);
+
+        try {
+          const summary = await getPlayerHistory(pid);
+          const history = summary.history || [];
+          const seasonTotal = history.reduce((s, h) => s + h.total_points, 0);
+          const last5 = history.slice(-5);
+
+          drawerEl.querySelector('.psd-loading').remove();
+          const grid = el('div', { className: 'psd-stats-grid' },
+            el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, String(seasonTotal)), el('div', { className: 'psd-stat-label' }, 'Season Pts')),
+            el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `\xA3${(pm.now_cost/10).toFixed(1)}m` : '—'), el('div', { className: 'psd-stat-label' }, 'Price')),
+            el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `${pm.selected_by_percent}%` : '—'), el('div', { className: 'psd-stat-label' }, 'Owned'))
+          );
+          drawerEl.appendChild(grid);
+
+          if (last5.length) {
+            const maxPts = Math.max(...last5.map(h => h.total_points), 1);
+            const histEl = el('div', { className: 'psd-history' });
+            last5.forEach(h => {
+              const barH = Math.max(4, Math.round((h.total_points / maxPts) * 48));
+              histEl.appendChild(el('div', { className: 'psd-gw-bar' },
+                el('div', { className: 'psd-bar-pts' }, String(h.total_points)),
+                el('div', { className: 'psd-bar', style: `height:${barH}px` }),
+                el('div', { className: 'psd-bar-gw' }, `GW${h.round}`)
+              ));
+            });
+            drawerEl.appendChild(histEl);
+          }
+        } catch(e) {
+          const l = drawerEl.querySelector('.psd-loading');
+          if (l) l.textContent = 'Could not load stats.';
+        }
+      });
+    });
+
+    // Register for live refresh
+    _openPitchRefresh[entryId] = async () => {
+      if (!_liveData) return;
+      _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+      container.querySelectorAll('.player-card').forEach(card => {
+        const pid = Number(card.dataset.playerId);
+        const pBadge = card.querySelector('.player-pts-badge');
+        if (pBadge && liveMap[pid] != null) {
+          pBadge.textContent = String(liveMap[pid]);
+          pBadge.classList.add('live');
+        }
+      });
+    };
+
+  } catch (e) {
+    container.innerHTML = `<div class="pitch-loading">Could not load squad — ${e.message}</div>`;
+  }
+}
+
 function buildLeagueTab(data) {
   const frag = document.createDocumentFragment();
-
   frag.appendChild(el('div', { className: 'section-title' }, '📊 League Table'));
+
+  const currentGW = (_leagueData && _leagueData.metadata) ? _leagueData.metadata.current_gw : null;
 
   const thead = el('thead', {},
     el('tr', {},
       el('th', {}, 'Rank'),
       el('th', {}, 'Team'),
       el('th', {}, 'GW'),
-      el('th', {}, 'Total')
+      el('th', {}, 'Total'),
+      el('th', {}, '')
     )
   );
 
-  const tbody = el('tbody');
+  const tableWrap = el('div', { className: 'league-table-wrap' });
+  const table = el('table', { className: 'league-table' }, thead);
+
   data.standings.forEach(s => {
     const delta = s.rank_last === 0 ? 0 : s.rank_last - s.rank;
     let moveEl;
-    if (delta > 0)       moveEl = el('span', { className: 'rank-move up' }, ` ▲${delta}`);
-    else if (delta < 0)  moveEl = el('span', { className: 'rank-move down' }, ` ▼${Math.abs(delta)}`);
-    else                 moveEl = el('span', { className: 'rank-move same' }, ' —');
+    if (delta > 0)      moveEl = el('span', { className: 'rank-move up' }, ` ▲${delta}`);
+    else if (delta < 0) moveEl = el('span', { className: 'rank-move down' }, ` ▼${Math.abs(delta)}`);
+    else                moveEl = el('span', { className: 'rank-move same' }, ' —');
 
-    tbody.appendChild(el('tr', {},
+    const expandBtn = el('span', { className: 'expand-btn' }, '▾');
+    const pitchPanel = el('tr', {},
+      el('td', { colspan: '5', style: 'padding:0' },
+        el('div', { className: 'pitch-panel', 'data-entry': String(s.entry_id) })
+      )
+    );
+
+    const summaryRow = el('tr', { style: 'cursor:pointer' },
       el('td', { className: 'rank-cell' }, String(s.rank), moveEl),
       el('td', {},
         el('div', { className: 'team-name' }, s.name),
         el('div', { className: 'manager-name' }, s.manager)
       ),
       el('td', { className: 'league-gw' }, String(s.gw_points)),
-      el('td', { className: 'league-total' }, String(s.total_points))
-    ));
+      el('td', { className: 'league-total' }, String(s.total_points)),
+      el('td', {}, expandBtn)
+    );
+
+    let loaded = false;
+    summaryRow.addEventListener('click', () => {
+      const panel = pitchPanel.querySelector('.pitch-panel');
+      const open = panel.classList.toggle('open');
+      expandBtn.classList.toggle('open', open);
+      if (open && !loaded) {
+        loaded = true;
+        const isLive = false; // set to true when GW is in-play
+        buildPitchView(s.entry_id, currentGW, panel, isLive);
+      }
+      if (!open) {
+        delete _openPitchRefresh[s.entry_id];
+      }
+    });
+
+    const tbody = el('tbody');
+    tbody.appendChild(summaryRow);
+    tbody.appendChild(pitchPanel);
+    table.appendChild(tbody);
   });
 
-  frag.appendChild(
-    el('div', { className: 'league-table-wrap' },
-      el('table', { className: 'league-table' }, thead, tbody)
-    )
-  );
-
+  tableWrap.appendChild(table);
+  frag.appendChild(tableWrap);
   return frag;
 }
 
