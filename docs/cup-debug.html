@@ -801,22 +801,18 @@ function buildFinalHero(final, liveGW) {
   const upcoming = final.status !== 'complete' && !isLive;
 
   let vsArea;
-  if (isLive) {
-    const scoreAEl = el('span', { className: 'final-hero-score live' });
-    const scoreBEl = el('span', { className: 'final-hero-score live' });
+  if (isLive || upcoming) {
+    const scoreAEl = el('span', { className: 'final-hero-score' + (isLive ? ' live' : '') });
+    const scoreBEl = el('span', { className: 'final-hero-score' + (isLive ? ' live' : '') });
+    // Always tag with data-cup-entry so the debug GW override can update these
     scoreAEl.setAttribute('data-cup-entry', String(ta.entry_id));
-    scoreAEl.setAttribute('data-cup-gw', String(liveGW));
+    scoreAEl.setAttribute('data-cup-gw', String(final.gw));
     scoreBEl.setAttribute('data-cup-entry', String(tb.entry_id));
-    scoreBEl.setAttribute('data-cup-gw', String(liveGW));
-    scoreAEl.textContent = '…'; scoreBEl.textContent = '…';
+    scoreBEl.setAttribute('data-cup-gw', String(final.gw));
+    scoreAEl.textContent = isLive ? '…' : '—';
+    scoreBEl.textContent = isLive ? '…' : '—';
     vsArea = el('div', { className: 'final-hero-scores' },
       scoreAEl, el('span', { className: 'final-hero-dash' }, '–'), scoreBEl
-    );
-  } else if (upcoming) {
-    vsArea = el('div', { className: 'final-hero-scores' },
-      el('span', { className: 'final-hero-score' }, '—'),
-      el('span', { className: 'final-hero-dash' }, '–'),
-      el('span', { className: 'final-hero-score' }, '—')
     );
   } else {
     vsArea = el('div', { className: 'final-hero-scores' },
