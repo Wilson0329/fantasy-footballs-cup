@@ -566,6 +566,29 @@
     .stats-table tr.highlighted { background: rgba(99,102,241,0.12) !important; outline: 1px solid rgba(99,102,241,0.35); }
     .stats-table tr.dimmed { opacity: 0.3; }
 
+    /* Cup settings */
+    .cup-settings-link { text-align: center; margin-top: 2rem; padding-bottom: 1rem; }
+    .cup-settings-link a { color: var(--muted); font-size: 0.78rem; text-decoration: none; border-bottom: 1px solid transparent; }
+    .cup-settings-link a:hover { color: var(--text); border-bottom-color: var(--border); }
+    .settings-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 2rem 1rem; }
+    .settings-panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; max-width: 560px; width: 100%; position: relative; margin: auto; }
+    .settings-panel h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .settings-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.2rem; }
+    .settings-section { margin-bottom: 1.5rem; }
+    .settings-section h3 { font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .rules-list { list-style: none; padding: 0; }
+    .rules-list li { padding: 0.4rem 0; font-size: 0.83rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+    .rules-list li:last-child { border-bottom: none; }
+    .rules-list li strong { color: var(--text); }
+    .gw-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.75rem; }
+    .gw-tag { display: inline-flex; align-items: center; gap: 4px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3); border-radius: 999px; padding: 0.2rem 0.5rem; font-size: 0.78rem; color: #a5b4fc; }
+    .gw-tag button { background: none; border: none; color: #f87171; cursor: pointer; padding: 0; font-size: 0.75rem; line-height: 1; }
+    .gw-add-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .gw-input { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 6px; padding: 0.3rem 0.6rem; font-size: 0.83rem; width: 80px; }
+    .settings-save-btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.4rem; font-size: 0.85rem; font-weight: 600; cursor: pointer; width: 100%; margin-top: 1rem; }
+    .settings-save-btn:hover { opacity: 0.9; }
+    .settings-saved-msg { text-align: center; font-size: 0.78rem; color: #4ade80; margin-top: 0.5rem; display: none; }
+
     /* ── Champions tab ── */
     .champions-intro {
       text-align: center;
@@ -871,21 +894,60 @@
       50% { opacity: 0.3; }
     }
     .pitch-bg {
-      background: linear-gradient(180deg, #14532d 0%, #166534 30%, #15803d 60%, #166534 80%, #14532d 100%);
+      background:
+        repeating-linear-gradient(180deg,
+          rgba(0,0,0,0.06) 0px, rgba(0,0,0,0.06) 40px,
+          transparent 40px, transparent 80px),
+        linear-gradient(180deg, #14532d 0%, #166534 50%, #14532d 100%);
       border-radius: 10px;
-      padding: 0.75rem 0.5rem;
-      border: 2px solid rgba(255,255,255,0.08);
+      padding: 0.75rem 0.5rem 0.5rem;
+      border: 2px solid rgba(255,255,255,0.15);
       position: relative;
+      overflow: hidden;
     }
     .pitch-bg::before {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 10%;
-      right: 10%;
-      height: 1px;
-      background: rgba(255,255,255,0.12);
+      inset: 0;
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 9px;
+      pointer-events: none;
     }
+    /* Pitch markings inserted via JS */
+    .pitch-halfway-line {
+      position: absolute;
+      top: 50%; left: 5%; right: 5%;
+      height: 1px;
+      background: rgba(255,255,255,0.2);
+      pointer-events: none;
+    }
+    .pitch-center-circle {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 70px; height: 70px;
+      margin-top: -35px; margin-left: -35px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.18);
+      pointer-events: none;
+    }
+    .pitch-center-spot {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 6px; height: 6px;
+      margin-top: -3px; margin-left: -3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      pointer-events: none;
+    }
+    .pitch-penalty-box {
+      position: absolute;
+      left: 20%; right: 20%;
+      height: 55px;
+      border: 1px solid rgba(255,255,255,0.15);
+      pointer-events: none;
+    }
+    .pitch-penalty-box.top { top: 0; border-top: none; border-radius: 0 0 4px 4px; }
+    .pitch-penalty-box.bottom { bottom: 0; border-bottom: none; border-radius: 4px 4px 0 0; }
     .pitch-row {
       display: flex;
       justify-content: center;
@@ -1536,10 +1598,15 @@ function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode) {
   const isGK = playerMeta && playerMeta.element_type === 1;
   const shirt = el('div', { className: 'player-shirt' });
   if (teamCode) {
-    const suffix = isGK ? '_1_gk-66' : '_1-66';
-    const img = el('img', { className: 'kit-img', alt: '',
-      src: `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}${suffix}.png` });
-    img.onerror = () => { img.style.display='none'; const fb = el('div', { className: `kit-img-fallback ${posClass}` }); shirt.appendChild(fb); };
+    const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1-66.png`;
+    const kitUrl = isGK ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1_gk-66.png` : outfieldUrl;
+    const img = el('img', { className: 'kit-img', alt: '', src: kitUrl });
+    img.onerror = () => {
+      if (isGK && img.src !== outfieldUrl) { img.src = outfieldUrl; return; }
+      img.style.display = 'none';
+      const fb = el('div', { className: `kit-img-fallback ${posClass}` });
+      shirt.appendChild(fb);
+    };
     shirt.appendChild(img);
   } else {
     shirt.appendChild(el('div', { className: `kit-img-fallback ${posClass}` }));
@@ -1601,6 +1668,11 @@ async function buildPitchView(entryId, gw, container, isLive) {
     ));
 
     const pitchBg = el('div', { className: 'pitch-bg' });
+    pitchBg.appendChild(el('div', { className: 'pitch-halfway-line' }));
+    pitchBg.appendChild(el('div', { className: 'pitch-center-circle' }));
+    pitchBg.appendChild(el('div', { className: 'pitch-center-spot' }));
+    pitchBg.appendChild(el('div', { className: 'pitch-penalty-box top' }));
+    pitchBg.appendChild(el('div', { className: 'pitch-penalty-box bottom' }));
     let statsDrawer = null;
 
     function attachCardHandlers(cards) {
@@ -2247,11 +2319,11 @@ function buildCaptainHitRateTable(hitRate) {
 function buildStatsTab(data) {
   const frag = document.createDocumentFragment();
   frag.appendChild(el('div', { className: 'section-title' }, icon('trending-up'), ' Stats'));
+  frag.appendChild(buildTradeDiffTable(data.trade_differential));
+  frag.appendChild(buildCaptainTable(data.captain_points));
   frag.appendChild(buildFormTable(data.form));
   frag.appendChild(buildBenchTable(data.bench_points));
   frag.appendChild(buildCaptainHitRateTable(data.captain_hit_rate));
-  frag.appendChild(buildTradeDiffTable(data.trade_differential));
-  frag.appendChild(buildCaptainTable(data.captain_points));
   return frag;
 }
 
@@ -2432,6 +2504,7 @@ function switchTab(tabName) {
             ['A','B'].forEach(g => _cupData.groups[g].fixtures.forEach(f => cupGWs.add(f.gw)));
             _cupData.knockout.semi_finals.forEach(sf => sf.legs.forEach(l => cupGWs.add(l.gw)));
             if (_cupData.knockout.final.gw) cupGWs.add(_cupData.knockout.final.gw);
+            getCupGWs().forEach(gw => cupGWs.add(gw));
             if (cupGWs.has(liveEvent.id)) cupLiveGW = liveEvent.id;
           }
         } catch(e) { /* ignore */ }
@@ -2458,6 +2531,87 @@ function switchTab(tabName) {
 // Cup render
 // ─────────────────────────────────────────────────────────────────────────────
 
+const DEFAULT_CUP_GWS = [18, 20, 22, 24, 26, 31, 33, 38];
+
+function getCupGWs() {
+  try {
+    const s = JSON.parse(localStorage.getItem('cupSettings') || '{}');
+    return Array.isArray(s.cupGWs) && s.cupGWs.length ? s.cupGWs : DEFAULT_CUP_GWS;
+  } catch { return DEFAULT_CUP_GWS; }
+}
+
+function saveCupGWs(gws) {
+  localStorage.setItem('cupSettings', JSON.stringify({ cupGWs: gws }));
+}
+
+function openCupSettings() {
+  const overlay = el('div', { className: 'settings-overlay' });
+  const panel = el('div', { className: 'settings-panel' });
+  const closeBtn = el('button', { className: 'settings-close', onClick: () => overlay.remove() }, '×');
+  panel.appendChild(closeBtn);
+  panel.appendChild(el('h2', {}, 'Cup Settings'));
+
+  // Rules section
+  const rulesSection = el('div', { className: 'settings-section' });
+  rulesSection.appendChild(el('h3', {}, 'Scoring Rules'));
+  const rulesList = el('ul', { className: 'rules-list' });
+  [
+    ['Starting XI only', 'Positions 1–11 from each manager's selected team are counted.'],
+    ['No captain bonus', 'The 2× captain multiplier is ignored — all players count as ×1.'],
+    ['No chip effects', 'Bench Boost is ignored; only the starting XI counts regardless of chip played.'],
+    ['Triple captain stripped', 'TC multiplier (3×) is reduced to ×1 like all other players.'],
+    ['Tiebreaker — single match', 'If scores are level, captain's raw points decide. If still tied, vice-captain's raw points.'],
+    ['Tiebreaker — group stage', 'Points; then head-to-head record; then total cup points scored.'],
+  ].forEach(([term, def]) => {
+    rulesList.appendChild(el('li', {}, el('strong', {}, term + ': '), def));
+  });
+  rulesSection.appendChild(rulesList);
+  panel.appendChild(rulesSection);
+
+  // GW editor section
+  const gwSection = el('div', { className: 'settings-section' });
+  gwSection.appendChild(el('h3', {}, 'Cup Gameweeks'));
+  gwSection.appendChild(el('p', { style: 'font-size:0.78rem;color:var(--muted);margin-bottom:0.75rem' },
+    'These are the gameweeks used for live cup scoring. Changes save to this browser.'));
+
+  let currentGWs = [...getCupGWs()];
+  const tagsContainer = el('div', { className: 'gw-tags' });
+
+  function renderTags() {
+    tagsContainer.innerHTML = '';
+    currentGWs.sort((a,b)=>a-b).forEach(gw => {
+      const removeBtn = el('button', {}, '×');
+      removeBtn.addEventListener('click', () => { currentGWs = currentGWs.filter(g=>g!==gw); renderTags(); });
+      tagsContainer.appendChild(el('span', { className: 'gw-tag' }, `GW${gw}`, removeBtn));
+    });
+  }
+  renderTags();
+  gwSection.appendChild(tagsContainer);
+
+  const addInput = el('input', { className: 'gw-input', type: 'number', min: '1', max: '38', placeholder: 'GW#' });
+  const addBtn = el('button', { className: 'gw-select', style: 'padding:0.3rem 0.8rem;cursor:pointer' }, '+ Add');
+  addBtn.addEventListener('click', () => {
+    const v = parseInt(addInput.value);
+    if (v >= 1 && v <= 38 && !currentGWs.includes(v)) { currentGWs.push(v); renderTags(); addInput.value = ''; }
+  });
+  gwSection.appendChild(el('div', { className: 'gw-add-row' }, addInput, addBtn));
+  panel.appendChild(gwSection);
+
+  const savedMsg = el('div', { className: 'settings-saved-msg' }, '✓ Saved — reload Cup tab to apply');
+  const saveBtn = el('button', { className: 'settings-save-btn' }, 'Save Settings');
+  saveBtn.addEventListener('click', () => {
+    saveCupGWs(currentGWs);
+    savedMsg.style.display = 'block';
+    setTimeout(() => { savedMsg.style.display = 'none'; }, 3000);
+  });
+  panel.appendChild(saveBtn);
+  panel.appendChild(savedMsg);
+
+  overlay.appendChild(panel);
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
 function renderCup(data, liveGW) {
   const heroAnchor = document.getElementById('final-hero-anchor');
   heroAnchor.innerHTML = '';
@@ -2474,6 +2628,11 @@ function renderCup(data, liveGW) {
     buildGroupCard('A', data.groups.A, liveGW),
     buildGroupCard('B', data.groups.B, liveGW)
   ));
+  const settingsLink = el('div', { className: 'cup-settings-link' });
+  const sl = el('a', { href: '#' }, 'Cup Settings & Rules');
+  sl.addEventListener('click', e => { e.preventDefault(); openCupSettings(); });
+  settingsLink.appendChild(sl);
+  app.appendChild(settingsLink);
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 

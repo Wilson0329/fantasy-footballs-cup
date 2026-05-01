@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cup Live Score — Debug</title>
+  <style>
+    body { font-family: monospace; background: #0f172a; color: #e2e8f0; padding: 2rem; margin: 0; }
+    h1 { font-size: 1.1rem; color: #a5b4fc; margin-bottom: 0.25rem; }
+    p { font-size: 0.8rem; color: #64748b; margin: 0 0 1.5rem; }
+    .status { font-size: 0.82rem; color: #94a3b8; margin-bottom: 1rem; }
+    .status span { color: #4ade80; }
+    table { border-collapse: collapse; width: 100%; max-width: 640px; font-size: 0.82rem; }
+    th { text-align: left; padding: 0.4rem 0.8rem; color: #64748b; border-bottom: 1px solid #1e293b; }
+    td { padding: 0.45rem 0.8rem; border-bottom: 1px solid #1e293b; }
+    .pts { font-weight: 700; color: #a5b4fc; }
+    .error { color: #f87171; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 6px; padding: 0.75rem 1rem; max-width: 640px; font-size: 0.82rem; }
+    .section { margin-top: 2rem; }
+    .section h2 { font-size: 0.9rem; color: #94a3b8; margin-bottom: 0.5rem; }
+    .pill { display: inline-block; padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.72rem; margin-left: 6px; background: rgba(99,102,241,0.2); color: #818cf8; }
+    .refresh-btn { margin-top: 1rem; background: #3730a3; border: none; color: #e0e7ff; border-radius: 6px; padding: 0.4rem 1rem; font-size: 0.8rem; cursor: pointer; font-family: monospace; }
+    .refresh-btn:hover { background: #4338ca; }
+    input[type=number] { background: #1e293b; border: 1px solid #334155; color: #e2e8f0; border-radius: 4px; padding: 0.3rem 0.5rem; font-family: monospace; font-size: 0.82rem; width: 60px; }
+    label { font-size: 0.8rem; color: #94a3b8; }
+  </style>
+</head>
+<body>
+<h1>⚙ Cup Live Score — Debug Page</h1>
+<p>Not linked in the main nav. Computes cup scores using the FPL proxy. Use to verify live scoring before a cup gameweek.</p>
+
+<div class="status" id="status">Loading...</div>
+
+<div>
+  <label>Test GW: <input type="number" id="gw-input" min="1" max="38" value=""></label>
+  <button class="refresh-btn" id="run-btn">Run</button>
+  <button class="refresh-btn" id="auto-btn" style="background:#166534">Auto-poll (60s)</button>
+  <button class="refresh-btn" id="stop-btn" style="background:#7f1d1d;display:none">Stop poll</button>
+</div>
+
+<div id="output"></div>
+
+<script>
+const WORKER = 'https://fpl-proxy.josephpwilson3.workers.dev';
+const TEAMS = [
+  { entry_id: 8794696, name: 'Return of the Fox',    manager: 'Charles Smith' },
+  { entry_id: 7552664, name: 'Beef Cherki',           manager: 'Alexander Bodek' },
+  { entry_id: 5155229, name: 'Vik the Impaler',       manager: 'David Pontin' },
+  { entry_id: 5124113, name: 'Soucek Madness',        manager: 'Sam Haseltine' },
+  { entry_id: 1623042, name: 'GVG XI',                manager: 'George Georgiou' },
+  { entry_id: 6366909, name: 'HC XI II',              manager: 'Dominic Byrne' },
+  { entry_id: 5751594, name: 'I love big Győk',       manager: 'Adam Georghiou' },
+  { entry_id: 4789233, name: 'Inevitable',            manager: 'Jason Knightly' },
+  { entry_id: 5191754, name: 'Stay Classy SanDiogo',  manager: 'Ed Pragnell' },
+  { entry_id: 5145283, name: 'Habibi Jeebies',        manager: 'Arun Quayum' },
+  { entry_id: 4160647, name: 'Forever20',             manager: 'Joe Wilson' },
+  { entry_id: 5150105, name: 'Gyök, Stock & Barrel', manager: 'Aron Rouse' },
+];
+
+let pollTimer = null;
+
+async function fetchJSON(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`HTTP ${r.status} — ${url}`);
+  return r.json();
+}
+
+async function getBootstrap() {
+  return fetchJSON(`${WORKER}/bootstrap-static/`);
+}
+
+async function getLive(gw) {
+  return fetchJSON(`${WORKER}/event/${gw}/live/?t=${Math.floor(Date.now()/60000)}`);
+}
+
+async function getPicks(entryId, gw) {
+  return fetchJSON(`${WORKER}/entry/${entryId}/event/${gw}/picks/?t=${Math.floor(Date.now()/120000)}`);
+}
+
+async function calcCupScore(entryId, gw, liveMap) {
+  const data = await getPicks(entryId, gw);
+  const starters = data.picks.filter(p => p.position <= 11);
+  const score = starters.reduce((s, p) => s + (liveMap[p.element] || 0), 0);
+  const cap = starters.find(p => p.is_captain);
+  const vc = starters.find(p => p.is_vice_captain);
+  return {
+    score,
+    captain: cap ? cap.element : null,
+    vc: vc ? vc.element : null,
+    starters: starters.map(p => ({ id: p.element, pts: liveMap[p.element] || 0 })),
+  };
+}
+
+async function run(overrideGW) {
+  const output = document.getElementById('output');
+  const status = document.getElementById('status');
+  output.innerHTML = 'Computing...';
+
+  try {
+    status.innerHTML = 'Fetching bootstrap...';
+    const bs = await getBootstrap();
+    const playerMap = {};
+    bs.elements.forEach(p => { playerMap[p.id] = p.web_name; });
+
+    let gw = overrideGW;
+    if (!gw) {
+      // Find upcoming/current GW
+      const liveEv = bs.events.find(e => e.is_current && !e.finished);
+      const nextEv = bs.events.find(e => !e.finished && !e.is_current);
+      const lastFin = [...bs.events].reverse().find(e => e.finished);
+      gw = liveEv ? liveEv.id : (nextEv ? nextEv.id : (lastFin ? lastFin.id : 1));
+      document.getElementById('gw-input').value = gw;
+    }
+
+    const isLive = bs.events.find(e => e.id === gw && e.is_current && !e.finished);
+    status.innerHTML = `GW${gw} — ${isLive ? '<span>LIVE ●</span>' : 'not live (using final/historical points)'} — fetched ${new Date().toLocaleTimeString()}`;
+
+    status.innerHTML += ' · Fetching live points...';
+    const live = await getLive(gw);
+    const liveMap = {};
+    live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+
+    status.innerHTML += ' · Calculating cup scores...';
+    const results = await Promise.all(TEAMS.map(async t => {
+      try {
+        const r = await calcCupScore(t.entry_id, gw, liveMap);
+        return { ...t, ...r, error: null };
+      } catch(e) {
+        return { ...t, score: null, error: e.message };
+      }
+    }));
+
+    results.sort((a, b) => (b.score || 0) - (a.score || 0));
+
+    let html = `<div class="section"><h2>Cup Scores — GW${gw}${isLive ? ' 🔴 LIVE' : ''}</h2>`;
+    html += '<table><thead><tr><th>#</th><th>Team</th><th>Manager</th><th>Cup Score</th><th>Captain</th><th>Notes</th></tr></thead><tbody>';
+    results.forEach((t, i) => {
+      const capName = t.captain ? (playerMap[t.captain] || t.captain) : '—';
+      const capPts = t.captain && liveMap[t.captain] != null ? liveMap[t.captain] : '?';
+      const err = t.error ? `<span style="color:#f87171">${t.error}</span>` : '';
+      html += `<tr>
+        <td>${i+1}</td>
+        <td>${t.name}</td>
+        <td>${t.manager}</td>
+        <td class="pts">${t.score != null ? t.score : '—'}</td>
+        <td>${capName} (${capPts}pts)</td>
+        <td>${err}</td>
+      </tr>`;
+    });
+    html += '</tbody></table>';
+
+    // Breakdown of best/worst scores
+    const scored = results.filter(r => r.score != null);
+    if (scored.length) {
+      const maxScore = Math.max(...scored.map(r => r.score));
+      const minScore = Math.min(...scored.map(r => r.score));
+      html += `<div class="section"><h2>Summary</h2>`;
+      html += `<p style="font-size:0.82rem;color:#94a3b8">`;
+      html += `Highest: ${maxScore} pts · Lowest: ${minScore} pts · Average: ${Math.round(scored.reduce((s,r)=>s+r.score,0)/scored.length)} pts`;
+      html += `</p></div>`;
+    }
+
+    html += `</div>`;
+
+    // Raw liveMap spot-check
+    html += `<div class="section"><h2>Debug — Live Map (first 20 players)</h2><table><thead><tr><th>Player</th><th>Live Pts</th></tr></thead><tbody>`;
+    const entries = Object.entries(liveMap).slice(0, 20);
+    entries.forEach(([id, pts]) => {
+      html += `<tr><td>${playerMap[id] || id}</td><td class="pts">${pts}</td></tr>`;
+    });
+    html += '</tbody></table></div>';
+
+    status.innerHTML = `GW${gw} — ${isLive ? '<span>LIVE ●</span>' : 'not live'} — last computed ${new Date().toLocaleTimeString()}`;
+    output.innerHTML = html;
+
+  } catch(e) {
+    output.innerHTML = `<div class="error">Error: ${e.message}</div>`;
+    status.innerHTML = `Error: ${e.message}`;
+  }
+}
+
+document.getElementById('run-btn').addEventListener('click', () => {
+  const v = parseInt(document.getElementById('gw-input').value);
+  run(v || null);
+});
+
+document.getElementById('auto-btn').addEventListener('click', () => {
+  document.getElementById('auto-btn').style.display = 'none';
+  document.getElementById('stop-btn').style.display = '';
+  const v = parseInt(document.getElementById('gw-input').value);
+  run(v || null);
+  pollTimer = setInterval(() => run(parseInt(document.getElementById('gw-input').value) || null), 60000);
+});
+
+document.getElementById('stop-btn').addEventListener('click', () => {
+  clearInterval(pollTimer);
+  document.getElementById('stop-btn').style.display = 'none';
+  document.getElementById('auto-btn').style.display = '';
+});
+
+// Auto-run on load with upcoming/current GW
+run(null);
+</script>
+</body>
+</html>
