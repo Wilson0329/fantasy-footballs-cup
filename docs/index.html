@@ -1289,8 +1289,10 @@ function buildFinalHero(final) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const WORKER_URL = 'https://fpl-proxy.josephpwilson3.workers.dev';
+const LEAGUE_ID = 286779;
 
 const _fplCache = {};
+let _leagueStandings = null; // live standings from FPL API
 let _bootstrap = null;
 let _liveData = null;
 let _liveGW = null;
@@ -1350,6 +1352,16 @@ function updateLastPolled() {
   span.textContent = `${base}FPL polled ${t}`;
 }
 
+async function getLeagueStandings() {
+  // Returns map of entry_id -> { event_total, total, rank, last_rank }
+  const data = await fetchFPL(`leagues-classic/${LEAGUE_ID}/standings/`);
+  const map = {};
+  (data.standings.results || []).forEach(r => {
+    map[r.entry] = { gw_points: r.event_total, total_points: r.total, rank: r.rank, rank_last: r.last_rank };
+  });
+  return map;
+}
+
 function startLivePoll(gw) {
   if (_liveInterval) return;
   _liveGW = gw;
@@ -1358,6 +1370,13 @@ function startLivePoll(gw) {
       _liveData = await getLive(gw);
       updateLastPolled();
       refreshOpenPitchViews();
+      // Refresh league standing scores in table
+      try {
+        // Bust cache for standings
+        delete _fplCache[`leagues-classic/${LEAGUE_ID}/standings/`];
+        _leagueStandings = await getLeagueStandings();
+        refreshLeagueScores();
+      } catch(e2) { /* ignore standings poll error */ }
     } catch (e) { /* silently ignore poll errors */ }
   }, 60000);
 }
@@ -1370,6 +1389,21 @@ const _openPitchRefresh = {};
 
 function refreshOpenPitchViews() {
   Object.values(_openPitchRefresh).forEach(fn => fn());
+}
+
+function refreshLeagueScores() {
+  if (!_leagueStandings) return;
+  document.querySelectorAll('.league-table tbody').forEach(tbody => {
+    const row = tbody.querySelector('tr[data-entry]');
+    if (!row) return;
+    const entryId = Number(row.dataset.entry);
+    const live = _leagueStandings[entryId];
+    if (!live) return;
+    const gwCell = row.querySelector('.league-gw');
+    const totalCell = row.querySelector('.league-total');
+    if (gwCell) gwCell.textContent = String(live.gw_points);
+    if (totalCell) totalCell.textContent = String(live.total_points);
+  });
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -1647,14 +1681,18 @@ function buildLeagueTab(data) {
       const pitchPanelDiv = el('div', { className: 'pitch-panel', 'data-entry': String(s.entry_id) });
       const pitchRow = el('tr', {}, el('td', { colspan: '5', style: 'padding:0' }, pitchPanelDiv));
 
-      const summaryRow = el('tr', { style: 'cursor:pointer' },
+      const live = _leagueStandings && _leagueStandings[s.entry_id];
+      const displayGW = live ? live.gw_points : s.gw_points;
+      const displayTotal = live ? live.total_points : s.total_points;
+
+      const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id) },
         el('td', { className: 'rank-cell' }, String(s.rank), moveEl),
         el('td', {},
           el('div', { className: 'team-name' }, s.name),
           el('div', { className: 'manager-name' }, s.manager)
         ),
-        el('td', { className: 'league-gw' }, String(s.gw_points)),
-        el('td', { className: 'league-total' }, String(s.total_points)),
+        el('td', { className: 'league-gw' }, String(displayGW)),
+        el('td', { className: 'league-total' }, String(displayTotal)),
         el('td', {}, expandBtn)
       );
 
@@ -1684,7 +1722,12 @@ function buildLeagueTab(data) {
 
   (async () => {
     try {
-      const bs = await getBootstrap();
+      const [bs, liveStandings] = await Promise.all([
+        getBootstrap(),
+        getLeagueStandings().catch(() => null),
+      ]);
+      if (liveStandings) _leagueStandings = liveStandings;
+
       const events = bs.events;
       const liveEvent = events.find(e => e.is_current && !e.finished);
       const lastFinished = [...events].reverse().find(e => e.finished);
