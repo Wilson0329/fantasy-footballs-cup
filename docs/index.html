@@ -1520,6 +1520,17 @@ async function getPlayerHistory(playerId) {
   return data;
 }
 
+const _teamHistoryCache = {};
+async function getTeamHistory(entryId) {
+  if (_teamHistoryCache[entryId]) return _teamHistoryCache[entryId];
+  const url = `${WORKER_URL}/entry/${entryId}/history/?t=${Math.floor(Date.now()/3600000)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`History fetch failed: ${res.status}`);
+  const data = await res.json();
+  _teamHistoryCache[entryId] = data.current || [];
+  return _teamHistoryCache[entryId];
+}
+
 function updateLastPolled() {
   const span = document.getElementById('last-updated');
   if (!span) return;
@@ -1862,7 +1873,7 @@ function buildLeagueTab(data) {
   const tableWrap = el('div', { className: 'league-table-wrap' });
   wrap.appendChild(tableWrap);
 
-  function buildStandingsTable(selectedGW, isLiveGW) {
+  function buildStandingsTable(selectedGW, isLiveGW, gwHistories) {
     if (!data) return;
     tableWrap.innerHTML = '';
 
@@ -1902,7 +1913,9 @@ function buildLeagueTab(data) {
       const pitchPanelDiv = el('div', { className: 'pitch-panel', 'data-entry': String(s.entry_id) });
       const pitchRow = el('tr', {}, el('td', { colspan: '5', style: 'padding:0' }, pitchPanelDiv));
 
-      const displayGW = isCurrentDataGW ? (live ? live.gw_points : s.gw_points) : '—';
+      const displayGW = isCurrentDataGW
+        ? (live ? live.gw_points : s.gw_points)
+        : (gwHistories && gwHistories[s.entry_id] != null ? gwHistories[s.entry_id] : '—');
       const displayTotal = live ? live.total_points : s.total_points;
 
       const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id) },
@@ -1992,7 +2005,19 @@ function buildLeagueTab(data) {
           _liveGW = newGW;
           updateLastPolled();
         } catch(e) { _liveData = null; _liveGW = null; }
-        buildStandingsTable(newGW, newIsLive);
+
+        // Fetch per-team GW points from history (cached after first load)
+        const gwHistories = {};
+        try {
+          const entries = data.standings.map(s => s.entry_id);
+          const histories = await Promise.all(entries.map(id => getTeamHistory(id)));
+          entries.forEach((id, i) => {
+            const gw = histories[i].find(h => h.event === newGW);
+            if (gw) gwHistories[id] = gw.points;
+          });
+        } catch(e) { /* show — if history unavailable */ }
+
+        buildStandingsTable(newGW, newIsLive, gwHistories);
       });
 
       buildStandingsTable(selectedGW, isLiveGW);
