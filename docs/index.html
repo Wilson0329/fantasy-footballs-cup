@@ -2614,7 +2614,9 @@ function buildLeagueTab(data) {
       const displayTotal = live ? live.total_points : s.total_points;
 
       const liveStatusEl = isLiveGW ? el('div', { className: 'team-live-status' }, '—') : null;
-      const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id), 'data-base-total': String(s.total_points) },
+      // Base = points BEFORE the live GW to avoid double-counting when JSON already covers it
+      const baseTotal = (isLiveGW && dataGW === selectedGW) ? s.total_points - s.gw_points : s.total_points;
+      const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id), 'data-base-total': String(baseTotal) },
         el('td', { className: 'rank-cell' }, String(rank + 1), moveEl),
         el('td', {},
           el('div', { className: 'team-name' }, s.name),
