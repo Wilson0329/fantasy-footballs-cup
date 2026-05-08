@@ -74,17 +74,6 @@ PUNDITS = [
             "and how injuries to key players in squads could affect the run-in"
         ),
     },
-    {
-        "id": "bench_captain",
-        "name": "Paul Merson",
-        "image": "merson.jpg",
-        "role": "Sky Sports pundit, ex-Arsenal and England forward",
-        "personality": (
-            "Chaotic, hyperbolic, slightly self-deprecating. Uses phrases like 'I tell ya what', "
-            "'honestly mate', 'I'd have done the same thing'. Bewildered by bad decisions but sympathetic."
-        ),
-        "topic": "bench points left uncollected and captaincy decisions — the pain and the glory",
-    },
 ]
 
 
