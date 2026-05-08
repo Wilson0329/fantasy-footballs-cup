@@ -2478,9 +2478,9 @@ async function buildPitchView(entryId, gw, container, isLive) {
           if (liveStats.minutes != null) {
             const rawRows = [];
             const et = pm?.element_type;
-            if (liveStats.clean_sheets)   rawRows.push(['Clean sheet', et <= 2 ? 4 : et === 3 ? 1 : 0]);
-            if (liveStats.goals_conceded) rawRows.push([`${liveStats.goals_conceded} goal${liveStats.goals_conceded !== 1 ? 's' : ''} conceded`, -Math.floor(liveStats.goals_conceded / 2)]);
-            if (liveStats.saves)          rawRows.push([`${liveStats.saves} save${liveStats.saves !== 1 ? 's' : ''}`, Math.floor(liveStats.saves / 3)]);
+            if (liveStats.clean_sheets && et <= 3)   rawRows.push(['Clean sheet', et <= 2 ? 4 : 1]); // GK=4, DEF=4, MID=1; FWD no bonus
+            if (liveStats.goals_conceded && et <= 2) rawRows.push([`${liveStats.goals_conceded} goal${liveStats.goals_conceded !== 1 ? 's' : ''} conceded`, -Math.floor(liveStats.goals_conceded / 2)]); // GK+DEF only
+            if (liveStats.saves && et === 1)          rawRows.push([`${liveStats.saves} save${liveStats.saves !== 1 ? 's' : ''}`, Math.floor(liveStats.saves / 3)]); // GK only
             if (liveStats.bonus)          rawRows.push(['Bonus (provisional)', liveStats.bonus]);
             if (rawRows.length) {
               const suppWrap = el('div', { className: 'psd-breakdown', style: 'margin-top:0.25rem;opacity:0.85' });
