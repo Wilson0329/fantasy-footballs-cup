@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-05-08T07:15:00",
+  "gw": 35,
+  "articles": [
+    {
+      "id": "title_race",
+      "pundit_name": "Gary Neville",
+      "pundit_image": "neville.jpg",
+      "headline": "Return of the Fox: This Title is Done",
+      "body": "I'll say it clearly — Charles Smith has won this league. Two hundred and thirty-four points clear with three gameweeks remaining. That is not a gap, that is a statement. Brilliant from start to finish.\n\nThe real story now is who takes second and third. David Pontin and Alexander Bodek are locked in a tight battle for those payout places. Sixteen points between them. Nailed on for a dramatic final few weeks."
+    },
+    {
+      "id": "relegation",
+      "pundit_name": "Roy Keane",
+      "pundit_image": "keane.jpg",
+      "headline": "Aron and Joe: No Excuses Left",
+      "body": "Aron Rouse. Ninety-eight points off safety with three games to go. I'm not surprised. The numbers don't lie — he's been bottom all season and the form isn't there to change it. Not good enough.\n\nJoe Wilson is still technically fighting at thirty-seven points behind Ed, but I wouldn't bet on it. His last five average of thirty-seven? Disgraceful. You get what you deserve in this game."
+    },
+    {
+      "id": "cup_final",
+      "pundit_name": "Jamie Carragher",
+      "pundit_image": "carragher.jpg",
+      "headline": "Cup Final Set: Dominic vs Jason in GW38",
+      "body": "I'll be honest with ya — this is a massive occasion. HC XI II against Inevitable in GW38. Dominic Byrne and Jason Knightly have both had incredible cup runs to get here and neither will be giving an inch.\n\nWinner takes all, one gameweek, no second leg. Both have shown they can put up big scores when it counts. I genuinely cannot call this one. What a tie."
+    },
+    {
+      "id": "form_watch",
+      "pundit_name": "Micah Richards",
+      "pundit_image": "richards.jpg",
+      "headline": "Charles is On Fire — Give Him Credit!",
+      "body": "Look at Charles Smith right now — sixty-three points average across the last five gameweeks! That is unbelievable. He hit ninety-six in GW33. Ninety-six! When you're in that kind of form, everyone else is just playing for second place.\n\nSpare a thought for Alexander Bodek though. Thirty-five point six average, last week just thirty-one. Something has gone wrong there and he needs to sort it quickly if he wants to hold onto that payout spot."
+    },
+    {
+      "id": "bench_captain",
+      "pundit_name": "Paul Merson",
+      "pundit_image": "merson.jpg",
+      "headline": "Two Hundred and Seventy Points on the Bench!",
+      "body": "I tell ya what, Charles Smith has left two hundred and seventy points on the bench this season. Two hundred and seventy! Honestly mate, that's a whole other season sitting there unused. I'd have done the same thing, don't get me wrong.\n\nOn captaincy, Charles leads the way with a twenty-eight percent hit rate. That means roughly seven out of ten weeks his captain flopped. In FPL, that's actually decent. The rest of us are even worse, believe me."
+    }
+  ]
+}

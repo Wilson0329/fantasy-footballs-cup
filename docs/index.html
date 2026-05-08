@@ -1405,6 +1405,90 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     .error-msg { text-align: center; padding: 3rem 2rem; color: var(--red); }
     .not-available { text-align: center; padding: 3rem 2rem; color: var(--muted); font-size: 0.9rem; }
+
+    /* ── News tab ── */
+    .news-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+    .news-articles { display: flex; flex-direction: column; gap: 1.25rem; }
+    .news-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .news-card-top {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .news-pundit-photo {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 2px solid #0071bc;
+      flex-shrink: 0;
+      background: #1a2236;
+    }
+    .news-pundit-info { display: flex; flex-direction: column; gap: 0.2rem; }
+    .news-pundit-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+    .news-pundit-role {
+      font-size: 0.72rem;
+      color: #0071bc;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .news-sky-badge {
+      margin-left: auto;
+      background: #0071bc;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .news-headline {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .news-body {
+      font-size: 0.88rem;
+      color: #94a3b8;
+      line-height: 1.65;
+      white-space: pre-line;
+    }
+    .news-divider {
+      height: 3px;
+      background: linear-gradient(90deg, #0071bc 0%, transparent 100%);
+      border-radius: 2px;
+      margin-bottom: 0.25rem;
+    }
+    .news-unavailable {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 480px) {
+      .news-headline { font-size: 1rem; }
+      .news-card { padding: 1.1rem; }
+    }
   </style>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
@@ -1423,6 +1507,7 @@
     <button class="tab-btn" data-tab="cup"><i data-lucide="trophy"></i>Cup</button>
     <button class="tab-btn" data-tab="champions"><i data-lucide="award"></i>Champions</button>
     <button class="tab-btn" data-tab="history"><i data-lucide="book-open"></i>History</button>
+    <button class="tab-btn" data-tab="news"><i data-lucide="newspaper"></i>News</button>
   </nav>
 </header>
 
@@ -3265,10 +3350,86 @@ function buildHistoryTab() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// News tab
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PUNDIT_ROLES = {
+  'neville.jpg':   'Sky Sports Analyst',
+  'keane.jpg':     'Sky Sports Pundit',
+  'carragher.jpg': 'Sky Sports Pundit',
+  'richards.jpg':  'Sky Sports Pundit',
+  'merson.jpg':    'Sky Sports Pundit',
+};
+
+function buildNewsTab(newsData) {
+  const frag = document.createDocumentFragment();
+
+  if (!newsData || !newsData.articles || newsData.articles.length === 0) {
+    const msg = el('div', { className: 'news-unavailable' },
+      'Commentary unavailable — check back after the next daily data refresh.'
+    );
+    frag.appendChild(msg);
+    return frag;
+  }
+
+  // Meta line
+  const dt = newsData.generated_at
+    ? new Date(newsData.generated_at + 'Z').toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+    : '';
+  frag.appendChild(el('div', { className: 'news-meta' },
+    `GW${newsData.gw} commentary${dt ? ' · Generated ' + dt : ''}`
+  ));
+
+  const articleList = el('div', { className: 'news-articles' });
+
+  for (const article of newsData.articles) {
+    const card = el('div', { className: 'news-card' });
+
+    // Sky Sports blue accent bar
+    card.appendChild(el('div', { className: 'news-divider' }));
+
+    // Pundit header row
+    const topRow = el('div', { className: 'news-card-top' });
+
+    const img = el('img', {
+      className: 'news-pundit-photo',
+      alt: article.pundit_name,
+    });
+    img.src = `images/pundits/${article.pundit_image}`;
+    img.onerror = () => {
+      img.style.display = 'none';
+    };
+    topRow.appendChild(img);
+
+    const pundInfo = el('div', { className: 'news-pundit-info' });
+    pundInfo.appendChild(el('div', { className: 'news-pundit-name' }, article.pundit_name));
+    pundInfo.appendChild(el('div', { className: 'news-pundit-role' },
+      PUNDIT_ROLES[article.pundit_image] || 'Sky Sports Pundit'
+    ));
+    topRow.appendChild(pundInfo);
+
+    topRow.appendChild(el('div', { className: 'news-sky-badge' }, 'Sky Sports'));
+
+    card.appendChild(topRow);
+
+    // Headline
+    card.appendChild(el('div', { className: 'news-headline' }, article.headline));
+
+    // Body
+    card.appendChild(el('div', { className: 'news-body' }, article.body));
+
+    articleList.appendChild(card);
+  }
+
+  frag.appendChild(articleList);
+  return frag;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Tab switching
 // ─────────────────────────────────────────────────────────────────────────────
 
-let _cupData = null, _leagueData = null;
+let _cupData = null, _leagueData = null, _newsData = null;
 let _activeTab = 'league';
 
 function switchTab(tabName) {
@@ -3314,6 +3475,8 @@ function switchTab(tabName) {
     app.appendChild(buildChampionsTab());
   } else if (tabName === 'history') {
     app.appendChild(buildHistoryTab());
+  } else if (tabName === 'news') {
+    app.appendChild(buildNewsTab(_newsData));
   }
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
@@ -3464,9 +3627,11 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 Promise.all([
   fetch('./cup_data.json').then(r => r.json()).catch(() => null),
   fetch('./league_data.json').then(r => r.json()).catch(() => null),
-]).then(([cupData, leagueData]) => {
+  fetch('./news_data.json').then(r => r.json()).catch(() => null),
+]).then(([cupData, leagueData, newsData]) => {
   _cupData = cupData;
   _leagueData = leagueData;
+  _newsData = newsData;
 
   // Update header meta from whichever data is available
   const meta = (cupData || leagueData || {}).metadata || {};
