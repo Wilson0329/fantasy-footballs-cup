@@ -1442,17 +1442,6 @@
       text-align: center;
       line-height: 1.2;
     }
-    .news-sky-badge {
-      background: #0071bc;
-      color: #fff;
-      font-size: 0.58rem;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.18rem 0.45rem;
-      border-radius: 3px;
-      white-space: nowrap;
-    }
     /* Speech bubble */
     .news-bubble {
       background: var(--surface);
@@ -1533,11 +1522,11 @@
   </div>
   <nav class="tab-bar">
     <button class="tab-btn active" data-tab="league"><i data-lucide="bar-chart-2"></i>League</button>
+    <button class="tab-btn" data-tab="news"><i data-lucide="newspaper"></i>News</button>
     <button class="tab-btn" data-tab="stats"><i data-lucide="trending-up"></i>Stats</button>
     <button class="tab-btn" data-tab="cup"><i data-lucide="trophy"></i>Cup</button>
     <button class="tab-btn" data-tab="champions"><i data-lucide="award"></i>Champions</button>
     <button class="tab-btn" data-tab="history"><i data-lucide="book-open"></i>History</button>
-    <button class="tab-btn" data-tab="news"><i data-lucide="newspaper"></i>News</button>
   </nav>
 </header>
 
@@ -3414,7 +3403,6 @@ function buildNewsTab(newsData) {
     img.onerror = () => { img.style.display = 'none'; };
     pundCol.appendChild(img);
     pundCol.appendChild(el('div', { className: 'news-pundit-name-small' }, article.pundit_name));
-    pundCol.appendChild(el('div', { className: 'news-sky-badge' }, 'Sky Sports'));
 
     card.appendChild(pundCol);
 
