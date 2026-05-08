@@ -1055,6 +1055,16 @@
     .kit-img-fallback.def { background: #1e3a5f; }
     .kit-img-fallback.mid { background: #1e4d2b; }
     .kit-img-fallback.fwd { background: #7c1d1d; }
+    .injury-badge {
+      position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+      font-size: 0.52rem; font-weight: 800; padding: 0.05rem 0.25rem;
+      border-radius: 3px; white-space: nowrap; letter-spacing: 0.03em;
+      pointer-events: none; z-index: 2;
+    }
+    .injury-badge.injured   { background: #ef4444; color: #fff; }
+    .injury-badge.doubtful  { background: #f59e0b; color: #000; }
+    .injury-badge.suspended { background: #a855f7; color: #fff; }
+    .injury-badge.unavailable { background: #6b7280; color: #fff; }
     .player-shirt .cap-badge {
       position: absolute;
       top: -4px; right: -4px;
@@ -1519,7 +1529,7 @@ async function buildMatchPitch(entryIdA, nameA, entryIdB, nameB, gw, container) 
     const teamMap = {};
     bs.teams.forEach(t => { teamMap[t.id] = t; });
     const liveMap = {};
-    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
 
     function buildPortraitSide(picks, reversed) {
       const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
@@ -1540,9 +1550,9 @@ async function buildMatchPitch(entryIdA, nameA, entryIdB, nameB, gw, container) 
           const teamCode = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
           const shirt = el('div', { className: 'mp-shirt' });
           if (teamCode) {
-            const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1-66.png`;
+            const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}-66.png`;
             const kitUrl = isGK
-              ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1_gk-66.png`
+              ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_gk-66.png`
               : outfieldUrl;
             const img = el('img', { className: 'mp-kit-img', alt: '', src: kitUrl });
             img.onerror = () => {
@@ -1797,9 +1807,9 @@ function buildFinalHero(final, liveGW) {
 function buildMiniShirt(teamCode, isGK, posClass) {
   const shirt = el('div', { className: 'mini-shirt' });
   if (teamCode) {
-    const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1-66.png`;
+    const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}-66.png`;
     const kitUrl = isGK
-      ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1_gk-66.png`
+      ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_gk-66.png`
       : outfieldUrl;
     const img = el('img', { className: 'mini-kit-img', alt: '', src: kitUrl });
     img.onerror = () => {
@@ -1851,9 +1861,9 @@ function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw) {
 
     const shirtEl = el('div', { className: 'final-bench-shirt' });
     if (teamCode) {
-      const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1-66.png`;
+      const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}-66.png`;
       const kitUrl = isGK
-        ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1_gk-66.png`
+        ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_gk-66.png`
         : outfieldUrl;
       const img = el('img', { className: 'mini-bench-kit', alt: '', src: kitUrl });
       img.onerror = () => {
@@ -1922,7 +1932,7 @@ async function buildFinalPitchView(final, liveGW, container) {
         const live = await getLive(liveGW);
         if (live) {
           const liveMap = {};
-          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
           container.querySelectorAll('[data-live-player]').forEach(el => {
             const id = Number(el.dataset.livePlayer);
             if (liveMap[id] != null) el.textContent = String(liveMap[id]);
@@ -1985,7 +1995,7 @@ async function buildFinalPitchView(final, liveGW, container) {
         const live = await getLive(liveGW);
         if (live) {
           const liveMap = {};
-          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
           container.querySelectorAll('[data-live-player]').forEach(pEl => {
             const id = Number(pEl.dataset.livePlayer);
             if (liveMap[id] != null) {
@@ -2144,7 +2154,7 @@ async function refreshCupLiveScores() {
   const gw = _cupLiveGW;
   const live = await getLive(gw);
   const liveMap = {};
-  live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+  live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
 
   // Collect all entry IDs visible in current GW's cup fixtures
   const entryIds = new Set();
@@ -2200,7 +2210,7 @@ function refreshOpenPitchViews() {
 async function refreshLeagueScores() {
   if (!_liveData || !_liveGW) return;
   const liveMap = {};
-  _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+  _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
 
   // Build player→fixture status map from latest fixture data
   let playerFixtureStatus = null;
@@ -2276,6 +2286,17 @@ function posTypeClass(elementType) {
   return ['', 'gkp', 'def', 'mid', 'fwd'][elementType] || 'mid';
 }
 
+function buildInjuryBadge(playerMeta) {
+  if (!playerMeta) return null;
+  const s = playerMeta.status;
+  if (s === 'a') return null; // available — no badge
+  const map = { i: ['injured', 'INJ'], d: ['doubtful', 'DTB'], s: ['suspended', 'SUS'], u: ['unavailable', 'N/A'] };
+  const [cls, label] = map[s] || [null, null];
+  if (!cls) return null;
+  const badge = el('span', { className: `injury-badge ${cls}`, title: playerMeta.news || label }, label);
+  return badge;
+}
+
 function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode) {
   const pts = livePoints != null ? livePoints : '—';
   const ptsClass = livePoints != null && _liveData ? 'live' : '';
@@ -2283,8 +2304,8 @@ function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode) {
   const isGK = playerMeta && playerMeta.element_type === 1;
   const shirt = el('div', { className: 'player-shirt' });
   if (teamCode) {
-    const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1-66.png`;
-    const kitUrl = isGK ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_1_gk-66.png` : outfieldUrl;
+    const outfieldUrl = `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}-66.png`;
+    const kitUrl = isGK ? `https://fantasy.premierleague.com/dist/img/shirts/standard/shirt_${teamCode}_gk-66.png` : outfieldUrl;
     const img = el('img', { className: 'kit-img', alt: '', src: kitUrl });
     img.onerror = () => {
       if (isGK && img.src !== outfieldUrl) { img.src = outfieldUrl; return; }
@@ -2298,6 +2319,8 @@ function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode) {
   }
   if (pick.is_captain) shirt.appendChild(el('span', { className: 'cap-badge' }, 'C'));
   else if (pick.is_vice_captain) shirt.appendChild(el('span', { className: 'cap-badge', style: 'background:#94a3b8' }, 'V'));
+  const injBadge = buildInjuryBadge(playerMeta);
+  if (injBadge) shirt.appendChild(injBadge);
 
   const card = el('div', { className: 'player-card', 'data-player-id': String(pick.element) },
     shirt,
@@ -2327,7 +2350,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
     bs.teams.forEach(t => { teamMap[t.id] = t; });
 
     const liveMap = {};
-    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
 
     const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
     const bench    = picks.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
@@ -2435,16 +2458,42 @@ async function buildPitchView(entryId, gw, container, isLive) {
         // Also check live endpoint fixtures field
         (liveGwData?.elements || []).forEach(() => {});
 
-        // GW breakdown from live endpoint explain
+        // GW breakdown from live endpoint explain + raw stats
         const livePlayer = liveGwData?.elements?.find(e => e.id === pid);
         const explainFixtures = livePlayer?.explain || [];
+        const liveStats = livePlayer?.stats || {};
 
         rightCol.querySelector('.psd-loading').remove();
 
         // ── GW breakdown ──
-        if (explainFixtures.length) {
-          rightCol.appendChild(el('div', { className: 'psd-section-label' }, `GW${gw} Points`));
-          rightCol.appendChild(buildBreakdown(explainFixtures, fixtureMap));
+        if (explainFixtures.length || liveStats.minutes > 0) {
+          const totalLivePts = (liveStats.total_points || 0) + (liveStats.bonus || 0);
+          rightCol.appendChild(el('div', { className: 'psd-section-label' },
+            `GW${gw} Points`,
+            totalLivePts ? el('span', { style: 'margin-left:0.5rem;color:var(--accent);font-weight:800' }, String(totalLivePts)) : null
+          ));
+          if (explainFixtures.length) rightCol.appendChild(buildBreakdown(explainFixtures, fixtureMap));
+
+          // Show defensive contributions + bonus from raw stats (more reliable during live matches)
+          if (liveStats.minutes != null) {
+            const rawRows = [];
+            const et = pm?.element_type;
+            if (liveStats.clean_sheets)   rawRows.push(['Clean sheet', et <= 2 ? 4 : et === 3 ? 1 : 0]);
+            if (liveStats.goals_conceded) rawRows.push([`${liveStats.goals_conceded} goal${liveStats.goals_conceded !== 1 ? 's' : ''} conceded`, -Math.floor(liveStats.goals_conceded / 2)]);
+            if (liveStats.saves)          rawRows.push([`${liveStats.saves} save${liveStats.saves !== 1 ? 's' : ''}`, Math.floor(liveStats.saves / 3)]);
+            if (liveStats.bonus)          rawRows.push(['Bonus (provisional)', liveStats.bonus]);
+            if (rawRows.length) {
+              const suppWrap = el('div', { className: 'psd-breakdown', style: 'margin-top:0.25rem;opacity:0.85' });
+              suppWrap.appendChild(el('div', { className: 'psd-fixture-label' }, 'Live stats'));
+              rawRows.forEach(([label, pts]) => suppWrap.appendChild(
+                el('div', { className: 'psd-breakdown-row' },
+                  el('span', { className: 'psd-breakdown-label' }, label),
+                  el('span', { className: `psd-breakdown-pts${pts > 0 ? ' pos' : ' neg'}` }, `${pts > 0 ? '+' : ''}${pts}`)
+                )
+              ));
+              rightCol.appendChild(suppWrap);
+            }
+          }
         }
 
         // ── Season stats ──
@@ -2540,7 +2589,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
     // Register for live refresh
     _openPitchRefresh[entryId] = async () => {
       if (!_liveData) return;
-      _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+      _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
       container.querySelectorAll('.player-card').forEach(card => {
         const pid = Number(card.dataset.playerId);
         const pBadge = card.querySelector('.player-pts-badge');
