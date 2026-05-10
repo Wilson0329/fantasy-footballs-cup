@@ -32,6 +32,8 @@ jobs:
       - name: Generate news commentary
         run: python3 build_news_data.py
         continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit if changed
         run: |
