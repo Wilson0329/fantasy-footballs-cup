@@ -516,7 +516,14 @@ def main():
                 el_client = ElevenLabsClient(api_key=elevenlabs_key)
                 voices = el_client.voices.get_all()
                 available = {v.voice_id: v.name for v in voices.voices}
-                print(f"  Key valid. {len(available)} voices available.")
+                print(f"  Key valid. {len(available)} voices available:")
+                # Print all voices with accent/label info so we can pick British ones
+                for v in sorted(voices.voices, key=lambda x: x.name):
+                    labels = getattr(v, 'labels', {}) or {}
+                    accent = labels.get('accent', '')
+                    desc = labels.get('description', '')
+                    gender = labels.get('gender', '')
+                    print(f"    {v.voice_id}  {v.name!r:30s}  accent={accent!r}  gender={gender!r}  desc={desc!r}")
                 # Verify/remap hardcoded voice IDs
                 for p in PUNDIT_BY_NAME.values():
                     vid = p["voice_id"]
