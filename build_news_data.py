@@ -2,7 +2,11 @@
 """
 build_news_data.py
 Generates Sky Sports pundit commentary for news_data.json using GitHub Models (gpt-4o-mini).
-Requires GITHUB_TOKEN environment variable (automatically present in GitHub Actions).
+Optionally generates audio clips via ElevenLabs TTS (requires ELEVENLABS_API_KEY).
+
+Requires:
+  - GITHUB_TOKEN env var (automatically present in GitHub Actions)
+  - ELEVENLABS_API_KEY env var (optional — skips audio if absent)
 
 Data sources:
   - docs/league_data.json + docs/cup_data.json  (pre-built)
@@ -13,6 +17,8 @@ Data sources:
 import json, os, sys, time, urllib.request, xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from openai import OpenAI
+
+ELEVENLABS_BASE = "https://api.elevenlabs.io/v1"
 
 FPL_BASE = "https://fantasy.premierleague.com/api"
 FFS_RSS   = "https://www.fantasyfootballscout.co.uk/feed/"
@@ -31,6 +37,7 @@ PUNDITS = [
         "id": "title_race",
         "name": "Gary Neville",
         "image": "neville.jpg",
+        "voice_id": "pNInz6obpgDQGcFmaJgB",   # Adam — authoritative, clear
         "role": "Sky Sports analyst, ex-Manchester United captain",
         "personality": (
             "Analytical but prone to dramatic overstatement. Uses phrases like 'I genuinely believe', "
@@ -44,6 +51,7 @@ PUNDITS = [
         "id": "relegation",
         "name": "Roy Keane",
         "image": "keane.jpg",
+        "voice_id": "VR6AewLTigWG4xSOukaG",   # Arnold — deep, stern
         "role": "Sky Sports pundit, ex-Manchester United and Ireland captain",
         "personality": (
             "Brutally contemptuous of weakness. Short, withering sentences. Uses phrases like "
@@ -57,6 +65,7 @@ PUNDITS = [
         "id": "cup_final",
         "name": "Jamie Carragher",
         "image": "carragher.jpg",
+        "voice_id": "TxGEqnHWrfWFTfGW9XjX",   # Josh — warm, expressive
         "role": "Sky Sports pundit, ex-Liverpool defender",
         "personality": (
             "Passionate and excitable, with a habit of contradicting himself mid-sentence. "
@@ -70,6 +79,7 @@ PUNDITS = [
         "id": "form_injuries",
         "name": "Micah Richards",
         "image": "richards.jpg",
+        "voice_id": "yoZ06aMxZJJ28mfd3POQ",   # Sam — energetic, upbeat
         "role": "Sky Sports pundit, ex-Manchester City defender",
         "personality": (
             "Irrepressibly enthusiastic to the point of being slightly exhausting. Uses phrases like "
@@ -360,6 +370,142 @@ def generate_article(client: OpenAI, pundit: dict, context: str, gw: int, is_liv
     }
 
 
+# ─── Podcast script generation ───────────────────────────────────────────────
+
+# Map pundit name (uppercase) → pundit dict for script parsing
+PUNDIT_BY_NAME = {p["name"].upper(): p for p in [
+    {"name": "NEVILLE",   "voice_id": "pNInz6obpgDQGcFmaJgB"},
+    {"name": "KEANE",     "voice_id": "VR6AewLTigWG4xSOukaG"},
+    {"name": "CARRAGHER", "voice_id": "TxGEqnHWrfWFTfGW9XjX"},
+    {"name": "RICHARDS",  "voice_id": "yoZ06aMxZJJ28mfd3POQ"},
+]}
+
+
+def generate_podcast_script(client: OpenAI, context: str, gw: int, is_live: bool) -> str:
+    """
+    Ask the LLM to write a multi-speaker podcast discussion.
+    Returns a raw script string with [SPEAKER]: lines.
+    """
+    live_note = (
+        " This is a LIVE gameweek — focus on what's happening RIGHT NOW: "
+        "surprise scores, nightmare captains, who's flying and who's flopping."
+        if is_live else ""
+    )
+
+    system_prompt = (
+        "You are writing a script for a Fantasy Football podcast hosted by four Sky Sports pundits: "
+        "Gary Neville (analytical, dramatic, takes himself too seriously), "
+        "Roy Keane (brutally contemptuous, short withering sentences, no sympathy), "
+        "Jamie Carragher (passionate, excitable, contradicts himself, 'I'll be honest with ya'), "
+        "and Micah Richards (irrepressibly enthusiastic, finds everything amazing, 'UNBELIEVABLE').\n\n"
+        "Rules:\n"
+        "- Format every line as [NEVILLE]: text, [KEANE]: text, [CARRAGHER]: text, or [RICHARDS]: text.\n"
+        "- The pundits talk TO each other — they react, agree sarcastically, cut each other off.\n"
+        "- Cover: title race / top 3 payout fight, relegation danger, cup final, and form/injuries.\n"
+        "- Use first names only for managers. Be funny, opinionated, in character.\n"
+        "- Keep it punchy: 280–320 words total (fits within ElevenLabs free tier).\n"
+        "- No stage directions, no asterisks, no markdown. Just speaker lines.\n"
+        "- Start with Neville opening, end with Richards on an enthusiastic note."
+    )
+
+    user_prompt = (
+        f"Write the GW{gw} Fantasy Footballs podcast discussion based on this league data.{live_note}\n\n"
+        f"{context}"
+    )
+
+    resp = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user",   "content": user_prompt},
+        ],
+        max_tokens=520,
+        temperature=0.92,
+    )
+    return resp.choices[0].message.content.strip()
+
+
+def parse_podcast_script(script: str) -> list[tuple[str, str]]:
+    """
+    Parse a script like '[NEVILLE]: text...' into [(speaker, text), ...].
+    Returns list of (uppercase_speaker_key, spoken_text) tuples.
+    """
+    import re
+    segments = []
+    for line in script.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        m = re.match(r'\[([A-Z]+)\]:\s*(.+)', line)
+        if m:
+            segments.append((m.group(1), m.group(2).strip()))
+    return segments
+
+
+# ─── ElevenLabs TTS ──────────────────────────────────────────────────────────
+
+def tts_segment(api_key: str, voice_id: str, text: str) -> bytes | None:
+    """Call ElevenLabs TTS and return raw MP3 bytes, or None on failure."""
+    payload = json.dumps({
+        "text": text,
+        "model_id": "eleven_monolingual_v1",
+        "voice_settings": {
+            "stability": 0.45,
+            "similarity_boost": 0.75,
+        },
+    }).encode()
+
+    req = urllib.request.Request(
+        f"{ELEVENLABS_BASE}/text-to-speech/{voice_id}",
+        data=payload,
+        headers={
+            "xi-api-key": api_key,
+            "Content-Type": "application/json",
+            "Accept": "audio/mpeg",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return resp.read()
+    except Exception as e:
+        print(f"    WARNING: TTS failed ({voice_id}): {e}", file=sys.stderr)
+        return None
+
+
+def generate_podcast_audio(api_key: str, script: str, out_path: str) -> bool:
+    """
+    Parse the podcast script, TTS each speaker turn, concatenate MP3 bytes,
+    write to out_path. Returns True on success.
+    """
+    segments = parse_podcast_script(script)
+    if not segments:
+        print("  WARNING: No segments parsed from script.", file=sys.stderr)
+        return False
+
+    print(f"  {len(segments)} speaker turns to synthesise...")
+    mp3_chunks = []
+    for i, (speaker, text) in enumerate(segments):
+        pundit = PUNDIT_BY_NAME.get(speaker)
+        if not pundit:
+            print(f"    Skipping unknown speaker: {speaker}")
+            continue
+        print(f"    [{i+1}/{len(segments)}] {speaker}: {text[:60]}...")
+        chunk = tts_segment(api_key, pundit["voice_id"], text)
+        if chunk:
+            mp3_chunks.append(chunk)
+        time.sleep(0.4)   # stay within rate limits
+
+    if not mp3_chunks:
+        return False
+
+    combined = b"".join(mp3_chunks)
+    with open(out_path, "wb") as f:
+        f.write(combined)
+    print(f"  Podcast saved: {len(combined)//1024} KB → {os.path.basename(out_path)}")
+    return True
+
+
 # ─── Entry point ─────────────────────────────────────────────────────────────
 
 def main():
@@ -367,6 +513,12 @@ def main():
     if not token:
         print("ERROR: GITHUB_TOKEN environment variable not set", file=sys.stderr)
         sys.exit(1)
+
+    elevenlabs_key = os.environ.get("ELEVENLABS_API_KEY")
+    if elevenlabs_key:
+        print("ElevenLabs API key found — audio generation enabled.")
+    else:
+        print("No ELEVENLABS_API_KEY — audio generation skipped.")
 
     client = OpenAI(
         base_url="https://models.inference.ai.azure.com",
@@ -404,6 +556,22 @@ def main():
         except Exception as e:
             print(f"  WARNING: Failed for {pundit['name']}: {e}", file=sys.stderr)
 
+    # Generate podcast as a multi-speaker discussion
+    podcast_file = None
+    if elevenlabs_key:
+        print("\nGenerating podcast script...")
+        try:
+            script = generate_podcast_script(client, context, gw, gw_status["is_live"])
+            char_count = len(script)
+            print(f"  Script ready ({char_count} chars, ~{char_count} ElevenLabs chars)")
+            print("\nSynthesising podcast audio...")
+            podcast_path = os.path.join(docs_dir, "podcast.mp3")
+            ok = generate_podcast_audio(elevenlabs_key, script, podcast_path)
+            if ok:
+                podcast_file = "podcast.mp3"
+        except Exception as e:
+            print(f"  WARNING: Podcast generation failed: {e}", file=sys.stderr)
+
     # Build squad alert fingerprint for change detection on next run
     alert_fingerprint = [
         f"{manager}:{alert}"
@@ -412,17 +580,18 @@ def main():
     ]
 
     news_data = {
-        "generated_at":          datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
-        "gw":                    gw,
-        "is_live":               gw_status["is_live"],
+        "generated_at":            datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
+        "gw":                      gw,
+        "is_live":                 gw_status["is_live"],
         "squad_alert_fingerprint": alert_fingerprint,
-        "articles":              articles,
+        "podcast_file":            podcast_file,
+        "articles":                articles,
     }
 
     with open(out_path, "w") as f:
         json.dump(news_data, f, indent=2)
 
-    print(f"\nDone — news_data.json written ({len(articles)} articles, GW{gw}, live={gw_status['is_live']})")
+    print(f"\nDone — news_data.json written ({len(articles)} articles, podcast={'yes' if podcast_file else 'no'}, GW{gw}, live={gw_status['is_live']})")
 
 
 if __name__ == "__main__":

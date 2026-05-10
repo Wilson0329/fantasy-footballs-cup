@@ -1512,6 +1512,45 @@
       color: var(--muted);
       font-size: 0.9rem;
     }
+    /* Podcast player card */
+    .podcast-card {
+      background: linear-gradient(135deg, #0f1e3a 0%, #1a2a4a 100%);
+      border: 1px solid #1e3a5f;
+      border-radius: 14px;
+      padding: 1.1rem 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .podcast-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #0071bc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .podcast-icon svg { width: 22px; height: 22px; color: #fff; }
+    .podcast-info { flex: 1; min-width: 0; }
+    .podcast-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+    .podcast-subtitle {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .podcast-player {
+      width: 100%;
+      height: 32px;
+      margin-top: 0.6rem;
+      accent-color: #0071bc;
+    }
     @media (max-width: 500px) {
       .news-card { gap: 0.7rem; }
       .news-pundit-col { width: 62px; }
@@ -3428,6 +3467,26 @@ function buildNewsTab(newsData) {
   frag.appendChild(el('div', { className: 'news-meta' },
     `GW${newsData.gw} commentary${dt ? ' · Generated ' + dt : ''}`
   ));
+
+  // Podcast player (if audio available)
+  if (newsData.podcast_file) {
+    const podcastSrc = `${RAW_BASE}/docs/${newsData.podcast_file}?t=${encodeURIComponent(newsData.generated_at || '')}`;
+    const podCard = el('div', { className: 'podcast-card' });
+    const podIcon = el('div', { className: 'podcast-icon' });
+    podIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>`;
+    const podInfo = el('div', { className: 'podcast-info' });
+    podInfo.appendChild(el('div', { className: 'podcast-title' }, `Fantasy Footballs Podcast — GW${newsData.gw}`));
+    podInfo.appendChild(el('div', { className: 'podcast-subtitle' }, 'Neville · Keane · Carragher · Richards'));
+    const audio = el('audio', { className: 'podcast-player', controls: '', preload: 'none' });
+    const src = document.createElement('source');
+    src.src = podcastSrc;
+    src.type = 'audio/mpeg';
+    audio.appendChild(src);
+    podInfo.appendChild(audio);
+    podCard.appendChild(podIcon);
+    podCard.appendChild(podInfo);
+    frag.appendChild(podCard);
+  }
 
   const articleList = el('div', { className: 'news-articles' });
 
