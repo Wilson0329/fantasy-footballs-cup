@@ -119,6 +119,16 @@ def fetch_picks(entry_id: int, gw: int) -> dict | None:
         return None
 
 
+def fetch_league_standings(league_id: int) -> list:
+    """Fetch fresh standings direct from FPL API."""
+    try:
+        data = json.loads(fetch_url(f"{FPL_BASE}/leagues-classic/{league_id}/standings/"))
+        return data["standings"]["results"]
+    except Exception as e:
+        print(f"    WARNING: Could not fetch live standings: {e}", file=sys.stderr)
+        return []
+
+
 def fetch_live(gw: int) -> dict | None:
     try:
         return json.loads(fetch_url(f"{FPL_BASE}/event/{gw}/live/"))
@@ -211,12 +221,32 @@ def needs_regeneration(current_gw: int, squad_alerts: list, out_path: str) -> bo
 
 # ─── Context assembly ─────────────────────────────────────────────────────────
 
+LEAGUE_ID = 286779
+
+
 def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, list, dict]:
     """Returns (context_string, current_gw, squad_alerts, gw_status)."""
     gw        = league["metadata"]["current_gw"]
     gws_left  = 38 - gw
-    standings = league["standings"]
     form_map  = {e["entry_id"]: e for e in league["form"]}
+
+    # Re-fetch standings fresh from FPL so points reflect the current moment
+    print("  Re-fetching live standings from FPL API...")
+    raw_standings = fetch_league_standings(LEAGUE_ID)
+    if raw_standings:
+        standings = [{
+            "rank":         r["rank"],
+            "rank_last":    r["last_rank"],
+            "entry_id":     r["entry"],
+            "name":         r["entry_name"],
+            "manager":      r["player_name"],
+            "total_points": r["total"],
+            "gw_points":    r["event_total"],
+        } for r in raw_standings]
+        print(f"    Standings refreshed: leader={standings[0]['manager'].split()[0]} {standings[0]['total_points']} pts")
+    else:
+        standings = league["standings"]
+        print("    Falling back to league_data.json standings")
 
     gw_status  = get_gw_status(bootstrap, gw)
     player_map = {p["id"]: p for p in bootstrap["elements"]}
