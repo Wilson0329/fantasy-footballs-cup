@@ -49,7 +49,7 @@ PUNDITS = [
             "walk back. Takes himself slightly too seriously. Loves a tactical explanation even when "
             "none is needed."
         ),
-        "topic": "the title race and the fight for the top 3 payout positions",
+        "topic": "the title race — or if the title is already mathematically won, the fight for the top 3 payout positions (2nd and 3rd place money)",
     },
     {
         "id": "relegation",
@@ -527,13 +527,21 @@ def generate_article(client: OpenAI, pundit: dict, context: str, gw: int, is_liv
         "- You may mention 1–2 specific numbers if they make a point land harder, but don't list stats.\n"
         "- Weave in injury news or FPL headlines naturally if relevant — don't just list them.\n"
         "- Each paragraph: 2–4 sentences. Total: 80–130 words.\n"
-        "- Write entirely in your distinctive voice."
+        "- Write entirely in your distinctive voice.\n\n"
+        "CRITICAL — READ THE 'KEY BATTLEGROUNDS' SECTION IN THE DATA FIRST:\n"
+        "- If it says a manager has WON the title mathematically, do NOT write as if it is still close. "
+        "Acknowledge it briefly (one sentence max), then pivot immediately to what IS still undecided.\n"
+        "- For the title race article: if the title is won, make the PAYOUT RACE (who finishes 2nd/3rd) "
+        "your main story instead. That is the genuine drama now.\n"
+        "- Never suggest a race is close if the data shows it is mathematically over.\n"
+        "- Use the exact point gaps from the KEY BATTLEGROUNDS section — do not invent or round them."
         + live_instruction
     )
 
     user_prompt = (
         f"Give your pundit verdict on {pundit['topic']} based on the league data and "
-        f"FPL news below. Be direct, funny and in character. Gameweek {gw}.\n\n{context}"
+        f"FPL news below. Check the KEY BATTLEGROUNDS section first to understand what is actually "
+        f"still being decided. Be direct, funny and in character. Gameweek {gw}.\n\n{context}"
     )
 
     body_resp = client.chat.completions.create(
