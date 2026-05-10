@@ -378,10 +378,10 @@ def generate_article(client: OpenAI, pundit: dict, context: str, gw: int, is_liv
 
 # Map pundit name (uppercase) → pundit dict for script parsing
 PUNDIT_BY_NAME = {p["name"].upper(): p for p in [
-    {"name": "NEVILLE",   "voice_id": "pNInz6obpgDQGcFmaJgB"},
-    {"name": "KEANE",     "voice_id": "VR6AewLTigWG4xSOukaG"},
-    {"name": "CARRAGHER", "voice_id": "TxGEqnHWrfWFTfGW9XjX"},
-    {"name": "RICHARDS",  "voice_id": "yoZ06aMxZJJ28mfd3POQ"},
+    {"name": "NEVILLE",   "voice_id": "onwK4e9ZLuTAKqWW03F9"},  # Daniel – British, authoritative
+    {"name": "KEANE",     "voice_id": "jBpfuIE2acCO8z3wKNLl"},  # George – British, deep/gravelly
+    {"name": "CARRAGHER", "voice_id": "IKne3meq5aSn9XLyUdCD"},  # Charlie – casual British
+    {"name": "RICHARDS",  "voice_id": "SOYHLrjzK2X1ezoPC6cr"},  # Harry – British, warm/energetic
 ]}
 
 
