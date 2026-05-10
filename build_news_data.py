@@ -378,8 +378,10 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
                 mult = min(p.get("multiplier", 1), 2) if chip != "bboost" else 1
                 live_score += raw * mult
 
+            # season total from standings already includes this GW's provisional score
+            pre_gw_total = s["total_points"] - s.get("gw_points", 0)
             lines.append(f"")
-            lines.append(f"  {first} ({s['name']}) — live score: {live_score} pts | season: {s['total_points']} pts")
+            lines.append(f"  {first} ({s['name']}) — GW{gw} live: {live_score} pts | season total (incl. this GW): {s['total_points']} pts | pre-GW total: {pre_gw_total} pts")
             lines.append(f"    Captain: {cap_str}")
             lines.append(f"    Played: {len(played_starters)}/11 starters | Still to play: {len(unplayed_starters)}")
 
@@ -689,7 +691,12 @@ def main():
 
     print("Building context...")
     context, gw, squad_alerts, gw_status = build_context(league, cup, bootstrap)
-    print(f"Context ready ({len(context)} chars) | Live GW: {gw_status['is_live']}\n")
+    print(f"Context ready ({len(context)} chars) | Live GW: {gw_status['is_live']}")
+    print("\n── CONTEXT PREVIEW (standings + live snapshot) ──")
+    for line in context.splitlines():
+        if any(kw in line for kw in ["STANDINGS", "LIVE GW", "season total", "live score", "Captain:", "Still to play", "pts behind", "leader"]):
+            print(f"  {line}")
+    print("──\n")
 
     # Skip regeneration if nothing meaningful has changed (non-live GW only)
     if not gw_status["is_live"] and not needs_regeneration(gw, squad_alerts, out_path):
