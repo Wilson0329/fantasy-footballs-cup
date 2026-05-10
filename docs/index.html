@@ -1683,7 +1683,7 @@ async function buildMatchPitch(entryIdA, nameA, entryIdB, nameB, gw, container) 
     const teamMap = {};
     bs.teams.forEach(t => { teamMap[t.id] = t; });
     const liveMap = {};
-    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
+    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
 
     function buildPortraitSide(picks, reversed) {
       const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
@@ -2086,7 +2086,7 @@ async function buildFinalPitchView(final, liveGW, container) {
         const live = await getLive(liveGW);
         if (live) {
           const liveMap = {};
-          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
+          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
           container.querySelectorAll('[data-live-player]').forEach(el => {
             const id = Number(el.dataset.livePlayer);
             if (liveMap[id] != null) el.textContent = String(liveMap[id]);
@@ -2149,7 +2149,7 @@ async function buildFinalPitchView(final, liveGW, container) {
         const live = await getLive(liveGW);
         if (live) {
           const liveMap = {};
-          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
+          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
           container.querySelectorAll('[data-live-player]').forEach(pEl => {
             const id = Number(pEl.dataset.livePlayer);
             if (liveMap[id] != null) {
@@ -2308,7 +2308,7 @@ async function refreshCupLiveScores() {
   const gw = _cupLiveGW;
   const live = await getLive(gw);
   const liveMap = {};
-  live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
+  live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
 
   // Collect all entry IDs visible in current GW's cup fixtures
   const entryIds = new Set();
@@ -2364,7 +2364,7 @@ function refreshOpenPitchViews() {
 async function refreshLeagueScores() {
   if (!_liveData || !_liveGW) return;
   const liveMap = {};
-  _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
+  _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
 
   // Build player→fixture status map from latest fixture data
   let playerFixtureStatus = null;
@@ -2530,7 +2530,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
     }
 
     const liveMap = {};
-    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
+    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
 
     const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
     const bench    = picks.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
@@ -2647,7 +2647,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
 
         // ── GW breakdown ──
         if (explainFixtures.length || liveStats.minutes > 0) {
-          const totalLivePts = (liveStats.total_points || 0) + (liveStats.bonus || 0);
+          const totalLivePts = (liveStats.total_points || 0);
           rightCol.appendChild(el('div', { className: 'psd-section-label' },
             `GW${gw} Points`,
             totalLivePts ? el('span', { style: 'margin-left:0.5rem;color:var(--accent);font-weight:800' }, String(totalLivePts)) : null
@@ -2771,7 +2771,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
     // Register for live refresh
     _openPitchRefresh[entryId] = async () => {
       if (!_liveData) return;
-      _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
+      _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
       container.querySelectorAll('.player-card').forEach(card => {
         const pid = Number(card.dataset.playerId);
         const pBadge = card.querySelector('.player-pts-badge');

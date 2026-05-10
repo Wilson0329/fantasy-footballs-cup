@@ -275,7 +275,7 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
         if live_data:
             for el in live_data.get("elements", []):
                 s = el.get("stats", {})
-                live_pts[el["id"]] = s.get("total_points", 0) + s.get("bonus", 0)
+                live_pts[el["id"]] = s.get("total_points", 0)
 
         fixtures = fetch_fixtures(gw)
         for f in fixtures:
