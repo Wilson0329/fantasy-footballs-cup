@@ -454,7 +454,7 @@ def tts_segment(el_client, voice_id: str, text: str) -> bytes | None:
         audio = el_client.text_to_speech.convert(
             voice_id=voice_id,
             text=text,
-            model_id="eleven_monolingual_v1",
+            model_id="eleven_turbo_v2_5",
             voice_settings={"stability": 0.45, "similarity_boost": 0.75},
         )
         # SDK returns a generator of bytes chunks
