@@ -630,7 +630,7 @@ def tts_segment(el_client, voice_id: str, text: str) -> bytes | None:
             voice_id=voice_id,
             text=text,
             model_id="eleven_turbo_v2_5",
-            voice_settings={"stability": 0.45, "similarity_boost": 0.75},
+            voice_settings={"stability": 0.45, "similarity_boost": 0.75, "speed": 1.15},
         )
         # SDK returns a generator of bytes chunks
         return b"".join(audio)
