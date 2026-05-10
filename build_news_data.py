@@ -364,6 +364,44 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
             f" | 5-GW avg: {fd.get('form_avg', '?')} | last 5: {last5_str}"
         )
 
+    # ── Key battlegrounds summary ──
+    lines += ["", "KEY BATTLEGROUNDS (focus the podcast on these):"]
+
+    # Title status
+    if len(standings) >= 2:
+        gap_1_2 = standings[0]["total_points"] - standings[1]["total_points"]
+        max_remaining = gws_left * 130  # theoretical max ~130 pts/week
+        if gap_1_2 > max_remaining:
+            lines.append(f"  TITLE: {standings[0]['manager'].split()[0]} has WON — {gap_1_2} pts clear, mathematically impossible to catch. Move on.")
+        else:
+            lines.append(f"  TITLE RACE: {standings[0]['manager'].split()[0]} leads by {gap_1_2} pts — still alive.")
+
+    # Top 3 payout race
+    if len(standings) >= 4:
+        gap_2_3 = standings[1]["total_points"] - standings[2]["total_points"]
+        gap_3_4 = standings[2]["total_points"] - standings[3]["total_points"]
+        lines.append(
+            f"  PAYOUT RACE (2nd vs 3rd vs 4th): "
+            f"{standings[1]['manager'].split()[0]} 2nd ({standings[1]['total_points']} pts), "
+            f"{standings[2]['manager'].split()[0]} 3rd ({standings[2]['total_points']} pts, {gap_2_3} behind 2nd), "
+            f"{standings[3]['manager'].split()[0]} 4th ({standings[3]['total_points']} pts, {gap_3_4} behind 3rd). "
+            f"{'⚡ KNIFE-EDGE' if gap_3_4 < 20 else 'Close battle' if gap_3_4 < 50 else 'Some daylight'}."
+        )
+
+    # Relegation
+    if len(standings) >= 12:
+        rel_11 = standings[10]
+        rel_12 = standings[11]
+        safe   = standings[9]
+        gap_11 = safe["total_points"] - rel_11["total_points"]
+        gap_12 = safe["total_points"] - rel_12["total_points"]
+        lines.append(
+            f"  RELEGATION: {rel_11['manager'].split()[0]} ({rel_11['total_points']} pts, {gap_11} from safety), "
+            f"{rel_12['manager'].split()[0]} ({rel_12['total_points']} pts, {gap_12} from safety). "
+            f"Safety line: {safe['manager'].split()[0]} on {safe['total_points']} pts. "
+            f"{gws_left} weeks left — max catchable ~{gws_left * 90} pts."
+        )
+
     # ── Live GW breakdown per manager ──
     if gw_status["is_live"] and manager_squad_data:
         lines += ["", f"LIVE GW{gw} SQUAD BREAKDOWN (snapshot — fixtures still in progress):"]
@@ -571,18 +609,20 @@ def generate_podcast_script(client: OpenAI, context: str, gw: int, is_live: bool
         "- Use first names only for managers. Never say 'GW' — say 'this week', 'last week', 'the run-in', 'tonight' etc.\n"
         "- Be funny, opinionated, in character. Personality over statistics.\n"
         "- 300–360 words total. Start with Neville, end with Richards.\n\n"
-        "CRITICAL — READ THE DATA CAREFULLY:\n"
-        "- The season TOTAL points determine who is winning. Never judge a season on one week's score.\n"
-        "- DO THE MATHS on the title race: if the leader is 200+ pts ahead with 2 weeks left, "
-        "the maximum any team can score is ~120 pts per week. That means the title is MATHEMATICALLY OVER. "
-        "Say so clearly. Do not suggest the leader could be caught if the maths makes it impossible.\n"
-        "- Frame the title race around 'how many points does second place need per week to catch up' — "
-        "if it's more than a realistic maximum score, call it done.\n"
-        "- For RELEGATION: if someone needs 150 pts in 2 weeks to survive, Keane should bury them.\n"
-        "- In a LIVE gameweek: the most interesting drama is who still has players to come, "
-        "especially captains yet to play — make this the centrepiece of the live discussion.\n"
-        "- A nightmare captain (low points already played) is gold for Keane. A captain yet to play is "
-        "tension for everyone. Use the actual player names from the data."
+        "CRITICAL — FOCUS ON THE REAL BATTLEGROUNDS:\n"
+        "- If the league leader is 200+ points clear with 2 weeks left, the title is mathematically over. "
+        "Acknowledge it in ONE line max, then move on. Do not keep returning to the leader — it's boring, everyone knows.\n"
+        "- The INTERESTING stories are where it is still genuinely close:\n"
+        "  1. THE PAYOUT RACE: who finishes 2nd and 3rd? Look at how many points separate 2nd/3rd/4th — "
+        "if it's tight (under 20 pts), that IS the title race now. Make this the main topic.\n"
+        "  2. THE RELEGATION BATTLE: who drops? If one team is mathematically safe and the other isn't, "
+        "Keane should be ruthless about the ones going down.\n"
+        "  3. THE CUP FINAL: build anticipation or react to the result.\n"
+        "  4. LIVE GAMEWEEK DRAMA: captains who flopped, players still to come, scores that could change everything.\n"
+        "- Spend at least half the podcast on whichever battles are genuinely undecided.\n"
+        "- In a live gameweek: use the actual players still to play — name them, discuss what it means "
+        "for that manager's week and their position in the table.\n"
+        "- A nightmare captain is gold for Keane. A captain yet to play is tension for Carragher."
     )
 
     user_prompt = (
