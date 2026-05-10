@@ -18,7 +18,11 @@ import json, os, sys, time, urllib.request, xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from openai import OpenAI
 
-ELEVENLABS_BASE = "https://api.elevenlabs.io/v1"
+try:
+    from elevenlabs.client import ElevenLabs as ElevenLabsClient
+    _ELEVENLABS_SDK = True
+except ImportError:
+    _ELEVENLABS_SDK = False
 
 FPL_BASE = "https://fantasy.premierleague.com/api"
 FFS_RSS   = "https://www.fantasyfootballscout.co.uk/feed/"
@@ -444,36 +448,23 @@ def parse_podcast_script(script: str) -> list[tuple[str, str]]:
 
 # ─── ElevenLabs TTS ──────────────────────────────────────────────────────────
 
-def tts_segment(api_key: str, voice_id: str, text: str) -> bytes | None:
-    """Call ElevenLabs TTS and return raw MP3 bytes, or None on failure."""
-    payload = json.dumps({
-        "text": text,
-        "model_id": "eleven_monolingual_v1",
-        "voice_settings": {
-            "stability": 0.45,
-            "similarity_boost": 0.75,
-        },
-    }).encode()
-
-    req = urllib.request.Request(
-        f"{ELEVENLABS_BASE}/text-to-speech/{voice_id}",
-        data=payload,
-        headers={
-            "xi-api-key": api_key,
-            "Content-Type": "application/json",
-            "Accept": "audio/mpeg",
-        },
-        method="POST",
-    )
+def tts_segment(el_client, voice_id: str, text: str) -> bytes | None:
+    """Call ElevenLabs TTS via SDK and return raw MP3 bytes, or None on failure."""
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            return resp.read()
+        audio = el_client.text_to_speech.convert(
+            voice_id=voice_id,
+            text=text,
+            model_id="eleven_monolingual_v1",
+            voice_settings={"stability": 0.45, "similarity_boost": 0.75},
+        )
+        # SDK returns a generator of bytes chunks
+        return b"".join(audio)
     except Exception as e:
         print(f"    WARNING: TTS failed ({voice_id}): {e}", file=sys.stderr)
         return None
 
 
-def generate_podcast_audio(api_key: str, script: str, out_path: str) -> bool:
+def generate_podcast_audio(el_client, script: str, out_path: str) -> bool:
     """
     Parse the podcast script, TTS each speaker turn, concatenate MP3 bytes,
     write to out_path. Returns True on success.
@@ -491,7 +482,7 @@ def generate_podcast_audio(api_key: str, script: str, out_path: str) -> bool:
             print(f"    Skipping unknown speaker: {speaker}")
             continue
         print(f"    [{i+1}/{len(segments)}] {speaker}: {text[:60]}...")
-        chunk = tts_segment(api_key, pundit["voice_id"], text)
+        chunk = tts_segment(el_client, pundit["voice_id"], text)
         if chunk:
             mp3_chunks.append(chunk)
         time.sleep(0.4)   # stay within rate limits
@@ -515,36 +506,30 @@ def main():
         sys.exit(1)
 
     elevenlabs_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
+    el_client = None
     if elevenlabs_key:
-        # Validate key and fetch available voices
-        print("ElevenLabs API key found — validating...")
-        try:
-            vreq = urllib.request.Request(
-                f"{ELEVENLABS_BASE}/voices",
-                headers={"xi-api-key": elevenlabs_key, "Accept": "application/json"},
-            )
-            with urllib.request.urlopen(vreq, timeout=10) as vr:
-                voices_data = json.loads(vr.read())
-            available = {v["voice_id"]: v["name"] for v in voices_data.get("voices", [])}
-            print(f"  Key valid. {len(available)} voices available.")
-            # Check our hardcoded voice IDs; fall back to first available if missing
-            for p in PUNDIT_BY_NAME.values():
-                vid = p["voice_id"]
-                if vid in available:
-                    print(f"  ✓ {p['name']}: {available[vid]}")
-                else:
-                    # Pick first non-female-sounding voice as fallback
-                    fallback = next(iter(available), None)
-                    if fallback:
-                        print(f"  ! {p['name']}: voice {vid} not found — using '{available[fallback]}' as fallback")
-                        p["voice_id"] = fallback
+        if not _ELEVENLABS_SDK:
+            print("WARNING: elevenlabs SDK not installed — audio skipped.", file=sys.stderr)
+        else:
+            print("ElevenLabs API key found — validating...")
+            try:
+                el_client = ElevenLabsClient(api_key=elevenlabs_key)
+                voices = el_client.voices.get_all()
+                available = {v.voice_id: v.name for v in voices.voices}
+                print(f"  Key valid. {len(available)} voices available.")
+                # Verify/remap hardcoded voice IDs
+                for p in PUNDIT_BY_NAME.values():
+                    vid = p["voice_id"]
+                    if vid in available:
+                        print(f"  ✓ {p['name']}: {available[vid]}")
                     else:
-                        print(f"  ! {p['name']}: voice {vid} not found and no fallback available")
-            elevenlabs_key = elevenlabs_key  # confirmed valid
-        except Exception as e:
-            print(f"ElevenLabs key validation failed: {e}", file=sys.stderr)
-            print("  Hint: check the key was copied correctly with no extra spaces.")
-            elevenlabs_key = ""
+                        fallback_id = next(iter(available), None)
+                        if fallback_id:
+                            print(f"  ! {p['name']}: {vid} not found → using '{available[fallback_id]}'")
+                            p["voice_id"] = fallback_id
+            except Exception as e:
+                print(f"ElevenLabs validation failed: {e}", file=sys.stderr)
+                el_client = None
     else:
         print("No ELEVENLABS_API_KEY — audio generation skipped.")
 
@@ -586,7 +571,7 @@ def main():
 
     # Generate podcast as a multi-speaker discussion
     podcast_file = None
-    if elevenlabs_key:
+    if el_client:
         print("\nGenerating podcast script...")
         try:
             script = generate_podcast_script(client, context, gw, gw_status["is_live"])
@@ -594,7 +579,7 @@ def main():
             print(f"  Script ready ({char_count} chars, ~{char_count} ElevenLabs chars)")
             print("\nSynthesising podcast audio...")
             podcast_path = os.path.join(docs_dir, "podcast.mp3")
-            ok = generate_podcast_audio(elevenlabs_key, script, podcast_path)
+            ok = generate_podcast_audio(el_client, script, podcast_path)
             if ok:
                 podcast_file = "podcast.mp3"
         except Exception as e:

@@ -21,7 +21,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests openai
+        run: pip install requests openai elevenlabs
 
       - name: Rebuild league data
         run: python3 build_league_data.py --output docs/league_data.json
