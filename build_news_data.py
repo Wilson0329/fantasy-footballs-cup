@@ -378,10 +378,10 @@ def generate_article(client: OpenAI, pundit: dict, context: str, gw: int, is_liv
 
 # Map pundit name (uppercase) → pundit dict for script parsing
 PUNDIT_BY_NAME = {p["name"].upper(): p for p in [
-    {"name": "NEVILLE",   "voice_id": "onwK4e9ZLuTAKqWW03F9"},  # Daniel – British, authoritative
-    {"name": "KEANE",     "voice_id": "jBpfuIE2acCO8z3wKNLl"},  # George – British, deep/gravelly
-    {"name": "CARRAGHER", "voice_id": "IKne3meq5aSn9XLyUdCD"},  # Charlie – casual British
-    {"name": "RICHARDS",  "voice_id": "SOYHLrjzK2X1ezoPC6cr"},  # Harry – British, warm/energetic
+    {"name": "NEVILLE",   "voice_id": "onwK4e9ZLuTAKqWW03F9"},  # Daniel – British male, steady broadcaster
+    {"name": "KEANE",     "voice_id": "JBFqnCBsd6RMkjVDRZzb"},  # George – British male, warm/captivating
+    {"name": "CARRAGHER", "voice_id": "IKne3meq5aSn9XLyUdCD"},  # Charlie – Australian male, closest to British available
+    {"name": "RICHARDS",  "voice_id": "SOYHLrjzK2X1ezoPC6cr"},  # Harry – energetic, suits Richards' personality
 ]}
 
 
@@ -516,14 +516,7 @@ def main():
                 el_client = ElevenLabsClient(api_key=elevenlabs_key)
                 voices = el_client.voices.get_all()
                 available = {v.voice_id: v.name for v in voices.voices}
-                print(f"  Key valid. {len(available)} voices available:")
-                # Print all voices with accent/label info so we can pick British ones
-                for v in sorted(voices.voices, key=lambda x: x.name):
-                    labels = getattr(v, 'labels', {}) or {}
-                    accent = labels.get('accent', '')
-                    desc = labels.get('description', '')
-                    gender = labels.get('gender', '')
-                    print(f"    {v.voice_id}  {v.name!r:30s}  accent={accent!r}  gender={gender!r}  desc={desc!r}")
+                print(f"  Key valid. {len(available)} voices available.")
                 # Verify/remap hardcoded voice IDs
                 for p in PUNDIT_BY_NAME.values():
                     vid = p["voice_id"]
