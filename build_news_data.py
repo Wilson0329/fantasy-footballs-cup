@@ -189,10 +189,13 @@ def build_context(league: dict, cup: dict) -> tuple[str, int]:
     for s in standings:
         fd    = form_map.get(s["entry_id"], {})
         arrow = "↑" if s["rank"] < s["rank_last"] else ("↓" if s["rank"] > s["rank_last"] else "→")
+        last5 = fd.get('last5_scores', [])
+        last5_str = ', '.join(str(x) for x in last5) if last5 else '?'
         lines.append(
-            f"  {s['rank']:2}. {s['name']} ({s['manager']}) — {s['total_points']} pts {arrow}"
-            f" | GW{gw}: {s['gw_points']} pts | last-5 avg: {fd.get('form_avg','?')}"
-            f" | last-5: {fd.get('last5_scores','?')}"
+            f"  {s['rank']:2}. {s['name']} ({s['manager']}) — season total: {s['total_points']} pts {arrow}"
+            f" | this GW score: {s['gw_points']} pts"
+            f" | 5-game form average: {fd.get('form_avg','?')} pts/GW"
+            f" | last 5 scores (oldest→newest): {last5_str}"
         )
 
     lines += ["", "BENCH POINTS WASTED THIS SEASON:"]
