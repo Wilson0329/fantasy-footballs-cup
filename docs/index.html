@@ -2470,7 +2470,11 @@ function buildInjuryBadge(playerMeta) {
 }
 
 function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode, opponentLabel = null) {
-  const pts = livePoints != null ? livePoints : '—';
+  // Apply captain multiplier (2× normal, 3× triple captain) to the displayed score.
+  // Bench players have multiplier=0 but we still show their raw points for reference.
+  const mult = (pick.multiplier != null && pick.multiplier > 1) ? pick.multiplier : 1;
+  const displayPts = livePoints != null ? livePoints * mult : null;
+  const pts = displayPts != null ? displayPts : '—';
   const ptsClass = livePoints != null && _liveData ? 'live' : '';
   const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
   const isGK = playerMeta && playerMeta.element_type === 1;
@@ -2548,6 +2552,10 @@ async function buildPitchView(entryId, gw, container, isLive) {
     }
 
     const liveMap = live ? makeLiveMap(live.elements, isLive) : {};
+
+    // Map player_id → captain multiplier so the live-refresh closure can apply it
+    const pickMult = {};
+    picks.picks.forEach(p => { pickMult[p.element] = (p.multiplier != null && p.multiplier > 1) ? p.multiplier : 1; });
 
     const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
     const bench    = picks.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
@@ -2795,7 +2803,8 @@ async function buildPitchView(entryId, gw, container, isLive) {
         const pid = Number(card.dataset.playerId);
         const pBadge = card.querySelector('.player-pts-badge');
         if (pBadge && liveMap[pid] != null) {
-          pBadge.textContent = String(liveMap[pid]);
+          const mult = pickMult[pid] || 1;
+          pBadge.textContent = String(liveMap[pid] * mult);
           pBadge.classList.add('live');
         }
       });
