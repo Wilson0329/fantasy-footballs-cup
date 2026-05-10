@@ -1669,6 +1669,28 @@ function buildStandingsTable(standings) {
   );
 }
 
+/**
+ * Build a live-points map from FPL /event/{gw}/live/ elements.
+ *
+ * During a live GW (matches in progress), FPL stores provisional bonus points
+ * in stats.bonus SEPARATELY from stats.total_points.  Adding them together
+ * gives the true current score.
+ *
+ * After the GW fully closes (overnight processing), FPL bakes the confirmed
+ * bonus into total_points — so we must NOT add bonus again or it double-counts.
+ *
+ * @param {Array}   elements   - live.elements from the FPL live endpoint
+ * @param {boolean} isLiveGW   - true if the GW is currently in progress
+ * @returns {Object}           - map of player_id → current live points
+ */
+function makeLiveMap(elements, isLiveGW) {
+  const map = {};
+  elements.forEach(e => {
+    map[e.id] = e.stats.total_points + (isLiveGW ? (e.stats.bonus || 0) : 0);
+  });
+  return map;
+}
+
 async function buildMatchPitch(entryIdA, nameA, entryIdB, nameB, gw, container) {
   try {
     const [bs, picksA, picksB, live] = await Promise.all([
@@ -1682,8 +1704,8 @@ async function buildMatchPitch(entryIdA, nameA, entryIdB, nameB, gw, container) 
     bs.elements.forEach(p => { playerMap[p.id] = p; });
     const teamMap = {};
     bs.teams.forEach(t => { teamMap[t.id] = t; });
-    const liveMap = {};
-    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+    // buildMatchPitch is used for cup group/SF pitches — live if gw matches current live GW
+    const liveMap = live ? makeLiveMap(live.elements, gw === _liveGW) : {};
 
     function buildPortraitSide(picks, reversed) {
       const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
@@ -2085,8 +2107,7 @@ async function buildFinalPitchView(final, liveGW, container) {
       try {
         const live = await getLive(liveGW);
         if (live) {
-          const liveMap = {};
-          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+          const liveMap = makeLiveMap(live.elements, isLiveFinal);
           container.querySelectorAll('[data-live-player]').forEach(el => {
             const id = Number(el.dataset.livePlayer);
             if (liveMap[id] != null) el.textContent = String(liveMap[id]);
@@ -2148,8 +2169,7 @@ async function buildFinalPitchView(final, liveGW, container) {
       try {
         const live = await getLive(liveGW);
         if (live) {
-          const liveMap = {};
-          live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+          const liveMap = makeLiveMap(live.elements, isLiveFinal);
           container.querySelectorAll('[data-live-player]').forEach(pEl => {
             const id = Number(pEl.dataset.livePlayer);
             if (liveMap[id] != null) {
@@ -2307,8 +2327,7 @@ async function refreshCupLiveScores() {
   if (!_cupLiveGW || !_cupData) return;
   const gw = _cupLiveGW;
   const live = await getLive(gw);
-  const liveMap = {};
-  live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+  const liveMap = makeLiveMap(live.elements, true); // refreshCupLiveScores only runs during a live GW
 
   // Collect all entry IDs visible in current GW's cup fixtures
   const entryIds = new Set();
@@ -2363,8 +2382,7 @@ function refreshOpenPitchViews() {
 
 async function refreshLeagueScores() {
   if (!_liveData || !_liveGW) return;
-  const liveMap = {};
-  _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+  const liveMap = makeLiveMap(_liveData.elements, true); // refreshLeagueScores only runs during a live GW
 
   // Build player→fixture status map from latest fixture data
   let playerFixtureStatus = null;
@@ -2529,8 +2547,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
       }
     }
 
-    const liveMap = {};
-    if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+    const liveMap = live ? makeLiveMap(live.elements, isLive) : {};
 
     const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
     const bench    = picks.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
@@ -2647,7 +2664,8 @@ async function buildPitchView(entryId, gw, container, isLive) {
 
         // ── GW breakdown ──
         if (explainFixtures.length || liveStats.minutes > 0) {
-          const totalLivePts = (liveStats.total_points || 0);
+          // During a live GW, bonus is separate from total_points; add it for the true current score
+          const totalLivePts = (liveStats.total_points || 0) + (isLive ? (liveStats.bonus || 0) : 0);
           rightCol.appendChild(el('div', { className: 'psd-section-label' },
             `GW${gw} Points`,
             totalLivePts ? el('span', { style: 'margin-left:0.5rem;color:var(--accent);font-weight:800' }, String(totalLivePts)) : null
@@ -2771,7 +2789,8 @@ async function buildPitchView(entryId, gw, container, isLive) {
     // Register for live refresh
     _openPitchRefresh[entryId] = async () => {
       if (!_liveData) return;
-      _liveData.elements.forEach(e => { liveMap[e.id] = e.stats.total_points; });
+      // This refresh only runs during a live GW — always add provisional bonus
+      Object.assign(liveMap, makeLiveMap(_liveData.elements, true));
       container.querySelectorAll('.player-card').forEach(card => {
         const pid = Number(card.dataset.playerId);
         const pBadge = card.querySelector('.player-pts-badge');
