@@ -243,21 +243,32 @@ def build_captain_points(bootstrap, current_gw, player_names):
 
 # ─── Form table ───────────────────────────────────────────────────────────────
 
-def build_form():
+def is_gw_finished(bootstrap, gw):
+    for event in bootstrap["events"]:
+        if event["id"] == gw:
+            return event["finished"]
+    return True
+
+
+def build_form(bootstrap, current_gw):
     print("\nBuilding form table...")
+    gw_live = not is_gw_finished(bootstrap, current_gw)
     result = []
     for team in TEAMS:
         history = get_team_history(team["entry_id"])
+        # Exclude the current live GW from the form average — it's incomplete
+        if gw_live and history and history[-1]["event"] == current_gw:
+            history = history[:-1]
         last5 = history[-5:]
         scores = [gw["points"] for gw in last5]
-        gws = [gw["event"] for gw in last5]
+        gws_list = [gw["event"] for gw in last5]
         avg = round(sum(scores) / len(scores), 1) if scores else 0
         result.append({
             "entry_id": team["entry_id"],
             "name": team["name"],
             "manager": team["manager"],
             "last5_scores": scores,
-            "last5_gws": gws,
+            "last5_gws": gws_list,
             "form_avg": avg,
         })
     result.sort(key=lambda x: -x["form_avg"])
@@ -354,7 +365,7 @@ def main():
     standings      = build_standings()
     trade_diff     = build_trade_differential(player_names)
     captain_pts    = build_captain_points(bootstrap, current_gw, player_names)
-    form           = build_form()
+    form           = build_form(bootstrap, current_gw)
     bench_pts      = build_bench_points()
     captain_hr     = build_captain_hit_rate(bootstrap, current_gw)
 

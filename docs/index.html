@@ -1098,6 +1098,17 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+    .player-fixture-txt {
+      font-size: 0.52rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      max-width: 58px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: 1px;
+    }
     .bench-section {
       margin-top: 0.75rem;
       border-top: 1px solid rgba(255,255,255,0.08);
@@ -2401,7 +2412,7 @@ function buildInjuryBadge(playerMeta) {
   return badge;
 }
 
-function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode) {
+function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode, opponentLabel = null) {
   const pts = livePoints != null ? livePoints : '—';
   const ptsClass = livePoints != null && _liveData ? 'live' : '';
   const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
@@ -2429,7 +2440,8 @@ function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode) {
   const card = el('div', { className: 'player-card', 'data-player-id': String(pick.element) },
     shirt,
     el('div', { className: `player-pts-badge${ptsClass ? ' ' + ptsClass : ''}` }, String(pts)),
-    el('div', { className: 'player-name-txt' }, playerMeta ? playerMeta.web_name : String(pick.element))
+    el('div', { className: 'player-name-txt' }, playerMeta ? playerMeta.web_name : String(pick.element)),
+    opponentLabel ? el('div', { className: 'player-fixture-txt' }, opponentLabel) : null
   );
   return card;
 }
@@ -2452,6 +2464,31 @@ async function buildPitchView(entryId, gw, container, isLive) {
 
     const teamMap = {};
     bs.teams.forEach(t => { teamMap[t.id] = t; });
+
+    // Fetch fixtures for the relevant GW to build opponent labels
+    const resolvedFixtureGW = isLive ? gw : (bs.events.find(e => e.is_next)?.id || null);
+    const opponentMap = {}; // team_id → label string e.g. "vs MCI" or "@ ARS"
+    if (resolvedFixtureGW) {
+      try {
+        const fixtures = await getGWFixtures(resolvedFixtureGW);
+        // Build map: team_id → array of {opp, home}
+        const teamFixtures = {};
+        fixtures.forEach(f => {
+          const hName = teamMap[f.team_h]?.short_name || '?';
+          const aName = teamMap[f.team_a]?.short_name || '?';
+          if (!teamFixtures[f.team_h]) teamFixtures[f.team_h] = [];
+          if (!teamFixtures[f.team_a]) teamFixtures[f.team_a] = [];
+          teamFixtures[f.team_h].push({ opp: aName, home: true });
+          teamFixtures[f.team_a].push({ opp: hName, home: false });
+        });
+        Object.entries(teamFixtures).forEach(([tid, fxs]) => {
+          const label = fxs.map(f => (f.home ? 'vs ' : '@ ') + f.opp).join(' + ');
+          opponentMap[Number(tid)] = label;
+        });
+      } catch (e) {
+        console.warn('Could not load fixture opponents:', e);
+      }
+    }
 
     const liveMap = {};
     if (live) live.elements.forEach(e => { liveMap[e.id] = e.stats.total_points + (e.stats.bonus || 0); });
@@ -2648,7 +2685,8 @@ async function buildPitchView(entryId, gw, container, isLive) {
       rows[et].forEach(p => {
         const pm = playerMap[p.element];
         const tc = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
-        row.appendChild(buildPlayerCard(p, pm, liveMap[p.element], isLive, tc));
+        const opp = pm ? (opponentMap[pm.team] || null) : null;
+        row.appendChild(buildPlayerCard(p, pm, liveMap[p.element], isLive, tc, opp));
       });
       pitchBg.appendChild(row);
     });
@@ -2660,7 +2698,8 @@ async function buildPitchView(entryId, gw, container, isLive) {
     bench.forEach(p => {
       const pm = playerMap[p.element];
       const tc = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
-      benchRow.appendChild(buildPlayerCard(p, pm, liveMap[p.element], false, tc));
+      const opp = pm ? (opponentMap[pm.team] || null) : null;
+      benchRow.appendChild(buildPlayerCard(p, pm, liveMap[p.element], false, tc, opp));
     });
     benchSection.appendChild(benchRow);
     wrap.appendChild(benchSection);
