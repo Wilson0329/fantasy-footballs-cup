@@ -1,5 +1,34 @@
 {
-  "generated_at": "2026-05-10T08:45:45",
+  "generated_at": "2026-05-10T08:52:06",
   "gw": 36,
-  "articles": []
+  "articles": [
+    {
+      "id": "title_race",
+      "pundit_name": "Gary Neville",
+      "pundit_image": "neville.jpg",
+      "headline": "Charles Eyes Title as David Fights for Survival",
+      "body": "As we head into the final two gameweeks, Charles is almost nailed on for the title with his impressive 1918 points, despite a slight dip at GW36 with just 32 points. His last five averages are still healthy at 57.2, but he must be wary of injury concerns, particularly with Gibbs-White. David's Vik the Impaler is clinging to second place, but with an injury to J. Timber, he\u2019s got a real fight on his hands to secure that lucrative payout. \n\nLooking at the battle for third, it\u2019s a tight race. Alexander's Beef Cherki is only marginally ahead of Sam\u2019s Soucek Madness, with just a single point separating them. Sam\u2019s been more consistent lately, boasting a last five average of 50.8 compared to Alexander's lacklustre 34.0. If Sam can navigate the injury concerns around S\u00e1nchez and Murillo, he might just pull off a brilliant upset and clinch that third payout spot."
+    },
+    {
+      "id": "relegation",
+      "pundit_name": "Roy Keane",
+      "pundit_image": "keane.jpg",
+      "headline": "Relegation Battle: Time for Adam and Joe to Respond",
+      "body": "We've got two teams in serious trouble, and frankly, I'm not surprised. Adam's side is in free fall with only 10 points in the last five games. No intensity, no fight\u2014he's got to take a long hard look in the mirror. Meanwhile, Joe Wilson's lot is 1482 points and practically begging for relegation. They're miles off the pace, and with injuries piling up, it's game over.\n\nYou can't rely on luck to save you at this stage. If Adam and Joe want to stay up, they need to put in a shift. No excuses. As it stands, they\u2019re doing everything wrong. Time for them to step up or face the inevitable drop."
+    },
+    {
+      "id": "cup_final",
+      "pundit_name": "Jamie Carragher",
+      "pundit_image": "carragher.jpg",
+      "headline": "Cup Final Showdown: Tactics and Tension Await",
+      "body": "I'll be honest with ya, this cup final between Dominic's HC XI II and Jason's Inevitable is setting up to be a massive occasion. Both managers have navigated through a tough competition to get here, but looking at their recent form, Dominic's going to have to rally his troops. He's had Gibbs-White floating around with a facial injury, and if he doesn\u2019t make it, that's a big blow to their creativity. Jason's lads have generally been more consistent, but they need to shake off the weight of the league's pressures coming into this final.\n\nWhat I expect is a tight contest, no doubt. Dominic\u2019s side might be sweating over injuries, but if they can manage it, they\u2019ve got the edge in the way they\u2019ve scored 32 points this week alone. Jason\u2019s Inevitable, on the other hand, has shown flashes of brilliance but has been inconsistent lately, hitting just 26 points. Look for a tactical battle here; it might just boil down to which manager can best adapt to the pressure and potential injuries on the day."
+    },
+    {
+      "id": "form_injuries",
+      "pundit_name": "Micah Richards",
+      "pundit_image": "richards.jpg",
+      "headline": "Fox on Fire as Pundits Predict Cup Drama",
+      "body": "Wow, look at Charles\u2014Return of the Fox is absolutely flying at the moment! With a last-five average of 57.2, he's making it look easy, even with Gibbs-White's facial injury causing a bit of a headache. On the flip side, you've got Sam's Soucek Madness\u2014averaging only 50.8 but can't seem to catch a break with S\u00e1nchez and Murillo both doubtful. It's all about those key players, and we know injuries can swing a season.\n\nNow, speaking of cold, Alexander\u2019s Beef Cherki really needs to turn this around with only 34.0 points average over the last five. With Ballard suspended, he\u2019s just not getting the rewards he\u2019s looking for. Meanwhile, the cup final is looming for Dominic and Jason, and they\u2019ll need their best players fit to overcome the odds. It's crunch time, and the pressure is on!"
+    }
+  ]
 }
