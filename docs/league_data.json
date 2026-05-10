@@ -304,7 +304,7 @@
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
       "manager": "Arun Quayum",
-      "net_gain": 226,
+      "net_gain": 225,
       "trades": [
         {
           "gw": 7,
@@ -381,10 +381,10 @@
           "player_in": {
             "id": 615,
             "name": "Summerville",
-            "pts_while_held": 39,
+            "pts_while_held": 38,
             "still_in_squad": true
           },
-          "differential": 35
+          "differential": 34
         },
         {
           "gw": 29,
@@ -440,7 +440,7 @@
       "entry_id": 6366909,
       "name": "HC XI II",
       "manager": "Dominic Byrne",
-      "net_gain": 192,
+      "net_gain": 191,
       "trades": [
         {
           "gw": 7,
@@ -533,10 +533,10 @@
           "player_in": {
             "id": 791,
             "name": "Taty",
-            "pts_while_held": 38,
+            "pts_while_held": 37,
             "still_in_squad": true
           },
-          "differential": 17
+          "differential": 16
         },
         {
           "gw": 29,
@@ -1536,7 +1536,7 @@
       "entry_id": 5124113,
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
-      "net_gain": -16,
+      "net_gain": -15,
       "trades": [
         {
           "gw": 7,
@@ -1560,7 +1560,7 @@
           "player_out": {
             "id": 615,
             "name": "Summerville",
-            "pts_since": 86
+            "pts_since": 85
           },
           "player_in": {
             "id": 668,
@@ -1568,7 +1568,7 @@
             "pts_while_held": 82,
             "still_in_squad": true
           },
-          "differential": -4
+          "differential": -3
         },
         {
           "gw": 13,
