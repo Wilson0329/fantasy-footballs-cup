@@ -119,6 +119,22 @@ def fetch_picks(entry_id: int, gw: int) -> dict | None:
         return None
 
 
+def fetch_live(gw: int) -> dict | None:
+    try:
+        return json.loads(fetch_url(f"{FPL_BASE}/event/{gw}/live/"))
+    except Exception as e:
+        print(f"    live(gw{gw}): {e}", file=sys.stderr)
+        return None
+
+
+def fetch_fixtures(gw: int) -> list:
+    try:
+        return json.loads(fetch_url(f"{FPL_BASE}/fixtures/?event={gw}"))
+    except Exception as e:
+        print(f"    fixtures(gw{gw}): {e}", file=sys.stderr)
+        return []
+
+
 # ─── Fantasy Football Scout RSS ───────────────────────────────────────────────
 
 def fetch_ffs_news(max_items: int = 12) -> list[str]:
@@ -202,12 +218,11 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
     standings = league["standings"]
     form_map  = {e["entry_id"]: e for e in league["form"]}
 
-    # GW status
-    gw_status = get_gw_status(bootstrap, gw)
+    gw_status  = get_gw_status(bootstrap, gw)
+    player_map = {p["id"]: p for p in bootstrap["elements"]}
+    teams_map  = {t["id"]: t["short_name"] for t in bootstrap["teams"]}
 
-    teams_map   = {t["id"]: t["short_name"] for t in bootstrap["teams"]}
-
-    # Players with any flag
+    # ── Flagged players ──
     flagged = {}
     for p in bootstrap["elements"]:
         if p.get("status", "a") != "a" or p.get("news"):
@@ -219,14 +234,43 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
             }
     print(f"    {len(flagged)} flagged players found")
 
-    # Squad alerts: which managers own flagged players
+    # ── Live data + fixtures (for live GW) ──
+    live_pts   = {}   # element_id → current live points
+    team_started = {} # team_id → bool (fixture kicked off)
+    team_fixture_label = {}  # team_id → "OPP (H/A)"
+
+    if gw_status["is_live"]:
+        print("  Fetching live points + fixtures...")
+        live_data = fetch_live(gw)
+        if live_data:
+            for el in live_data.get("elements", []):
+                s = el.get("stats", {})
+                live_pts[el["id"]] = s.get("total_points", 0) + s.get("bonus", 0)
+
+        fixtures = fetch_fixtures(gw)
+        for f in fixtures:
+            h, a = f["team_h"], f["team_a"]
+            started = f.get("started", False) or f.get("finished", False)
+            team_started[h] = team_started.get(h, False) or started
+            team_started[a] = team_started.get(a, False) or started
+            h_name = teams_map.get(h, "?")
+            a_name = teams_map.get(a, "?")
+            team_fixture_label[h] = f"vs {a_name}"
+            team_fixture_label[a] = f"@ {h_name}"
+        print(f"    {sum(team_started.values())} team fixtures started")
+
+    # ── Manager squads ──
     print("  Fetching manager squads...")
+    manager_squad_data = {}  # entry_id → picks_data
     squad_alerts = []
+
     for s in standings:
         time.sleep(0.25)
         picks_data = fetch_picks(s["entry_id"], gw)
         if not picks_data:
             continue
+        manager_squad_data[s["entry_id"]] = picks_data
+
         alerts = []
         for pick in picks_data.get("picks", []):
             pid = pick["element"]
@@ -242,37 +286,119 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
             squad_alerts.append((s["manager"], s["name"], alerts))
     print(f"    {len(squad_alerts)} managers with flagged players in squad")
 
-    # FFS news
+    # ── FFS news ──
     print("  Fetching Fantasy Football Scout news...")
     news_headlines = fetch_ffs_news()
     print(f"    {len(news_headlines)} headlines fetched")
 
     # ── Assemble context ──
     gw_label = "LIVE" if gw_status["is_live"] else ("complete" if gw_status["is_finished"] else "upcoming")
+    leader_pts = standings[0]["total_points"] if standings else 0
+    safety_pts = standings[9]["total_points"] if len(standings) >= 10 else 0  # 10th place = safety
+
     lines = [
-        f"FANTASY FOOTBALL LEAGUE — Gameweek {gw} [{gw_label}] ({gws_left} gameweeks remaining)",
+        f"FANTASY FOOTBALL LEAGUE — Gameweek {gw} [{gw_label}] ({gws_left} gameweeks remaining in the season)",
         "",
         "LEAGUE RULES:",
-        "  - Bottom 2 teams are RELEGATED at end of season.",
+        "  - Bottom 2 teams are RELEGATED at end of season (11th and 12th place).",
         "  - Top 3 teams win prize payouts (1st, 2nd, 3rd place).",
         "  - There is a separate cup competition running alongside the league.",
         "",
-        "CURRENT STANDINGS:",
+        "SEASON STANDINGS (with season context):",
     ]
 
-    for s in standings:
+    for i, s in enumerate(standings):
         fd    = form_map.get(s["entry_id"], {})
         arrow = "↑" if s["rank"] < s["rank_last"] else ("↓" if s["rank"] > s["rank_last"] else "→")
-        last5 = fd.get('last5_scores', [])
-        last5_str = ', '.join(str(x) for x in last5) if last5 else '?'
+        last5 = fd.get("last5_scores", [])
+        last5_str = ", ".join(str(x) for x in last5) if last5 else "?"
+        gap_to_leader = leader_pts - s["total_points"]
+        gap_str = f"(leader)" if i == 0 else f"({gap_to_leader} pts behind leader)"
+
+        # Relegation context
+        if i >= 9:
+            rel_gap = s["total_points"] - safety_pts if i < 9 else None
+            behind_safety = safety_pts - s["total_points"]
+            zone_str = f" ⚠ RELEGATION ZONE — {behind_safety} pts behind safety"
+        elif i == 8 or i == 9:
+            above_drop = s["total_points"] - standings[10]["total_points"] if len(standings) > 10 else 0
+            zone_str = f" (only {above_drop} pts above relegation)"
+        else:
+            zone_str = ""
+
         lines.append(
             f"  {s['rank']:2}. {s['name']} ({s['manager'].split()[0]}) — "
-            f"season: {s['total_points']} pts {arrow}"
-            f" | GW{gw}: {s['gw_points']} pts"
-            f" | 5-GW avg: {fd.get('form_avg','?')}"
-            f" | last 5 (old→new): {last5_str}"
+            f"season total: {s['total_points']} pts {arrow} {gap_str}{zone_str}"
+            f" | this GW so far: {s['gw_points']} pts"
+            f" | 5-GW avg: {fd.get('form_avg', '?')} | last 5: {last5_str}"
         )
 
+    # ── Live GW breakdown per manager ──
+    if gw_status["is_live"] and manager_squad_data:
+        lines += ["", f"LIVE GW{gw} SQUAD BREAKDOWN (snapshot — fixtures still in progress):"]
+        lines += [
+            "  (Use this to discuss who has players yet to play, captain status, who could still move up/down)",
+        ]
+
+        for s in standings:
+            picks_data = manager_squad_data.get(s["entry_id"])
+            if not picks_data:
+                continue
+            first = s["manager"].split()[0]
+            picks = picks_data.get("picks", [])
+            starters = [p for p in picks if p["position"] <= 11]
+            chip = picks_data.get("active_chip", "")
+
+            # Captain
+            captain  = next((p for p in starters if p.get("is_captain")), None)
+            vc       = next((p for p in starters if p.get("is_vice_captain")), None)
+            cap_id   = captain["element"] if captain else None
+            cap_meta = player_map.get(cap_id, {}) if cap_id else {}
+            cap_name = cap_meta.get("web_name", "?") if cap_meta else "?"
+            cap_team = cap_meta.get("team") if cap_meta else None
+            cap_multiplier = captain.get("multiplier", 2) if captain else 2
+
+            cap_played   = bool(cap_team and team_started.get(cap_team, False))
+            cap_pts_raw  = live_pts.get(cap_id, 0) if cap_played else None
+            cap_bonus    = (cap_pts_raw * (cap_multiplier - 1)) if cap_pts_raw is not None else None
+
+            if cap_played and cap_pts_raw is not None:
+                cap_str = f"{cap_name} [PLAYED — {cap_pts_raw} pts, +{cap_bonus} captain bonus]"
+            else:
+                cap_str = f"{cap_name} [YET TO PLAY]"
+
+            # Count played/unplayed starters
+            played_starters  = [p for p in starters if team_started.get(player_map.get(p["element"], {}).get("team"), False)]
+            unplayed_starters = [p for p in starters if not team_started.get(player_map.get(p["element"], {}).get("team"), False)]
+
+            # Live score
+            live_score = 0
+            for p in starters:
+                raw = live_pts.get(p["element"], 0)
+                mult = min(p.get("multiplier", 1), 2) if chip != "bboost" else 1
+                live_score += raw * mult
+
+            lines.append(f"")
+            lines.append(f"  {first} ({s['name']}) — live score: {live_score} pts | season: {s['total_points']} pts")
+            lines.append(f"    Captain: {cap_str}")
+            lines.append(f"    Played: {len(played_starters)}/11 starters | Still to play: {len(unplayed_starters)}")
+
+            if unplayed_starters:
+                to_play_names = []
+                for p in unplayed_starters:
+                    meta = player_map.get(p["element"], {})
+                    name = meta.get("web_name", "?")
+                    team = meta.get("team")
+                    fixture = team_fixture_label.get(team, "?") if team else "?"
+                    to_play_names.append(f"{name} ({fixture})")
+                lines.append(f"    Still to play: {', '.join(to_play_names)}")
+
+            if squad_alerts:
+                mgr_alerts = next((a for a in squad_alerts if a[0] == s["manager"]), None)
+                if mgr_alerts:
+                    lines.append(f"    Injury alerts: {'; '.join(mgr_alerts[2][:2])}")
+
+    # ── Cup final ──
     final   = cup["knockout"]["final"]
     mgr_cup = {6366909: "Dominic", 4789233: "Jason"}
     mgr_a   = mgr_cup.get(final["team_a"]["entry_id"], "")
@@ -280,7 +406,7 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
     lines  += [
         "",
         f"CUP FINAL: {final['team_a']['name']} ({mgr_a}) vs {final['team_b']['name']} ({mgr_b})"
-        f" — GW{final['gw']} (status: {final.get('status','upcoming')})",
+        f" — GW{final['gw']} (status: {final.get('status', 'upcoming')})",
     ]
     if final.get("score_a") is not None:
         winner = (final.get("winner") or {}).get("name", "TBD")
@@ -289,14 +415,16 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
             f"{final['score_b']} {final['team_b']['name']} | Winner: {winner}"
         )
 
-    if squad_alerts:
-        lines += ["", "INJURY & AVAILABILITY ALERTS (in managers' squads this GW):"]
+    # ── Injury alerts (non-live summary) ──
+    if squad_alerts and not gw_status["is_live"]:
+        lines += ["", "INJURY & AVAILABILITY ALERTS (in managers' squads):"]
         for manager, team_name, alerts in squad_alerts:
             first = manager.split()[0]
             lines.append(f"  {first} ({team_name}):")
             for a in alerts:
                 lines.append(f"    - {a}")
 
+    # ── FFS news ──
     if news_headlines:
         lines += ["", "LATEST FPL NEWS & INJURIES (Fantasy Football Scout):"]
         for h in news_headlines:
@@ -405,15 +533,24 @@ def generate_podcast_script(client: OpenAI, context: str, gw: int, is_live: bool
         "Rules:\n"
         "- Format every line as [NEVILLE]: text, [KEANE]: text, [CARRAGHER]: text, or [RICHARDS]: text.\n"
         "- The pundits talk TO each other — they react, agree sarcastically, cut each other off.\n"
-        "- Cover: title race / top 3 payout fight, relegation danger, cup final, and form/injuries.\n"
-        "- Use first names only for managers. Be funny, opinionated, in character.\n"
-        "- Keep it punchy: 280–320 words total (fits within ElevenLabs free tier).\n"
+        "- Use first names only for managers.\n"
+        "- Be funny, opinionated, and in character. Personality over statistics.\n"
+        "- Keep it punchy: 280–320 words total.\n"
         "- No stage directions, no asterisks, no markdown. Just speaker lines.\n"
-        "- Start with Neville opening, end with Richards on an enthusiastic note."
+        "- Start with Neville opening, end with Richards on an enthusiastic note.\n\n"
+        "CRITICAL — use the season context properly:\n"
+        "- The season TOTAL tells you who is winning the league. Do NOT judge a manager's season by one GW score.\n"
+        "- If a manager leads by 40+ points with 2 GWs left, they are the clear favourite — say so.\n"
+        "- Use the points GAP to leader to frame the title race (e.g. 'he needs 30 points a gameweek just to catch up').\n"
+        "- For the RELEGATION battle, use the gap to safety — if someone needs 100 points in 2 GWs, it's over.\n"
+        "- If it's a LIVE gameweek, discuss who still has players to come and whether the captain has played yet — "
+        "this is the most interesting drama. Someone with 8 players still to play is very different from someone with 2.\n"
+        "- A manager whose captain HASN'T played yet is either in a great or terrible position — make this a talking point.\n"
+        "- Mention specific players still to come if they're high-profile (e.g. captain still to play in a big fixture)."
     )
 
     user_prompt = (
-        f"Write the GW{gw} Fantasy Footballs podcast discussion based on this league data.{live_note}\n\n"
+        f"Write the GW{gw} Fantasy Footballs podcast discussion based on this data.{live_note}\n\n"
         f"{context}"
     )
 
