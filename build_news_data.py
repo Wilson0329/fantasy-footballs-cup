@@ -486,6 +486,41 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
             f"{final['score_b']} {final['team_b']['name']} | Winner: {winner}"
         )
 
+    # Include the actual squads for both cup finalists so the LLM uses real players
+    lines.append("  Cup finalists' current squads (DO NOT invent players — only reference names listed here):")
+    for team_key in ("team_a", "team_b"):
+        team_info = final[team_key]
+        entry_id  = team_info["entry_id"]
+        mgr_first = mgr_cup.get(entry_id, team_info["name"])
+        picks_data = manager_squad_data.get(entry_id)
+        if not picks_data:
+            lines.append(f"    {mgr_first}: squad data unavailable")
+            continue
+        starters = [p for p in picks_data.get("picks", []) if p["position"] <= 11]
+        bench    = [p for p in picks_data.get("picks", []) if p["position"] > 11]
+        cap_id   = next((p["element"] for p in starters if p.get("is_captain")), None)
+
+        def _player_str(pick):
+            meta  = player_map.get(pick["element"], {})
+            name  = meta.get("web_name", f"Player {pick['element']}")
+            flags = []
+            if pick["element"] in flagged:
+                fl = flagged[pick["element"]]
+                flags.append(STATUS_LABELS.get(fl["status"], fl["status"].upper()))
+                if fl["news"]:
+                    flags.append(fl["news"][:60])
+            if pick.get("is_captain"):
+                flags.append("CAPTAIN")
+            elif pick.get("is_vice_captain"):
+                flags.append("VICE-CAPTAIN")
+            suffix = f" [{', '.join(flags)}]" if flags else ""
+            return f"{name}{suffix}"
+
+        starter_names = ", ".join(_player_str(p) for p in starters)
+        bench_names   = ", ".join(_player_str(p) for p in bench)
+        lines.append(f"    {mgr_first} — Starting XI: {starter_names}")
+        lines.append(f"    {mgr_first} — Bench: {bench_names}")
+
     # ── Injury alerts (non-live summary) ──
     if squad_alerts and not gw_status["is_live"]:
         lines += ["", "INJURY & AVAILABILITY ALERTS (in managers' squads):"]
