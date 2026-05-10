@@ -120,7 +120,7 @@
       "entry_id": 4160647,
       "name": "Forever20",
       "manager": "Joe Wilson",
-      "net_gain": 248,
+      "net_gain": 247,
       "trades": [
         {
           "gw": 7,
@@ -197,10 +197,10 @@
           "player_in": {
             "id": 310,
             "name": "Barry",
-            "pts_while_held": 58,
+            "pts_while_held": 57,
             "still_in_squad": true
           },
-          "differential": 57
+          "differential": 56
         },
         {
           "gw": 25,
@@ -592,7 +592,7 @@
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
-      "net_gain": 170,
+      "net_gain": 159,
       "trades": [
         {
           "gw": 7,
@@ -605,10 +605,10 @@
           "player_in": {
             "id": 684,
             "name": "Thiaw",
-            "pts_while_held": 116,
+            "pts_while_held": 112,
             "still_in_squad": true
           },
-          "differential": 78
+          "differential": 74
         },
         {
           "gw": 10,
@@ -632,7 +632,7 @@
           "player_out": {
             "id": 478,
             "name": "Trippier",
-            "pts_since": 21
+            "pts_since": 22
           },
           "player_in": {
             "id": 407,
@@ -640,7 +640,7 @@
             "pts_while_held": 102,
             "still_in_squad": true
           },
-          "differential": 81
+          "differential": 80
         },
         {
           "gw": 20,
@@ -680,7 +680,7 @@
           "player_out": {
             "id": 488,
             "name": "Bruno G.",
-            "pts_since": 12
+            "pts_since": 13
           },
           "player_in": {
             "id": 325,
@@ -688,7 +688,7 @@
             "pts_while_held": 2,
             "still_in_squad": false
           },
-          "differential": -10
+          "differential": -11
         },
         {
           "gw": 32,
@@ -701,10 +701,10 @@
           "player_in": {
             "id": 487,
             "name": "Barnes",
-            "pts_while_held": 16,
+            "pts_while_held": 11,
             "still_in_squad": true
           },
-          "differential": 6
+          "differential": 1
         }
       ]
     },
@@ -848,7 +848,7 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "net_gain": 93,
+      "net_gain": 94,
       "trades": [
         {
           "gw": 7,
@@ -904,7 +904,7 @@
           "player_out": {
             "id": 525,
             "name": "Wood",
-            "pts_since": 12
+            "pts_since": 11
           },
           "player_in": {
             "id": 31,
@@ -912,7 +912,7 @@
             "pts_while_held": 10,
             "still_in_squad": false
           },
-          "differential": -2
+          "differential": -1
         },
         {
           "gw": 25,
@@ -984,7 +984,7 @@
       "entry_id": 4789233,
       "name": "Inevitable",
       "manager": "Jason Knightly",
-      "net_gain": 76,
+      "net_gain": 75,
       "trades": [
         {
           "gw": 7,
@@ -1109,10 +1109,10 @@
           "player_in": {
             "id": 525,
             "name": "Wood",
-            "pts_while_held": 12,
+            "pts_while_held": 11,
             "still_in_squad": true
           },
-          "differential": 7
+          "differential": 6
         },
         {
           "gw": 35,
@@ -1136,7 +1136,7 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "net_gain": 50,
+      "net_gain": 51,
       "trades": [
         {
           "gw": 7,
@@ -1160,7 +1160,7 @@
           "player_out": {
             "id": 310,
             "name": "Barry",
-            "pts_since": 82
+            "pts_since": 81
           },
           "player_in": {
             "id": 215,
@@ -1168,7 +1168,7 @@
             "pts_while_held": 70,
             "still_in_squad": true
           },
-          "differential": -12
+          "differential": -11
         },
         {
           "gw": 15,
@@ -1256,7 +1256,7 @@
       "entry_id": 1623042,
       "name": "GVG XI",
       "manager": "George Georgiou",
-      "net_gain": 43,
+      "net_gain": 42,
       "trades": [
         {
           "gw": 7,
@@ -1365,10 +1365,10 @@
           "player_in": {
             "id": 491,
             "name": "Tonali",
-            "pts_while_held": 12,
+            "pts_while_held": 11,
             "still_in_squad": true
           },
-          "differential": 12
+          "differential": 11
         },
         {
           "gw": 32,
@@ -1401,6 +1401,78 @@
             "still_in_squad": true
           },
           "differential": 0
+        }
+      ]
+    },
+    {
+      "entry_id": 8794696,
+      "name": "Return of the Fox",
+      "manager": "Charles Smith",
+      "net_gain": 10,
+      "trades": [
+        {
+          "gw": 14,
+          "time": "2025-12-01T08:49:37.670718Z",
+          "player_out": {
+            "id": 580,
+            "name": "Johnson",
+            "pts_since": 33
+          },
+          "player_in": {
+            "id": 487,
+            "name": "Barnes",
+            "pts_while_held": 8,
+            "still_in_squad": false
+          },
+          "differential": -25
+        },
+        {
+          "gw": 20,
+          "time": "2026-01-02T19:51:16.332532Z",
+          "player_out": {
+            "id": 487,
+            "name": "Barnes",
+            "pts_since": 45
+          },
+          "player_in": {
+            "id": 303,
+            "name": "Garner",
+            "pts_while_held": 69,
+            "still_in_squad": true
+          },
+          "differential": 24
+        },
+        {
+          "gw": 25,
+          "time": "2026-02-04T21:11:47.207765Z",
+          "player_out": {
+            "id": 491,
+            "name": "Tonali",
+            "pts_since": 22
+          },
+          "player_in": {
+            "id": 18,
+            "name": "Madueke",
+            "pts_while_held": 24,
+            "still_in_squad": true
+          },
+          "differential": 2
+        },
+        {
+          "gw": 29,
+          "time": "2026-03-02T16:50:05.476905Z",
+          "player_out": {
+            "id": 11,
+            "name": "White",
+            "pts_since": 14
+          },
+          "player_in": {
+            "id": 725,
+            "name": "Hincapie",
+            "pts_while_held": 23,
+            "still_in_squad": true
+          },
+          "differential": 9
         }
       ]
     },
@@ -1461,82 +1533,10 @@
       ]
     },
     {
-      "entry_id": 8794696,
-      "name": "Return of the Fox",
-      "manager": "Charles Smith",
-      "net_gain": 4,
-      "trades": [
-        {
-          "gw": 14,
-          "time": "2025-12-01T08:49:37.670718Z",
-          "player_out": {
-            "id": 580,
-            "name": "Johnson",
-            "pts_since": 33
-          },
-          "player_in": {
-            "id": 487,
-            "name": "Barnes",
-            "pts_while_held": 8,
-            "still_in_squad": false
-          },
-          "differential": -25
-        },
-        {
-          "gw": 20,
-          "time": "2026-01-02T19:51:16.332532Z",
-          "player_out": {
-            "id": 487,
-            "name": "Barnes",
-            "pts_since": 50
-          },
-          "player_in": {
-            "id": 303,
-            "name": "Garner",
-            "pts_while_held": 69,
-            "still_in_squad": true
-          },
-          "differential": 19
-        },
-        {
-          "gw": 25,
-          "time": "2026-02-04T21:11:47.207765Z",
-          "player_out": {
-            "id": 491,
-            "name": "Tonali",
-            "pts_since": 23
-          },
-          "player_in": {
-            "id": 18,
-            "name": "Madueke",
-            "pts_while_held": 24,
-            "still_in_squad": true
-          },
-          "differential": 1
-        },
-        {
-          "gw": 29,
-          "time": "2026-03-02T16:50:05.476905Z",
-          "player_out": {
-            "id": 11,
-            "name": "White",
-            "pts_since": 14
-          },
-          "player_in": {
-            "id": 725,
-            "name": "Hincapie",
-            "pts_while_held": 23,
-            "still_in_squad": true
-          },
-          "differential": 9
-        }
-      ]
-    },
-    {
       "entry_id": 5124113,
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
-      "net_gain": -12,
+      "net_gain": -11,
       "trades": [
         {
           "gw": 7,
@@ -1709,10 +1709,10 @@
           "player_in": {
             "id": 488,
             "name": "Bruno G.",
-            "pts_while_held": 12,
+            "pts_while_held": 13,
             "still_in_squad": true
           },
-          "differential": -30
+          "differential": -29
         },
         {
           "gw": 35,
