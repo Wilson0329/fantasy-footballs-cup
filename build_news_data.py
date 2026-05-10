@@ -514,9 +514,37 @@ def main():
         print("ERROR: GITHUB_TOKEN environment variable not set", file=sys.stderr)
         sys.exit(1)
 
-    elevenlabs_key = os.environ.get("ELEVENLABS_API_KEY")
+    elevenlabs_key = os.environ.get("ELEVENLABS_API_KEY", "").strip()
     if elevenlabs_key:
-        print("ElevenLabs API key found — audio generation enabled.")
+        # Validate key and fetch available voices
+        print("ElevenLabs API key found — validating...")
+        try:
+            vreq = urllib.request.Request(
+                f"{ELEVENLABS_BASE}/voices",
+                headers={"xi-api-key": elevenlabs_key, "Accept": "application/json"},
+            )
+            with urllib.request.urlopen(vreq, timeout=10) as vr:
+                voices_data = json.loads(vr.read())
+            available = {v["voice_id"]: v["name"] for v in voices_data.get("voices", [])}
+            print(f"  Key valid. {len(available)} voices available.")
+            # Check our hardcoded voice IDs; fall back to first available if missing
+            for p in PUNDIT_BY_NAME.values():
+                vid = p["voice_id"]
+                if vid in available:
+                    print(f"  ✓ {p['name']}: {available[vid]}")
+                else:
+                    # Pick first non-female-sounding voice as fallback
+                    fallback = next(iter(available), None)
+                    if fallback:
+                        print(f"  ! {p['name']}: voice {vid} not found — using '{available[fallback]}' as fallback")
+                        p["voice_id"] = fallback
+                    else:
+                        print(f"  ! {p['name']}: voice {vid} not found and no fallback available")
+            elevenlabs_key = elevenlabs_key  # confirmed valid
+        except Exception as e:
+            print(f"ElevenLabs key validation failed: {e}", file=sys.stderr)
+            print("  Hint: check the key was copied correctly with no extra spaces.")
+            elevenlabs_key = ""
     else:
         print("No ELEVENLABS_API_KEY — audio generation skipped.")
 
