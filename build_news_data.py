@@ -345,13 +345,14 @@ def build_context(league: dict, cup: dict, bootstrap: dict) -> tuple[str, int, l
         gap_to_leader = leader_pts - s["total_points"]
         gap_str = f"(leader)" if i == 0 else f"({gap_to_leader} pts behind leader)"
 
-        # Relegation context
-        if i >= 9:
-            rel_gap = s["total_points"] - safety_pts if i < 9 else None
+        # Relegation context (11th=index 10, 12th=index 11 are relegated)
+        if i >= 10:
             behind_safety = safety_pts - s["total_points"]
             zone_str = f" ⚠ RELEGATION ZONE — {behind_safety} pts behind safety"
-        elif i == 8 or i == 9:
-            above_drop = s["total_points"] - standings[10]["total_points"] if len(standings) > 10 else 0
+        elif i >= 8:
+            # 9th and 10th — close to the drop zone
+            drop_pts = standings[10]["total_points"] if len(standings) > 10 else 0
+            above_drop = s["total_points"] - drop_pts
             zone_str = f" (only {above_drop} pts above relegation)"
         else:
             zone_str = ""
