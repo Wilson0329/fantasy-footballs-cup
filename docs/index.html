@@ -3470,7 +3470,7 @@ function buildNewsTab(newsData) {
 
   // Podcast player (if audio available)
   if (newsData.podcast_file) {
-    const podcastSrc = `${RAW_BASE}/docs/${newsData.podcast_file}?t=${encodeURIComponent(newsData.generated_at || '')}`;
+    const podcastSrc = `./${newsData.podcast_file}?t=${encodeURIComponent(newsData.generated_at || '')}`;
     const podCard = el('div', { className: 'podcast-card' });
     const podIcon = el('div', { className: 'podcast-icon' });
     podIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>`;
