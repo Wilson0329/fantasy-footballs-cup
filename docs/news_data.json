@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T16:21:45",
+  "generated_at": "2026-05-11T09:14:45",
   "gw": 36,
   "is_live": true,
   "squad_alert_fingerprint": [
@@ -11,48 +11,49 @@
     "George Georgiou:A.Jimenez (BOU) [NOT AVAILABLE] [bench] \u2014 Made unavailable for selection on 8/5. - Unknown return date",
     "George Georgiou:Romero (TOT) [INJURED] [bench] \u2014 Knee injury - Expected back 01 Jun",
     "George Georgiou:Ekitik\u00e9 (LIV) [INJURED] [bench] \u2014 Achilles injury - Expected back 01 Jul",
-    "Arun Quayum:\u0160e\u0161ko (MUN) [DOUBTFUL] [starting XI] [VICE-CAPTAIN] \u2014 Shin injury - 75% chance of playing",
-    "Dominic Byrne:Jos\u00e9 S\u00e1 (WOL) [DOUBTFUL] [bench] \u2014 Ankle injury - 50% chance of playing",
     "Adam Georghiou:Andersen (FUL) [SUSPENDED] [starting XI] \u2014 Suspended until 29 Aug",
     "Adam Georghiou:A.Becker (LIV) [DOUBTFUL] [bench] \u2014 Muscle injury - 50% chance of playing",
     "Adam Georghiou:M.Salah (LIV) [DOUBTFUL] [bench] \u2014 Muscle injury - 50% chance of playing",
+    "Arun Quayum:\u0160e\u0161ko (MUN) [DOUBTFUL] [starting XI] [VICE-CAPTAIN] \u2014 Shin injury - 75% chance of playing",
+    "Dominic Byrne:Jos\u00e9 S\u00e1 (WOL) [DOUBTFUL] [bench] \u2014 Ankle injury - 50% chance of playing",
     "Ed Pragnell:Mitoma (BHA) [DOUBTFUL] [starting XI] \u2014 Hamstring injury - 75% chance of playing",
     "Ed Pragnell:Solanke (TOT) [DOUBTFUL] [bench] \u2014 Muscle injury - 25% chance of playing",
-    "Ed Pragnell:Neto (CHE) [DOUBTFUL] [bench] \u2014 Knock - 25% chance of playing",
+    "Ed Pragnell:Neto (CHE) [DOUBTFUL] [bench] \u2014 Knock - 50% chance of playing",
     "Joe Wilson:Vicario (TOT) [INJURED] [bench] \u2014 Hernia - Unknown return date",
     "Joe Wilson:Aina (NFO) [DOUBTFUL] [bench] \u2014 Knock - 50% chance of playing",
     "Joe Wilson:Rodrigo (MCI) [DOUBTFUL] [bench] \u2014 Groin Injury - 75% chance of playing",
+    "Aron Rouse:Calafiori (ARS) [DOUBTFUL] [starting XI] \u2014 Knock - 75% chance of playing",
     "Aron Rouse:Gudmundsson (LEE) [DOUBTFUL] [bench] \u2014 Hamstring injury - 50% chance of playing"
   ],
-  "podcast_file": "podcast.mp3",
+  "podcast_file": null,
   "articles": [
     {
       "id": "title_race",
       "pundit_name": "Gary Neville",
       "pundit_image": "neville.jpg",
-      "headline": "Title Race Settled, Drama Unfolds for Top Three",
-      "body": "It\u2019s absolutely brilliant that Charles has essentially wrapped up the title race with that 224-point lead. But let\u2019s not get too comfortable because the real drama lies in the battle for those lucrative top-three payouts! David\u2019s holding onto second place by a thread, with Alexander just 33 points behind and Sam literally breathing down his neck with just one point separating them. I genuinely believe that could flip in a heartbeat, especially with a few players left to play. I\u2019m talking about edge-of-your-seat stuff here, folks!\n\nAs for the relegation battle, Joe and Aron are staring down the barrel and, quite frankly, it\u2019s not looking good. Both are well behind safety, with Joe only managing a meager 11 points this week! With just two gameweeks to go, any slip-up now could be the nail in the coffin. I mean, can you imagine being relegated with the FPL playoffs looming? Absolutely tragic! Let\u2019s keep our eyes peeled."
+      "headline": "Title Race Over, Battle for Second Heats Up",
+      "body": "Right, so Charles has absolutely steamrolled this title race, leading by 212 points, and while it\u2019s mathematically won, the real drama lies in the battle for 2nd and 3rd place now. David and Alexander are in a neck-and-neck scrap\u2014only 20 points apart, and I genuinely believe it's going to come down to the wire! Sam\u2019s lurking there as well, just 23 points off 3rd, so it\u2019s all to play for! Who needs a title race when you've got this tension over a couple of extra quid?\n\nLooking at this Gameweek, Alexander is having an absolute blinder with 65 points already and still has a player left to play\u2014Aaronson could be the difference-maker! Meanwhile, David is playing it safe with Minteh who\u2019s clocked up a decent score, but it might not be enough, especially with Sam underperforming on just 39 points. It\u2019s a classic example of how quick momentum can shift in FPL; one bad Gameweek can sink you! Keep your eyes peeled\u2014this payout race is going to be thrilling!"
     },
     {
       "id": "relegation",
       "pundit_name": "Roy Keane",
       "pundit_image": "keane.jpg",
-      "headline": "Bottom Table Battle: Joe and Aron in Freefall",
-      "body": "What a shambles at the bottom of the table. Joe and Aron are sitting ducks, and honestly, it\u2019s embarrassing to watch. Joe\u2019s still 65 points away from safety and has posted a pathetic 23 points this gameweek\u2014he should be ashamed. Aron isn\u2019t much better, just 10 points so far, 164 behind safety! It\u2019s a race to see who can sink faster. \n\nYou\u2019ve got guys like Ed scrambling to keep their heads above water while Joe and Aron are floundering like fish out of water. Two gameweeks left and they're both about to get a one-way ticket down\u2014no excuses. You\u2019d think they\u2019d put up more of a fight, but instead, it\u2019s like watching a slow-motion car crash. Pathetic, really."
+      "headline": "Desperate Duo Face Certain Relegation Doom",
+      "body": "Joe and Aron are in a right pickle, aren't they? Joe's 41 points from safety and Aron's a staggering 138 behind. I mean, it\u2019s embarrassing to see them fighting to stay in a league they have no business being in. With just two gameweeks left, they should be throwing everything at it, but they\u2019re just not good enough. \n\nAnd while Joe still has players yet to play, a few dubious doubts in the squad aren\u2019t helping his cause. Aron's best hope is waiting for Kolo Muani to pull a miracle, but I'll be shocked if that happens. Anyone expecting a comeback should just pack it in now. No excuses. They're going down."
     },
     {
       "id": "cup_final",
       "pundit_name": "Jamie Carragher",
       "pundit_image": "carragher.jpg",
-      "headline": "Cup Final Showdown: Dominance or Inevitable Victory?",
-      "body": "What a cup final we've got coming up! Dominic\u2019s HC XI II taking on Jason\u2019s Inevitable is shaping up to be a real spectacle, let me tell ya! I mean, you've got Dominic with B.Fernandes as captain\u2014he's been consistent, hasn\u2019t he? But then there\u2019s Jason riding high on Cherki\u2019s brilliance. It\u2019s like a Champions League final if I\u2019m honest, with both managers wanting to etch their names in the Fantasy Football history books. \n\nNow, looking at their squads, it\u2019s interesting\u2014Dominic\u2019s keeper, Donnarumma, could be the unsung hero, while Jason\u2019s got some real firepower upfront with Watkins and Cherki. But don\u2019t sleep on injuries, mate; Dominic's Jos\u00e9 S\u00e1 is carrying a knock, and you never know what that might mean for his game plan. The tension's rising, and I can\u2019t wait to see who comes out on top. It\u2019s going to be a massive occasion!"
+      "headline": "Cup Final Clash: Dominic vs. Jason Showdown!",
+      "body": "What a tie we\u2019ve got coming up in the cup final with Dominic facing off against Jason! You\u2019ve got Dominic, who's been solid but can\u2019t afford to lose his head; his squad's looking good with B.Fernandes as captain. Meanwhile, Jason's got Cherki leading the line \u2014 let\u2019s hope his form from the last few matches isn't a fluke, because he\u2019s gonna need to bring it on the big day. Honestly, it's like a mini Champions League final; both managers have to get their tactics spot on!\n\nBut listen, let's not forget the payouts on the line! Right now, David and Alexander are locked in a battle for second and third, with only 20 points separating them. Charles has practically wrapped up the title with that massive lead, but it\u2019s all about the scrap for those vital FPL points. Joe and Aron need to pull off some miracle comebacks to avoid relegation \u2014 I\u2019ll be honest with ya, it\u2019s going to be a thrilling end to the season!"
     },
     {
       "id": "form_injuries",
       "pundit_name": "Micah Richards",
       "pundit_image": "richards.jpg",
-      "headline": "Title Race Sealed, Payout Drama Heats Up!",
-      "body": "Wow, what a season we\u2019ve had! Charles has well and truly wrapped up the title\u2014he's practically in a different league! But the real drama is in the payout race. David is clinging on to second place, but Alexander and Sam are right on his tail, with only a 1-point gap separating them! It\u2019s like a game of musical chairs, and someone\u2019s about to get left out! \n\nNow, let\u2019s talk about injuries\u2014Joe and Aron are really struggling at the bottom, and it's looking bleak for them with only two weeks left to claw their way to safety. They\u2019ve got players with serious doubts, and while they\u2019re praying for a miracle, the likes of Ed could slip down with a couple of poor results. It\u2019s all about who can keep their players fit and firing\u2014especially with the Cup Final looming, pressure is high! UNBELIEVABLE stuff!"
+      "headline": "Thrilling Title Race: Drama Unfolds in Final Countdown",
+      "body": "Wow, what a sizzling race we\u2019ve got for those top spots! Charles is practically untouchable with a massive 1926 points, but the real drama is between David, Alexander, and Sam fighting it out for the cash! With David sitting second with 1714 points, and only 20 points between him and Alexander in third, it\u2019s like watching a thriller! Give them some credit \u2013 they\u2019ve got to dig deep in these last two weeks! \n\nOn the flip side, poor Joe and Aron are sweating in that relegation zone. Joe is 41 points off safety and Aron? Well, he\u2019s got a mountain to climb sitting 138 points behind Ed! Just when you think it couldn't get worse, they\u2019re both dealing with injury worries\u2014like Gibbs-White on the brink and some key players sidelined. It\u2019s nail-biting stuff, absolutely unbelievable! Can they turn it around? I can\u2019t wait to see how this plays out!"
     }
   ]
 }

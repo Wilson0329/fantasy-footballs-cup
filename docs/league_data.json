@@ -1,7 +1,7 @@
 {
   "metadata": {
     "league_id": 286779,
-    "last_updated": "2026-05-10",
+    "last_updated": "2026-05-11",
     "current_gw": 36,
     "season": "2025/26"
   },
@@ -12,8 +12,8 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "total_points": 1918,
-      "gw_points": 32
+      "total_points": 1926,
+      "gw_points": 40
     },
     {
       "rank": 2,
@@ -21,8 +21,8 @@
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
-      "total_points": 1694,
-      "gw_points": 42
+      "total_points": 1714,
+      "gw_points": 62
     },
     {
       "rank": 3,
@@ -30,8 +30,8 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "total_points": 1661,
-      "gw_points": 25
+      "total_points": 1694,
+      "gw_points": 58
     },
     {
       "rank": 4,
@@ -39,8 +39,8 @@
       "entry_id": 5124113,
       "name": "Soucek Madness \u00b2 \u00b2",
       "manager": "Sam Haseltine",
-      "total_points": 1660,
-      "gw_points": 24
+      "total_points": 1671,
+      "gw_points": 35
     },
     {
       "rank": 5,
@@ -48,43 +48,43 @@
       "entry_id": 1623042,
       "name": "GVG XI *",
       "manager": "George Georgiou",
-      "total_points": 1626,
-      "gw_points": 24
+      "total_points": 1633,
+      "gw_points": 31
     },
     {
       "rank": 6,
-      "rank_last": 8,
-      "entry_id": 5145283,
-      "name": "Habibi Jeebies",
-      "manager": "Arun Quayum",
-      "total_points": 1570,
-      "gw_points": 45
-    },
-    {
-      "rank": 7,
-      "rank_last": 7,
-      "entry_id": 6366909,
-      "name": "HC XI II",
-      "manager": "Dominic Byrne",
-      "total_points": 1564,
-      "gw_points": 14
-    },
-    {
-      "rank": 8,
       "rank_last": 6,
       "entry_id": 5751594,
       "name": "I love big Gy\u0151k",
       "manager": "Adam Georghiou",
-      "total_points": 1560,
-      "gw_points": 10
+      "total_points": 1585,
+      "gw_points": 35
     },
     {
-      "rank": 9,
+      "rank": 7,
+      "rank_last": 8,
+      "entry_id": 5145283,
+      "name": "Habibi Jeebies",
+      "manager": "Arun Quayum",
+      "total_points": 1579,
+      "gw_points": 54
+    },
+    {
+      "rank": 8,
       "rank_last": 9,
       "entry_id": 4789233,
       "name": "Inevitable***",
       "manager": "Jason Knightly",
-      "total_points": 1551,
+      "total_points": 1577,
+      "gw_points": 52
+    },
+    {
+      "rank": 9,
+      "rank_last": 7,
+      "entry_id": 6366909,
+      "name": "HC XI II",
+      "manager": "Dominic Byrne",
+      "total_points": 1576,
       "gw_points": 26
     },
     {
@@ -93,8 +93,8 @@
       "entry_id": 5191754,
       "name": "Stay Classy SanDiogo",
       "manager": "Ed Pragnell",
-      "total_points": 1547,
-      "gw_points": 39
+      "total_points": 1551,
+      "gw_points": 43
     },
     {
       "rank": 11,
@@ -102,8 +102,8 @@
       "entry_id": 4160647,
       "name": "Forever20****",
       "manager": "Joe Wilson",
-      "total_points": 1482,
-      "gw_points": 11
+      "total_points": 1510,
+      "gw_points": 39
     },
     {
       "rank": 12,
@@ -111,8 +111,8 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "total_points": 1383,
-      "gw_points": 10
+      "total_points": 1413,
+      "gw_points": 40
     }
   ],
   "trade_differential": [
@@ -120,7 +120,7 @@
       "entry_id": 4160647,
       "name": "Forever20",
       "manager": "Joe Wilson",
-      "net_gain": 249,
+      "net_gain": 255,
       "trades": [
         {
           "gw": 7,
@@ -149,10 +149,10 @@
           "player_in": {
             "id": 20,
             "name": "Trossard",
-            "pts_while_held": 84,
+            "pts_while_held": 90,
             "still_in_squad": true
           },
-          "differential": 33
+          "differential": 39
         },
         {
           "gw": 13,
@@ -304,7 +304,7 @@
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
       "manager": "Arun Quayum",
-      "net_gain": 225,
+      "net_gain": 226,
       "trades": [
         {
           "gw": 7,
@@ -381,10 +381,10 @@
           "player_in": {
             "id": 615,
             "name": "Summerville",
-            "pts_while_held": 38,
+            "pts_while_held": 39,
             "still_in_squad": true
           },
-          "differential": 34
+          "differential": 35
         },
         {
           "gw": 29,
@@ -440,7 +440,7 @@
       "entry_id": 6366909,
       "name": "HC XI II",
       "manager": "Dominic Byrne",
-      "net_gain": 191,
+      "net_gain": 192,
       "trades": [
         {
           "gw": 7,
@@ -533,10 +533,10 @@
           "player_in": {
             "id": 791,
             "name": "Taty",
-            "pts_while_held": 37,
+            "pts_while_held": 38,
             "still_in_squad": true
           },
-          "differential": 16
+          "differential": 17
         },
         {
           "gw": 29,
@@ -592,7 +592,7 @@
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
-      "net_gain": 165,
+      "net_gain": 167,
       "trades": [
         {
           "gw": 7,
@@ -648,7 +648,7 @@
           "player_out": {
             "id": 18,
             "name": "Madueke",
-            "pts_since": 43
+            "pts_since": 44
           },
           "player_in": {
             "id": 453,
@@ -656,7 +656,7 @@
             "pts_while_held": 2,
             "still_in_squad": false
           },
-          "differential": -41
+          "differential": -42
         },
         {
           "gw": 25,
@@ -669,10 +669,10 @@
           "player_in": {
             "id": 266,
             "name": "Eze",
-            "pts_while_held": 38,
+            "pts_while_held": 40,
             "still_in_squad": true
           },
-          "differential": 24
+          "differential": 26
         },
         {
           "gw": 29,
@@ -680,7 +680,7 @@
           "player_out": {
             "id": 488,
             "name": "Bruno G.",
-            "pts_since": 13
+            "pts_since": 14
           },
           "player_in": {
             "id": 325,
@@ -688,7 +688,7 @@
             "pts_while_held": 2,
             "still_in_squad": false
           },
-          "differential": -11
+          "differential": -12
         },
         {
           "gw": 32,
@@ -701,10 +701,10 @@
           "player_in": {
             "id": 487,
             "name": "Barnes",
-            "pts_while_held": 16,
+            "pts_while_held": 18,
             "still_in_squad": true
           },
-          "differential": 6
+          "differential": 8
         }
       ]
     },
@@ -712,7 +712,7 @@
       "entry_id": 5191754,
       "name": "Stay Classy SanDiogo",
       "manager": "Ed Pragnell",
-      "net_gain": 159,
+      "net_gain": 161,
       "trades": [
         {
           "gw": 7,
@@ -752,7 +752,7 @@
           "player_out": {
             "id": 475,
             "name": "Botman",
-            "pts_since": 50
+            "pts_since": 51
           },
           "player_in": {
             "id": 411,
@@ -760,7 +760,7 @@
             "pts_while_held": 102,
             "still_in_squad": true
           },
-          "differential": 52
+          "differential": 51
         },
         {
           "gw": 20,
@@ -837,10 +837,10 @@
           "player_in": {
             "id": 606,
             "name": "Mavropanos",
-            "pts_while_held": 31,
+            "pts_while_held": 34,
             "still_in_squad": true
           },
-          "differential": 13
+          "differential": 16
         }
       ]
     },
@@ -848,7 +848,7 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "net_gain": 93,
+      "net_gain": 94,
       "trades": [
         {
           "gw": 7,
@@ -877,10 +877,10 @@
           "player_in": {
             "id": 200,
             "name": "Anthony",
-            "pts_while_held": 78,
+            "pts_while_held": 79,
             "still_in_squad": true
           },
-          "differential": 77
+          "differential": 78
         },
         {
           "gw": 14,
@@ -984,7 +984,7 @@
       "entry_id": 4789233,
       "name": "Inevitable",
       "manager": "Jason Knightly",
-      "net_gain": 75,
+      "net_gain": 74,
       "trades": [
         {
           "gw": 7,
@@ -992,7 +992,7 @@
           "player_out": {
             "id": 610,
             "name": "Wan-Bissaka",
-            "pts_since": 64
+            "pts_since": 65
           },
           "player_in": {
             "id": 683,
@@ -1000,7 +1000,7 @@
             "pts_while_held": 85,
             "still_in_squad": true
           },
-          "differential": 21
+          "differential": 20
         },
         {
           "gw": 10,
@@ -1408,7 +1408,7 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "net_gain": 4,
+      "net_gain": 3,
       "trades": [
         {
           "gw": 14,
@@ -1432,7 +1432,7 @@
           "player_out": {
             "id": 487,
             "name": "Barnes",
-            "pts_since": 50
+            "pts_since": 52
           },
           "player_in": {
             "id": 303,
@@ -1440,7 +1440,7 @@
             "pts_while_held": 69,
             "still_in_squad": true
           },
-          "differential": 19
+          "differential": 17
         },
         {
           "gw": 25,
@@ -1453,10 +1453,10 @@
           "player_in": {
             "id": 18,
             "name": "Madueke",
-            "pts_while_held": 24,
+            "pts_while_held": 25,
             "still_in_squad": true
           },
-          "differential": 2
+          "differential": 3
         },
         {
           "gw": 29,
@@ -1480,7 +1480,7 @@
       "entry_id": 5751594,
       "name": "I love big Gy\u0151k",
       "manager": "Adam Georghiou",
-      "net_gain": 4,
+      "net_gain": 0,
       "trades": [
         {
           "gw": 7,
@@ -1509,10 +1509,10 @@
           "player_in": {
             "id": 785,
             "name": "Pablo",
-            "pts_while_held": 16,
+            "pts_while_held": 17,
             "still_in_squad": true
           },
-          "differential": 9
+          "differential": 10
         },
         {
           "gw": 25,
@@ -1520,7 +1520,7 @@
           "player_out": {
             "id": 10,
             "name": "Lewis-Skelly",
-            "pts_since": 9
+            "pts_since": 14
           },
           "player_in": {
             "id": 437,
@@ -1528,7 +1528,7 @@
             "pts_while_held": 12,
             "still_in_squad": true
           },
-          "differential": 3
+          "differential": -2
         }
       ]
     },
@@ -1536,7 +1536,7 @@
       "entry_id": 5124113,
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
-      "net_gain": -15,
+      "net_gain": -16,
       "trades": [
         {
           "gw": 7,
@@ -1560,7 +1560,7 @@
           "player_out": {
             "id": 615,
             "name": "Summerville",
-            "pts_since": 85
+            "pts_since": 86
           },
           "player_in": {
             "id": 668,
@@ -1568,7 +1568,7 @@
             "pts_while_held": 82,
             "still_in_squad": true
           },
-          "differential": -3
+          "differential": -4
         },
         {
           "gw": 13,
@@ -1672,7 +1672,7 @@
           "player_out": {
             "id": 266,
             "name": "Eze",
-            "pts_since": 38
+            "pts_since": 40
           },
           "player_in": {
             "id": 457,
@@ -1680,7 +1680,7 @@
             "pts_while_held": 59,
             "still_in_squad": true
           },
-          "differential": 21
+          "differential": 19
         },
         {
           "gw": 29,
@@ -1693,10 +1693,10 @@
           "player_in": {
             "id": 708,
             "name": "M.Fernandes",
-            "pts_while_held": 19,
+            "pts_while_held": 20,
             "still_in_squad": true
           },
-          "differential": 17
+          "differential": 18
         },
         {
           "gw": 32,
@@ -1709,10 +1709,10 @@
           "player_in": {
             "id": 488,
             "name": "Bruno G.",
-            "pts_while_held": 13,
+            "pts_while_held": 14,
             "still_in_squad": true
           },
-          "differential": -29
+          "differential": -28
         },
         {
           "gw": 35,
@@ -5130,8 +5130,8 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "total_bench_points": 270,
-      "avg_bench_per_gw": 7.5,
+      "total_bench_points": 275,
+      "avg_bench_per_gw": 7.6,
       "by_gw": [
         {
           "gw": 1,
@@ -5275,7 +5275,7 @@
         },
         {
           "gw": 36,
-          "bench_pts": 0
+          "bench_pts": 5
         }
       ]
     },
@@ -5283,8 +5283,8 @@
       "entry_id": 4789233,
       "name": "Inevitable",
       "manager": "Jason Knightly",
-      "total_bench_points": 181,
-      "avg_bench_per_gw": 5.0,
+      "total_bench_points": 183,
+      "avg_bench_per_gw": 5.1,
       "by_gw": [
         {
           "gw": 1,
@@ -5428,7 +5428,313 @@
         },
         {
           "gw": 36,
-          "bench_pts": 12
+          "bench_pts": 14
+        }
+      ]
+    },
+    {
+      "entry_id": 5150105,
+      "name": "Gy\u00f6k, Stock & Barrel",
+      "manager": "Aron Rouse",
+      "total_bench_points": 173,
+      "avg_bench_per_gw": 4.8,
+      "by_gw": [
+        {
+          "gw": 1,
+          "bench_pts": 1
+        },
+        {
+          "gw": 2,
+          "bench_pts": 1
+        },
+        {
+          "gw": 3,
+          "bench_pts": 2
+        },
+        {
+          "gw": 4,
+          "bench_pts": 2
+        },
+        {
+          "gw": 5,
+          "bench_pts": 4
+        },
+        {
+          "gw": 6,
+          "bench_pts": 20
+        },
+        {
+          "gw": 7,
+          "bench_pts": 3
+        },
+        {
+          "gw": 8,
+          "bench_pts": 2
+        },
+        {
+          "gw": 9,
+          "bench_pts": 2
+        },
+        {
+          "gw": 10,
+          "bench_pts": 2
+        },
+        {
+          "gw": 11,
+          "bench_pts": 2
+        },
+        {
+          "gw": 12,
+          "bench_pts": 8
+        },
+        {
+          "gw": 13,
+          "bench_pts": 2
+        },
+        {
+          "gw": 14,
+          "bench_pts": 3
+        },
+        {
+          "gw": 15,
+          "bench_pts": 2
+        },
+        {
+          "gw": 16,
+          "bench_pts": 0
+        },
+        {
+          "gw": 17,
+          "bench_pts": 0
+        },
+        {
+          "gw": 18,
+          "bench_pts": 0
+        },
+        {
+          "gw": 19,
+          "bench_pts": 0
+        },
+        {
+          "gw": 20,
+          "bench_pts": 1
+        },
+        {
+          "gw": 21,
+          "bench_pts": 3
+        },
+        {
+          "gw": 22,
+          "bench_pts": 10
+        },
+        {
+          "gw": 23,
+          "bench_pts": 6
+        },
+        {
+          "gw": 24,
+          "bench_pts": 9
+        },
+        {
+          "gw": 25,
+          "bench_pts": 13
+        },
+        {
+          "gw": 26,
+          "bench_pts": 0
+        },
+        {
+          "gw": 27,
+          "bench_pts": 1
+        },
+        {
+          "gw": 28,
+          "bench_pts": 0
+        },
+        {
+          "gw": 29,
+          "bench_pts": 4
+        },
+        {
+          "gw": 30,
+          "bench_pts": 10
+        },
+        {
+          "gw": 31,
+          "bench_pts": 7
+        },
+        {
+          "gw": 32,
+          "bench_pts": 6
+        },
+        {
+          "gw": 33,
+          "bench_pts": 16
+        },
+        {
+          "gw": 34,
+          "bench_pts": 7
+        },
+        {
+          "gw": 35,
+          "bench_pts": 19
+        },
+        {
+          "gw": 36,
+          "bench_pts": 5
+        }
+      ]
+    },
+    {
+      "entry_id": 5124113,
+      "name": "Soucek Madness",
+      "manager": "Sam Haseltine",
+      "total_bench_points": 170,
+      "avg_bench_per_gw": 4.7,
+      "by_gw": [
+        {
+          "gw": 1,
+          "bench_pts": 6
+        },
+        {
+          "gw": 2,
+          "bench_pts": 7
+        },
+        {
+          "gw": 3,
+          "bench_pts": 16
+        },
+        {
+          "gw": 4,
+          "bench_pts": 6
+        },
+        {
+          "gw": 5,
+          "bench_pts": 11
+        },
+        {
+          "gw": 6,
+          "bench_pts": 9
+        },
+        {
+          "gw": 7,
+          "bench_pts": 3
+        },
+        {
+          "gw": 8,
+          "bench_pts": 1
+        },
+        {
+          "gw": 9,
+          "bench_pts": 7
+        },
+        {
+          "gw": 10,
+          "bench_pts": 10
+        },
+        {
+          "gw": 11,
+          "bench_pts": 3
+        },
+        {
+          "gw": 12,
+          "bench_pts": 9
+        },
+        {
+          "gw": 13,
+          "bench_pts": 9
+        },
+        {
+          "gw": 14,
+          "bench_pts": 4
+        },
+        {
+          "gw": 15,
+          "bench_pts": 2
+        },
+        {
+          "gw": 16,
+          "bench_pts": 2
+        },
+        {
+          "gw": 17,
+          "bench_pts": 1
+        },
+        {
+          "gw": 18,
+          "bench_pts": 0
+        },
+        {
+          "gw": 19,
+          "bench_pts": 11
+        },
+        {
+          "gw": 20,
+          "bench_pts": 4
+        },
+        {
+          "gw": 21,
+          "bench_pts": 3
+        },
+        {
+          "gw": 22,
+          "bench_pts": 13
+        },
+        {
+          "gw": 23,
+          "bench_pts": 0
+        },
+        {
+          "gw": 24,
+          "bench_pts": 0
+        },
+        {
+          "gw": 25,
+          "bench_pts": 0
+        },
+        {
+          "gw": 26,
+          "bench_pts": 0
+        },
+        {
+          "gw": 27,
+          "bench_pts": 0
+        },
+        {
+          "gw": 28,
+          "bench_pts": 2
+        },
+        {
+          "gw": 29,
+          "bench_pts": 3
+        },
+        {
+          "gw": 30,
+          "bench_pts": 7
+        },
+        {
+          "gw": 31,
+          "bench_pts": 10
+        },
+        {
+          "gw": 32,
+          "bench_pts": 4
+        },
+        {
+          "gw": 33,
+          "bench_pts": 0
+        },
+        {
+          "gw": 34,
+          "bench_pts": 0
+        },
+        {
+          "gw": 35,
+          "bench_pts": 3
+        },
+        {
+          "gw": 36,
+          "bench_pts": 4
         }
       ]
     },
@@ -5586,317 +5892,11 @@
       ]
     },
     {
-      "entry_id": 5150105,
-      "name": "Gy\u00f6k, Stock & Barrel",
-      "manager": "Aron Rouse",
-      "total_bench_points": 168,
-      "avg_bench_per_gw": 4.7,
-      "by_gw": [
-        {
-          "gw": 1,
-          "bench_pts": 1
-        },
-        {
-          "gw": 2,
-          "bench_pts": 1
-        },
-        {
-          "gw": 3,
-          "bench_pts": 2
-        },
-        {
-          "gw": 4,
-          "bench_pts": 2
-        },
-        {
-          "gw": 5,
-          "bench_pts": 4
-        },
-        {
-          "gw": 6,
-          "bench_pts": 20
-        },
-        {
-          "gw": 7,
-          "bench_pts": 3
-        },
-        {
-          "gw": 8,
-          "bench_pts": 2
-        },
-        {
-          "gw": 9,
-          "bench_pts": 2
-        },
-        {
-          "gw": 10,
-          "bench_pts": 2
-        },
-        {
-          "gw": 11,
-          "bench_pts": 2
-        },
-        {
-          "gw": 12,
-          "bench_pts": 8
-        },
-        {
-          "gw": 13,
-          "bench_pts": 2
-        },
-        {
-          "gw": 14,
-          "bench_pts": 3
-        },
-        {
-          "gw": 15,
-          "bench_pts": 2
-        },
-        {
-          "gw": 16,
-          "bench_pts": 0
-        },
-        {
-          "gw": 17,
-          "bench_pts": 0
-        },
-        {
-          "gw": 18,
-          "bench_pts": 0
-        },
-        {
-          "gw": 19,
-          "bench_pts": 0
-        },
-        {
-          "gw": 20,
-          "bench_pts": 1
-        },
-        {
-          "gw": 21,
-          "bench_pts": 3
-        },
-        {
-          "gw": 22,
-          "bench_pts": 10
-        },
-        {
-          "gw": 23,
-          "bench_pts": 6
-        },
-        {
-          "gw": 24,
-          "bench_pts": 9
-        },
-        {
-          "gw": 25,
-          "bench_pts": 13
-        },
-        {
-          "gw": 26,
-          "bench_pts": 0
-        },
-        {
-          "gw": 27,
-          "bench_pts": 1
-        },
-        {
-          "gw": 28,
-          "bench_pts": 0
-        },
-        {
-          "gw": 29,
-          "bench_pts": 4
-        },
-        {
-          "gw": 30,
-          "bench_pts": 10
-        },
-        {
-          "gw": 31,
-          "bench_pts": 7
-        },
-        {
-          "gw": 32,
-          "bench_pts": 6
-        },
-        {
-          "gw": 33,
-          "bench_pts": 16
-        },
-        {
-          "gw": 34,
-          "bench_pts": 7
-        },
-        {
-          "gw": 35,
-          "bench_pts": 19
-        },
-        {
-          "gw": 36,
-          "bench_pts": 0
-        }
-      ]
-    },
-    {
-      "entry_id": 5124113,
-      "name": "Soucek Madness",
-      "manager": "Sam Haseltine",
-      "total_bench_points": 166,
-      "avg_bench_per_gw": 4.6,
-      "by_gw": [
-        {
-          "gw": 1,
-          "bench_pts": 6
-        },
-        {
-          "gw": 2,
-          "bench_pts": 7
-        },
-        {
-          "gw": 3,
-          "bench_pts": 16
-        },
-        {
-          "gw": 4,
-          "bench_pts": 6
-        },
-        {
-          "gw": 5,
-          "bench_pts": 11
-        },
-        {
-          "gw": 6,
-          "bench_pts": 9
-        },
-        {
-          "gw": 7,
-          "bench_pts": 3
-        },
-        {
-          "gw": 8,
-          "bench_pts": 1
-        },
-        {
-          "gw": 9,
-          "bench_pts": 7
-        },
-        {
-          "gw": 10,
-          "bench_pts": 10
-        },
-        {
-          "gw": 11,
-          "bench_pts": 3
-        },
-        {
-          "gw": 12,
-          "bench_pts": 9
-        },
-        {
-          "gw": 13,
-          "bench_pts": 9
-        },
-        {
-          "gw": 14,
-          "bench_pts": 4
-        },
-        {
-          "gw": 15,
-          "bench_pts": 2
-        },
-        {
-          "gw": 16,
-          "bench_pts": 2
-        },
-        {
-          "gw": 17,
-          "bench_pts": 1
-        },
-        {
-          "gw": 18,
-          "bench_pts": 0
-        },
-        {
-          "gw": 19,
-          "bench_pts": 11
-        },
-        {
-          "gw": 20,
-          "bench_pts": 4
-        },
-        {
-          "gw": 21,
-          "bench_pts": 3
-        },
-        {
-          "gw": 22,
-          "bench_pts": 13
-        },
-        {
-          "gw": 23,
-          "bench_pts": 0
-        },
-        {
-          "gw": 24,
-          "bench_pts": 0
-        },
-        {
-          "gw": 25,
-          "bench_pts": 0
-        },
-        {
-          "gw": 26,
-          "bench_pts": 0
-        },
-        {
-          "gw": 27,
-          "bench_pts": 0
-        },
-        {
-          "gw": 28,
-          "bench_pts": 2
-        },
-        {
-          "gw": 29,
-          "bench_pts": 3
-        },
-        {
-          "gw": 30,
-          "bench_pts": 7
-        },
-        {
-          "gw": 31,
-          "bench_pts": 10
-        },
-        {
-          "gw": 32,
-          "bench_pts": 4
-        },
-        {
-          "gw": 33,
-          "bench_pts": 0
-        },
-        {
-          "gw": 34,
-          "bench_pts": 0
-        },
-        {
-          "gw": 35,
-          "bench_pts": 3
-        },
-        {
-          "gw": 36,
-          "bench_pts": 0
-        }
-      ]
-    },
-    {
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
       "manager": "Arun Quayum",
-      "total_bench_points": 156,
-      "avg_bench_per_gw": 4.3,
+      "total_bench_points": 157,
+      "avg_bench_per_gw": 4.4,
       "by_gw": [
         {
           "gw": 1,
@@ -6040,7 +6040,7 @@
         },
         {
           "gw": 36,
-          "bench_pts": 2
+          "bench_pts": 3
         }
       ]
     },
@@ -6201,7 +6201,7 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "total_bench_points": 137,
+      "total_bench_points": 138,
       "avg_bench_per_gw": 3.8,
       "by_gw": [
         {
@@ -6346,7 +6346,7 @@
         },
         {
           "gw": 36,
-          "bench_pts": 2
+          "bench_pts": 3
         }
       ]
     },
@@ -6354,8 +6354,8 @@
       "entry_id": 5191754,
       "name": "Stay Classy SanDiogo",
       "manager": "Ed Pragnell",
-      "total_bench_points": 110,
-      "avg_bench_per_gw": 3.1,
+      "total_bench_points": 114,
+      "avg_bench_per_gw": 3.2,
       "by_gw": [
         {
           "gw": 1,
@@ -6499,7 +6499,7 @@
         },
         {
           "gw": 36,
-          "bench_pts": 0
+          "bench_pts": 4
         }
       ]
     },
@@ -6507,8 +6507,8 @@
       "entry_id": 1623042,
       "name": "GVG XI",
       "manager": "George Georgiou",
-      "total_bench_points": 95,
-      "avg_bench_per_gw": 2.6,
+      "total_bench_points": 98,
+      "avg_bench_per_gw": 2.7,
       "by_gw": [
         {
           "gw": 1,
@@ -6652,7 +6652,7 @@
         },
         {
           "gw": 36,
-          "bench_pts": 0
+          "bench_pts": 3
         }
       ]
     },
@@ -6813,7 +6813,7 @@
       "entry_id": 5751594,
       "name": "I love big Gy\u0151k",
       "manager": "Adam Georghiou",
-      "total_bench_points": 83,
+      "total_bench_points": 84,
       "avg_bench_per_gw": 2.3,
       "by_gw": [
         {
@@ -6958,7 +6958,7 @@
         },
         {
           "gw": 36,
-          "bench_pts": 6
+          "bench_pts": 7
         }
       ]
     }
