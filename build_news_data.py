@@ -184,10 +184,11 @@ def get_gw_status(bootstrap: dict, current_gw: int) -> dict:
 
 # ─── Change detection ─────────────────────────────────────────────────────────
 
-def needs_regeneration(current_gw: int, squad_alerts: list, out_path: str) -> bool:
+def needs_regeneration(current_gw: int, is_live: bool, squad_alerts: list, out_path: str) -> bool:
     """
     Returns True if commentary should be regenerated.
     - Always regenerate if GW has changed.
+    - Always regenerate if live status changed (e.g. post-match wrap-up after a live run).
     - Within the same GW (non-live): only regenerate if new injuries/flags appeared.
     """
     if not os.path.exists(out_path):
@@ -203,7 +204,13 @@ def needs_regeneration(current_gw: int, squad_alerts: list, out_path: str) -> bo
         print(f"  GW changed ({last_gw} → {current_gw}) — regenerating commentary.")
         return True
 
-    # Same GW — check if injury situation has meaningfully changed
+    # Same GW — check if live status has changed (e.g. was live yesterday, finished today)
+    last_live = existing.get("is_live", False)
+    if last_live != is_live:
+        print(f"  Live status changed (was {'live' if last_live else 'finished'} → now {'live' if is_live else 'finished'}) — regenerating commentary.")
+        return True
+
+    # Same GW, same live status — check if injury situation has meaningfully changed
     prev_alerts_set = set(existing.get("squad_alert_fingerprint", []))
     curr_alerts_set = set(
         f"{manager}:{alert}"
@@ -215,7 +222,7 @@ def needs_regeneration(current_gw: int, squad_alerts: list, out_path: str) -> bo
         print(f"  {len(new_alerts)} new squad alert(s) — regenerating commentary.")
         return True
 
-    print(f"  No significant changes since last generation (GW{current_gw}) — skipping.")
+    print(f"  No significant changes since last generation (GW{current_gw}, live={is_live}) — skipping.")
     return False
 
 
@@ -817,7 +824,7 @@ def main():
     print("──\n")
 
     # Skip regeneration if nothing meaningful has changed (non-live GW only)
-    if not gw_status["is_live"] and not needs_regeneration(gw, squad_alerts, out_path):
+    if not gw_status["is_live"] and not needs_regeneration(gw, gw_status["is_live"], squad_alerts, out_path):
         print("Commentary is up to date — no regeneration needed.")
         return
 
