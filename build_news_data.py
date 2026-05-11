@@ -823,8 +823,14 @@ def main():
             print(f"  {line}")
     print("──\n")
 
-    # Skip regeneration if nothing meaningful has changed (non-live GW only)
-    if not gw_status["is_live"] and not needs_regeneration(gw, gw_status["is_live"], squad_alerts, out_path):
+    # Regeneration rules:
+    #   - GW is live           → ALWAYS regenerate (snapshot changes throughout the day)
+    #   - GW just went live→finished → ALWAYS regenerate (post-match wrap-up)
+    #   - Same GW, same state, new injuries → regenerate
+    #   - Same GW, same state, same injuries → skip (saves ElevenLabs quota)
+    if gw_status["is_live"]:
+        print("  GW is live — regenerating commentary.")
+    elif not needs_regeneration(gw, gw_status["is_live"], squad_alerts, out_path):
         print("Commentary is up to date — no regeneration needed.")
         return
 
