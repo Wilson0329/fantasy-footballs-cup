@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fantasy Footballs</title>
+  <script type="text/javascript">
+  !function(){"use strict";!function(e,t){var r=e.amplitude||{_q:[],_iq:{}};if(r.invoked)e.console&&console.error&&console.error("Amplitude snippet has been loaded.");else{r.invoked=!0;var n=t.createElement("script");n.type="text/javascript",n.integrity="sha384-+enItO5HHGMdPUw7A+UjBZv5Bi5TkuYXOGMEiXp0mSy8dN6uh+LbZdtq7SzZC20",n.crossOrigin="anonymous",n.async=!0,n.src="https://cdn.amplitude.com/libs/analytics-browser-2.11.12-min.js.gz",n.onload=function(){e.amplitude.runQueuedFunctions||console.log("[Amplitude] Error: could not load SDK")};var s=t.getElementsByTagName("script")[0];function v(e,t){e.prototype[t]=function(){return this._q.push({name:t,args:Array.prototype.slice.call(arguments,0)}),this}}s.parentNode.insertBefore(n,s);for(var o=function(){return this._q=[],this},i=["add","append","clearAll","prepend","set","setOnce","unset","preInsert","postInsert","remove","getUserProperties"],a=0;a<i.length;a++)v(o,i[a]);r.Identify=o;for(var u=function(){return this._q=[],this},c=["getEventProperties","setProductId","setQuantity","setPrice","setRevenue","setRevenueType","setEventProperties"],l=0;l<c.length;l++)v(u,c[l]);r.Revenue=u;var p=["getDeviceId","setDeviceId","getSessionId","setSessionId","getUserId","setUserId","setOptOut","setTransport","reset","extendSession"],d=["init","add","remove","track","logEvent","identify","groupIdentify","setGroup","revenue","flush"];function f(e){function t(t,r){e[t]=function(){var n={promise:new Promise(function(r){e._q.push({name:t,args:Array.prototype.slice.call(arguments,0),resolve:r})})};if(r)return n}}for(var r=0;r<p.length;r++)t(p[r]);for(var n=0;n<d.length;r++)t(d[n++],!0)}f(r),e.amplitude=r}}(window,document)}();
+  amplitude.init('13b73947bca78f7cdcf886372210a8c7', {
+    serverUrl: 'https://api2.amplitude.com/2/httpapi',
+    autocapture: {
+      attribution: true,             // UTM / referrer attribution
+      pageViews: true,               // page view on load
+      sessions: true,                // session start / end
+      formInteractions: true,        // form starts + submits
+      fileDownloads: true,           // file download clicks
+      elementInteractions: true,     // click + change events
+      frustrationInteractions: true, // rage clicks, dead clicks
+      pageUrlEnrichment: true,       // path / search on event props
+      networkTracking: false,         // disabled — would capture noisy FPL/worker API calls
+      webVitals: true,               // CWV (LCP, INP, CLS)
+    },
+  });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -1798,10 +1816,13 @@ function makeSquadsToggle(entryIdA, nameA, entryIdB, nameB, gw) {
     const opening = wrap.style.display === 'none';
     wrap.style.display = opening ? '' : 'none';
     btn.textContent = opening ? '▲ Hide squads' : '⚽ Squads';
-    if (opening && !loaded) {
-      loaded = true;
-      wrap.innerHTML = '<div class="mp-loading">Loading squads…</div>';
-      await buildMatchPitch(entryIdA, nameA, entryIdB, nameB, gw, wrap);
+    if (opening) {
+      window.amplitude?.track('Cup Fixture Expanded', { gameweek: gw, team_a: nameA, team_b: nameB });
+      if (!loaded) {
+        loaded = true;
+        wrap.innerHTML = '<div class="mp-loading">Loading squads…</div>';
+        await buildMatchPitch(entryIdA, nameA, entryIdB, nameB, gw, wrap);
+      }
     }
   });
   return { btn, wrap };
@@ -2325,6 +2346,7 @@ async function getLeagueStandings() {
 function startLivePoll(gw) {
   if (_liveInterval) return;
   _liveGW = gw;
+  window.amplitude?.track('Live Gameweek Started', { gameweek: gw, context: 'league' });
   _liveInterval = setInterval(async () => {
     try {
       [_liveData, _gwFixtures] = await Promise.all([getLive(gw), getGWFixtures(gw)]);
@@ -2393,6 +2415,7 @@ async function refreshCupLiveScores() {
 function startCupLivePoll(gw) {
   if (_cupLiveInterval) return;
   _cupLiveGW = gw;
+  window.amplitude?.track('Live Gameweek Started', { gameweek: gw, context: 'cup' });
   _cupLiveInterval = setInterval(refreshCupLiveScores, 60000);
   refreshCupLiveScores(); // immediate first run
 }
@@ -2940,9 +2963,12 @@ function buildLeagueTab(data) {
       summaryRow.addEventListener('click', () => {
         const open = pitchPanelDiv.classList.toggle('open');
         expandBtn.classList.toggle('open', open);
-        if (open && !loaded) {
-          loaded = true;
-          buildPitchView(s.entry_id, selectedGW, pitchPanelDiv, isLiveGW);
+        if (open) {
+          window.amplitude?.track('League Player Expanded', { manager_name: s.manager, team_name: s.name, gameweek: selectedGW, is_live: isLiveGW });
+          if (!loaded) {
+            loaded = true;
+            buildPitchView(s.entry_id, selectedGW, pitchPanelDiv, isLiveGW);
+          }
         }
         if (!open) delete _openPitchRefresh[s.entry_id];
       });
@@ -3604,6 +3630,7 @@ let _activeTab = 'league';
 
 function switchTab(tabName) {
   _activeTab = tabName;
+  window.amplitude?.track('Tab Viewed', { tab_name: tabName });
   if (tabName !== 'cup') stopCupLivePoll();
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabName));
   document.getElementById('final-hero-anchor').style.display = tabName === 'cup' ? '' : 'none';
@@ -3669,6 +3696,7 @@ function saveCupGWs(gws) {
 }
 
 function openCupSettings() {
+  window.amplitude?.track('Cup Settings Opened');
   const overlay = el('div', { className: 'settings-overlay' });
   const panel = el('div', { className: 'settings-panel' });
   const closeBtn = el('button', { className: 'settings-close', onClick: () => overlay.remove() }, '×');
@@ -3739,6 +3767,7 @@ function openCupSettings() {
   const saveBtn = el('button', { className: 'settings-save-btn' }, 'Save Settings');
   saveBtn.addEventListener('click', () => {
     saveCupGWs(currentGWs);
+    window.amplitude?.track('Cup Gameweeks Saved', { gameweek_count: currentGWs.length, gameweeks: currentGWs });
     savedMsg.style.display = 'block';
     setTimeout(() => { savedMsg.style.display = 'none'; }, 3000);
   });
@@ -3808,9 +3837,18 @@ Promise.all([
   if (meta.season)    document.getElementById('season-badge').textContent = meta.season;
   if (meta.last_updated) document.getElementById('last-updated').textContent = `Updated: ${meta.last_updated} · GW${meta.current_gw}`;
 
+  window.amplitude?.track('Data Loaded', {
+    has_cup_data: !!cupData,
+    has_league_data: !!leagueData,
+    has_news_data: !!newsData,
+    season: meta.season || null,
+    current_gw: meta.current_gw || null,
+  });
+
   switchTab('league');
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }).catch(err => {
+  window.amplitude?.track('Error Encountered', { error_category: 'data_load', error_message: err.message, error_context: 'boot' });
   document.getElementById('app').innerHTML = `
     <div class="error-msg">
       <div style="font-size:2rem;margin-bottom:0.5rem;color:var(--gold)"><i data-lucide="alert-triangle"></i></div>
