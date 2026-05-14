@@ -1115,16 +1115,38 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .player-fixture-txt {
-      font-size: 0.52rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.5);
-      text-align: center;
-      max-width: 58px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      margin-top: 1px;
+    .player-fixture-row {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 3px;
+      flex-wrap: wrap;
+      max-width: 62px;
+    }
+    .fixture-chip {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      padding: 1px 3px;
+    }
+    .ha-badge {
+      font-size: 0.48rem;
+      font-weight: 800;
+      border-radius: 2px;
+      padding: 0 2px;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+    .ha-badge.home { background: #16a34a; color: #fff; }
+    .ha-badge.away { background: #475569; color: #fff; }
+    .fixture-opp {
+      font-size: 0.56rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.01em;
     }
     .bench-section {
       margin-top: 0.75rem;
@@ -2518,7 +2540,7 @@ function buildInjuryBadge(playerMeta) {
   return badge;
 }
 
-function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode, opponentLabel = null) {
+function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode, fixture = null) {
   // Apply captain multiplier (2× normal, 3× triple captain) to the displayed score.
   // Bench players have multiplier=0 but we still show their raw points for reference.
   const mult = (pick.multiplier != null && pick.multiplier > 1) ? pick.multiplier : 1;
@@ -2547,11 +2569,24 @@ function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode, oppon
   const injBadge = buildInjuryBadge(playerMeta);
   if (injBadge) shirt.appendChild(injBadge);
 
+  // Fixture H/A chips — fixture is an array of {opp, home} objects
+  let fixtureEl = null;
+  if (Array.isArray(fixture) && fixture.length > 0) {
+    fixtureEl = el('div', { className: 'player-fixture-row' },
+      ...fixture.map(fx =>
+        el('span', { className: 'fixture-chip' },
+          el('span', { className: `ha-badge ${fx.home ? 'home' : 'away'}` }, fx.home ? 'H' : 'A'),
+          el('span', { className: 'fixture-opp' }, fx.opp)
+        )
+      )
+    );
+  }
+
   const card = el('div', { className: 'player-card', 'data-player-id': String(pick.element) },
     shirt,
     el('div', { className: `player-pts-badge${ptsClass ? ' ' + ptsClass : ''}` }, String(pts)),
     el('div', { className: 'player-name-txt' }, playerMeta ? playerMeta.web_name : String(pick.element)),
-    opponentLabel ? el('div', { className: 'player-fixture-txt' }, opponentLabel) : null
+    fixtureEl
   );
   return card;
 }
@@ -2579,7 +2614,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
     // During a live GW these are the same; pre-GW we want next-GW labels but this GW's bonus state
     const resolvedFixtureGW = isLive ? gw : (bs.events.find(e => e.is_next)?.id || null);
     let liveFixtures = null; // current GW fixtures — used for per-fixture bonus calculation
-    const opponentMap = {};  // team_id → label string e.g. "vs MCI" or "@ ARS"
+    const opponentMap = {};  // team_id → array of {opp: string, home: boolean}
     if (isLive) {
       // Single fetch covers both bonus logic and opponent labels
       try {
@@ -2594,7 +2629,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
           teamFixtures[f.team_a].push({ opp: hName, home: false });
         });
         Object.entries(teamFixtures).forEach(([tid, fxs]) => {
-          opponentMap[Number(tid)] = fxs.map(f => (f.home ? 'vs ' : '@ ') + f.opp).join(' + ');
+          opponentMap[Number(tid)] = fxs; // array of {opp, home}
         });
       } catch (e) {
         console.warn('Could not load fixture opponents:', e);
@@ -2613,7 +2648,7 @@ async function buildPitchView(entryId, gw, container, isLive) {
           teamFixtures[f.team_a].push({ opp: hName, home: false });
         });
         Object.entries(teamFixtures).forEach(([tid, fxs]) => {
-          opponentMap[Number(tid)] = fxs.map(f => (f.home ? 'vs ' : '@ ') + f.opp).join(' + ');
+          opponentMap[Number(tid)] = fxs; // array of {opp, home}
         });
       } catch (e) {
         console.warn('Could not load fixture opponents:', e);
