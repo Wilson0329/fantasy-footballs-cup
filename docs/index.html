@@ -2174,7 +2174,7 @@ async function buildFinalPitchView(final, liveGW, container) {
       getBootstrap(),
       getPicks(final.team_a.entry_id, pickGW),
       getPicks(final.team_b.entry_id, pickGW),
-      getGWFixtures(pickGW).catch(() => null),
+      getGWFixtures(final.gw).catch(() => null),  // always use final GW for fixture labels, not preview GW
     ]);
 
     const playerMap = {};
