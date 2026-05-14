@@ -2099,7 +2099,7 @@ function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw, fixtur
   );
 }
 
-function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw) {
+function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw, opponentMap = {}) {
   const panel = el('div', { className: 'final-bench-panel' });
   panel.appendChild(el('div', { className: 'final-bench-header' },
     el('span', { className: 'final-bench-title' }, teamName),
@@ -2138,11 +2138,25 @@ function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw) {
       ptsEl.textContent = '…';
     }
 
+    const fixture = pm ? (opponentMap[pm.team] || null) : null;
+    let fixtureEl = null;
+    if (Array.isArray(fixture) && fixture.length > 0) {
+      fixtureEl = el('div', { className: 'player-fixture-row' },
+        ...fixture.map(fx =>
+          el('span', { className: 'fixture-chip' },
+            el('span', { className: `ha-badge ${fx.home ? 'home' : 'away'}` }, fx.home ? 'H' : 'A'),
+            el('span', { className: 'fixture-opp' }, fx.opp)
+          )
+        )
+      );
+    }
+
     playersContainer.appendChild(el('div', { className: 'final-bench-player' },
       shirtEl,
       el('div', { className: 'final-bench-info' },
         el('div', { className: 'final-bench-name' }, pm ? pm.web_name : String(pick.element)),
-        ptsEl
+        ptsEl,
+        fixtureEl
       )
     ));
   });
@@ -2258,9 +2272,9 @@ async function buildFinalPitchView(final, liveGW, container) {
     pitchMain.appendChild(pitchBg);
 
     container.innerHTML = '';
-    container.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
+    container.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, liveGW || final.gw, opponentMap));
     container.appendChild(pitchMain);
-    container.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, liveGW || final.gw));
+    container.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, liveGW || final.gw, opponentMap));
 
     // If live, update player pts from current live data
     if (isLiveFinal) {
