@@ -2065,7 +2065,7 @@ function buildMiniShirt(teamCode, isGK, posClass) {
   return shirt;
 }
 
-function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw) {
+function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw, fixture = null) {
   const isGK = playerMeta && playerMeta.element_type === 1;
   const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
   const shirt = buildMiniShirt(teamCode, isGK, posClass);
@@ -2078,10 +2078,24 @@ function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw) {
     ptsEl.textContent = '…';
   }
 
+  // H/A fixture chip — reuses the same classes as the regular pitch view
+  let fixtureEl = null;
+  if (Array.isArray(fixture) && fixture.length > 0) {
+    fixtureEl = el('div', { className: 'player-fixture-row' },
+      ...fixture.map(fx =>
+        el('span', { className: 'fixture-chip' },
+          el('span', { className: `ha-badge ${fx.home ? 'home' : 'away'}` }, fx.home ? 'H' : 'A'),
+          el('span', { className: 'fixture-opp' }, fx.opp)
+        )
+      )
+    );
+  }
+
   return el('div', { className: 'mini-player-card' },
     shirt,
     ptsEl,
-    el('div', { className: 'mini-name' }, playerMeta ? playerMeta.web_name : String(pick.element))
+    el('div', { className: 'mini-name' }, playerMeta ? playerMeta.web_name : String(pick.element)),
+    fixtureEl
   );
 }
 
@@ -2156,16 +2170,34 @@ async function buildFinalPitchView(final, liveGW, container) {
   }
 
   try {
-    const [bs, picksA, picksB] = await Promise.all([
+    const [bs, picksA, picksB, gwFixtures] = await Promise.all([
       getBootstrap(),
       getPicks(final.team_a.entry_id, pickGW),
       getPicks(final.team_b.entry_id, pickGW),
+      getGWFixtures(pickGW).catch(() => null),
     ]);
 
     const playerMap = {};
     bs.elements.forEach(p => { playerMap[p.id] = p; });
     const teamMap = {};
     bs.teams.forEach(t => { teamMap[t.id] = t; });
+
+    // Build opponent map: team_id → [{opp, home}] for H/A chips on player cards
+    const opponentMap = {};
+    if (gwFixtures) {
+      const teamFixtures = {};
+      gwFixtures.forEach(f => {
+        const hName = teamMap[f.team_h]?.short_name || '?';
+        const aName = teamMap[f.team_a]?.short_name || '?';
+        if (!teamFixtures[f.team_h]) teamFixtures[f.team_h] = [];
+        if (!teamFixtures[f.team_a]) teamFixtures[f.team_a] = [];
+        teamFixtures[f.team_h].push({ opp: aName, home: true });
+        teamFixtures[f.team_a].push({ opp: hName, home: false });
+      });
+      Object.entries(teamFixtures).forEach(([tid, fxs]) => {
+        opponentMap[Number(tid)] = fxs;
+      });
+    }
 
     // If live, seed live points into player elements
     if (isLiveFinal) {
@@ -2203,7 +2235,8 @@ async function buildFinalPitchView(final, liveGW, container) {
         groups[et].forEach(pick => {
           const pm = playerMap[pick.element];
           const teamCode = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
-          col.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, liveGW || final.gw));
+          const fixture = pm ? (opponentMap[pm.team] || null) : null;
+          col.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, liveGW || final.gw, fixture));
         });
         colsRow.appendChild(col);
       });
