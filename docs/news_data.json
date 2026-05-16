@@ -1,60 +1,58 @@
 {
-  "generated_at": "2026-05-15T10:05:27",
-  "gw": 36,
-  "is_live": false,
+  "generated_at": "2026-05-16T09:14:11",
+  "gw": 37,
+  "is_live": true,
   "squad_alert_fingerprint": [
-    "Charles Smith:Gibbs-White (NFO) [DOUBTFUL] [bench] [VICE-CAPTAIN] \u2014 Facial Injury - 75% chance of playing",
+    "Charles Smith:Gibbs-White (NFO) [DOUBTFUL] [starting XI] [VICE-CAPTAIN] \u2014 Facial Injury - 75% chance of playing",
     "Alexander Bodek:Ballard (SUN) [SUSPENDED] [bench] \u2014 Suspended until 25 May",
-    "David Pontin:J.Timber (ARS) [INJURED] [bench] \u2014 Ankle injury - Unknown return date",
+    "David Pontin:J.Timber (ARS) [INJURED] [starting XI] \u2014 Ankle injury - Unknown return date",
     "Sam Haseltine:S\u00e1nchez (CHE) [DOUBTFUL] [starting XI] \u2014 Head injury - 75% chance of playing",
     "Sam Haseltine:Murillo (NFO) [INJURED] [bench] \u2014 Muscle injury - Unknown return date",
     "George Georgiou:A.Jimenez (BOU) [NOT AVAILABLE] [bench] \u2014 Made unavailable for selection on 8/5. - Unknown return date",
     "George Georgiou:Romero (TOT) [INJURED] [bench] \u2014 Knee injury - Expected back 01 Jun",
     "George Georgiou:Ekitik\u00e9 (LIV) [INJURED] [bench] \u2014 Achilles injury - Expected back 01 Jul",
-    "Dominic Byrne:Wirtz (LIV) [DOUBTFUL] [starting XI] \u2014 Illness - 75% chance of playing",
-    "Dominic Byrne:Jos\u00e9 S\u00e1 (WOL) [DOUBTFUL] [bench] \u2014 Ankle injury - 50% chance of playing",
-    "Dominic Byrne:Bogle (LEE) [DOUBTFUL] [bench] \u2014 Hamstring injury - 75% chance of playing",
-    "Arun Quayum:\u0160e\u0161ko (MUN) [DOUBTFUL] [bench] [VICE-CAPTAIN] \u2014 Shin injury - 75% chance of playing",
+    "Dominic Byrne:Bogle (LEE) [INJURED] [bench] \u2014 Hamstring injury - Unknown return date",
+    "Arun Quayum:\u0160e\u0161ko (MUN) [DOUBTFUL] [starting XI] [VICE-CAPTAIN] \u2014 Shin injury - 50% chance of playing",
     "Adam Georghiou:Andersen (FUL) [SUSPENDED] [starting XI] \u2014 Suspended until 29 Aug",
     "Adam Georghiou:A.Becker (LIV) [DOUBTFUL] [bench] \u2014 Lack of match fitness - 75% chance of playing",
-    "Ed Pragnell:Mitoma (BHA) [INJURED] [starting XI] \u2014 Hamstring injury - Expected back 01 Jun",
     "Ed Pragnell:Solanke (TOT) [DOUBTFUL] [bench] \u2014 Muscle injury - 50% chance of playing",
     "Ed Pragnell:Neto (CHE) [DOUBTFUL] [bench] \u2014 Knock - 75% chance of playing",
+    "Ed Pragnell:Mitoma (BHA) [INJURED] [bench] \u2014 Hamstring injury - Expected back 01 Jun",
     "Joe Wilson:Vicario (TOT) [DOUBTFUL] [bench] \u2014 Hernia - 25% chance of playing",
-    "Joe Wilson:Aina (NFO) [INJURED] [bench] \u2014 Knock - Unknown return date",
     "Joe Wilson:Rodrigo (MCI) [DOUBTFUL] [bench] \u2014 Groin Injury - 75% chance of playing",
+    "Joe Wilson:Aina (NFO) [INJURED] [bench] \u2014 Knock - Unknown return date",
     "Aron Rouse:Calafiori (ARS) [DOUBTFUL] [starting XI] \u2014 Knock - 75% chance of playing",
     "Aron Rouse:Gudmundsson (LEE) [DOUBTFUL] [bench] \u2014 Hamstring injury - 50% chance of playing"
   ],
-  "podcast_file": "podcast.mp3",
+  "podcast_file": null,
   "articles": [
     {
       "id": "title_race",
       "pundit_name": "Gary Neville",
       "pundit_image": "neville.jpg",
-      "headline": "Title Race Done, Payouts Heat Up Dramatically",
-      "body": "So, Charles has mathematically secured the title\u2014congratulations to him, but let's not kid ourselves, the real drama is unfolding in the payout race where Alexander and David are neck and neck for that crucial second spot. Just four points separate them, and while Sam is trying to claw his way back, he's now a hefty 39 points behind David. I genuinely believe every point counts, and this is the time for those managers to be wild with their transfers. Just think, who wouldn't want to swap out a low-scoring bench player for a hidden gem in the final weeks? \n\nNow, we\u2019ve got some serious injury woes as well, with players like Wirtz and Gibbs-White potentially sidelined, which could throw a spanner in the works for those fighting for the payouts. And don't even get me started on the relegation zone; Joe and Aron are sweating bullets, with Joe a mere 50 points away from safety. However, with only two gameweeks left, it's going to take a minor miracle for these lads to escape the drop. I have my popcorn ready, folks\u2014this is going to be absolutely brilliant!"
+      "headline": "Title Race Won, Battle for Payouts Heats Up",
+      "body": "Charles has sewn up the title with an impressive 220 points lead\u2014absolutely brilliant on his part! But let\u2019s talk about the real drama happening right now: the fight for those vital payout positions. Alexander and David are neck and neck for second and third, only two points apart. Alexander\u2019s still got 11 players to play, and David, despite underwhelming so far with just 2 points, can still swing it if Gy\u00f6keres turns up for him. If I had to put my money on it, I think it\u2019s going to be a nail-biter all the way to the final whistle\u2014genuinely!\n\nMeanwhile, Sam's in a precarious position, needing a miracle to leapfrog David with 41 points to make up. But hey, with so many players still to play, anything\u2019s possible! And let's not forget the relegation scrap\u2014Joe's lurking dangerously close, while Aron\u2019s almost waving goodbye to safety. Poor chap's 151 points adrift! It\u2019s the kind of drama that makes you clutch your pearls and say, \u201cBut this is why we watch!\u201d"
     },
     {
       "id": "relegation",
       "pundit_name": "Roy Keane",
       "pundit_image": "keane.jpg",
-      "headline": "Relegation Looms: Time for Joe and Aron to Wake Up",
-      "body": "Look at Joe and Aron at the bottom. Joe\u2019s 50 points from safety and Aron\u2019s a staggering 151 points behind. That's embarrassing. They\u2019ve had months to get their act together, and here we are, two weeks left, and they\u2019re still flopping around like a fish out of water. They should be ashamed of themselves. If they can't step it up now, they\u2019ve got no business being in this league.\n\nYou can\u2019t blame bad luck; it\u2019s poor decision-making and lack of effort week in, week out. Joe's got injuries piling up and doubts swirling around his squad, while Aron\u2019s clearly lost the plot. No excuses, lads. There's a relegation spot with your name on it if you don't wake up. It\u2019s simple: perform or pack your bags."
+      "headline": "Relegation Fighters Must Step Up or Face Doom",
+      "body": "Look at Joe and Aron at the bottom. Joe is 36 points from safety, which isn\u2019t exactly a mountain to climb\u2014but it\u2019s still far from good enough. The only thing worse than his team is Aron, floundering 151 points off the pace. I mean, how can you show up week after week and produce nothing? It\u2019s embarrassing. They\u2019ve both got a week left to salvage something, but they\u2019ve got to start putting points on the board\u2014otherwise, they\u2019ll be watching the league from the Championship next season.\n\nAnd let\u2019s talk about Joe\u2019s captain choice. Schade\u2014who? You\u2019re asking for trouble. Meanwhile, Aron\u2019s got Dewsbury-Hall knotted up in that captaincy as if that\u2019ll do anything. Come on! You\u2019re in a relegation scrap\u2014make better decisions. This isn\u2019t a charity! If you\u2019re going to go down, at least go down swinging, not just lying down and waiting for the inevitable."
     },
     {
       "id": "cup_final",
       "pundit_name": "Jamie Carragher",
       "pundit_image": "carragher.jpg",
-      "headline": "Cup Final Showdown: Dominics Versus Jasons Clash",
-      "body": "What a tie we\u2019ve got in this cup final, eh? Dominic\u2019s HC XI II against Jason\u2019s Inevitable, and let me tell ya, this is like watching a Champions League final! You've got Dominic rolling out Donnarumma, but Wirtz is a big worry with that illness; can you imagine him missing this massive occasion? Meanwhile, Jason\u2019s got the sly fox, Cherki, as captain, and he could be the difference maker. \n\nWith only two gameweeks left, FPL\u2019s heating up! Charles has basically clinched the title, but the race for payouts is tighter than a pair of skinny jeans after Christmas dinner. Alexander and David are only four points apart for that second spot, and it\u2019s absolutely bonkers! You just know it\u2019s gonna come down to the wire, and I can't wait to see who grabs those prizes."
+      "headline": "Cup Final Showdown: Pressure Mounts in Gameweek 38",
+      "body": "What a cup final we've got coming up, eh? Dominic's HC XI II taking on Jason's Inevitable. Dominic's got a solid squad with B.Fernandes captaining \u2014 he\u2019ll be looking to make a statement against a Jason side that\u2019s lifted by the sensational Watkins, who's already bagged 18 points in this gameweek! But listen, the pressure is on for both, and it's all about who can handle that big day nerves. It's like a Champions League final where one mistake could change everything.\n\nAnd what a final Gameweek 38 is set to be for the rest of the league! Charles has wrapped up the title, but the fight for those precious payout spots is red-hot. Alexander, David, and Sam are all trying to nab that second and third place, and with only a slim margin between them, anything could happen. Meanwhile, Joe and Aron are sweating bullets down in the relegation zone, staring at a wall of misery with Ed comfortably above them. You can't write drama like this!"
     },
     {
       "id": "form_injuries",
       "pundit_name": "Micah Richards",
       "pundit_image": "richards.jpg",
-      "headline": "FPL Drama Unfolds: Title Race and Relegation Battle Heat Up",
-      "body": "Wow, what a turn of events in the FPL! Charles is cruising towards the title with a 211-point lead\u2014unbelievable stuff! But let\u2019s not forget the real drama is behind him. Alexander and David are just a couple of points apart fighting for that second place payout, while Sam is desperately trying to sneak in there! And with only two gameweeks left, every point counts! They\u2019ll need their big guns fit and firing\u2014because injuries are absolutely rampant. Just look at Dominic\u2019s squad with Wirtz and Jos\u00e9 S\u00e1 questionable; they can't afford any slip-ups now!\n\nAnd speaking of injuries, it\u2019s a miracle that Joe and Aron haven\u2019t just thrown in the towel yet! Joe is teetering on the edge of relegation, and with players like Rodrigo and Vicario doubtful, you'd think they could at least score some points! You\u2019d expect better from these managers, but here we are! It\u2019s a mad scramble at both ends of the table\u2014popcorn ready, folks, because the next couple of weeks are going to be a wild ride!"
+      "headline": "Title Race Heats Up: Drama Unfolds in Fantasy Football",
+      "body": "Oh my days, what a finish we\u2019ve got going on! Charles is sitting pretty at the top, and I mean, who wouldn\u2019t with a whopping 220-point lead? But the real excitement is all about Alexander and David, just two points apart for that second spot! I reckon they\u2019re sweating bullets as Sam waits like a silent predator down in fourth, hoping to pounce if either one stumbles this gameweek. Just think about it\u2014most managers\u2019 hearts must be racing! \n\nAnd let\u2019s talk about injuries, right? Joe\u2019s got his hands full with top players like Vicario and Rodrigo both doubtful, while Aron\u2019s in a real pickle, 151 points from safety and yet to score a single point this matchweek! It\u2019s it all about survival for those guys! And with captains like Semenyo yet to kick a ball, this is shaping up to be one crazy week with everything still in the balance. Give them some credit, will you? It\u2019s all to play for!"
     }
   ]
 }
