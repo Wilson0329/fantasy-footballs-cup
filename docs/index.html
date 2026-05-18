@@ -1420,14 +1420,21 @@
 
     /* ── Season points chart (Feature 6) ── */
     .chart-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem; margin-top:1rem; }
-    .chart-card h3 { font-size:0.78rem; font-weight:700; color:var(--text); margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem; }
-    .chart-toggles { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:0.75rem; }
-    .chart-toggle-btn { font-size:0.52rem; font-weight:700; padding:2px 6px; border-radius:4px; border:none; cursor:pointer; opacity:1; transition:opacity 0.15s; letter-spacing:0.02em; }
-    .chart-toggle-btn.hidden-line { opacity:0.25; }
+    .chart-card-header { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:0.5rem; gap:0.5rem; flex-wrap:wrap; }
+    .chart-card h3 { font-size:0.95rem; font-weight:700; color:var(--text); display:flex; align-items:center; gap:0.4rem; margin:0; }
+    .chart-card p  { font-size:0.75rem; color:var(--muted); margin:0 0 0.75rem; }
+    .chart-filter-bar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:0.65rem; }
+    .chart-filter-label { font-size:0.65rem; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.4px; white-space:nowrap; }
+    .chart-filter-shortcuts { display:flex; gap:4px; }
+    .chart-shortcut-btn { font-size:0.62rem; font-weight:600; padding:2px 7px; border-radius:4px; border:1px solid var(--border); background:var(--surface2); color:var(--muted); cursor:pointer; }
+    .chart-shortcut-btn:hover { color:var(--text); border-color:rgba(255,255,255,0.25); }
+    .chart-toggles { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:0.75rem; }
+    .chart-toggle-btn { font-size:0.62rem; font-weight:700; padding:3px 9px; border-radius:20px; border:2px solid transparent; cursor:pointer; transition:opacity 0.15s, border-color 0.15s; letter-spacing:0.02em; }
+    .chart-toggle-btn.hidden-line { opacity:0.22; border-color:transparent !important; }
     .chart-svg { width:100%; overflow:visible; }
     .chart-axis { font-size:8px; fill:rgba(255,255,255,0.35); }
-    .chart-line { fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:opacity 0.15s; }
-    .chart-label { font-size:7px; font-weight:600; transition:opacity 0.15s; }
+    .chart-line { fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:opacity 0.2s; }
+    .chart-label { font-size:7px; font-weight:700; transition:opacity 0.2s; }
     .chart-line.hidden-line, .chart-label.hidden-line { opacity:0; pointer-events:none; }
 
     /* ── Transfer timeline (Feature 12) ── */
@@ -3214,8 +3221,11 @@ async function buildSeasonPointsChart(data, container) {
   const CHART_PALETTE = ['#6366f1','#10b981','#f59e0b','#ef4444','#3b82f6','#8b5cf6','#06b6d4','#84cc16','#f97316','#ec4899','#14b8a6','#a855f7'];
 
   // Insert card with loading placeholder
-  const chartCard = el('div', { className: 'chart-card' });
-  chartCard.appendChild(el('h3', {}, icon('trending-up'), ' Season Points'));
+  const chartCard = el('div', { className: 'chart-card stats-card' });
+  const cardHdr = el('div', { className: 'chart-card-header' });
+  cardHdr.appendChild(el('h3', {}, icon('trending-up'), ' Season Points'));
+  chartCard.appendChild(cardHdr);
+  chartCard.appendChild(el('p', {}, 'Cumulative FPL points across the season. Toggle managers using the pills below.'));
   const placeholder = el('div', { style: 'text-align:center;color:var(--muted);font-size:0.78rem;padding:1.5rem 0' }, 'Loading chart…');
   chartCard.appendChild(placeholder);
   container.appendChild(chartCard);
@@ -3293,49 +3303,80 @@ async function buildSeasonPointsChart(data, container) {
       }
     });
 
-    // Toggle buttons row (one per manager)
-    const togglesRow = el('div', { className: 'chart-toggles' });
-    const lineEls = [];   // { polyline, label, btn }
+    // Determine top 3 by final cumulative points
+    const sorted = [...managerData].sort((a, b) =>
+      (b.cumPoints[b.cumPoints.length - 1] || 0) - (a.cumPoints[a.cumPoints.length - 1] || 0)
+    );
+    const top3Names = new Set(sorted.slice(0, 3).map(m => m.name));
 
-    // Lines + end labels
+    // Lines + labels (built before toggles so we can wire up buttons)
+    const lineEls = []; // { polyline, lbl, btn, mi }
     managerData.forEach((m, mi) => {
       const colour = CHART_PALETTE[mi % CHART_PALETTE.length];
+      const isTop3 = top3Names.has(m.name);
       const points = gwRange.map((_, idx) => `${xPos(idx).toFixed(1)},${yPos(m.cumPoints[idx]).toFixed(1)}`).join(' ');
+
       const polyline = document.createElementNS(svgNS, 'polyline');
       polyline.setAttribute('points', points);
-      polyline.setAttribute('class', 'chart-line');
+      polyline.setAttribute('class', `chart-line${isTop3 ? '' : ' hidden-line'}`);
       polyline.setAttribute('stroke', colour);
-      polyline.setAttribute('data-mi', String(mi));
       svg.appendChild(polyline);
 
-      // End-of-line label
       const lastVal = m.cumPoints[gwRange.length - 1] || 0;
-      const lx = xPos(gwRange.length - 1) + 4;
-      const ly = yPos(lastVal) + 3;
       const lbl = document.createElementNS(svgNS, 'text');
-      lbl.setAttribute('x', lx); lbl.setAttribute('y', ly);
-      lbl.setAttribute('class', 'chart-label');
+      lbl.setAttribute('x', String(xPos(gwRange.length - 1) + 4));
+      lbl.setAttribute('y', String(yPos(lastVal) + 3));
+      lbl.setAttribute('class', `chart-label${isTop3 ? '' : ' hidden-line'}`);
       lbl.setAttribute('fill', colour);
-      lbl.setAttribute('data-mi', String(mi));
       lbl.textContent = m.name.split(' ')[0];
       svg.appendChild(lbl);
 
-      // Toggle button
-      const btn = el('button', {
-        className: 'chart-toggle-btn',
-        style: `background:${colour};color:${mi === 3 ? '#fff' : (colour === '#f59e0b' ? '#000' : '#fff')}`,
-        title: m.name
-      }, m.name.split(' ')[0]);
-      btn.addEventListener('click', () => {
-        const hidden = polyline.classList.toggle('hidden-line');
-        lbl.classList.toggle('hidden-line', hidden);
-        btn.classList.toggle('hidden-line', hidden);
+      lineEls.push({ polyline, lbl, colour, name: m.name, isTop3 });
+    });
+
+    // Filter bar: label + shortcut buttons
+    const filterBar = el('div', { className: 'chart-filter-bar' });
+    filterBar.appendChild(el('span', { className: 'chart-filter-label' }, 'Showing:'));
+    const shortcuts = el('div', { className: 'chart-filter-shortcuts' });
+
+    function setVisible(indices) {
+      lineEls.forEach(({ polyline, lbl, btn }, i) => {
+        const show = indices.includes(i);
+        polyline.classList.toggle('hidden-line', !show);
+        lbl.classList.toggle('hidden-line', !show);
+        btn.classList.toggle('hidden-line', !show);
       });
+    }
+
+    const top3Indices = managerData.map((m, i) => top3Names.has(m.name) ? i : -1).filter(i => i >= 0);
+    const btnTop3 = el('button', { className: 'chart-shortcut-btn' }, 'Top 3');
+    btnTop3.addEventListener('click', () => setVisible(top3Indices));
+    const btnAll = el('button', { className: 'chart-shortcut-btn' }, 'All');
+    btnAll.addEventListener('click', () => setVisible(managerData.map((_, i) => i)));
+    shortcuts.appendChild(btnTop3);
+    shortcuts.appendChild(btnAll);
+    filterBar.appendChild(shortcuts);
+
+    // Toggle pills row
+    const togglesRow = el('div', { className: 'chart-toggles' });
+    lineEls.forEach(({ polyline, lbl, colour, name, isTop3 }, i) => {
+      const isDark = colour === '#f59e0b' || colour === '#84cc16';
+      const btn = el('button', {
+        className: `chart-toggle-btn${isTop3 ? '' : ' hidden-line'}`,
+        style: `background:${colour};color:${isDark ? '#000' : '#fff'};border-color:${colour}`,
+        title: `Toggle ${name}`
+      }, name.split(' ')[0]);
+      btn.addEventListener('click', () => {
+        const nowHidden = polyline.classList.toggle('hidden-line');
+        lbl.classList.toggle('hidden-line', nowHidden);
+        btn.classList.toggle('hidden-line', nowHidden);
+      });
+      lineEls[i].btn = btn;
       togglesRow.appendChild(btn);
-      lineEls.push({ polyline, lbl, btn });
     });
 
     placeholder.remove();
+    chartCard.appendChild(filterBar);
     chartCard.appendChild(togglesRow);
     chartCard.appendChild(svg);
   } catch(e) {
@@ -3416,36 +3457,35 @@ function buildLeagueTab(data) {
     // Helper: build chip icons row for a manager (Feature 4 & 5)
     function buildChipIconsRow(entryId) {
       const chips = _chipsCache[entryId] || [];
-      // Build a map: chip name → array of GWs played
+      // Build a map: chip name → array of GWs played (in order)
       const chipGWs = {};
       chips.forEach(c => { (chipGWs[c.name] = chipGWs[c.name] || []).push(c.event); });
 
       const wcGWs = chipGWs['wildcard'] || [];
-      const bbGW  = (chipGWs['bboost']  || [])[0];
-      const tcGW  = (chipGWs['3xc']     || [])[0];
-      const fhGW  = (chipGWs['freehit'] || [])[0];
+      const bbGWs = chipGWs['bboost']   || [];
+      const tcGWs = chipGWs['3xc']      || [];
+      const fhGWs = chipGWs['freehit']  || [];
 
       const iconsRow = el('div', { className: 'chip-icons' });
-      // Wildcard — two slots
-      for (let i = 0; i < 2; i++) {
-        const usedGW = wcGWs[i];
-        iconsRow.appendChild(el('span', {
-          className: `chip-icon wc${usedGW != null ? ' chip-used' : ''}`,
-          title: usedGW != null ? `WC used GW${usedGW}` : 'Wildcard available'
-        }, 'WC'));
-      }
-      iconsRow.appendChild(el('span', {
-        className: `chip-icon bb${bbGW != null ? ' chip-used' : ''}`,
-        title: bbGW != null ? `BB used GW${bbGW}` : 'Bench Boost available'
-      }, 'BB'));
-      iconsRow.appendChild(el('span', {
-        className: `chip-icon tc${tcGW != null ? ' chip-used' : ''}`,
-        title: tcGW != null ? `TC used GW${tcGW}` : 'Triple Captain available'
-      }, 'TC'));
-      iconsRow.appendChild(el('span', {
-        className: `chip-icon fh${fhGW != null ? ' chip-used' : ''}`,
-        title: fhGW != null ? `FH used GW${fhGW}` : 'Free Hit available'
-      }, 'FH'));
+
+      // WC ×2, BB ×2, TC ×2, FH ×1
+      const chipDefs = [
+        { abbr: 'WC', cls: 'wc', label: 'Wildcard',       slots: 2, gwList: wcGWs },
+        { abbr: 'BB', cls: 'bb', label: 'Bench Boost',    slots: 2, gwList: bbGWs },
+        { abbr: 'TC', cls: 'tc', label: 'Triple Captain', slots: 2, gwList: tcGWs },
+        { abbr: 'FH', cls: 'fh', label: 'Free Hit',       slots: 1, gwList: fhGWs },
+      ];
+
+      chipDefs.forEach(({ abbr, cls, label, slots, gwList }) => {
+        for (let i = 0; i < slots; i++) {
+          const usedGW = gwList[i];
+          iconsRow.appendChild(el('span', {
+            className: `chip-icon ${cls}${usedGW != null ? ' chip-used' : ''}`,
+            title: usedGW != null ? `${label} used GW${usedGW}` : `${label} available`
+          }, abbr));
+        }
+      });
+
       return iconsRow;
     }
 
@@ -3625,9 +3665,6 @@ function buildLeagueTab(data) {
 
       buildStandingsTable(selectedGW, isLiveGW);
       if (isLiveGW) refreshLeagueScores();
-
-      // Season points chart (Feature 6) — build after history already cached
-      buildSeasonPointsChart(data, wrap);
 
     } catch(e) {
       statusBar.innerHTML = `<span class="gw-status-text">Could not load FPL data: ${e.message}</span>`;
@@ -3968,10 +4005,16 @@ function buildCaptainHitRateTable(hitRate) {
 function buildStatsTab(data) {
   const frag = document.createDocumentFragment();
   frag.appendChild(el('div', { className: 'section-title' }, icon('trending-up'), ' Stats'));
+
+  // Season points chart — async, self-appending
+  const chartContainer = el('div');
+  frag.appendChild(chartContainer);
+  buildSeasonPointsChart(data, chartContainer);
+
+  frag.appendChild(buildFormTable(data.form));
   frag.appendChild(buildTradeDiffTable(data.trade_differential));
   frag.appendChild(buildTransferTimeline(data.trade_differential || []));
   frag.appendChild(buildCaptainTable(data.captain_points));
-  frag.appendChild(buildFormTable(data.form));
   frag.appendChild(buildBenchTable(data.bench_points));
   frag.appendChild(buildCaptainHitRateTable(data.captain_hit_rate));
   return frag;
