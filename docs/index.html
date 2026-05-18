@@ -3469,19 +3469,22 @@ function buildLeagueTab(data) {
       const iconsRow = el('div', { className: 'chip-icons' });
 
       // WC ×2, BB ×2, TC ×2, FH ×1
+      // The API returns one {name, event} entry per use — index 0 = first use, index 1 = second use
       const chipDefs = [
-        { abbr: 'WC', cls: 'wc', label: 'Wildcard',       slots: 2, gwList: wcGWs },
-        { abbr: 'BB', cls: 'bb', label: 'Bench Boost',    slots: 2, gwList: bbGWs },
-        { abbr: 'TC', cls: 'tc', label: 'Triple Captain', slots: 2, gwList: tcGWs },
-        { abbr: 'FH', cls: 'fh', label: 'Free Hit',       slots: 1, gwList: fhGWs },
+        { cls: 'wc', label: 'Wildcard',       slots: 2, gwList: wcGWs },
+        { cls: 'bb', label: 'Bench Boost',    slots: 2, gwList: bbGWs },
+        { cls: 'tc', label: 'Triple Captain', slots: 2, gwList: tcGWs },
+        { cls: 'fh', label: 'Free Hit',       slots: 1, gwList: fhGWs },
       ];
 
-      chipDefs.forEach(({ abbr, cls, label, slots, gwList }) => {
+      chipDefs.forEach(({ cls, label, slots, gwList }) => {
         for (let i = 0; i < slots; i++) {
           const usedGW = gwList[i];
+          // Label: WC1/WC2, BB1/BB2, TC1/TC2, FH (no number for single-slot)
+          const abbr = slots > 1 ? `${cls.toUpperCase()}${i + 1}` : cls.toUpperCase();
           iconsRow.appendChild(el('span', {
             className: `chip-icon ${cls}${usedGW != null ? ' chip-used' : ''}`,
-            title: usedGW != null ? `${label} used GW${usedGW}` : `${label} available`
+            title: usedGW != null ? `${label} ${i + 1} used GW${usedGW}` : `${label} ${i + 1} available`
           }, abbr));
         }
       });
@@ -3494,9 +3497,14 @@ function buildLeagueTab(data) {
       const chips = _chipsCache[entryId] || [];
       const chip = chips.find(c => c.event === gw);
       if (!chip) return null;
-      const nameMap = { wildcard: 'WC', bboost: 'BB', '3xc': 'TC', freehit: 'FH' };
       const classMap = { wildcard: 'wc', bboost: 'bb', '3xc': 'tc', freehit: 'fh' };
-      return { abbr: nameMap[chip.name] || chip.name.toUpperCase(), cls: classMap[chip.name] || 'wc' };
+      const cls = classMap[chip.name] || 'wc';
+      // Work out whether this is the 1st or 2nd use for numbered chips
+      const sameType = chips.filter(c => c.name === chip.name);
+      const useIndex = sameType.findIndex(c => c.event === gw); // 0-based
+      const baseAbbr = { wildcard: 'WC', bboost: 'BB', '3xc': 'TC', freehit: 'FH' }[chip.name] || chip.name.toUpperCase();
+      const abbr = sameType.length > 1 ? `${baseAbbr}${useIndex + 1}` : baseAbbr;
+      return { abbr, cls };
     }
 
     const thead = el('thead', {},
