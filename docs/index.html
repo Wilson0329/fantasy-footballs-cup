@@ -3382,7 +3382,7 @@ async function buildSeasonPointsChart(data, container) {
     });
 
     // SVG dimensions
-    const W = 600, H = 280, PAD_L = 42, PAD_R = 70, PAD_T = 16, PAD_B = 28;
+    const W = 600, H = 320, PAD_L = 42, PAD_R = 76, PAD_T = 16, PAD_B = 28;
     const chartW = W - PAD_L - PAD_R;
     const chartH = H - PAD_T - PAD_B;
 
@@ -3449,14 +3449,37 @@ async function buildSeasonPointsChart(data, container) {
       const lastVal = m.cumPoints[gwRange.length - 1] || 0;
       const lbl = document.createElementNS(svgNS, 'text');
       lbl.setAttribute('x', String(xPos(gwRange.length - 1) + 4));
-      lbl.setAttribute('y', String(yPos(lastVal) + 3));
+      lbl.setAttribute('y', String(yPos(lastVal) + 4));
       lbl.setAttribute('class', `chart-label${isTop3 ? '' : ' hidden-line'}`);
       lbl.setAttribute('fill', colour);
       lbl.textContent = m.name.split(' ')[0];
       svg.appendChild(lbl);
 
-      lineEls.push({ polyline, lbl, colour, name: m.name, isTop3 });
+      lineEls.push({ polyline, lbl, colour, name: m.name, isTop3, rawY: yPos(lastVal) + 4 });
     });
+
+    // ── Collision avoidance: spread overlapping end labels ──
+    const MIN_GAP = 12; // px between label baselines
+    const labelsSorted = [...lineEls]
+      .map((le, i) => ({ le, i, y: le.rawY }))
+      .sort((a, b) => a.y - b.y);
+
+    // Forward pass: push labels downward if too close
+    for (let i = 1; i < labelsSorted.length; i++) {
+      if (labelsSorted[i].y - labelsSorted[i - 1].y < MIN_GAP) {
+        labelsSorted[i].y = labelsSorted[i - 1].y + MIN_GAP;
+      }
+    }
+    // Backward pass: pull labels upward if the forward pass pushed them past the bottom
+    const maxLblY = PAD_T + chartH + 4;
+    for (let i = labelsSorted.length - 1; i >= 0; i--) {
+      if (labelsSorted[i].y > maxLblY) labelsSorted[i].y = maxLblY - (labelsSorted.length - 1 - i) * MIN_GAP;
+      if (i > 0 && labelsSorted[i].y - labelsSorted[i - 1].y < MIN_GAP) {
+        labelsSorted[i - 1].y = labelsSorted[i].y - MIN_GAP;
+      }
+    }
+    // Apply adjusted Y positions
+    labelsSorted.forEach(({ le, y }) => le.lbl.setAttribute('y', String(y.toFixed(1))));
 
     // Filter bar: label + shortcut buttons
     const filterBar = el('div', { className: 'chart-filter-bar' });
