@@ -1647,6 +1647,128 @@
       .news-open-quote { font-size: 2.4rem; }
       .news-headline { font-size: 0.93rem; }
     }
+
+    /* ── Draft tab ── */
+    .draft-header { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .draft-views { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .draft-view-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.45rem 0.9rem; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted); transition: all 0.15s;
+    }
+    .draft-view-btn svg { width: 13px; height: 13px; }
+    .draft-view-btn:hover { color: var(--text); border-color: var(--accent2); }
+    .draft-view-btn.active { background: rgba(99,102,241,0.18); border-color: var(--accent2); color: var(--accent2); }
+    .draft-filters { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+    .draft-filter-btn {
+      padding: 0.35rem 0.75rem; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 600; cursor: pointer;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--muted); transition: all 0.15s;
+    }
+    .draft-filter-btn:hover { color: var(--text); }
+    .draft-filter-btn.active { background: rgba(0,212,170,0.15); border-color: var(--accent); color: var(--accent); }
+    .draft-search-wrap { position: relative; }
+    .draft-search {
+      width: 100%; max-width: 320px; padding: 0.5rem 0.85rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-size: 0.83rem;
+      outline: none; transition: border-color 0.15s;
+    }
+    .draft-search:focus { border-color: var(--accent2); }
+    .draft-search::placeholder { color: var(--muted); }
+    .draft-content { min-height: 200px; }
+    .draft-loading { display: flex; align-items: center; gap: 0.6rem; color: var(--muted); padding: 2rem 0; font-size: 0.9rem; }
+    .draft-count { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .draft-empty { text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
+
+    /* Player list */
+    .draft-player-list { display: flex; flex-direction: column; gap: 2px; }
+    .draft-list-header {
+      display: grid; grid-template-columns: 44px 1fr auto auto;
+      gap: 0.5rem; align-items: center;
+      padding: 0.4rem 0.75rem; font-size: 0.7rem;
+      color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border); margin-bottom: 2px;
+    }
+    .draft-list-header.with-owner { grid-template-columns: 44px 1fr auto auto 110px; }
+    .draft-player-row {
+      display: grid; grid-template-columns: 44px 1fr auto auto;
+      gap: 0.5rem; align-items: center;
+      padding: 0.55rem 0.75rem; border-radius: 6px;
+      background: var(--surface); border: 1px solid transparent;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .draft-player-row.with-owner { grid-template-columns: 44px 1fr auto auto 110px; }
+    .draft-player-row:hover { background: var(--surface2); border-color: var(--border); }
+    .draft-player-row.draft-row-available { border-left: 2px solid rgba(0,212,170,0.3); }
+
+    /* Position badge */
+    .draft-pos-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 22px; border-radius: 4px;
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.03em;
+    }
+    .draft-pos-badge.pos-gk  { background: rgba(245,158,11,0.2);  color: #f59e0b; }
+    .draft-pos-badge.pos-def { background: rgba(0,212,170,0.18);  color: var(--accent); }
+    .draft-pos-badge.pos-mid { background: rgba(99,102,241,0.2);  color: #818cf8; }
+    .draft-pos-badge.pos-fwd { background: rgba(239,68,68,0.18);  color: #f87171; }
+
+    /* Player info */
+    .draft-player-info { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+    .draft-player-name { font-size: 0.84rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .draft-player-club { font-size: 0.7rem; color: var(--muted); }
+
+    /* Stats group */
+    .draft-player-stats { display: flex; align-items: center; gap: 0.6rem; }
+    .draft-stat { font-size: 0.88rem; font-weight: 700; color: var(--text); min-width: 28px; text-align: right; }
+    .draft-stat-sub { font-size: 0.72rem; color: var(--muted); min-width: 28px; text-align: right; }
+    .draft-stat-price { font-size: 0.72rem; color: var(--accent); min-width: 38px; text-align: right; }
+
+    /* Owner column */
+    .draft-owner-badge { display: flex; align-items: center; }
+    .draft-owner-name {
+      font-size: 0.72rem; color: var(--muted); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis; max-width: 105px;
+    }
+    .draft-player-row.with-owner .draft-owner-name { color: var(--text); font-weight: 500; }
+
+    /* Squad grid */
+    .draft-squad-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+    @media (max-width: 900px) { .draft-squad-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .draft-squad-grid { grid-template-columns: 1fr; } }
+    .draft-squad-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+    }
+    .draft-squad-header {
+      padding: 0.65rem 0.85rem; background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+    }
+    .draft-squad-team { font-size: 0.84rem; font-weight: 700; color: var(--text); }
+    .draft-squad-manager { font-size: 0.7rem; color: var(--muted); margin-top: 0.1rem; }
+    .draft-squad-section { padding: 0.4rem 0.85rem; }
+    .draft-squad-section + .draft-squad-section { border-top: 1px solid var(--border); }
+    .draft-squad-pos-label {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 0.25rem; margin-top: 0.25rem;
+    }
+    .pos-label-gk  { color: #f59e0b; }
+    .pos-label-def { color: var(--accent); }
+    .pos-label-mid { color: #818cf8; }
+    .pos-label-fwd { color: #f87171; }
+    .draft-squad-player {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.22rem 0; font-size: 0.79rem;
+    }
+    .draft-squad-player .draft-player-name { flex: 1; }
+    .draft-squad-player .draft-player-club { font-size: 0.67rem; color: var(--muted); flex-shrink: 0; }
+    .draft-squad-pts { font-size: 0.75rem; font-weight: 700; color: var(--muted); flex-shrink: 0; min-width: 24px; text-align: right; }
   </style>
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
@@ -1666,6 +1788,7 @@
     <button class="tab-btn" data-tab="cup"><i data-lucide="trophy"></i>Cup</button>
     <button class="tab-btn" data-tab="champions"><i data-lucide="award"></i>Champions</button>
     <button class="tab-btn" data-tab="history"><i data-lucide="book-open"></i>History</button>
+    <button class="tab-btn" data-tab="draft"><i data-lucide="users"></i>Draft</button>
   </nav>
 </header>
 
@@ -4252,6 +4375,274 @@ function buildNewsTab(newsData) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Draft tab
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildDraftTab(leagueData) {
+  const frag = document.createDocumentFragment();
+  frag.appendChild(el('div', { className: 'section-title' }, icon('users'), ' Draft'));
+
+  // ── Mutable state ──
+  let currentView = 'available'; // 'available' | 'squads' | 'all'
+  let currentPos  = 'all';       // 'all' | 'GK' | 'DEF' | 'MID' | 'FWD'
+  let searchQuery = '';
+
+  // ── Controls bar ──
+  const header = el('div', { className: 'draft-header' });
+
+  // View switcher
+  const viewsRow = el('div', { className: 'draft-views' });
+  const viewDefs = [
+    { id: 'available', label: 'Available', icon: 'search'       },
+    { id: 'squads',    label: 'Squads',    icon: 'layout-grid'  },
+    { id: 'all',       label: 'All Players', icon: 'list'       },
+  ];
+  viewDefs.forEach(v => {
+    const btn = el('button', { className: `draft-view-btn${v.id === currentView ? ' active' : ''}` },
+      icon(v.icon), ` ${v.label}`
+    );
+    btn.addEventListener('click', () => {
+      currentView = v.id;
+      viewsRow.querySelectorAll('.draft-view-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderContent();
+    });
+    viewsRow.appendChild(btn);
+  });
+  header.appendChild(viewsRow);
+
+  // Position filter pills
+  const posRow = el('div', { className: 'draft-filters' });
+  ['All', 'GK', 'DEF', 'MID', 'FWD'].forEach(pos => {
+    const btn = el('button', { className: `draft-filter-btn${pos === 'All' ? ' active' : ''}` }, pos);
+    btn.addEventListener('click', () => {
+      currentPos = pos === 'All' ? 'all' : pos;
+      posRow.querySelectorAll('.draft-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderContent();
+    });
+    posRow.appendChild(btn);
+  });
+  header.appendChild(posRow);
+
+  // Search input
+  const searchWrap = el('div', { className: 'draft-search-wrap' });
+  const searchInput = el('input', { type: 'text', className: 'draft-search', placeholder: 'Search player or club…' });
+  searchInput.addEventListener('input', () => { searchQuery = searchInput.value.toLowerCase().trim(); renderContent(); });
+  searchWrap.appendChild(searchInput);
+  header.appendChild(searchWrap);
+
+  frag.appendChild(header);
+
+  // ── Content area ──
+  const contentArea = el('div', { className: 'draft-content' });
+  const spinner = el('div', { className: 'draft-loading' },
+    el('div', { className: 'loading-spinner', style: 'width:20px;height:20px;border-width:2px;' }),
+    ' Loading squads…'
+  );
+  contentArea.appendChild(spinner);
+  frag.appendChild(contentArea);
+
+  // ── Async data load ──
+  (async () => {
+    try {
+      const bs     = await getBootstrap();
+      const posMap = { 1: 'GK', 2: 'DEF', 3: 'MID', 4: 'FWD' };
+
+      // Team id → short_name
+      const teamMap = {};
+      bs.teams.forEach(t => { teamMap[t.id] = t.short_name; });
+
+      // Player id → element object
+      const playerMap = {};
+      bs.elements.forEach(p => { playerMap[p.id] = p; });
+
+      // Determine which GW squads to pull from
+      const latestGW = [...bs.events].reverse().find(e => e.finished || e.is_current)?.id || 1;
+
+      // Fetch all 12 squads in parallel
+      const standings = leagueData?.standings || [];
+      const squadPicks = {}; // entry_id → picks[]
+      await Promise.all(standings.map(async s => {
+        try {
+          const data = await getPicks(s.entry_id, latestGW);
+          squadPicks[s.entry_id] = data.picks || [];
+        } catch { squadPicks[s.entry_id] = []; }
+      }));
+
+      // Build owner map: element id → { manager, name, entry_id }
+      const ownerMap = {};
+      standings.forEach(s => {
+        (squadPicks[s.entry_id] || []).forEach(pick => {
+          ownerMap[pick.element] = { manager: s.manager, name: s.name, entry_id: s.entry_id };
+        });
+      });
+
+      // ── Helpers ──
+      function applyFilters(players) {
+        return players.filter(p => {
+          if (currentPos !== 'all' && posMap[p.element_type] !== currentPos) return false;
+          if (searchQuery) {
+            const name = (p.web_name || '').toLowerCase();
+            const club = (teamMap[p.team] || '').toLowerCase();
+            if (!name.includes(searchQuery) && !club.includes(searchQuery)) return false;
+          }
+          return true;
+        });
+      }
+
+      function statusEmoji(s) {
+        return s === 'i' ? ' 🚑' : s === 'd' ? ' ⚠️' : s === 's' ? ' 🔴' : '';
+      }
+
+      function buildPlayerRow(player, owner, withOwner) {
+        const pos   = posMap[player.element_type] || '?';
+        const club  = teamMap[player.team] || '?';
+        const pts   = player.total_points;
+        const form  = parseFloat(player.form || 0).toFixed(1);
+        const price = `£${(player.now_cost / 10).toFixed(1)}m`;
+
+        const rowCls = `draft-player-row${withOwner ? ' with-owner' : ''}${(!owner && withOwner) ? ' draft-row-available' : ''}`;
+        const row = el('div', { className: rowCls },
+          el('span', { className: `draft-pos-badge pos-${pos.toLowerCase()}` }, pos),
+          el('div', { className: 'draft-player-info' },
+            el('span', { className: 'draft-player-name' }, player.web_name + statusEmoji(player.status)),
+            el('span', { className: 'draft-player-club' }, club)
+          ),
+          el('div', { className: 'draft-player-stats' },
+            el('span', { className: 'draft-stat',      title: 'Total GW points' }, String(pts)),
+            el('span', { className: 'draft-stat-sub',  title: 'Form (last 5 GWs)' }, form),
+            el('span', { className: 'draft-stat-price', title: 'Price' }, price)
+          )
+        );
+        if (withOwner) {
+          row.appendChild(el('div', { className: 'draft-owner-badge' },
+            el('span', { className: 'draft-owner-name', title: owner ? `${owner.name} (${owner.manager})` : '' },
+              owner ? owner.manager : '—'
+            )
+          ));
+        }
+        return row;
+      }
+
+      // ── Render ──
+      function renderContent() {
+        contentArea.innerHTML = '';
+
+        // Toggle filter/search visibility
+        posRow.style.display   = currentView === 'squads' ? 'none' : '';
+
+        if (currentView === 'squads') {
+          // ── Squads view ──
+          const grid = el('div', { className: 'draft-squad-grid' });
+          standings.forEach(s => {
+            const picks = squadPicks[s.entry_id] || [];
+            const card  = el('div', { className: 'draft-squad-card' });
+            card.appendChild(el('div', { className: 'draft-squad-header' },
+              el('div', { className: 'draft-squad-team' },    s.name),
+              el('div', { className: 'draft-squad-manager' }, s.manager)
+            ));
+
+            [1, 2, 3, 4].forEach(typeId => {
+              const posLabel   = posMap[typeId];
+              const posPlayers = picks
+                .map(pk => playerMap[pk.element])
+                .filter(p => p && p.element_type === typeId);
+              if (posPlayers.length === 0) return;
+
+              // Apply search filter within squad view
+              const visible = searchQuery
+                ? posPlayers.filter(p =>
+                    (p.web_name || '').toLowerCase().includes(searchQuery) ||
+                    (teamMap[p.team] || '').toLowerCase().includes(searchQuery)
+                  )
+                : posPlayers;
+              if (visible.length === 0) return;
+
+              const section = el('div', { className: 'draft-squad-section' });
+              section.appendChild(el('div', { className: `draft-squad-pos-label pos-label-${posLabel.toLowerCase()}` }, posLabel));
+              visible.forEach(p => {
+                section.appendChild(el('div', { className: 'draft-squad-player' },
+                  el('span', { className: 'draft-player-name' }, p.web_name + statusEmoji(p.status)),
+                  el('span', { className: 'draft-player-club' }, teamMap[p.team] || '?'),
+                  el('span', { className: 'draft-squad-pts',   title: 'Total points' }, String(p.total_points))
+                ));
+              });
+              card.appendChild(section);
+            });
+
+            grid.appendChild(card);
+          });
+          contentArea.appendChild(grid);
+
+        } else if (currentView === 'available') {
+          // ── Available players view ──
+          const available = bs.elements.filter(p => !ownerMap[p.id] && p.status !== 'u');
+          const filtered  = applyFilters(available).sort((a, b) => b.total_points - a.total_points);
+
+          contentArea.appendChild(el('div', { className: 'draft-count' },
+            `${filtered.length} available player${filtered.length !== 1 ? 's' : ''} · GW${latestGW} squads`
+          ));
+
+          const list = el('div', { className: 'draft-player-list' });
+          if (filtered.length === 0) {
+            list.appendChild(el('div', { className: 'draft-empty' }, 'No players match your filters.'));
+          } else {
+            const hdr = el('div', { className: 'draft-list-header' },
+              el('span', {}, 'Pos'),
+              el('span', {}, 'Player'),
+              el('span', {}, 'Pts / Form / Price'),
+              el('span', {}, '')
+            );
+            list.appendChild(hdr);
+            filtered.forEach(p => list.appendChild(buildPlayerRow(p, null, false)));
+          }
+          contentArea.appendChild(list);
+
+        } else if (currentView === 'all') {
+          // ── All players view ──
+          const allPlayers = bs.elements.filter(p => p.status !== 'u');
+          const filtered   = applyFilters(allPlayers).sort((a, b) => b.total_points - a.total_points);
+          const ownedCount = filtered.filter(p => ownerMap[p.id]).length;
+
+          contentArea.appendChild(el('div', { className: 'draft-count' },
+            `${filtered.length} players · ${ownedCount} owned · ${filtered.length - ownedCount} available · GW${latestGW} squads`
+          ));
+
+          const list = el('div', { className: 'draft-player-list' });
+          if (filtered.length === 0) {
+            list.appendChild(el('div', { className: 'draft-empty' }, 'No players match your filters.'));
+          } else {
+            const hdr = el('div', { className: 'draft-list-header with-owner' },
+              el('span', {}, 'Pos'),
+              el('span', {}, 'Player'),
+              el('span', {}, 'Pts / Form / Price'),
+              el('span', {}, ''),
+              el('span', {}, 'Owner')
+            );
+            list.appendChild(hdr);
+            filtered.forEach(p => list.appendChild(buildPlayerRow(p, ownerMap[p.id] || null, true)));
+          }
+          contentArea.appendChild(list);
+        }
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+      }
+
+      renderContent();
+
+    } catch (err) {
+      contentArea.innerHTML = '';
+      contentArea.appendChild(el('div', { className: 'not-available' },
+        `Failed to load draft data: ${err.message}`
+      ));
+    }
+  })();
+
+  return frag;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Tab switching
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -4304,6 +4695,9 @@ function switchTab(tabName) {
     app.appendChild(buildHistoryTab());
   } else if (tabName === 'news') {
     app.appendChild(buildNewsTab(_newsData));
+  } else if (tabName === 'draft') {
+    if (_leagueData) app.appendChild(buildDraftTab(_leagueData));
+    else app.appendChild(el('div', { className: 'not-available' }, 'League data not yet available.'));
   }
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
