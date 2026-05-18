@@ -1409,6 +1409,44 @@
       .pitch-midline { width: auto; height: 1px; margin: 0.25rem 0.5rem; }
     }
 
+    /* ── Chip icons (Feature 4 & 5) ── */
+    .chip-icons { display:flex; gap:3px; margin-top:3px; flex-wrap:wrap; }
+    .chip-icon { font-size:0.48rem; font-weight:800; padding:1px 4px; border-radius:3px; letter-spacing:0.03em; }
+    .chip-icon.wc  { background:#6366f1; color:#fff; }
+    .chip-icon.bb  { background:#10b981; color:#fff; }
+    .chip-icon.tc  { background:#f59e0b; color:#000; }
+    .chip-icon.fh  { background:#3b82f6; color:#fff; }
+    .chip-icon.chip-used { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.25); }
+
+    /* ── Season points chart (Feature 6) ── */
+    .chart-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem; margin-top:1rem; }
+    .chart-card h3 { font-size:0.78rem; font-weight:700; color:var(--text); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.4rem; }
+    .chart-svg { width:100%; overflow:visible; }
+    .chart-axis { font-size:8px; fill:rgba(255,255,255,0.35); }
+    .chart-line { fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .chart-label { font-size:7px; font-weight:600; }
+
+    /* ── Transfer timeline (Feature 12) ── */
+    .timeline-gw-header { font-size:0.65rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; padding:0.5rem 0.75rem 0.25rem; border-top:1px solid var(--border); margin-top:0.25rem; }
+    .timeline-gw-header:first-child { border-top:none; margin-top:0; }
+    .timeline-row { display:flex; align-items:center; gap:0.5rem; padding:0.35rem 0.75rem; border-bottom:1px solid rgba(31,45,69,0.5); font-size:0.73rem; }
+    .timeline-manager { color:var(--muted); font-size:0.65rem; min-width:80px; flex-shrink:0; }
+    .timeline-out { color:rgba(255,255,255,0.7); }
+    .timeline-in  { color:var(--accent); }
+    .timeline-diff { margin-left:auto; font-weight:700; font-size:0.7rem; flex-shrink:0; }
+
+    /* ── Auto-sub badges (Feature 13) ── */
+    .autosub-badge { position:absolute; bottom:-4px; right:-4px; font-size:0.45rem; font-weight:800; padding:1px 3px; border-radius:3px; pointer-events:none; z-index:3; letter-spacing:0.03em; }
+    .autosub-badge.out { background:#6b7280; color:#fff; }
+    .autosub-badge.in  { background:#10b981; color:#fff; }
+
+    /* ── Player modal (Feature 15) ── */
+    .player-modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center; padding:1rem; }
+    .player-modal-overlay.open { display:flex; }
+    .player-modal { background:var(--surface); border:1px solid var(--border); border-radius:12px; width:100%; max-width:380px; max-height:80vh; overflow-y:auto; padding:1.25rem; position:relative; }
+    .player-modal-close { position:absolute; top:0.75rem; right:0.75rem; background:none; border:none; color:var(--muted); cursor:pointer; font-size:1.1rem; line-height:1; padding:0.25rem; }
+    .player-modal-close:hover { color:var(--text); }
+
     /* ── Mobile responsive ── */
     @media (max-width: 600px) {
       .container { padding: 1rem 0.75rem; }
@@ -2042,6 +2080,129 @@ function buildFinalHero(final, liveGW) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Player modal (Feature 15)
+// ─────────────────────────────────────────────────────────────────────────────
+
+let _playerModalEl = null;
+function getOrCreatePlayerModal() {
+  if (_playerModalEl) return _playerModalEl;
+  _playerModalEl = el('div', { className: 'player-modal-overlay', id: 'player-modal' });
+  const inner = el('div', { className: 'player-modal' });
+  const closeBtn = el('button', { className: 'player-modal-close' }, '×');
+  closeBtn.addEventListener('click', () => _playerModalEl.classList.remove('open'));
+  inner.appendChild(closeBtn);
+  _playerModalEl.appendChild(inner);
+  _playerModalEl.addEventListener('click', e => {
+    if (e.target === _playerModalEl) _playerModalEl.classList.remove('open');
+  });
+  document.body.appendChild(_playerModalEl);
+  return _playerModalEl;
+}
+
+async function openPlayerModal(pid, gw, liveData, playerMap, teamMap, gwFixtures) {
+  const modal = getOrCreatePlayerModal();
+  const inner = modal.querySelector('.player-modal');
+  // Clear previous content (keep close btn)
+  const closeBtn = inner.querySelector('.player-modal-close');
+  inner.innerHTML = '';
+  inner.appendChild(closeBtn);
+
+  const pm = playerMap && playerMap[pid];
+  const teamShort = pm && teamMap && teamMap[pm.team] ? teamMap[pm.team].short_name : '';
+
+  inner.appendChild(el('div', { className: 'psd-header' },
+    el('span', { className: 'psd-name' }, pm ? pm.web_name : String(pid)),
+    teamShort ? el('span', { style: 'font-size:0.75rem;color:var(--muted);font-weight:400;margin-left:6px' }, teamShort) : null
+  ));
+  inner.appendChild(el('div', { className: 'psd-loading' }, 'Loading…'));
+  modal.classList.add('open');
+
+  try {
+    const [summary, liveGwData] = await Promise.all([
+      getPlayerHistory(pid),
+      liveData ? Promise.resolve(liveData) : getLive(gw).catch(() => null),
+    ]);
+
+    const history = summary.history || [];
+    const seasonTotal = history.reduce((s, h) => s + h.total_points, 0);
+    const last5 = history.slice(-5);
+
+    // Build fixture lookup
+    const bs = await getBootstrap();
+    const fixtureMap = {};
+    (bs.events || []).forEach(ev => (ev.fixtures || []).forEach(f => { fixtureMap[f.id] = f; }));
+
+    const livePlayer = liveGwData?.elements?.find(e => e.id === pid);
+    const explainFixtures = livePlayer?.explain || [];
+    const liveStats = livePlayer?.stats || {};
+
+    inner.querySelector('.psd-loading').remove();
+
+    // GW breakdown
+    if (explainFixtures.length || (liveStats.minutes != null && liveStats.minutes > 0)) {
+      const playerTeam = _playerTeamMap[pid];
+      const addBonus = playerTeam && buildAddBonusTeams(_gwFixtures || gwFixtures).has(playerTeam);
+      const totalLivePts = (liveStats.total_points || 0) + (addBonus ? (liveStats.bonus || 0) : 0);
+      inner.appendChild(el('div', { className: 'psd-section-label' },
+        `GW${gw} Points`,
+        totalLivePts ? el('span', { style: 'margin-left:0.5rem;color:var(--accent);font-weight:800' }, String(totalLivePts)) : null
+      ));
+      if (explainFixtures.length) {
+        const bdWrap = el('div', { className: 'psd-breakdown' });
+        explainFixtures.forEach(fx => {
+          const nonZero = fx.stats.filter(s => s.points !== 0);
+          if (!nonZero.length) return;
+          const fxMeta = fixtureMap[fx.fixture];
+          if (fxMeta && teamMap) {
+            const homeTeam = teamMap[fxMeta.team_h]?.short_name || '?';
+            const awayTeam = teamMap[fxMeta.team_a]?.short_name || '?';
+            const score = fxMeta.finished ? `${fxMeta.team_h_score}–${fxMeta.team_a_score}` : 'vs';
+            bdWrap.appendChild(el('div', { className: 'psd-fixture-label' }, `${homeTeam} ${score} ${awayTeam}`));
+          }
+          nonZero.forEach(s => {
+            const pts = s.points;
+            bdWrap.appendChild(el('div', { className: 'psd-breakdown-row' },
+              el('span', { className: 'psd-breakdown-label' }, s.identifier.replace(/_/g, ' ')),
+              el('span', { className: `psd-breakdown-pts${pts > 0 ? ' pos' : pts < 0 ? ' neg' : ''}` }, `${pts > 0 ? '+' : ''}${pts}`)
+            ));
+          });
+          const total = nonZero.reduce((s, r) => s + r.points, 0);
+          bdWrap.appendChild(el('div', { className: 'psd-breakdown-total' }, el('span', {}, 'Total'), el('span', {}, String(total))));
+        });
+        inner.appendChild(bdWrap);
+      }
+    }
+
+    // Season stats
+    inner.appendChild(el('div', { className: 'psd-section-label', style: 'margin-top:0.75rem' }, 'Season'));
+    inner.appendChild(el('div', { className: 'psd-stats-grid' },
+      el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, String(seasonTotal)), el('div', { className: 'psd-stat-label' }, 'Total Pts')),
+      el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `£${(pm.now_cost/10).toFixed(1)}m` : '—'), el('div', { className: 'psd-stat-label' }, 'Price')),
+      el('div', { className: 'psd-stat' }, el('div', { className: 'psd-stat-num' }, pm ? `${pm.selected_by_percent}%` : '—'), el('div', { className: 'psd-stat-label' }, 'Owned'))
+    ));
+
+    // Last 5 GW bars
+    if (last5.length) {
+      const maxPts = Math.max(...last5.map(h => h.total_points), 1);
+      const histEl = el('div', { className: 'psd-history' });
+      last5.forEach(h => {
+        const barH = Math.max(4, Math.round((h.total_points / maxPts) * 48));
+        histEl.appendChild(el('div', { className: 'psd-gw-bar' },
+          el('div', { className: 'psd-bar-pts' }, String(h.total_points)),
+          el('div', { className: 'psd-bar', style: `height:${barH}px` }),
+          el('div', { className: 'psd-bar-gw' }, `GW${h.round}`)
+        ));
+      });
+      inner.appendChild(histEl);
+    }
+  } catch(e) {
+    const l = inner.querySelector('.psd-loading');
+    if (l) l.textContent = 'Could not load stats.';
+    else inner.appendChild(el('div', { className: 'psd-loading' }, 'Could not load stats.'));
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Final pitch view
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -2065,7 +2226,7 @@ function buildMiniShirt(teamCode, isGK, posClass) {
   return shirt;
 }
 
-function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw, fixture = null) {
+function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw, fixture = null, onClickPlayer = null) {
   const isGK = playerMeta && playerMeta.element_type === 1;
   const posClass = posTypeClass(playerMeta ? playerMeta.element_type : 3);
   const shirt = buildMiniShirt(teamCode, isGK, posClass);
@@ -2091,15 +2252,20 @@ function buildMiniPlayerCard(pick, playerMeta, teamCode, isLiveFinal, gw, fixtur
     );
   }
 
-  return el('div', { className: 'mini-player-card' },
+  const card = el('div', { className: 'mini-player-card' },
     shirt,
     ptsEl,
     el('div', { className: 'mini-name' }, playerMeta ? playerMeta.web_name : String(pick.element)),
     fixtureEl
   );
+  if (onClickPlayer) {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => onClickPlayer(pick.element));
+  }
+  return card;
 }
 
-function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw, opponentMap = {}) {
+function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw, opponentMap = {}, onClickPlayer = null) {
   const panel = el('div', { className: 'final-bench-panel' });
   panel.appendChild(el('div', { className: 'final-bench-header' },
     el('span', { className: 'final-bench-title' }, teamName),
@@ -2151,14 +2317,19 @@ function buildBenchPanel(teamName, bench, playerMap, teamMap, isLiveFinal, gw, o
       );
     }
 
-    playersContainer.appendChild(el('div', { className: 'final-bench-player' },
+    const benchPlayerEl = el('div', { className: 'final-bench-player' },
       shirtEl,
       el('div', { className: 'final-bench-info' },
         el('div', { className: 'final-bench-name' }, pm ? pm.web_name : String(pick.element)),
         ptsEl,
         fixtureEl
       )
-    ));
+    );
+    if (onClickPlayer) {
+      benchPlayerEl.style.cursor = 'pointer';
+      benchPlayerEl.addEventListener('click', () => onClickPlayer(pick.element));
+    }
+    playersContainer.appendChild(benchPlayerEl);
   });
   return panel;
 }
@@ -2228,6 +2399,10 @@ async function buildFinalPitchView(final, liveGW, container) {
     }
 
     // Build one half of the pitch as vertical columns (GK→FWD for home, FWD→GK for away)
+    // Feature 15: pass onClickPlayer handler
+    let liveDataRef = null;
+    const onClickPlayer = (pid) => openPlayerModal(pid, pickGW, liveDataRef, playerMap, teamMap, gwFixtures);
+
     function buildPitchHalf(picks, side, teamName) {
       const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
       const groups = { 1: [], 2: [], 3: [], 4: [] };
@@ -2250,7 +2425,7 @@ async function buildFinalPitchView(final, liveGW, container) {
           const pm = playerMap[pick.element];
           const teamCode = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
           const fixture = pm ? (opponentMap[pm.team] || null) : null;
-          col.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, liveGW || final.gw, fixture));
+          col.appendChild(buildMiniPlayerCard(pick, pm, teamCode, isLiveFinal, liveGW || final.gw, fixture, onClickPlayer));
         });
         colsRow.appendChild(col);
       });
@@ -2272,15 +2447,16 @@ async function buildFinalPitchView(final, liveGW, container) {
     pitchMain.appendChild(pitchBg);
 
     container.innerHTML = '';
-    container.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, liveGW || final.gw, opponentMap));
+    container.appendChild(buildBenchPanel(final.team_a.name, benchA, playerMap, teamMap, isLiveFinal, liveGW || final.gw, opponentMap, onClickPlayer));
     container.appendChild(pitchMain);
-    container.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, liveGW || final.gw, opponentMap));
+    container.appendChild(buildBenchPanel(final.team_b.name, benchB, playerMap, teamMap, isLiveFinal, liveGW || final.gw, opponentMap, onClickPlayer));
 
     // If live, update player pts from current live data
     if (isLiveFinal) {
       try {
         const [live, fixtures] = await Promise.all([getLive(liveGW), getGWFixtures(liveGW).catch(() => null)]);
         if (live) {
+          liveDataRef = live;
           const liveMap = makeLiveMap(live.elements, buildAddBonusTeams(fixtures));
           container.querySelectorAll('[data-live-player]').forEach(pEl => {
             const id = Number(pEl.dataset.livePlayer);
@@ -2382,6 +2558,7 @@ async function getPlayerHistory(playerId) {
 }
 
 const _teamHistoryCache = {};
+const _chipsCache = {};
 async function getTeamHistory(entryId) {
   if (_teamHistoryCache[entryId]) return _teamHistoryCache[entryId];
   const url = `${WORKER_URL}/entry/${entryId}/history/?t=${Math.floor(Date.now()/3600000)}`;
@@ -2389,6 +2566,7 @@ async function getTeamHistory(entryId) {
   if (!res.ok) throw new Error(`History fetch failed: ${res.status}`);
   const data = await res.json();
   _teamHistoryCache[entryId] = data.current || [];
+  _chipsCache[entryId] = data.chips || [];
   return _teamHistoryCache[entryId];
 }
 
@@ -2587,7 +2765,7 @@ function buildInjuryBadge(playerMeta) {
   return badge;
 }
 
-function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode, fixture = null) {
+function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode, fixture = null, autoSubStatus = null) {
   // Apply captain multiplier (2× normal, 3× triple captain) to the displayed score.
   // Bench players have multiplier=0 but we still show their raw points for reference.
   const mult = (pick.multiplier != null && pick.multiplier > 1) ? pick.multiplier : 1;
@@ -2615,6 +2793,8 @@ function buildPlayerCard(pick, playerMeta, livePoints, isActive, teamCode, fixtu
   else if (pick.is_vice_captain) shirt.appendChild(el('span', { className: 'cap-badge', style: 'background:#94a3b8' }, 'V'));
   const injBadge = buildInjuryBadge(playerMeta);
   if (injBadge) shirt.appendChild(injBadge);
+  if (autoSubStatus === 'out') shirt.appendChild(el('span', { className: 'autosub-badge out' }, 'DNP'));
+  else if (autoSubStatus === 'in') shirt.appendChild(el('span', { className: 'autosub-badge in' }, 'AUTO'));
 
   // Fixture H/A chips — fixture is an array of {opp, home} objects
   let fixtureEl = null;
@@ -2710,6 +2890,48 @@ async function buildPitchView(entryId, gw, container, isLive) {
 
     const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
     const bench    = picks.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
+
+    // Auto-sub detection (Feature 13) — only when live and fixtures available
+    const autoSubOutSet = new Set();
+    const autoSubInSet = new Set();
+    if (isLive && liveFixtures) {
+      const minutesMap = {};
+      if (live) live.elements.forEach(e => { minutesMap[e.id] = e.stats.minutes || 0; });
+      const finishedTeams = new Set();
+      liveFixtures.forEach(f => {
+        if (f.finished || f.finished_provisional) {
+          finishedTeams.add(f.team_h);
+          finishedTeams.add(f.team_a);
+        }
+      });
+      let availableBench = [...bench]; // bench in position order
+      starters.forEach(starter => {
+        const pm = playerMap[starter.element];
+        if (!pm) return;
+        const starterTeam = pm.team;
+        if (!finishedTeams.has(starterTeam)) return;
+        if (minutesMap[starter.element] !== 0) return;
+        // Find first eligible bench player
+        const isGKStarter = pm.element_type === 1;
+        for (let i = 0; i < availableBench.length; i++) {
+          const bp = availableBench[i];
+          const bpm = playerMap[bp.element];
+          if (!bpm) continue;
+          const isGKBench = bpm.element_type === 1;
+          // GK can only replace GK; outfield replaces outfield
+          if (isGKStarter !== isGKBench) continue;
+          const bTeam = bpm.team;
+          const bMins = minutesMap[bp.element] || 0;
+          // Bench player must have played OR team hasn't finished yet
+          if (bMins > 0 || !finishedTeams.has(bTeam)) {
+            autoSubOutSet.add(starter.element);
+            autoSubInSet.add(bp.element);
+            availableBench.splice(i, 1);
+            break;
+          }
+        }
+      });
+    }
 
     const rows = { 1: [], 2: [], 3: [], 4: [] };
     starters.forEach(p => {
@@ -2904,7 +3126,8 @@ async function buildPitchView(entryId, gw, container, isLive) {
         const pm = playerMap[p.element];
         const tc = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
         const opp = pm ? (opponentMap[pm.team] || null) : null;
-        row.appendChild(buildPlayerCard(p, pm, liveMap[p.element], isLive, tc, opp));
+        const aStatus = autoSubOutSet.has(p.element) ? 'out' : null;
+        row.appendChild(buildPlayerCard(p, pm, liveMap[p.element], isLive, tc, opp, aStatus));
       });
       pitchBg.appendChild(row);
     });
@@ -2917,7 +3140,8 @@ async function buildPitchView(entryId, gw, container, isLive) {
       const pm = playerMap[p.element];
       const tc = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
       const opp = pm ? (opponentMap[pm.team] || null) : null;
-      benchRow.appendChild(buildPlayerCard(p, pm, liveMap[p.element], false, tc, opp));
+      const aStatus = autoSubInSet.has(p.element) ? 'in' : null;
+      benchRow.appendChild(buildPlayerCard(p, pm, liveMap[p.element], false, tc, opp, aStatus));
     });
     benchSection.appendChild(benchRow);
     wrap.appendChild(benchSection);
@@ -2968,6 +3192,174 @@ async function buildPitchView(entryId, gw, container, isLive) {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Season Points Chart (Feature 6)
+// ─────────────────────────────────────────────────────────────────────────────
+
+async function buildSeasonPointsChart(data, container) {
+  if (!data || !data.standings || !data.standings.length) return;
+
+  const CHART_PALETTE = ['#6366f1','#10b981','#f59e0b','#ef4444','#3b82f6','#8b5cf6','#06b6d4','#84cc16','#f97316','#ec4899','#14b8a6','#a855f7'];
+
+  // Insert card with loading placeholder
+  const chartCard = el('div', { className: 'chart-card' });
+  chartCard.appendChild(el('h3', {}, icon('trending-up'), ' Season Points'));
+  const placeholder = el('div', { style: 'text-align:center;color:var(--muted);font-size:0.78rem;padding:1.5rem 0' }, 'Loading chart…');
+  chartCard.appendChild(placeholder);
+  container.appendChild(chartCard);
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+
+  try {
+    // Fetch full GW history for all managers (already cached from chip prefetch)
+    const entries = data.standings;
+    const histories = await Promise.all(entries.map(s => getTeamHistory(s.entry_id).catch(() => [])));
+
+    // Find max GW played
+    let maxGW = 0;
+    histories.forEach(h => { h.forEach(r => { if (r.event > maxGW) maxGW = r.event; }); });
+    if (maxGW === 0) { placeholder.textContent = 'No GW data available.'; return; }
+
+    const gwRange = [];
+    for (let g = 1; g <= maxGW; g++) gwRange.push(g);
+
+    // Build cumulative totals per manager
+    const managerData = entries.map((s, i) => {
+      const hist = histories[i];
+      const byGW = {};
+      hist.forEach(r => { byGW[r.event] = r.points; });
+      let cum = 0;
+      const cumPoints = gwRange.map(g => {
+        cum += (byGW[g] || 0);
+        return cum;
+      });
+      return { name: s.manager, shortName: s.name, cumPoints };
+    });
+
+    // SVG dimensions
+    const W = 600, H = 280, PAD_L = 42, PAD_R = 70, PAD_T = 16, PAD_B = 28;
+    const chartW = W - PAD_L - PAD_R;
+    const chartH = H - PAD_T - PAD_B;
+
+    const allValues = managerData.flatMap(m => m.cumPoints);
+    const minVal = 0;
+    const maxVal = Math.max(...allValues, 1);
+
+    function xPos(gwIdx) { return PAD_L + (gwIdx / (gwRange.length - 1 || 1)) * chartW; }
+    function yPos(val)   { return PAD_T + chartH - ((val - minVal) / (maxVal - minVal)) * chartH; }
+
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('class', 'chart-svg');
+
+    // Grid lines + Y axis labels
+    const ySteps = 5;
+    for (let i = 0; i <= ySteps; i++) {
+      const val = Math.round(minVal + (maxVal - minVal) * (i / ySteps));
+      const y = yPos(val);
+      const line = document.createElementNS(svgNS, 'line');
+      line.setAttribute('x1', PAD_L); line.setAttribute('x2', W - PAD_R);
+      line.setAttribute('y1', y); line.setAttribute('y2', y);
+      line.setAttribute('stroke', 'rgba(255,255,255,0.07)'); line.setAttribute('stroke-width', '1');
+      svg.appendChild(line);
+      const txt = document.createElementNS(svgNS, 'text');
+      txt.setAttribute('x', PAD_L - 4); txt.setAttribute('y', y + 3);
+      txt.setAttribute('class', 'chart-axis'); txt.setAttribute('text-anchor', 'end');
+      txt.textContent = String(val);
+      svg.appendChild(txt);
+    }
+
+    // X axis labels — show every ~5 GWs
+    gwRange.forEach((gw, idx) => {
+      if (gw === 1 || gw % 5 === 0 || gw === maxGW) {
+        const x = xPos(idx);
+        const txt = document.createElementNS(svgNS, 'text');
+        txt.setAttribute('x', x); txt.setAttribute('y', H - PAD_B + 12);
+        txt.setAttribute('class', 'chart-axis'); txt.setAttribute('text-anchor', 'middle');
+        txt.textContent = `GW${gw}`;
+        svg.appendChild(txt);
+      }
+    });
+
+    // Lines + end labels
+    managerData.forEach((m, mi) => {
+      const colour = CHART_PALETTE[mi % CHART_PALETTE.length];
+      const points = gwRange.map((_, idx) => `${xPos(idx).toFixed(1)},${yPos(m.cumPoints[idx]).toFixed(1)}`).join(' ');
+      const polyline = document.createElementNS(svgNS, 'polyline');
+      polyline.setAttribute('points', points);
+      polyline.setAttribute('class', 'chart-line');
+      polyline.setAttribute('stroke', colour);
+      svg.appendChild(polyline);
+
+      // End-of-line label
+      const lastVal = m.cumPoints[gwRange.length - 1] || 0;
+      const lx = xPos(gwRange.length - 1) + 4;
+      const ly = yPos(lastVal) + 3;
+      const lbl = document.createElementNS(svgNS, 'text');
+      lbl.setAttribute('x', lx); lbl.setAttribute('y', ly);
+      lbl.setAttribute('class', 'chart-label');
+      lbl.setAttribute('fill', colour);
+      lbl.textContent = m.name.split(' ')[0];
+      svg.appendChild(lbl);
+    });
+
+    placeholder.remove();
+    chartCard.appendChild(svg);
+  } catch(e) {
+    placeholder.textContent = 'Chart unavailable.';
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Transfer Timeline (Feature 12)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildTransferTimeline(tradeDiff) {
+  const card = el('div', { className: 'stats-card' });
+  card.appendChild(el('div', { className: 'stats-card-header' },
+    el('h3', {}, icon('clock'), ' Transfer Timeline'),
+    el('p', {}, 'All transfers across all managers, grouped by gameweek in reverse chronological order.')
+  ));
+
+  // Flatten all trades
+  const allTrades = tradeDiff.flatMap(t =>
+    t.trades.map(tr => ({ ...tr, manager: t.manager, teamName: t.name }))
+  );
+
+  if (allTrades.length === 0) {
+    card.appendChild(el('div', { style: 'padding:1rem;color:var(--muted);font-size:0.78rem;text-align:center' }, 'No transfers yet.'));
+    return card;
+  }
+
+  // Sort by GW descending, then group
+  allTrades.sort((a, b) => b.gw - a.gw);
+  const groups = {};
+  allTrades.forEach(t => {
+    if (!groups[t.gw]) groups[t.gw] = [];
+    groups[t.gw].push(t);
+  });
+
+  const body = el('div');
+  Object.keys(groups).sort((a, b) => b - a).forEach((gw, gi) => {
+    const headerDiv = el('div', { className: 'timeline-gw-header' }, `GW${gw}`);
+    body.appendChild(headerDiv);
+    groups[gw].forEach(t => {
+      const diff = t.differential;
+      const diffStr = fmtDiff(diff);
+      const diffCls = diff > 0 ? '#4ade80' : diff < 0 ? '#f87171' : 'var(--muted)';
+      body.appendChild(el('div', { className: 'timeline-row' },
+        el('span', { className: 'timeline-manager' }, t.manager),
+        el('span', { className: 'timeline-out' }, t.player_out.name),
+        el('span', { style: 'color:var(--muted);font-size:0.65rem' }, '→'),
+        el('span', { className: 'timeline-in' }, t.player_in.name),
+        el('span', { className: 'timeline-diff', style: `color:${diffCls}` }, diffStr)
+      ));
+    });
+  });
+  card.appendChild(body);
+  return card;
+}
+
 function buildLeagueTab(data) {
   const wrap = el('div');
   wrap.appendChild(el('div', { className: 'section-title' }, icon('bar-chart-2'), ' League Table'));
@@ -2987,6 +3379,37 @@ function buildLeagueTab(data) {
     // Determine which GW the JSON data covers (the most recently finished one)
     const dataGW = data.metadata ? data.metadata.current_gw : null;
     const isCurrentDataGW = !selectedGW || selectedGW === dataGW || isLiveGW;
+
+    // Helper: build chip icons row for a manager (Feature 4 & 5)
+    function buildChipIconsRow(entryId, activeGW) {
+      const chips = _chipsCache[entryId] || [];
+      const usedChips = chips.map(c => c.name);
+      const wcUsed = usedChips.filter(n => n === 'wildcard').length;
+      const bbUsed = usedChips.includes('bboost');
+      const tcUsed = usedChips.includes('3xc');
+      const fhUsed = usedChips.includes('freehit');
+
+      const iconsRow = el('div', { className: 'chip-icons' });
+      // Wildcard — two slots
+      for (let i = 0; i < 2; i++) {
+        const used = i < wcUsed;
+        iconsRow.appendChild(el('span', { className: `chip-icon wc${used ? ' chip-used' : ''}` }, 'WC'));
+      }
+      iconsRow.appendChild(el('span', { className: `chip-icon bb${bbUsed ? ' chip-used' : ''}` }, 'BB'));
+      iconsRow.appendChild(el('span', { className: `chip-icon tc${tcUsed ? ' chip-used' : ''}` }, 'TC'));
+      iconsRow.appendChild(el('span', { className: `chip-icon fh${fhUsed ? ' chip-used' : ''}` }, 'FH'));
+      return iconsRow;
+    }
+
+    // Helper: get chip played this GW (Feature 5)
+    function getActiveChip(entryId, gw) {
+      const chips = _chipsCache[entryId] || [];
+      const chip = chips.find(c => c.event === gw);
+      if (!chip) return null;
+      const nameMap = { wildcard: 'WC', bboost: 'BB', '3xc': 'TC', freehit: 'FH' };
+      const classMap = { wildcard: 'wc', bboost: 'bb', '3xc': 'tc', freehit: 'fh' };
+      return { abbr: nameMap[chip.name] || chip.name.toUpperCase(), cls: classMap[chip.name] || 'wc' };
+    }
 
     const thead = el('thead', {},
       el('tr', {},
@@ -3028,14 +3451,24 @@ function buildLeagueTab(data) {
       const liveStatusEl = isLiveGW ? el('div', { className: 'team-live-status' }, '—') : null;
       // Base = points BEFORE the live GW to avoid double-counting when JSON already covers it
       const baseTotal = (isLiveGW && dataGW === selectedGW) ? s.total_points - s.gw_points : s.total_points;
+
+      // Chip icons (Feature 4) and active chip badge (Feature 5)
+      const chipIconsEl = buildChipIconsRow(s.entry_id, selectedGW);
+      const activeChip = selectedGW ? getActiveChip(s.entry_id, selectedGW) : null;
+      const gwCellChildren = [String(displayGW)];
+      if (activeChip) {
+        gwCellChildren.push(el('span', { className: `chip-icon ${activeChip.cls}`, style: 'margin-left:4px;vertical-align:middle' }, activeChip.abbr));
+      }
+
       const summaryRow = el('tr', { style: 'cursor:pointer', 'data-entry': String(s.entry_id), 'data-base-total': String(baseTotal) },
         el('td', { className: 'rank-cell' }, String(rank + 1), moveEl),
         el('td', {},
           el('div', { className: 'team-name' }, s.name),
           el('div', { className: 'manager-name' }, s.manager),
+          chipIconsEl,
           ...(liveStatusEl ? [liveStatusEl] : [])
         ),
-        el('td', { className: 'league-gw' }, String(displayGW)),
+        el('td', { className: 'league-gw' }, ...gwCellChildren),
         el('td', { className: 'league-total' }, String(displayTotal)),
         el('td', {}, expandBtn)
       );
@@ -3074,6 +3507,11 @@ function buildLeagueTab(data) {
         getLeagueStandings().catch(() => null),
       ]);
       if (liveStandings) _leagueStandings = liveStandings;
+
+      // Prefetch chip history for all managers (Feature 4 — populates _chipsCache as side effect)
+      if (data && data.standings) {
+        await Promise.all(data.standings.map(s => getTeamHistory(s.entry_id).catch(() => null)));
+      }
 
       const events = bs.events;
       const liveEvent = events.find(e => e.is_current && !e.finished);
@@ -3139,6 +3577,9 @@ function buildLeagueTab(data) {
 
       buildStandingsTable(selectedGW, isLiveGW);
       if (isLiveGW) refreshLeagueScores();
+
+      // Season points chart (Feature 6) — build after history already cached
+      buildSeasonPointsChart(data, wrap);
 
     } catch(e) {
       statusBar.innerHTML = `<span class="gw-status-text">Could not load FPL data: ${e.message}</span>`;
@@ -3480,6 +3921,7 @@ function buildStatsTab(data) {
   const frag = document.createDocumentFragment();
   frag.appendChild(el('div', { className: 'section-title' }, icon('trending-up'), ' Stats'));
   frag.appendChild(buildTradeDiffTable(data.trade_differential));
+  frag.appendChild(buildTransferTimeline(data.trade_differential || []));
   frag.appendChild(buildCaptainTable(data.captain_points));
   frag.appendChild(buildFormTable(data.form));
   frag.appendChild(buildBenchTable(data.bench_points));
