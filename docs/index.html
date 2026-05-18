@@ -4387,6 +4387,9 @@ function buildDraftTab(leagueData) {
   let currentPos  = 'all';       // 'all' | 'GK' | 'DEF' | 'MID' | 'FWD'
   let searchQuery = '';
 
+  // Hoisted so event listeners can call it before async data resolves (no-op until data loads)
+  let renderContent = () => {};
+
   // ── Controls bar ──
   const header = el('div', { className: 'draft-header' });
 
@@ -4526,7 +4529,7 @@ function buildDraftTab(leagueData) {
       }
 
       // ── Render ──
-      function renderContent() {
+      renderContent = function() {
         contentArea.innerHTML = '';
 
         // Toggle filter/search visibility
