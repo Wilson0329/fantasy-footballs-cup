@@ -1416,7 +1416,8 @@
     .chip-icon.bb  { background:#10b981; color:#fff; }
     .chip-icon.tc  { background:#f59e0b; color:#000; }
     .chip-icon.fh  { background:#3b82f6; color:#fff; }
-    .chip-icon.chip-used { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.25); }
+    .chip-icon.chip-used    { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.25); }
+    .chip-icon.chip-expired { background:rgba(239,68,68,0.12); color:rgba(239,68,68,0.45); text-decoration:line-through; }
 
     /* ── Season points chart (Feature 6) ── */
     .chart-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem; margin-top:1rem; }
@@ -3446,6 +3447,8 @@ function buildLeagueTab(data) {
   const tableWrap = el('div', { className: 'league-table-wrap' });
   wrap.appendChild(tableWrap);
 
+  let _currentGW = null; // set by async IIFE once bootstrap loads; used for chip expiry logic
+
   function buildStandingsTable(selectedGW, isLiveGW, gwHistories) {
     if (!data) return;
     tableWrap.innerHTML = '';
@@ -3455,38 +3458,42 @@ function buildLeagueTab(data) {
     const isCurrentDataGW = !selectedGW || selectedGW === dataGW || isLiveGW;
 
     // Helper: build chip icons row for a manager (Feature 4 & 5)
-    function buildChipIconsRow(entryId) {
+    function buildChipIconsRow(entryId, currentGW) {
       const chips = _chipsCache[entryId] || [];
-      // Build a map: chip name → array of GWs played (in order)
+      // Map chip name → array of GWs played
       const chipGWs = {};
       chips.forEach(c => { (chipGWs[c.name] = chipGWs[c.name] || []).push(c.event); });
 
-      const wcGWs = chipGWs['wildcard'] || [];
-      const bbGWs = chipGWs['bboost']   || [];
-      const tcGWs = chipGWs['3xc']      || [];
-      const fhGWs = chipGWs['freehit']  || [];
+      // Half-season windows: slot 1 = GW1-19, slot 2 = GW20-38
+      // Each chip is matched to its window by the GW it was played, not by array index.
+      // This correctly handles e.g. a manager who only played BB in GW25 — that's BB2, BB1 expired.
+      function slotStatus(gwList, windowStart, windowEnd) {
+        const usedGW = gwList.find(g => g >= windowStart && g <= windowEnd);
+        if (usedGW != null) return { state: 'used', gw: usedGW };
+        if (currentGW && currentGW > windowEnd) return { state: 'expired' };
+        return { state: 'available' };
+      }
 
-      const iconsRow = el('div', { className: 'chip-icons' });
-
-      // WC ×2, BB ×2, TC ×2, FH ×1
-      // The API returns one {name, event} entry per use — index 0 = first use, index 1 = second use
       const chipDefs = [
-        { cls: 'wc', label: 'Wildcard',       slots: 2, gwList: wcGWs },
-        { cls: 'bb', label: 'Bench Boost',    slots: 2, gwList: bbGWs },
-        { cls: 'tc', label: 'Triple Captain', slots: 2, gwList: tcGWs },
-        { cls: 'fh', label: 'Free Hit',       slots: 1, gwList: fhGWs },
+        { cls: 'wc', name: 'wildcard',  label: 'Wildcard',       slots: [{ n:1, s:1,  e:19 }, { n:2, s:20, e:38 }] },
+        { cls: 'bb', name: 'bboost',    label: 'Bench Boost',    slots: [{ n:1, s:1,  e:19 }, { n:2, s:20, e:38 }] },
+        { cls: 'tc', name: '3xc',       label: 'Triple Captain', slots: [{ n:1, s:1,  e:19 }, { n:2, s:20, e:38 }] },
+        { cls: 'fh', name: 'freehit',   label: 'Free Hit',       slots: [{ n:null, s:1, e:38 }] },
       ];
 
-      chipDefs.forEach(({ cls, label, slots, gwList }) => {
-        for (let i = 0; i < slots; i++) {
-          const usedGW = gwList[i];
-          // Label: WC1/WC2, BB1/BB2, TC1/TC2, FH (no number for single-slot)
-          const abbr = slots > 1 ? `${cls.toUpperCase()}${i + 1}` : cls.toUpperCase();
-          iconsRow.appendChild(el('span', {
-            className: `chip-icon ${cls}${usedGW != null ? ' chip-used' : ''}`,
-            title: usedGW != null ? `${label} ${i + 1} used GW${usedGW}` : `${label} ${i + 1} available`
-          }, abbr));
-        }
+      const iconsRow = el('div', { className: 'chip-icons' });
+      chipDefs.forEach(({ cls, name, label, slots }) => {
+        const gwList = chipGWs[name] || [];
+        slots.forEach(({ n, s, e }) => {
+          const abbr = n != null ? `${cls.toUpperCase()}${n}` : cls.toUpperCase();
+          const { state, gw } = slotStatus(gwList, s, e);
+          const stateClass = state === 'used' ? ' chip-used' : state === 'expired' ? ' chip-expired' : '';
+          const slotLabel = n != null ? `${label} ${n}` : label;
+          const titleText = state === 'used'    ? `${slotLabel} used GW${gw}`
+                          : state === 'expired' ? `${slotLabel} expired — window was GW${s}–${e}`
+                          :                       `${slotLabel} available (GW${s}–${e})`;
+          iconsRow.appendChild(el('span', { className: `chip-icon ${cls}${stateClass}`, title: titleText }, abbr));
+        });
       });
 
       return iconsRow;
@@ -3549,7 +3556,7 @@ function buildLeagueTab(data) {
       const baseTotal = (isLiveGW && dataGW === selectedGW) ? s.total_points - s.gw_points : s.total_points;
 
       // Chip icons (Feature 4) and active chip badge (Feature 5)
-      const chipIconsEl = buildChipIconsRow(s.entry_id);
+      const chipIconsEl = buildChipIconsRow(s.entry_id, _currentGW);
       const activeChip = selectedGW ? getActiveChip(s.entry_id, selectedGW) : null;
       const gwCellChildren = [String(displayGW)];
       if (activeChip) {
@@ -3614,6 +3621,7 @@ function buildLeagueTab(data) {
       const lastFinished = [...events].reverse().find(e => e.finished);
       let selectedGW = liveEvent ? liveEvent.id : (lastFinished ? lastFinished.id : null);
       const isLiveGW = !!liveEvent;
+      _currentGW = selectedGW; // actual current GW — used for chip expiry, doesn't change with selector
 
       if (!selectedGW) {
         statusBar.innerHTML = '<span class="gw-status-text">No gameweek data available.</span>';
