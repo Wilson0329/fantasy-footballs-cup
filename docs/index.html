@@ -1420,11 +1420,15 @@
 
     /* ── Season points chart (Feature 6) ── */
     .chart-card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:1rem; margin-top:1rem; }
-    .chart-card h3 { font-size:0.78rem; font-weight:700; color:var(--text); margin-bottom:0.75rem; display:flex; align-items:center; gap:0.4rem; }
+    .chart-card h3 { font-size:0.78rem; font-weight:700; color:var(--text); margin-bottom:0.5rem; display:flex; align-items:center; gap:0.4rem; }
+    .chart-toggles { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:0.75rem; }
+    .chart-toggle-btn { font-size:0.52rem; font-weight:700; padding:2px 6px; border-radius:4px; border:none; cursor:pointer; opacity:1; transition:opacity 0.15s; letter-spacing:0.02em; }
+    .chart-toggle-btn.hidden-line { opacity:0.25; }
     .chart-svg { width:100%; overflow:visible; }
     .chart-axis { font-size:8px; fill:rgba(255,255,255,0.35); }
-    .chart-line { fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-    .chart-label { font-size:7px; font-weight:600; }
+    .chart-line { fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; transition:opacity 0.15s; }
+    .chart-label { font-size:7px; font-weight:600; transition:opacity 0.15s; }
+    .chart-line.hidden-line, .chart-label.hidden-line { opacity:0; pointer-events:none; }
 
     /* ── Transfer timeline (Feature 12) ── */
     .timeline-gw-header { font-size:0.65rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; padding:0.5rem 0.75rem 0.25rem; border-top:1px solid var(--border); margin-top:0.25rem; }
@@ -2560,7 +2564,11 @@ async function getPlayerHistory(playerId) {
 const _teamHistoryCache = {};
 const _chipsCache = {};
 async function getTeamHistory(entryId) {
-  if (_teamHistoryCache[entryId]) return _teamHistoryCache[entryId];
+  if (_teamHistoryCache[entryId] !== undefined) {
+    // Cache hit — but also ensure chips are cached (in case prior load pre-dated feature)
+    if (_chipsCache[entryId] === undefined) _chipsCache[entryId] = [];
+    return _teamHistoryCache[entryId];
+  }
   const url = `${WORKER_URL}/entry/${entryId}/history/?t=${Math.floor(Date.now()/3600000)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`History fetch failed: ${res.status}`);
@@ -2891,41 +2899,35 @@ async function buildPitchView(entryId, gw, container, isLive) {
     const starters = picks.picks.filter(p => p.position <= 11).sort((a, b) => a.position - b.position);
     const bench    = picks.picks.filter(p => p.position > 11).sort((a, b) => a.position - b.position);
 
-    // Auto-sub detection (Feature 13) — only when live and fixtures available
-    const autoSubOutSet = new Set();
-    const autoSubInSet = new Set();
+    // Auto-sub detection — only when live and fixtures available
+    // autoSubPairs: Map<outElement, inElement> (starter → bench replacement)
+    const autoSubPairs = new Map();
+    const autoSubReverse = new Map(); // inElement → outElement
     if (isLive && liveFixtures) {
       const minutesMap = {};
       if (live) live.elements.forEach(e => { minutesMap[e.id] = e.stats.minutes || 0; });
       const finishedTeams = new Set();
       liveFixtures.forEach(f => {
         if (f.finished || f.finished_provisional) {
-          finishedTeams.add(f.team_h);
-          finishedTeams.add(f.team_a);
+          finishedTeams.add(f.team_h); finishedTeams.add(f.team_a);
         }
       });
-      let availableBench = [...bench]; // bench in position order
+      let availableBench = [...bench];
       starters.forEach(starter => {
         const pm = playerMap[starter.element];
         if (!pm) return;
-        const starterTeam = pm.team;
-        if (!finishedTeams.has(starterTeam)) return;
-        if (minutesMap[starter.element] !== 0) return;
-        // Find first eligible bench player
+        if (!finishedTeams.has(pm.team)) return;
+        if ((minutesMap[starter.element] || 0) !== 0) return;
         const isGKStarter = pm.element_type === 1;
         for (let i = 0; i < availableBench.length; i++) {
           const bp = availableBench[i];
           const bpm = playerMap[bp.element];
           if (!bpm) continue;
-          const isGKBench = bpm.element_type === 1;
-          // GK can only replace GK; outfield replaces outfield
-          if (isGKStarter !== isGKBench) continue;
-          const bTeam = bpm.team;
+          if (isGKStarter !== (bpm.element_type === 1)) continue; // GK ↔ GK only
           const bMins = minutesMap[bp.element] || 0;
-          // Bench player must have played OR team hasn't finished yet
-          if (bMins > 0 || !finishedTeams.has(bTeam)) {
-            autoSubOutSet.add(starter.element);
-            autoSubInSet.add(bp.element);
+          if (bMins > 0 || !finishedTeams.has(bpm.team)) {
+            autoSubPairs.set(starter.element, bp.element);
+            autoSubReverse.set(bp.element, starter.element);
             availableBench.splice(i, 1);
             break;
           }
@@ -2933,10 +2935,18 @@ async function buildPitchView(entryId, gw, container, isLive) {
       });
     }
 
+    // Build pitch rows — visually swap auto-subbed players onto the pitch
     const rows = { 1: [], 2: [], 3: [], 4: [] };
     starters.forEach(p => {
-      const et = playerMap[p.element] ? playerMap[p.element].element_type : 3;
-      rows[et].push(p);
+      const et = playerMap[p.element]?.element_type || 3;
+      const subInId = autoSubPairs.get(p.element);
+      if (subInId) {
+        // Render the bench player that came on, in the starter's row slot
+        const benchPick = bench.find(b => b.element === subInId);
+        rows[et].push({ _pick: benchPick || p, _autoIn: true, _origEt: et });
+      } else {
+        rows[et].push({ _pick: p, _autoIn: false });
+      }
     });
 
     const gwLabel = isLive ? el('span', {}, el('span', { className: 'live-dot' }), 'Live GW' + gw) : el('span', {}, 'GW' + gw);
@@ -3122,12 +3132,11 @@ async function buildPitchView(entryId, gw, container, isLive) {
     [1, 2, 3, 4].forEach(et => {
       if (!rows[et].length) return;
       const row = el('div', { className: 'pitch-row' });
-      rows[et].forEach(p => {
+      rows[et].forEach(({ _pick: p, _autoIn }) => {
         const pm = playerMap[p.element];
         const tc = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
         const opp = pm ? (opponentMap[pm.team] || null) : null;
-        const aStatus = autoSubOutSet.has(p.element) ? 'out' : null;
-        row.appendChild(buildPlayerCard(p, pm, liveMap[p.element], isLive, tc, opp, aStatus));
+        row.appendChild(buildPlayerCard(p, pm, liveMap[p.element], isLive, tc, opp, _autoIn ? 'in' : null));
       });
       pitchBg.appendChild(row);
     });
@@ -3137,11 +3146,14 @@ async function buildPitchView(entryId, gw, container, isLive) {
     benchSection.appendChild(el('div', { className: 'bench-label' }, 'Bench'));
     const benchRow = el('div', { className: 'bench-row' });
     bench.forEach(p => {
-      const pm = playerMap[p.element];
+      // If this bench player was auto-subbed onto the pitch, show the DNP starter here instead
+      const subOutId = autoSubReverse.get(p.element);
+      const displayPick = subOutId ? starters.find(s => s.element === subOutId) || p : p;
+      const isAutoOut = !!subOutId;
+      const pm = playerMap[displayPick.element];
       const tc = pm && teamMap[pm.team] ? teamMap[pm.team].code : null;
       const opp = pm ? (opponentMap[pm.team] || null) : null;
-      const aStatus = autoSubInSet.has(p.element) ? 'in' : null;
-      benchRow.appendChild(buildPlayerCard(p, pm, liveMap[p.element], false, tc, opp, aStatus));
+      benchRow.appendChild(buildPlayerCard(displayPick, pm, liveMap[displayPick.element], false, tc, opp, isAutoOut ? 'out' : null));
     });
     benchSection.appendChild(benchRow);
     wrap.appendChild(benchSection);
@@ -3281,6 +3293,10 @@ async function buildSeasonPointsChart(data, container) {
       }
     });
 
+    // Toggle buttons row (one per manager)
+    const togglesRow = el('div', { className: 'chart-toggles' });
+    const lineEls = [];   // { polyline, label, btn }
+
     // Lines + end labels
     managerData.forEach((m, mi) => {
       const colour = CHART_PALETTE[mi % CHART_PALETTE.length];
@@ -3289,6 +3305,7 @@ async function buildSeasonPointsChart(data, container) {
       polyline.setAttribute('points', points);
       polyline.setAttribute('class', 'chart-line');
       polyline.setAttribute('stroke', colour);
+      polyline.setAttribute('data-mi', String(mi));
       svg.appendChild(polyline);
 
       // End-of-line label
@@ -3299,11 +3316,27 @@ async function buildSeasonPointsChart(data, container) {
       lbl.setAttribute('x', lx); lbl.setAttribute('y', ly);
       lbl.setAttribute('class', 'chart-label');
       lbl.setAttribute('fill', colour);
+      lbl.setAttribute('data-mi', String(mi));
       lbl.textContent = m.name.split(' ')[0];
       svg.appendChild(lbl);
+
+      // Toggle button
+      const btn = el('button', {
+        className: 'chart-toggle-btn',
+        style: `background:${colour};color:${mi === 3 ? '#fff' : (colour === '#f59e0b' ? '#000' : '#fff')}`,
+        title: m.name
+      }, m.name.split(' ')[0]);
+      btn.addEventListener('click', () => {
+        const hidden = polyline.classList.toggle('hidden-line');
+        lbl.classList.toggle('hidden-line', hidden);
+        btn.classList.toggle('hidden-line', hidden);
+      });
+      togglesRow.appendChild(btn);
+      lineEls.push({ polyline, lbl, btn });
     });
 
     placeholder.remove();
+    chartCard.appendChild(togglesRow);
     chartCard.appendChild(svg);
   } catch(e) {
     placeholder.textContent = 'Chart unavailable.';
@@ -3381,23 +3414,38 @@ function buildLeagueTab(data) {
     const isCurrentDataGW = !selectedGW || selectedGW === dataGW || isLiveGW;
 
     // Helper: build chip icons row for a manager (Feature 4 & 5)
-    function buildChipIconsRow(entryId, activeGW) {
+    function buildChipIconsRow(entryId) {
       const chips = _chipsCache[entryId] || [];
-      const usedChips = chips.map(c => c.name);
-      const wcUsed = usedChips.filter(n => n === 'wildcard').length;
-      const bbUsed = usedChips.includes('bboost');
-      const tcUsed = usedChips.includes('3xc');
-      const fhUsed = usedChips.includes('freehit');
+      // Build a map: chip name → array of GWs played
+      const chipGWs = {};
+      chips.forEach(c => { (chipGWs[c.name] = chipGWs[c.name] || []).push(c.event); });
+
+      const wcGWs = chipGWs['wildcard'] || [];
+      const bbGW  = (chipGWs['bboost']  || [])[0];
+      const tcGW  = (chipGWs['3xc']     || [])[0];
+      const fhGW  = (chipGWs['freehit'] || [])[0];
 
       const iconsRow = el('div', { className: 'chip-icons' });
       // Wildcard — two slots
       for (let i = 0; i < 2; i++) {
-        const used = i < wcUsed;
-        iconsRow.appendChild(el('span', { className: `chip-icon wc${used ? ' chip-used' : ''}` }, 'WC'));
+        const usedGW = wcGWs[i];
+        iconsRow.appendChild(el('span', {
+          className: `chip-icon wc${usedGW != null ? ' chip-used' : ''}`,
+          title: usedGW != null ? `WC used GW${usedGW}` : 'Wildcard available'
+        }, 'WC'));
       }
-      iconsRow.appendChild(el('span', { className: `chip-icon bb${bbUsed ? ' chip-used' : ''}` }, 'BB'));
-      iconsRow.appendChild(el('span', { className: `chip-icon tc${tcUsed ? ' chip-used' : ''}` }, 'TC'));
-      iconsRow.appendChild(el('span', { className: `chip-icon fh${fhUsed ? ' chip-used' : ''}` }, 'FH'));
+      iconsRow.appendChild(el('span', {
+        className: `chip-icon bb${bbGW != null ? ' chip-used' : ''}`,
+        title: bbGW != null ? `BB used GW${bbGW}` : 'Bench Boost available'
+      }, 'BB'));
+      iconsRow.appendChild(el('span', {
+        className: `chip-icon tc${tcGW != null ? ' chip-used' : ''}`,
+        title: tcGW != null ? `TC used GW${tcGW}` : 'Triple Captain available'
+      }, 'TC'));
+      iconsRow.appendChild(el('span', {
+        className: `chip-icon fh${fhGW != null ? ' chip-used' : ''}`,
+        title: fhGW != null ? `FH used GW${fhGW}` : 'Free Hit available'
+      }, 'FH'));
       return iconsRow;
     }
 
@@ -3453,7 +3501,7 @@ function buildLeagueTab(data) {
       const baseTotal = (isLiveGW && dataGW === selectedGW) ? s.total_points - s.gw_points : s.total_points;
 
       // Chip icons (Feature 4) and active chip badge (Feature 5)
-      const chipIconsEl = buildChipIconsRow(s.entry_id, selectedGW);
+      const chipIconsEl = buildChipIconsRow(s.entry_id);
       const activeChip = selectedGW ? getActiveChip(s.entry_id, selectedGW) : null;
       const gwCellChildren = [String(displayGW)];
       if (activeChip) {
