@@ -1,7 +1,7 @@
 {
   "metadata": {
     "league_id": 286779,
-    "last_updated": "2026-05-18",
+    "last_updated": "2026-05-19",
     "current_gw": 37,
     "season": "2025/26"
   },
@@ -12,8 +12,8 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "total_points": 1955,
-      "gw_points": 25
+      "total_points": 1960,
+      "gw_points": 30
     },
     {
       "rank": 2,
@@ -21,8 +21,8 @@
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
-      "total_points": 1731,
-      "gw_points": 16
+      "total_points": 1736,
+      "gw_points": 21
     },
     {
       "rank": 3,
@@ -30,8 +30,8 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "total_points": 1727,
-      "gw_points": 8
+      "total_points": 1734,
+      "gw_points": 15
     },
     {
       "rank": 4,
@@ -48,8 +48,8 @@
       "entry_id": 1623042,
       "name": "GVG XI *",
       "manager": "George Georgiou",
-      "total_points": 1663,
-      "gw_points": 24
+      "total_points": 1693,
+      "gw_points": 54
     },
     {
       "rank": 6,
@@ -71,6 +71,15 @@
     },
     {
       "rank": 8,
+      "rank_last": 9,
+      "entry_id": 5751594,
+      "name": "I love big Gy\u0151k",
+      "manager": "Adam Georghiou",
+      "total_points": 1628,
+      "gw_points": 33
+    },
+    {
+      "rank": 9,
       "rank_last": 7,
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
@@ -79,22 +88,13 @@
       "gw_points": 29
     },
     {
-      "rank": 9,
-      "rank_last": 9,
-      "entry_id": 5751594,
-      "name": "I love big Gy\u0151k",
-      "manager": "Adam Georghiou",
-      "total_points": 1608,
-      "gw_points": 13
-    },
-    {
       "rank": 10,
       "rank_last": 10,
       "entry_id": 5191754,
       "name": "Stay Classy SanDiogo",
       "manager": "Ed Pragnell",
-      "total_points": 1575,
-      "gw_points": 7
+      "total_points": 1578,
+      "gw_points": 10
     },
     {
       "rank": 11,
@@ -102,8 +102,8 @@
       "entry_id": 4160647,
       "name": "Forever20****",
       "manager": "Joe Wilson",
-      "total_points": 1540,
-      "gw_points": 22
+      "total_points": 1551,
+      "gw_points": 33
     },
     {
       "rank": 12,
@@ -111,8 +111,8 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "total_points": 1463,
-      "gw_points": 46
+      "total_points": 1471,
+      "gw_points": 54
     }
   ],
   "trade_differential": [
@@ -120,7 +120,7 @@
       "entry_id": 4160647,
       "name": "Forever20",
       "manager": "Joe Wilson",
-      "net_gain": 270,
+      "net_gain": 273,
       "trades": [
         {
           "gw": 7,
@@ -149,10 +149,10 @@
           "player_in": {
             "id": 20,
             "name": "Trossard",
-            "pts_while_held": 91,
+            "pts_while_held": 94,
             "still_in_squad": true
           },
-          "differential": 40
+          "differential": 43
         },
         {
           "gw": 13,
@@ -440,7 +440,7 @@
       "entry_id": 6366909,
       "name": "HC XI II",
       "manager": "Dominic Byrne",
-      "net_gain": 200,
+      "net_gain": 202,
       "trades": [
         {
           "gw": 7,
@@ -544,7 +544,7 @@
           "player_out": {
             "id": 636,
             "name": "S.Bueno",
-            "pts_since": 22
+            "pts_since": 20
           },
           "player_in": {
             "id": 39,
@@ -552,7 +552,7 @@
             "pts_while_held": 10,
             "still_in_squad": true
           },
-          "differential": -12
+          "differential": -10
         },
         {
           "gw": 32,
@@ -592,7 +592,7 @@
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
-      "net_gain": 165,
+      "net_gain": 168,
       "trades": [
         {
           "gw": 7,
@@ -669,10 +669,10 @@
           "player_in": {
             "id": 266,
             "name": "Eze",
-            "pts_while_held": 40,
+            "pts_while_held": 43,
             "still_in_squad": true
           },
-          "differential": 26
+          "differential": 29
         },
         {
           "gw": 29,
@@ -848,7 +848,7 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "net_gain": 106,
+      "net_gain": 108,
       "trades": [
         {
           "gw": 7,
@@ -877,10 +877,10 @@
           "player_in": {
             "id": 200,
             "name": "Anthony",
-            "pts_while_held": 78,
+            "pts_while_held": 80,
             "still_in_squad": true
           },
-          "differential": 77
+          "differential": 79
         },
         {
           "gw": 14,
@@ -984,7 +984,7 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "net_gain": 62,
+      "net_gain": 63,
       "trades": [
         {
           "gw": 7,
@@ -1013,10 +1013,10 @@
           "player_in": {
             "id": 215,
             "name": "Flemming",
-            "pts_while_held": 70,
+            "pts_while_held": 71,
             "still_in_squad": true
           },
-          "differential": -13
+          "differential": -12
         },
         {
           "gw": 15,
@@ -1408,7 +1408,7 @@
       "entry_id": 5751594,
       "name": "I love big Gy\u0151k",
       "manager": "Adam Georghiou",
-      "net_gain": 5,
+      "net_gain": 4,
       "trades": [
         {
           "gw": 7,
@@ -1448,7 +1448,7 @@
           "player_out": {
             "id": 10,
             "name": "Lewis-Skelly",
-            "pts_since": 14
+            "pts_since": 15
           },
           "player_in": {
             "id": 437,
@@ -1456,7 +1456,7 @@
             "pts_while_held": 15,
             "still_in_squad": true
           },
-          "differential": 1
+          "differential": 0
         }
       ]
     },
@@ -1464,7 +1464,7 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "net_gain": -4,
+      "net_gain": -3,
       "trades": [
         {
           "gw": 14,
@@ -1525,10 +1525,10 @@
           "player_in": {
             "id": 725,
             "name": "Hincapie",
-            "pts_while_held": 23,
+            "pts_while_held": 24,
             "still_in_squad": true
           },
-          "differential": 8
+          "differential": 9
         }
       ]
     },
@@ -1536,7 +1536,7 @@
       "entry_id": 5124113,
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
-      "net_gain": -12,
+      "net_gain": -15,
       "trades": [
         {
           "gw": 7,
@@ -1672,7 +1672,7 @@
           "player_out": {
             "id": 266,
             "name": "Eze",
-            "pts_since": 40
+            "pts_since": 43
           },
           "player_in": {
             "id": 457,
@@ -1680,7 +1680,7 @@
             "pts_while_held": 60,
             "still_in_squad": true
           },
-          "differential": 20
+          "differential": 17
         },
         {
           "gw": 29,
@@ -5226,7 +5226,7 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "total_bench_points": 278,
+      "total_bench_points": 279,
       "avg_bench_per_gw": 7.5,
       "by_gw": [
         {
@@ -5375,7 +5375,7 @@
         },
         {
           "gw": 37,
-          "bench_pts": 4
+          "bench_pts": 5
         }
       ]
     },
