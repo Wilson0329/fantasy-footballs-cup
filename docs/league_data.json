@@ -1,7 +1,7 @@
 {
   "metadata": {
     "league_id": 286779,
-    "last_updated": "2026-05-19",
+    "last_updated": "2026-05-20",
     "current_gw": 37,
     "season": "2025/26"
   },
@@ -12,26 +12,26 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "total_points": 1960,
-      "gw_points": 30
+      "total_points": 1980,
+      "gw_points": 50
     },
     {
       "rank": 2,
-      "rank_last": 3,
-      "entry_id": 5155229,
-      "name": "Vik the Impaler",
-      "manager": "David Pontin",
-      "total_points": 1736,
-      "gw_points": 21
-    },
-    {
-      "rank": 3,
       "rank_last": 2,
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "total_points": 1734,
-      "gw_points": 15
+      "total_points": 1756,
+      "gw_points": 37
+    },
+    {
+      "rank": 3,
+      "rank_last": 3,
+      "entry_id": 5155229,
+      "name": "Vik the Impaler",
+      "manager": "David Pontin",
+      "total_points": 1740,
+      "gw_points": 25
     },
     {
       "rank": 4,
@@ -39,8 +39,8 @@
       "entry_id": 5124113,
       "name": "Soucek Madness \u00b2 \u00b2",
       "manager": "Sam Haseltine",
-      "total_points": 1703,
-      "gw_points": 27
+      "total_points": 1713,
+      "gw_points": 37
     },
     {
       "rank": 5,
@@ -48,8 +48,8 @@
       "entry_id": 1623042,
       "name": "GVG XI *",
       "manager": "George Georgiou",
-      "total_points": 1693,
-      "gw_points": 54
+      "total_points": 1694,
+      "gw_points": 55
     },
     {
       "rank": 6,
@@ -57,35 +57,35 @@
       "entry_id": 4789233,
       "name": "Inevitable***",
       "manager": "Jason Knightly",
-      "total_points": 1647,
-      "gw_points": 51
+      "total_points": 1655,
+      "gw_points": 59
     },
     {
-      "rank": 6,
+      "rank": 7,
       "rank_last": 6,
       "entry_id": 6366909,
       "name": "HC XI II",
       "manager": "Dominic Byrne",
-      "total_points": 1647,
-      "gw_points": 44
+      "total_points": 1653,
+      "gw_points": 50
     },
     {
       "rank": 8,
-      "rank_last": 9,
-      "entry_id": 5751594,
-      "name": "I love big Gy\u0151k",
-      "manager": "Adam Georghiou",
-      "total_points": 1628,
-      "gw_points": 33
-    },
-    {
-      "rank": 9,
       "rank_last": 7,
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
       "manager": "Arun Quayum",
-      "total_points": 1625,
-      "gw_points": 29
+      "total_points": 1636,
+      "gw_points": 40
+    },
+    {
+      "rank": 9,
+      "rank_last": 9,
+      "entry_id": 5751594,
+      "name": "I love big Gy\u0151k",
+      "manager": "Adam Georghiou",
+      "total_points": 1632,
+      "gw_points": 37
     },
     {
       "rank": 10,
@@ -93,8 +93,8 @@
       "entry_id": 5191754,
       "name": "Stay Classy SanDiogo",
       "manager": "Ed Pragnell",
-      "total_points": 1578,
-      "gw_points": 10
+      "total_points": 1602,
+      "gw_points": 34
     },
     {
       "rank": 11,
@@ -102,8 +102,8 @@
       "entry_id": 4160647,
       "name": "Forever20****",
       "manager": "Joe Wilson",
-      "total_points": 1551,
-      "gw_points": 33
+      "total_points": 1553,
+      "gw_points": 35
     },
     {
       "rank": 12,
@@ -111,8 +111,8 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "total_points": 1471,
-      "gw_points": 54
+      "total_points": 1475,
+      "gw_points": 58
     }
   ],
   "trade_differential": [
@@ -120,7 +120,7 @@
       "entry_id": 4160647,
       "name": "Forever20",
       "manager": "Joe Wilson",
-      "net_gain": 273,
+      "net_gain": 271,
       "trades": [
         {
           "gw": 7,
@@ -144,7 +144,7 @@
           "player_out": {
             "id": 421,
             "name": "Rodrigo",
-            "pts_since": 51
+            "pts_since": 58
           },
           "player_in": {
             "id": 20,
@@ -152,7 +152,7 @@
             "pts_while_held": 94,
             "still_in_squad": true
           },
-          "differential": 43
+          "differential": 36
         },
         {
           "gw": 13,
@@ -240,7 +240,7 @@
           "player_out": {
             "id": 796,
             "name": "Gallagher",
-            "pts_since": 21
+            "pts_since": 23
           },
           "player_in": {
             "id": 660,
@@ -248,7 +248,7 @@
             "pts_while_held": 27,
             "still_in_squad": true
           },
-          "differential": 6
+          "differential": 4
         },
         {
           "gw": 32,
@@ -261,10 +261,10 @@
           "player_in": {
             "id": 421,
             "name": "Rodrigo",
-            "pts_while_held": 5,
+            "pts_while_held": 12,
             "still_in_squad": true
           },
-          "differential": -11
+          "differential": -4
         },
         {
           "gw": 35,
@@ -272,7 +272,7 @@
           "player_out": {
             "id": 84,
             "name": "Tavernier",
-            "pts_since": 5
+            "pts_since": 7
           },
           "player_in": {
             "id": 686,
@@ -280,7 +280,7 @@
             "pts_while_held": 9,
             "still_in_squad": true
           },
-          "differential": 4
+          "differential": 2
         },
         {
           "gw": 35,
@@ -293,10 +293,10 @@
           "player_in": {
             "id": 84,
             "name": "Tavernier",
-            "pts_while_held": 5,
+            "pts_while_held": 7,
             "still_in_squad": true
           },
-          "differential": 3
+          "differential": 5
         }
       ]
     },
@@ -304,7 +304,7 @@
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
       "manager": "Arun Quayum",
-      "net_gain": 235,
+      "net_gain": 232,
       "trades": [
         {
           "gw": 7,
@@ -344,7 +344,7 @@
           "player_out": {
             "id": 673,
             "name": "J.Palhinha",
-            "pts_since": 41
+            "pts_since": 45
           },
           "player_in": {
             "id": 423,
@@ -352,7 +352,7 @@
             "pts_while_held": 4,
             "still_in_squad": false
           },
-          "differential": -37
+          "differential": -41
         },
         {
           "gw": 25,
@@ -360,7 +360,7 @@
           "player_out": {
             "id": 573,
             "name": "Spence",
-            "pts_since": 16
+            "pts_since": 17
           },
           "player_in": {
             "id": 706,
@@ -368,7 +368,7 @@
             "pts_while_held": 57,
             "still_in_squad": true
           },
-          "differential": 41
+          "differential": 40
         },
         {
           "gw": 25,
@@ -429,10 +429,10 @@
           "player_in": {
             "id": 418,
             "name": "Doku",
-            "pts_while_held": 27,
+            "pts_while_held": 29,
             "still_in_squad": true
           },
-          "differential": 26
+          "differential": 28
         }
       ]
     },
@@ -440,7 +440,7 @@
       "entry_id": 6366909,
       "name": "HC XI II",
       "manager": "Dominic Byrne",
-      "net_gain": 202,
+      "net_gain": 203,
       "trades": [
         {
           "gw": 7,
@@ -528,7 +528,7 @@
           "player_out": {
             "id": 726,
             "name": "Kolo Muani",
-            "pts_since": 23
+            "pts_since": 25
           },
           "player_in": {
             "id": 791,
@@ -536,7 +536,7 @@
             "pts_while_held": 44,
             "still_in_squad": true
           },
-          "differential": 21
+          "differential": 19
         },
         {
           "gw": 29,
@@ -581,10 +581,10 @@
           "player_in": {
             "id": 570,
             "name": "Danso",
-            "pts_while_held": 6,
+            "pts_while_held": 9,
             "still_in_squad": true
           },
-          "differential": 6
+          "differential": 9
         }
       ]
     },
@@ -592,7 +592,7 @@
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
-      "net_gain": 168,
+      "net_gain": 169,
       "trades": [
         {
           "gw": 7,
@@ -637,10 +637,10 @@
           "player_in": {
             "id": 407,
             "name": "Matheus N.",
-            "pts_while_held": 103,
+            "pts_while_held": 105,
             "still_in_squad": true
           },
-          "differential": 79
+          "differential": 81
         },
         {
           "gw": 20,
@@ -664,7 +664,7 @@
           "player_out": {
             "id": 453,
             "name": "Garnacho",
-            "pts_since": 14
+            "pts_since": 15
           },
           "player_in": {
             "id": 266,
@@ -672,7 +672,7 @@
             "pts_while_held": 43,
             "still_in_squad": true
           },
-          "differential": 29
+          "differential": 28
         },
         {
           "gw": 29,
@@ -712,7 +712,7 @@
       "entry_id": 5191754,
       "name": "Stay Classy SanDiogo",
       "manager": "Ed Pragnell",
-      "net_gain": 154,
+      "net_gain": 164,
       "trades": [
         {
           "gw": 7,
@@ -741,10 +741,10 @@
           "player_in": {
             "id": 100,
             "name": "Kroupi.Jr",
-            "pts_while_held": 76,
+            "pts_while_held": 84,
             "still_in_squad": true
           },
-          "differential": 65
+          "differential": 73
         },
         {
           "gw": 14,
@@ -757,10 +757,10 @@
           "player_in": {
             "id": 411,
             "name": "O'Reilly",
-            "pts_while_held": 102,
+            "pts_while_held": 104,
             "still_in_squad": true
           },
-          "differential": 48
+          "differential": 50
         },
         {
           "gw": 20,
@@ -848,7 +848,7 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "net_gain": 108,
+      "net_gain": 109,
       "trades": [
         {
           "gw": 7,
@@ -957,10 +957,10 @@
           "player_in": {
             "id": 726,
             "name": "Kolo Muani",
-            "pts_while_held": 13,
+            "pts_while_held": 15,
             "still_in_squad": true
           },
-          "differential": 11
+          "differential": 13
         },
         {
           "gw": 32,
@@ -968,7 +968,7 @@
           "player_out": {
             "id": 226,
             "name": "Chalobah",
-            "pts_since": 3
+            "pts_since": 4
           },
           "player_in": {
             "id": 110,
@@ -976,7 +976,7 @@
             "pts_while_held": 19,
             "still_in_squad": true
           },
-          "differential": 16
+          "differential": 15
         }
       ]
     },
@@ -984,7 +984,7 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "net_gain": 63,
+      "net_gain": 67,
       "trades": [
         {
           "gw": 7,
@@ -1077,10 +1077,10 @@
           "player_in": {
             "id": 90,
             "name": "Scott",
-            "pts_while_held": 48,
+            "pts_while_held": 52,
             "still_in_squad": true
           },
-          "differential": 48
+          "differential": 52
         },
         {
           "gw": 29,
@@ -1104,7 +1104,7 @@
       "entry_id": 1623042,
       "name": "GVG XI",
       "manager": "George Georgiou",
-      "net_gain": 57,
+      "net_gain": 58,
       "trades": [
         {
           "gw": 7,
@@ -1245,10 +1245,10 @@
           "player_in": {
             "id": 581,
             "name": "Maddison",
-            "pts_while_held": 1,
+            "pts_while_held": 2,
             "still_in_squad": true
           },
-          "differential": 1
+          "differential": 2
         }
       ]
     },
@@ -1256,7 +1256,7 @@
       "entry_id": 4789233,
       "name": "Inevitable",
       "manager": "Jason Knightly",
-      "net_gain": 52,
+      "net_gain": 57,
       "trades": [
         {
           "gw": 7,
@@ -1349,10 +1349,10 @@
           "player_in": {
             "id": 807,
             "name": "Rayan",
-            "pts_while_held": 58,
+            "pts_while_held": 61,
             "still_in_squad": true
           },
-          "differential": 7
+          "differential": 10
         },
         {
           "gw": 29,
@@ -1397,10 +1397,10 @@
           "player_in": {
             "id": 406,
             "name": "Khusanov",
-            "pts_while_held": 9,
+            "pts_while_held": 11,
             "still_in_squad": true
           },
-          "differential": -1
+          "differential": 1
         }
       ]
     },
@@ -1536,7 +1536,7 @@
       "entry_id": 5124113,
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
-      "net_gain": -15,
+      "net_gain": -17,
       "trades": [
         {
           "gw": 7,
@@ -1704,7 +1704,7 @@
           "player_out": {
             "id": 418,
             "name": "Doku",
-            "pts_since": 43
+            "pts_since": 45
           },
           "player_in": {
             "id": 488,
@@ -1712,7 +1712,7 @@
             "pts_while_held": 19,
             "still_in_squad": true
           },
-          "differential": -24
+          "differential": -26
         },
         {
           "gw": 35,
@@ -1738,7 +1738,7 @@
       "entry_id": 1623042,
       "name": "GVG XI",
       "manager": "George Georgiou",
-      "total_captain_bonus": 208,
+      "total_captain_bonus": 228,
       "by_gw": [
         {
           "gw": 4,
@@ -2003,6 +2003,14 @@
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
+        },
+        {
+          "gw": 37,
+          "player_id": 16,
+          "player": "Saka",
+          "multiplier": 3,
+          "raw_pts": 10,
+          "bonus": 20
         }
       ]
     },
@@ -2010,7 +2018,7 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "total_captain_bonus": 204,
+      "total_captain_bonus": 213,
       "by_gw": [
         {
           "gw": 4,
@@ -2275,6 +2283,14 @@
           "multiplier": 2,
           "raw_pts": 11,
           "bonus": 11
+        },
+        {
+          "gw": 37,
+          "player_id": 430,
+          "player": "Haaland",
+          "multiplier": 2,
+          "raw_pts": 9,
+          "bonus": 9
         }
       ]
     },
@@ -2282,7 +2298,7 @@
       "entry_id": 6366909,
       "name": "HC XI II",
       "manager": "Dominic Byrne",
-      "total_captain_bonus": 202,
+      "total_captain_bonus": 211,
       "by_gw": [
         {
           "gw": 4,
@@ -2547,6 +2563,14 @@
           "multiplier": 2,
           "raw_pts": 3,
           "bonus": 3
+        },
+        {
+          "gw": 37,
+          "player_id": 449,
+          "player": "B.Fernandes",
+          "multiplier": 2,
+          "raw_pts": 9,
+          "bonus": 9
         }
       ]
     },
@@ -2554,7 +2578,7 @@
       "entry_id": 5751594,
       "name": "I love big Gy\u0151k",
       "manager": "Adam Georghiou",
-      "total_captain_bonus": 192,
+      "total_captain_bonus": 198,
       "by_gw": [
         {
           "gw": 4,
@@ -2819,6 +2843,14 @@
           "multiplier": 2,
           "raw_pts": 11,
           "bonus": 11
+        },
+        {
+          "gw": 37,
+          "player_id": 5,
+          "player": "Gabriel",
+          "multiplier": 2,
+          "raw_pts": 6,
+          "bonus": 6
         }
       ]
     },
@@ -2826,7 +2858,7 @@
       "entry_id": 5124113,
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
-      "total_captain_bonus": 176,
+      "total_captain_bonus": 178,
       "by_gw": [
         {
           "gw": 4,
@@ -3091,6 +3123,14 @@
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
+        },
+        {
+          "gw": 37,
+          "player_id": 624,
+          "player": "Bowen",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
         }
       ]
     },
@@ -3098,7 +3138,7 @@
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
       "manager": "Arun Quayum",
-      "total_captain_bonus": 168,
+      "total_captain_bonus": 170,
       "by_gw": [
         {
           "gw": 4,
@@ -3347,6 +3387,14 @@
           "multiplier": 3,
           "raw_pts": 12,
           "bonus": 24
+        },
+        {
+          "gw": 37,
+          "player_id": 418,
+          "player": "Doku",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
         }
       ]
     },
@@ -3354,7 +3402,7 @@
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
-      "total_captain_bonus": 157,
+      "total_captain_bonus": 158,
       "by_gw": [
         {
           "gw": 4,
@@ -3619,6 +3667,14 @@
           "multiplier": 2,
           "raw_pts": 9,
           "bonus": 9
+        },
+        {
+          "gw": 37,
+          "player_id": 666,
+          "player": "Gy\u00f6keres",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
         }
       ]
     },
@@ -3626,7 +3682,7 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "total_captain_bonus": 156,
+      "total_captain_bonus": 157,
       "by_gw": [
         {
           "gw": 4,
@@ -3883,270 +3939,14 @@
           "multiplier": 2,
           "raw_pts": 12,
           "bonus": 12
-        }
-      ]
-    },
-    {
-      "entry_id": 5191754,
-      "name": "Stay Classy SanDiogo",
-      "manager": "Ed Pragnell",
-      "total_captain_bonus": 141,
-      "by_gw": [
+        },
         {
-          "gw": 4,
-          "player_id": 597,
-          "player": "Richarlison",
+          "gw": 37,
+          "player_id": 82,
+          "player": "Semenyo",
           "multiplier": 2,
           "raw_pts": 1,
           "bonus": 1
-        },
-        {
-          "gw": 5,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 6,
-          "player_id": 597,
-          "player": "Richarlison",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 7,
-          "player_id": 597,
-          "player": "Richarlison",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 8,
-          "player_id": 260,
-          "player": "Gu\u00e9hi",
-          "multiplier": 2,
-          "raw_pts": 4,
-          "bonus": 4
-        },
-        {
-          "gw": 9,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 8,
-          "bonus": 8
-        },
-        {
-          "gw": 10,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 11,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
-        {
-          "gw": 12,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 8,
-          "bonus": 8
-        },
-        {
-          "gw": 13,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 14,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 15,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 16,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
-        },
-        {
-          "gw": 17,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
-        },
-        {
-          "gw": 18,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 19,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 7,
-          "bonus": 7
-        },
-        {
-          "gw": 20,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 21,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 22,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
-        {
-          "gw": 23,
-          "player_id": 236,
-          "player": "Neto",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 24,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 25,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 20,
-          "bonus": 20
-        },
-        {
-          "gw": 26,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 12,
-          "bonus": 12
-        },
-        {
-          "gw": 27,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 3,
-          "raw_pts": 3,
-          "bonus": 6
-        },
-        {
-          "gw": 28,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 29,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
-        {
-          "gw": 30,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 31,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 32,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 4,
-          "bonus": 4
-        },
-        {
-          "gw": 33,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 35,
-          "player_id": 235,
-          "player": "Palmer",
-          "multiplier": 2,
-          "raw_pts": 0,
-          "bonus": 0
-        },
-        {
-          "gw": 36,
-          "player_id": 411,
-          "player": "O'Reilly",
-          "multiplier": 2,
-          "raw_pts": 5,
-          "bonus": 5
         }
       ]
     },
@@ -4154,7 +3954,7 @@
       "entry_id": 4789233,
       "name": "Inevitable",
       "manager": "Jason Knightly",
-      "total_captain_bonus": 139,
+      "total_captain_bonus": 154,
       "by_gw": [
         {
           "gw": 4,
@@ -4419,278 +4219,286 @@
           "multiplier": 3,
           "raw_pts": 5,
           "bonus": 10
+        },
+        {
+          "gw": 37,
+          "player_id": 64,
+          "player": "Watkins",
+          "multiplier": 2,
+          "raw_pts": 15,
+          "bonus": 15
         }
       ]
     },
     {
-      "entry_id": 4160647,
-      "name": "Forever20",
-      "manager": "Joe Wilson",
-      "total_captain_bonus": 120,
+      "entry_id": 5191754,
+      "name": "Stay Classy SanDiogo",
+      "manager": "Ed Pragnell",
+      "total_captain_bonus": 143,
       "by_gw": [
         {
           "gw": 4,
-          "player_id": 283,
-          "player": "Mateta",
+          "player_id": 597,
+          "player": "Richarlison",
           "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
+          "raw_pts": 1,
+          "bonus": 1
         },
         {
           "gw": 5,
-          "player_id": 283,
-          "player": "Mateta",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
+          "raw_pts": 1,
+          "bonus": 1
         },
         {
           "gw": 6,
-          "player_id": 582,
-          "player": "Kudus",
+          "player_id": 597,
+          "player": "Richarlison",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
         },
         {
           "gw": 7,
-          "player_id": 582,
-          "player": "Kudus",
+          "player_id": 597,
+          "player": "Richarlison",
           "multiplier": 2,
-          "raw_pts": 12,
-          "bonus": 12
+          "raw_pts": 1,
+          "bonus": 1
         },
         {
           "gw": 8,
-          "player_id": 582,
-          "player": "Kudus",
+          "player_id": 260,
+          "player": "Gu\u00e9hi",
           "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
+          "raw_pts": 4,
+          "bonus": 4
         },
         {
           "gw": 9,
-          "player_id": 582,
-          "player": "Kudus",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 10,
-          "player_id": 283,
-          "player": "Mateta",
-          "multiplier": 2,
-          "raw_pts": 9,
-          "bonus": 9
-        },
-        {
-          "gw": 11,
-          "player_id": 283,
-          "player": "Mateta",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 12,
-          "player_id": 120,
-          "player": "Schade",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 13,
-          "player_id": 582,
-          "player": "Kudus",
+          "player_id": 236,
+          "player": "Neto",
           "multiplier": 2,
           "raw_pts": 8,
           "bonus": 8
         },
         {
-          "gw": 14,
-          "player_id": 283,
-          "player": "Mateta",
+          "gw": 10,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 11,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 9,
+          "bonus": 9
+        },
+        {
+          "gw": 12,
+          "player_id": 236,
+          "player": "Neto",
+          "multiplier": 2,
+          "raw_pts": 8,
+          "bonus": 8
+        },
+        {
+          "gw": 13,
+          "player_id": 236,
+          "player": "Neto",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
+        },
+        {
+          "gw": 14,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
         },
         {
           "gw": 15,
-          "player_id": 582,
-          "player": "Kudus",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
+          "raw_pts": 1,
+          "bonus": 1
         },
         {
           "gw": 16,
-          "player_id": 582,
-          "player": "Kudus",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
+          "raw_pts": 6,
+          "bonus": 6
         },
         {
           "gw": 17,
-          "player_id": 120,
-          "player": "Schade",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
+          "raw_pts": 5,
+          "bonus": 5
         },
         {
           "gw": 18,
-          "player_id": 373,
-          "player": "Virgil",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
         },
         {
           "gw": 19,
-          "player_id": 120,
-          "player": "Schade",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 20,
-          "player_id": 120,
-          "player": "Schade",
-          "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
-        },
-        {
-          "gw": 21,
-          "player_id": 120,
-          "player": "Schade",
-          "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
-        },
-        {
-          "gw": 22,
-          "player_id": 373,
-          "player": "Virgil",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 23,
-          "player_id": 120,
-          "player": "Schade",
-          "multiplier": 2,
-          "raw_pts": 2,
-          "bonus": 2
-        },
-        {
-          "gw": 24,
-          "player_id": 20,
-          "player": "Trossard",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 25,
-          "player_id": 20,
-          "player": "Trossard",
-          "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
-        },
-        {
-          "gw": 26,
-          "player_id": 6,
-          "player": "Saliba",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 27,
-          "player_id": 120,
-          "player": "Schade",
-          "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
-        },
-        {
-          "gw": 28,
-          "player_id": 120,
-          "player": "Schade",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
           "raw_pts": 7,
           "bonus": 7
         },
         {
-          "gw": 29,
-          "player_id": 120,
-          "player": "Schade",
+          "gw": 20,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 21,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 22,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 9,
+          "bonus": 9
+        },
+        {
+          "gw": 23,
+          "player_id": 236,
+          "player": "Neto",
           "multiplier": 2,
           "raw_pts": 3,
           "bonus": 3
         },
         {
+          "gw": 24,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 25,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 20,
+          "bonus": 20
+        },
+        {
+          "gw": 26,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 12,
+          "bonus": 12
+        },
+        {
+          "gw": 27,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 3,
+          "raw_pts": 3,
+          "bonus": 6
+        },
+        {
+          "gw": 28,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 29,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 9,
+          "bonus": 9
+        },
+        {
           "gw": 30,
-          "player_id": 120,
-          "player": "Schade",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
         },
         {
           "gw": 31,
-          "player_id": 120,
-          "player": "Schade",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
+          "raw_pts": 2,
+          "bonus": 2
         },
         {
           "gw": 32,
-          "player_id": 20,
-          "player": "Trossard",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
-          "raw_pts": 1,
-          "bonus": 1
+          "raw_pts": 4,
+          "bonus": 4
         },
         {
           "gw": 33,
-          "player_id": 120,
-          "player": "Schade",
-          "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
-        },
-        {
-          "gw": 34,
-          "player_id": 120,
-          "player": "Schade",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
           "raw_pts": 2,
           "bonus": 2
         },
         {
           "gw": 35,
-          "player_id": 120,
-          "player": "Schade",
+          "player_id": 235,
+          "player": "Palmer",
           "multiplier": 2,
-          "raw_pts": 3,
-          "bonus": 3
+          "raw_pts": 0,
+          "bonus": 0
         },
         {
           "gw": 36,
-          "player_id": 283,
-          "player": "Mateta",
+          "player_id": 411,
+          "player": "O'Reilly",
           "multiplier": 2,
-          "raw_pts": 6,
-          "bonus": 6
+          "raw_pts": 5,
+          "bonus": 5
+        },
+        {
+          "gw": 37,
+          "player_id": 235,
+          "player": "Palmer",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
         }
       ]
     },
@@ -4698,7 +4506,7 @@
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
-      "total_captain_bonus": 120,
+      "total_captain_bonus": 122,
       "by_gw": [
         {
           "gw": 4,
@@ -4963,6 +4771,294 @@
           "multiplier": 2,
           "raw_pts": 8,
           "bonus": 8
+        },
+        {
+          "gw": 37,
+          "player_id": 242,
+          "player": "Dewsbury-Hall",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        }
+      ]
+    },
+    {
+      "entry_id": 4160647,
+      "name": "Forever20",
+      "manager": "Joe Wilson",
+      "total_captain_bonus": 121,
+      "by_gw": [
+        {
+          "gw": 4,
+          "player_id": 283,
+          "player": "Mateta",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 5,
+          "player_id": 283,
+          "player": "Mateta",
+          "multiplier": 2,
+          "raw_pts": 6,
+          "bonus": 6
+        },
+        {
+          "gw": 6,
+          "player_id": 582,
+          "player": "Kudus",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 7,
+          "player_id": 582,
+          "player": "Kudus",
+          "multiplier": 2,
+          "raw_pts": 12,
+          "bonus": 12
+        },
+        {
+          "gw": 8,
+          "player_id": 582,
+          "player": "Kudus",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 9,
+          "player_id": 582,
+          "player": "Kudus",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 10,
+          "player_id": 283,
+          "player": "Mateta",
+          "multiplier": 2,
+          "raw_pts": 9,
+          "bonus": 9
+        },
+        {
+          "gw": 11,
+          "player_id": 283,
+          "player": "Mateta",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 12,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 13,
+          "player_id": 582,
+          "player": "Kudus",
+          "multiplier": 2,
+          "raw_pts": 8,
+          "bonus": 8
+        },
+        {
+          "gw": 14,
+          "player_id": 283,
+          "player": "Mateta",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 15,
+          "player_id": 582,
+          "player": "Kudus",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 16,
+          "player_id": 582,
+          "player": "Kudus",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 17,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 18,
+          "player_id": 373,
+          "player": "Virgil",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 19,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 20,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 6,
+          "bonus": 6
+        },
+        {
+          "gw": 21,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 6,
+          "bonus": 6
+        },
+        {
+          "gw": 22,
+          "player_id": 373,
+          "player": "Virgil",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 23,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 24,
+          "player_id": 20,
+          "player": "Trossard",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 25,
+          "player_id": 20,
+          "player": "Trossard",
+          "multiplier": 2,
+          "raw_pts": 6,
+          "bonus": 6
+        },
+        {
+          "gw": 26,
+          "player_id": 6,
+          "player": "Saliba",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 27,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 28,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 7,
+          "bonus": 7
+        },
+        {
+          "gw": 29,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 30,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 31,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 32,
+          "player_id": 20,
+          "player": "Trossard",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
+        },
+        {
+          "gw": 33,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 34,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 2,
+          "bonus": 2
+        },
+        {
+          "gw": 35,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 3,
+          "bonus": 3
+        },
+        {
+          "gw": 36,
+          "player_id": 283,
+          "player": "Mateta",
+          "multiplier": 2,
+          "raw_pts": 6,
+          "bonus": 6
+        },
+        {
+          "gw": 37,
+          "player_id": 120,
+          "player": "Schade",
+          "multiplier": 2,
+          "raw_pts": 1,
+          "bonus": 1
         }
       ]
     }
@@ -4973,20 +5069,20 @@
       "name": "Return of the Fox",
       "manager": "Charles Smith",
       "last5_scores": [
-        41,
         96,
         58,
         59,
-        44
+        44,
+        50
       ],
       "last5_gws": [
-        32,
         33,
         34,
         35,
-        36
+        36,
+        37
       ],
-      "form_avg": 59.6,
+      "form_avg": 61.4,
       "form_rank": 1
     },
     {
@@ -4994,41 +5090,41 @@
       "name": "Inevitable",
       "manager": "Jason Knightly",
       "last5_scores": [
-        46,
         99,
         36,
         39,
-        71
+        71,
+        59
       ],
       "last5_gws": [
-        32,
         33,
         34,
         35,
-        36
+        36,
+        37
       ],
-      "form_avg": 58.2,
+      "form_avg": 60.8,
       "form_rank": 2
     },
     {
-      "entry_id": 5191754,
-      "name": "Stay Classy SanDiogo",
-      "manager": "Ed Pragnell",
+      "entry_id": 5145283,
+      "name": "Habibi Jeebies",
+      "manager": "Arun Quayum",
       "last5_scores": [
-        84,
-        82,
-        23,
-        27,
-        60
+        40,
+        42,
+        60,
+        71,
+        40
       ],
       "last5_gws": [
-        32,
         33,
         34,
         35,
-        36
+        36,
+        37
       ],
-      "form_avg": 55.2,
+      "form_avg": 50.6,
       "form_rank": 3
     },
     {
@@ -5036,188 +5132,188 @@
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
       "last5_scores": [
-        70,
         55,
         42,
         63,
-        40
-      ],
-      "last5_gws": [
-        32,
-        33,
-        34,
-        35,
-        36
-      ],
-      "form_avg": 54.0,
-      "form_rank": 4
-    },
-    {
-      "entry_id": 5145283,
-      "name": "Habibi Jeebies",
-      "manager": "Arun Quayum",
-      "last5_scores": [
-        45,
         40,
-        42,
-        60,
-        71
+        37
       ],
       "last5_gws": [
-        32,
         33,
         34,
         35,
-        36
+        36,
+        37
       ],
-      "form_avg": 51.6,
-      "form_rank": 5
+      "form_avg": 47.4,
+      "form_rank": 4
     },
     {
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
       "last5_scores": [
-        39,
         62,
         18,
         61,
-        63
+        63,
+        25
       ],
       "last5_gws": [
-        32,
         33,
         34,
         35,
-        36
+        36,
+        37
       ],
-      "form_avg": 48.6,
-      "form_rank": 6
+      "form_avg": 45.8,
+      "form_rank": 5
     },
     {
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
       "last5_scores": [
-        38,
         60,
         16,
         31,
-        83
-      ],
-      "last5_gws": [
-        32,
-        33,
-        34,
-        35,
-        36
-      ],
-      "form_avg": 45.6,
-      "form_rank": 7
-    },
-    {
-      "entry_id": 1623042,
-      "name": "GVG XI",
-      "manager": "George Georgiou",
-      "last5_scores": [
-        55,
-        70,
-        18,
-        43,
+        83,
         37
       ],
       "last5_gws": [
-        32,
         33,
         34,
         35,
-        36
-      ],
-      "form_avg": 44.6,
-      "form_rank": 8
-    },
-    {
-      "entry_id": 5751594,
-      "name": "I love big Gy\u0151k",
-      "manager": "Adam Georghiou",
-      "last5_scores": [
-        35,
-        63,
-        41,
         36,
-        45
+        37
       ],
-      "last5_gws": [
-        32,
-        33,
-        34,
-        35,
-        36
-      ],
-      "form_avg": 44.0,
-      "form_rank": 9
+      "form_avg": 45.4,
+      "form_rank": 6
     },
     {
-      "entry_id": 6366909,
-      "name": "HC XI II",
-      "manager": "Dominic Byrne",
+      "entry_id": 5191754,
+      "name": "Stay Classy SanDiogo",
+      "manager": "Ed Pragnell",
       "last5_scores": [
-        49,
-        55,
+        82,
+        23,
         27,
-        29,
-        53
+        60,
+        34
       ],
       "last5_gws": [
-        32,
         33,
         34,
         35,
-        36
+        36,
+        37
       ],
-      "form_avg": 42.6,
-      "form_rank": 10
-    },
-    {
-      "entry_id": 4160647,
-      "name": "Forever20",
-      "manager": "Joe Wilson",
-      "last5_scores": [
-        30,
-        32,
-        45,
-        51,
-        47
-      ],
-      "last5_gws": [
-        32,
-        33,
-        34,
-        35,
-        36
-      ],
-      "form_avg": 41.0,
-      "form_rank": 11
+      "form_avg": 45.2,
+      "form_rank": 7
     },
     {
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
       "last5_scores": [
-        36,
         54,
         41,
         28,
-        44
+        44,
+        58
       ],
       "last5_gws": [
-        32,
         33,
         34,
         35,
-        36
+        36,
+        37
       ],
-      "form_avg": 40.6,
+      "form_avg": 45.0,
+      "form_rank": 8
+    },
+    {
+      "entry_id": 1623042,
+      "name": "GVG XI",
+      "manager": "George Georgiou",
+      "last5_scores": [
+        70,
+        18,
+        43,
+        37,
+        55
+      ],
+      "last5_gws": [
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "form_avg": 44.6,
+      "form_rank": 9
+    },
+    {
+      "entry_id": 5751594,
+      "name": "I love big Gy\u0151k",
+      "manager": "Adam Georghiou",
+      "last5_scores": [
+        63,
+        41,
+        36,
+        45,
+        37
+      ],
+      "last5_gws": [
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "form_avg": 44.4,
+      "form_rank": 10
+    },
+    {
+      "entry_id": 6366909,
+      "name": "HC XI II",
+      "manager": "Dominic Byrne",
+      "last5_scores": [
+        55,
+        27,
+        29,
+        53,
+        50
+      ],
+      "last5_gws": [
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "form_avg": 42.8,
+      "form_rank": 11
+    },
+    {
+      "entry_id": 4160647,
+      "name": "Forever20",
+      "manager": "Joe Wilson",
+      "last5_scores": [
+        32,
+        45,
+        51,
+        47,
+        35
+      ],
+      "last5_gws": [
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "form_avg": 42.0,
       "form_rank": 12
     }
   ],
@@ -5383,7 +5479,7 @@
       "entry_id": 4789233,
       "name": "Inevitable",
       "manager": "Jason Knightly",
-      "total_bench_points": 191,
+      "total_bench_points": 192,
       "avg_bench_per_gw": 5.2,
       "by_gw": [
         {
@@ -5532,7 +5628,7 @@
         },
         {
           "gw": 37,
-          "bench_pts": 7
+          "bench_pts": 8
         }
       ]
     },
@@ -6008,167 +6104,10 @@
       ]
     },
     {
-      "entry_id": 5145283,
-      "name": "Habibi Jeebies",
-      "manager": "Arun Quayum",
-      "total_bench_points": 167,
-      "avg_bench_per_gw": 4.5,
-      "by_gw": [
-        {
-          "gw": 1,
-          "bench_pts": 2
-        },
-        {
-          "gw": 2,
-          "bench_pts": 6
-        },
-        {
-          "gw": 3,
-          "bench_pts": 3
-        },
-        {
-          "gw": 4,
-          "bench_pts": 3
-        },
-        {
-          "gw": 5,
-          "bench_pts": 4
-        },
-        {
-          "gw": 6,
-          "bench_pts": 1
-        },
-        {
-          "gw": 7,
-          "bench_pts": 2
-        },
-        {
-          "gw": 8,
-          "bench_pts": 9
-        },
-        {
-          "gw": 9,
-          "bench_pts": 8
-        },
-        {
-          "gw": 10,
-          "bench_pts": 3
-        },
-        {
-          "gw": 11,
-          "bench_pts": 15
-        },
-        {
-          "gw": 12,
-          "bench_pts": 2
-        },
-        {
-          "gw": 13,
-          "bench_pts": 1
-        },
-        {
-          "gw": 14,
-          "bench_pts": 0
-        },
-        {
-          "gw": 15,
-          "bench_pts": 9
-        },
-        {
-          "gw": 16,
-          "bench_pts": 3
-        },
-        {
-          "gw": 17,
-          "bench_pts": 2
-        },
-        {
-          "gw": 18,
-          "bench_pts": 0
-        },
-        {
-          "gw": 19,
-          "bench_pts": 3
-        },
-        {
-          "gw": 20,
-          "bench_pts": 1
-        },
-        {
-          "gw": 21,
-          "bench_pts": 3
-        },
-        {
-          "gw": 22,
-          "bench_pts": 5
-        },
-        {
-          "gw": 23,
-          "bench_pts": 7
-        },
-        {
-          "gw": 24,
-          "bench_pts": 1
-        },
-        {
-          "gw": 25,
-          "bench_pts": 0
-        },
-        {
-          "gw": 26,
-          "bench_pts": 1
-        },
-        {
-          "gw": 27,
-          "bench_pts": 4
-        },
-        {
-          "gw": 28,
-          "bench_pts": 11
-        },
-        {
-          "gw": 29,
-          "bench_pts": 4
-        },
-        {
-          "gw": 30,
-          "bench_pts": 6
-        },
-        {
-          "gw": 31,
-          "bench_pts": 2
-        },
-        {
-          "gw": 32,
-          "bench_pts": 2
-        },
-        {
-          "gw": 33,
-          "bench_pts": 25
-        },
-        {
-          "gw": 34,
-          "bench_pts": 0
-        },
-        {
-          "gw": 35,
-          "bench_pts": 6
-        },
-        {
-          "gw": 36,
-          "bench_pts": 6
-        },
-        {
-          "gw": 37,
-          "bench_pts": 7
-        }
-      ]
-    },
-    {
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
-      "total_bench_points": 163,
+      "total_bench_points": 161,
       "avg_bench_per_gw": 4.4,
       "by_gw": [
         {
@@ -6317,7 +6256,164 @@
         },
         {
           "gw": 37,
+          "bench_pts": 13
+        }
+      ]
+    },
+    {
+      "entry_id": 5145283,
+      "name": "Habibi Jeebies",
+      "manager": "Arun Quayum",
+      "total_bench_points": 160,
+      "avg_bench_per_gw": 4.3,
+      "by_gw": [
+        {
+          "gw": 1,
+          "bench_pts": 2
+        },
+        {
+          "gw": 2,
+          "bench_pts": 6
+        },
+        {
+          "gw": 3,
+          "bench_pts": 3
+        },
+        {
+          "gw": 4,
+          "bench_pts": 3
+        },
+        {
+          "gw": 5,
+          "bench_pts": 4
+        },
+        {
+          "gw": 6,
+          "bench_pts": 1
+        },
+        {
+          "gw": 7,
+          "bench_pts": 2
+        },
+        {
+          "gw": 8,
+          "bench_pts": 9
+        },
+        {
+          "gw": 9,
+          "bench_pts": 8
+        },
+        {
+          "gw": 10,
+          "bench_pts": 3
+        },
+        {
+          "gw": 11,
           "bench_pts": 15
+        },
+        {
+          "gw": 12,
+          "bench_pts": 2
+        },
+        {
+          "gw": 13,
+          "bench_pts": 1
+        },
+        {
+          "gw": 14,
+          "bench_pts": 0
+        },
+        {
+          "gw": 15,
+          "bench_pts": 9
+        },
+        {
+          "gw": 16,
+          "bench_pts": 3
+        },
+        {
+          "gw": 17,
+          "bench_pts": 2
+        },
+        {
+          "gw": 18,
+          "bench_pts": 0
+        },
+        {
+          "gw": 19,
+          "bench_pts": 3
+        },
+        {
+          "gw": 20,
+          "bench_pts": 1
+        },
+        {
+          "gw": 21,
+          "bench_pts": 3
+        },
+        {
+          "gw": 22,
+          "bench_pts": 5
+        },
+        {
+          "gw": 23,
+          "bench_pts": 7
+        },
+        {
+          "gw": 24,
+          "bench_pts": 1
+        },
+        {
+          "gw": 25,
+          "bench_pts": 0
+        },
+        {
+          "gw": 26,
+          "bench_pts": 1
+        },
+        {
+          "gw": 27,
+          "bench_pts": 4
+        },
+        {
+          "gw": 28,
+          "bench_pts": 11
+        },
+        {
+          "gw": 29,
+          "bench_pts": 4
+        },
+        {
+          "gw": 30,
+          "bench_pts": 6
+        },
+        {
+          "gw": 31,
+          "bench_pts": 2
+        },
+        {
+          "gw": 32,
+          "bench_pts": 2
+        },
+        {
+          "gw": 33,
+          "bench_pts": 25
+        },
+        {
+          "gw": 34,
+          "bench_pts": 0
+        },
+        {
+          "gw": 35,
+          "bench_pts": 6
+        },
+        {
+          "gw": 36,
+          "bench_pts": 6
+        },
+        {
+          "gw": 37,
+          "bench_pts": 0
         }
       ]
     },
@@ -6325,8 +6421,8 @@
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
-      "total_bench_points": 150,
-      "avg_bench_per_gw": 4.1,
+      "total_bench_points": 149,
+      "avg_bench_per_gw": 4.0,
       "by_gw": [
         {
           "gw": 1,
@@ -6474,7 +6570,7 @@
         },
         {
           "gw": 37,
-          "bench_pts": 12
+          "bench_pts": 11
         }
       ]
     },
@@ -6482,8 +6578,8 @@
       "entry_id": 5191754,
       "name": "Stay Classy SanDiogo",
       "manager": "Ed Pragnell",
-      "total_bench_points": 114,
-      "avg_bench_per_gw": 3.1,
+      "total_bench_points": 119,
+      "avg_bench_per_gw": 3.2,
       "by_gw": [
         {
           "gw": 1,
@@ -6631,7 +6727,7 @@
         },
         {
           "gw": 37,
-          "bench_pts": 0
+          "bench_pts": 5
         }
       ]
     },
@@ -6796,8 +6892,8 @@
       "entry_id": 4160647,
       "name": "Forever20",
       "manager": "Joe Wilson",
-      "total_bench_points": 89,
-      "avg_bench_per_gw": 2.4,
+      "total_bench_points": 95,
+      "avg_bench_per_gw": 2.6,
       "by_gw": [
         {
           "gw": 1,
@@ -6945,7 +7041,7 @@
         },
         {
           "gw": 37,
-          "bench_pts": 1
+          "bench_pts": 7
         }
       ]
     },
@@ -7112,97 +7208,97 @@
       "entry_id": 8794696,
       "name": "Return of the Fox",
       "manager": "Charles Smith",
-      "captain_hits": 11,
-      "gws_played": 36,
-      "hit_rate": 30.6
+      "captain_hits": 12,
+      "gws_played": 37,
+      "hit_rate": 32.4
     },
     {
       "entry_id": 5751594,
       "name": "I love big Gy\u0151k",
       "manager": "Adam Georghiou",
       "captain_hits": 9,
-      "gws_played": 35,
-      "hit_rate": 25.7
+      "gws_played": 36,
+      "hit_rate": 25.0
     },
     {
       "entry_id": 5191754,
       "name": "Stay Classy SanDiogo",
       "manager": "Ed Pragnell",
       "captain_hits": 9,
-      "gws_played": 35,
-      "hit_rate": 25.7
+      "gws_played": 36,
+      "hit_rate": 25.0
     },
     {
       "entry_id": 5155229,
       "name": "Vik the Impaler",
       "manager": "David Pontin",
       "captain_hits": 8,
-      "gws_played": 35,
-      "hit_rate": 22.9
+      "gws_played": 36,
+      "hit_rate": 22.2
+    },
+    {
+      "entry_id": 1623042,
+      "name": "GVG XI",
+      "manager": "George Georgiou",
+      "captain_hits": 8,
+      "gws_played": 36,
+      "hit_rate": 22.2
     },
     {
       "entry_id": 5145283,
       "name": "Habibi Jeebies",
       "manager": "Arun Quayum",
       "captain_hits": 7,
-      "gws_played": 33,
-      "hit_rate": 21.2
-    },
-    {
-      "entry_id": 1623042,
-      "name": "GVG XI",
-      "manager": "George Georgiou",
-      "captain_hits": 7,
-      "gws_played": 35,
-      "hit_rate": 20.0
+      "gws_played": 34,
+      "hit_rate": 20.6
     },
     {
       "entry_id": 7552664,
       "name": "Beef Cherki",
       "manager": "Alexander Bodek",
       "captain_hits": 6,
-      "gws_played": 35,
-      "hit_rate": 17.1
+      "gws_played": 36,
+      "hit_rate": 16.7
     },
     {
       "entry_id": 6366909,
       "name": "HC XI II",
       "manager": "Dominic Byrne",
       "captain_hits": 6,
-      "gws_played": 35,
-      "hit_rate": 17.1
+      "gws_played": 36,
+      "hit_rate": 16.7
     },
     {
       "entry_id": 5124113,
       "name": "Soucek Madness",
       "manager": "Sam Haseltine",
       "captain_hits": 5,
-      "gws_played": 35,
-      "hit_rate": 14.3
+      "gws_played": 36,
+      "hit_rate": 13.9
+    },
+    {
+      "entry_id": 4789233,
+      "name": "Inevitable",
+      "manager": "Jason Knightly",
+      "captain_hits": 4,
+      "gws_played": 37,
+      "hit_rate": 10.8
     },
     {
       "entry_id": 5150105,
       "name": "Gy\u00f6k, Stock & Barrel",
       "manager": "Aron Rouse",
       "captain_hits": 4,
-      "gws_played": 36,
-      "hit_rate": 11.1
-    },
-    {
-      "entry_id": 4789233,
-      "name": "Inevitable",
-      "manager": "Jason Knightly",
-      "captain_hits": 3,
-      "gws_played": 36,
-      "hit_rate": 8.3
+      "gws_played": 37,
+      "hit_rate": 10.8
     },
     {
       "entry_id": 4160647,
       "name": "Forever20",
       "manager": "Joe Wilson",
       "captain_hits": 2,
-      "gws_played": 34,
-      "hit_rate": 5.9
+      "gws_played": 35,
+      "hit_rate": 5.7
     }
   ]
 }
