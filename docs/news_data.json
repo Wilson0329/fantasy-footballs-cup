@@ -1,9 +1,10 @@
 {
-  "generated_at": "2026-05-20T10:36:38",
+  "generated_at": "2026-05-21T10:55:52",
   "gw": 37,
   "is_live": false,
   "squad_alert_fingerprint": [
     "Alexander Bodek:Aaronson (LEE) [DOUBTFUL] [starting XI] \u2014 Knee injury - 75% chance of playing",
+    "Alexander Bodek:Jo\u00e3o Pedro (CHE) [DOUBTFUL] [bench] \u2014 Knock - 75% chance of playing",
     "Alexander Bodek:Ballard (SUN) [SUSPENDED] [bench] \u2014 Suspended until 25 May",
     "David Pontin:J.Timber (ARS) [INJURED] [bench] \u2014 Ankle injury - Unknown return date",
     "Sam Haseltine:Murillo (NFO) [INJURED] [bench] \u2014 Muscle injury - Unknown return date",
@@ -13,6 +14,7 @@
     "George Georgiou:Ekitik\u00e9 (LIV) [INJURED] [bench] \u2014 Achilles injury - Expected back 01 Jul",
     "Jason Knightly:Alderete (SUN) [DOUBTFUL] [starting XI] \u2014 Knock - 75% chance of playing",
     "Jason Knightly:Frimpong (LIV) [DOUBTFUL] [bench] \u2014 Knock - 75% chance of playing",
+    "Dominic Byrne:Gusto (CHE) [DOUBTFUL] [bench] \u2014 Knock - 75% chance of playing",
     "Dominic Byrne:Bogle (LEE) [INJURED] [bench] \u2014 Hamstring injury - Unknown return date",
     "Arun Quayum:\u0160e\u0161ko (MUN) [DOUBTFUL] [bench] [VICE-CAPTAIN] \u2014 Shin injury - 50% chance of playing",
     "Adam Georghiou:A.Becker (LIV) [DOUBTFUL] [bench] \u2014 Lack of match fitness - 75% chance of playing",
@@ -31,29 +33,29 @@
       "id": "title_race",
       "pundit_name": "Gary Neville",
       "pundit_image": "neville.jpg",
-      "headline": "Title Race Won, Drama Unfolds for Payouts!",
-      "body": "Well, Charles has absolutely nailed it this season with a title that\u2019s mathematically won\u2014224 points clear! But let\u2019s talk about the real drama: the fight for those precious payout positions. Right now, Alexander is in 2nd with 1756 points, but David is breathing down his neck with just 16 points separating them. I genuinely believe Sam, sitting in 4th, is lurking like a hawk, just 27 points behind David, ready to pounce. The stakes couldn\u2019t be higher!\n\nNow, let\u2019s not forget the relegation battle, where Joe and Aron are clinging to hope while being well and truly in the danger zone. With only one game left and a maximum of 90 points up for grabs, their chances are slim to none. It\u2019s the kind of situation that makes you want to pull your hair out! Meanwhile, Jason and Dominic are gearing up for the cup final next week, which is a whole different kettle of fish. This season may be winding down, but there's still plenty to play for!"
+      "headline": "Title Race Wrapped Up, Payout Battle Heats Up",
+      "body": "Right, so Charles has absolutely nailed it and wrapped up the title, which leaves us with the real drama \u2014 the race for that sweet second and third place payout. Alexander is sitting pretty in second, but he's only 16 points ahead of David, who\u2019s lurking just behind. What\u2019s crucial here is the fitness of Alexander's key players; if Aaronson and Jo\u00e3o Pedro don't make it, that gap could shrink faster than a dodgy pair of shorts in a hot wash!\n\nAnd let\u2019s not forget Sam, who\u2019s just 27 points back from David \u2014 he\u2019s not out of it yet! It\u2019s a proper free-for-all in the payout race, with everyone scrambling to secure those rewards. Meanwhile, the relegation battle is just as lively, with Joe and Aron sweating buckets. Will they survive, or are they destined for the drop? It's all to play for, folks!"
     },
     {
       "id": "relegation",
       "pundit_name": "Roy Keane",
       "pundit_image": "keane.jpg",
-      "headline": "Relegation Looms as Joe and Aron Flop",
-      "body": "It's laughable. Joe and Aron are staring relegation in the face, and honestly, I'm not surprised. Joe\u2019s sitting on 49 points adrift of safety; it's embarrassing. Aron is 127 points behind Ed in 11th, and let's be real, they're toast. One week left? I hope they\u2019ve got other hobbies lined up because they're clearly not cut out for this.\n\nAnd let's talk about injuries for a second. Joe has a pile of doubt around his squad with players like Isak and Richards limping around. Aron\u2019s got Gudmundsson in the same boat; it screams of desperation. No excuses now, lads. You\u2019re in a relegation battle, and you're looking like you'd rather be on the beach. Get it together!"
+      "headline": "Desperate Duo Face Relegation Reality Check",
+      "body": "Joe and Aron are fighting tooth and nail to stay up, but let\u2019s be honest, it\u2019s embarrassing. Joe is 49 points behind safety and Aron a staggering 127 points adrift. How can you let yourself get in such a mess? One week to go and Joe\u2019s got to pull a rabbit out of a hat, while Aron's practically already shopping for Championship gear. No excuses\u2014this is a relegation battle, not a kids' game.\n\nI mean, take a look\u2014Joe\u2019s got injuries piling up and Aron should probably just call it a day. You can't rely on a knock here and a knock there when your season's on the line. They need to stop making excuses and show some fight, but I'm not holding my breath. If they go down, it\u2019s well deserved."
     },
     {
       "id": "cup_final",
       "pundit_name": "Jamie Carragher",
       "pundit_image": "carragher.jpg",
-      "headline": "Cup Final Drama: Injuries and Payouts Heat Up!",
-      "body": "What a tie we\u2019ve got on our hands with Dominic up against Jason in the cup final! You're looking at Dominic with that solid squad, but I tell ya, loses Bogle to injury could be massive\u2014like missing your best players in a Champions League final, right? And Jason's got a few doubts too, with Alderete and Frimpong both dangling at 75% chance of playing, they need to be fit to challenge properly. It\u2019s like playing with one hand behind your back!\n\nNow let's talk about the real drama, though\u2014the payout race! We\u2019ve got Alexander, David, and Sam all jostling for those cash spots. Only 16 points separate Alexander in second and David in third, and it's anyone's guess who claims that silverware. It\u2019s squeaky bum time, and with a week left, there's still a chance for fireworks in both the league and the cup! Don\u2019t miss it!"
+      "headline": "Cup Final Showdown: Tactics and Tension Await",
+      "body": "What a cup final we've got coming up, eh? Dominic's HC XI II against Jason's Inevitable! It\u2019s a clash of tactics with both managers having their stars ready to shine, although Dominic\u2019s got a bit of an injury crisis with Bogle out and Gusto doubtful. Still, he's got Bruno as captain\u2014absolute masterstroke there! Meanwhile, Jason\u2019s got Watkins leading the line, who\u2019s probably been in better form than some of the big boys this season. Can\u2019t wait to see how they try to outsmart each other in this one!\n\nNow, let\u2019s talk about the league, because while Charles is off celebrating his title win, there\u2019s still a battle for the payouts. Only 16 points separate Alexander in second from David in third, and Sam\u2019s lurking just a bit behind! It\u2019s like a last-minute scramble, reminiscent of a Champions League final! Meanwhile, down the bottom, Joe and Aron are fighting for their lives, but the chances of them pulling off a miracle are looking slimmer than my chances of scoring a penalty! It\u2019s all to play for, mate!"
     },
     {
       "id": "form_injuries",
       "pundit_name": "Micah Richards",
       "pundit_image": "richards.jpg",
-      "headline": "Title Race Settled, Drama Unfolds for Survival Spots",
-      "body": "Wow! Charles has just wrapped up the title, unbelievable performance from him this season! But listen, the real drama lies behind him with Alexander, David, and Sam all vying for those payout spots. Only 16 points separate Alexander from David, and Sam is breathing down their necks, just 27 points off third. It\u2019s like a mad dash to the finish line, and with injuries piling up\u2014like Tonali being a doubt for Alexander\u2014this is where it gets spicy! Give him some credit! \n\nNow let\u2019s talk about Joe and Aron down at the bottom. They\u2019re in serious trouble! Joe is staring relegation in the face, 49 points off safety, and Aron isn\u2019t far behind, 127 points away! The pressure is on, and with Joe's key players like Richards and Stach struggling with knocks, he needs a miracle! Can\u2019t believe they\u2019re letting it come to this, surely they\u2019ll pull something out of the hat next week! What a finale we\u2019ve got lined up!"
+      "headline": "Title Race Settled, Battle for Survival Heats Up",
+      "body": "Oh, what a season it\u2019s been! Charles has wrapped up the title\u2014224 points clear, can you believe it?! Now we\u2019re all eyes on the battle for those precious payout spots. Alexander's looking solid in 2nd, but David's only 16 points behind and Sam's hot on their heels! It\u2019s anyone\u2019s game for that coveted 3rd place, and with the pressure ramping up, I can't wait to see how it unfolds! Give them some credit, they\u2019re really putting on a show!\n\nBut let\u2019s talk injuries! Dominic\u2019s got Gusto and Bogle in doubt, while Jason\u2019s Alderete and Frimpong are also limping into the final gameweek. With players like Joe's Isak and Ed's Solanke struggling to find fitness, it could mean the difference between glory and despair for those at the bottom! Joe's only 49 points from safety, and Aron? Well, he\u2019s a hefty 127 points adrift! The nerves are going to be UNBELIEVABLE in the final stretch, and I can\u2019t wait to see who holds their nerve!"
     }
   ]
 }
