@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T10:35:57",
+  "generated_at": "2026-05-23T09:23:55",
   "gw": 37,
   "is_live": false,
   "squad_alert_fingerprint": [
@@ -9,24 +9,23 @@
     "David Pontin:J.Timber (ARS) [DOUBTFUL] [bench] \u2014 Lack of match fitness - 25% chance of playing",
     "Sam Haseltine:Casemiro (MUN) [NOT AVAILABLE] [starting XI] [VICE-CAPTAIN] \u2014 Not available for the match against Brighton on 24/5. - Expected back 01 Jun",
     "Sam Haseltine:Murillo (NFO) [INJURED] [bench] \u2014 Muscle injury - Expected back 01 Jun",
-    "George Georgiou:Tonali (NEW) [DOUBTFUL] [starting XI] \u2014 Hamstring injury - 25% chance of playing",
+    "George Georgiou:Tonali (NEW) [DOUBTFUL] [starting XI] \u2014 Hamstring injury - 75% chance of playing",
     "George Georgiou:A.Jimenez (BOU) [NOT AVAILABLE] [bench] \u2014 Made unavailable for selection on 8/5. - Unknown return date",
     "George Georgiou:Romero (TOT) [INJURED] [bench] \u2014 Knee injury - Expected back 01 Jun",
     "George Georgiou:Ekitik\u00e9 (LIV) [INJURED] [bench] \u2014 Achilles injury - Expected back 01 Jul",
-    "Jason Knightly:Alderete (SUN) [DOUBTFUL] [starting XI] \u2014 Knock - 75% chance of playing",
+    "Jason Knightly:Alderete (SUN) [DOUBTFUL] [starting XI] \u2014 Knock - 50% chance of playing",
     "Jason Knightly:Frimpong (LIV) [DOUBTFUL] [bench] \u2014 Knock - 75% chance of playing",
     "Dominic Byrne:Gusto (CHE) [DOUBTFUL] [bench] \u2014 Knock - 75% chance of playing",
-    "Dominic Byrne:Bogle (LEE) [INJURED] [bench] \u2014 Hamstring injury - Unknown return date",
+    "Dominic Byrne:Bogle (LEE) [DOUBTFUL] [bench] \u2014 Hamstring injury - 75% chance of playing",
     "Arun Quayum:\u0160e\u0161ko (MUN) [DOUBTFUL] [bench] [VICE-CAPTAIN] \u2014 Shin injury - 50% chance of playing",
     "Adam Georghiou:A.Becker (LIV) [DOUBTFUL] [bench] \u2014 Lack of match fitness - 75% chance of playing",
     "Adam Georghiou:Andersen (FUL) [SUSPENDED] [bench] \u2014 Suspended until 29 Aug",
-    "Ed Pragnell:Solanke (TOT) [DOUBTFUL] [bench] \u2014 Muscle injury - 50% chance of playing",
     "Ed Pragnell:Mitoma (BHA) [INJURED] [bench] \u2014 Hamstring injury - Expected back 01 Jun",
     "Joe Wilson:Richards (CRY) [INJURED] [starting XI] \u2014 Ankle injury - Expected back 01 Jun",
-    "Joe Wilson:Stach (LEE) [DOUBTFUL] [starting XI] \u2014 Ankle injury - 50% chance of playing",
+    "Joe Wilson:Stach (LEE) [INJURED] [starting XI] \u2014 Ankle injury - Expected back 01 Jun",
     "Joe Wilson:Isak (LIV) [DOUBTFUL] [bench] \u2014 Knock - 75% chance of playing",
     "Joe Wilson:Aina (NFO) [DOUBTFUL] [bench] \u2014 Lack of match fitness - 75% chance of playing",
-    "Aron Rouse:Gudmundsson (LEE) [DOUBTFUL] [bench] \u2014 Hamstring injury - 50% chance of playing"
+    "Aron Rouse:Gudmundsson (LEE) [INJURED] [bench] \u2014 Hamstring injury - Expected back 01 Jun"
   ],
   "podcast_file": null,
   "articles": [
@@ -34,29 +33,29 @@
       "id": "title_race",
       "pundit_name": "Gary Neville",
       "pundit_image": "neville.jpg",
-      "headline": "Title Race Heats Up: Drama in Playoff Push",
-      "body": "Well, Charles has absolutely run away with the title \u2014 nailed on, really. But let\u2019s talk drama, as the battle for those precious payout spots is heating up! Alexander\u2019s got second place in his sights with a solid 1756 points, but David isn\u2019t far behind at 1740. That 16-point gap might as well be a chasm when you consider how tight things are getting; it\u2019s like watching a game of chess with all the pieces in play but only two men actually knowing how to move them! Sam\u2019s lurking in fourth, not too far behind, and the pressure\u2019s on for everyone!\n\nNow, looking at Alexander's injury woes, with Aaronson and Jo\u00e3o Pedro both doubtful, it could shake things up in the final week. Meanwhile, David's got his own fitness issues, with J.Timber lacking match sharpness. It\u2019s the playoff push, and with such fine margins, every point is crucial. This isn\u2019t just about pride; it\u2019s about cash! If I was to make a bold prediction, I'd say David is going to leapfrog Alexander for that second spot \u2014 but then again, I might have just jinxed him!"
+      "headline": "Title Race Wrapped, Drama Unfolds for Payouts",
+      "body": "Well, folks, it\u2019s official: Charles has wrapped up the title like a mismatched Christmas present, 224 points clear. But while that may be a done deal, the real drama lies in the tussle for the payout positions! Alexander is hanging on to 2nd with 1756 points, but David is breathing down his neck at 3rd, just 16 points behind. Meanwhile, Sam is lurking in 4th, 27 points adrift. I genuinely believe that the intensity in this fight is absolutely brilliant; it\u2019s like watching a final season of a gripping Netflix show!\n\nNow, let\u2019s sprinkle in a bit of injury chaos to spice things up. Alexander\u2019s Aaronson is 75% likely to play with a knee issue, while David\u2019s Timber is even less certain at just 25% fit. With only one gameweek left, this could make or break their chances of sealing the financial rewards. If I were a betting man, I\u2019d say expect some wild swings \u2014 I\u2019d even put my hat on Sam springing a surprise comeback, or maybe I\u2019ll just walk that back in a minute!"
     },
     {
       "id": "relegation",
       "pundit_name": "Roy Keane",
       "pundit_image": "keane.jpg",
-      "headline": "Relegation Woes: Joe and Aron\u2019s Disastrous Season",
-      "body": "Joe and Aron are done and dusted. Joe's 49 points adrift from safety, and Aron, bless him, is 127 points off the pace. It's embarrassing to watch. They should be ashamed, with that level of performance on show. No one wants to see this kind of weakness in a relegation battle at this stage of the season. \n\nOf course, with one week to go, the only drama left is figuring out how they can crawl out of the bottom two. Spoiler alert: they can\u2019t. I mean, they've had the entire season to sort themselves out, and they still manage to throw in a stinker. I'm not surprised they find themselves in this position; you reap what you sow."
+      "headline": "Pundit Rips Into Joe and Aron\u2019s FPL Failures",
+      "body": "Well, Joe and Aron are looking over their shoulders, and honestly, they should be. Joe is 49 points adrift and Aron? A staggering 127 points behind. It\u2019s embarrassing at this level. How can you not be aiming for safety? One week left and both of them are still squabbling about who can show less fight. I\u2019m not surprised they\u2019re in this mess, though; it speaks volumes about their management. \n\nAs FPL managers scramble for last-minute points, you\u2019ve got Joe with injuries piling up and Aron just wanting to scrap for any dignity left. It\u2019s like watching a slow-motion car crash; you can't look away, but you\u2019re just there shaking your head. If they want to survive, they better pull their socks up and show what they\u2019re made of. No excuses."
     },
     {
       "id": "cup_final",
       "pundit_name": "Jamie Carragher",
       "pundit_image": "carragher.jpg",
-      "headline": "Cup Final Showdown: Dominic vs Jason Awaits",
-      "body": "What a tie we\u2019ve got coming up in the cup final \u2013 Dominic against Jason! You\u2019ve got to fancy Dominic with his squad; he\u2019s got Bruno Fernandes, the captain, who\u2019s been an absolute machine this season. But Jason\u2019s no slouch either, with Watkins leading the line. It\u2019s a battle of tactics, and I reckon it\u2019ll be like watching a Champions League final \u2013 edge of the seat stuff, I\u2019m telling ya!\n\nNow, let\u2019s not forget the stakes here: Jason's squad\u2019s got a couple of doubts, Alderete and Frimpong, both crucial players. Dominic\u2019s also facing Gusto being a doubt. Even the tiniest hiccup could swing this one! One week left in the league, and while Charles has already bagged the title, it\u2019s all about that second and third place now \u2013 Alexander\u2019s just 16 pts ahead of David, so no one can afford to take their eye off the ball!"
+      "headline": "Cup Final Showdown: Dominic vs Jason Sparks Drama",
+      "body": "What a cup final we\u2019ve got lined up with Dominic facing off against Jason, two managers who\u2019ve really put the effort in this season! Dominic\u2019s got Donnarumma at the back, and I\u2019ll be honest with ya, a solid keeper is like having a rock in defense \u2014 just ask any Liverpool fan! But don\u2019t underestimate Jason\u2019s squad either, with Watkins leading the line. It's gonna be a battle of wits and luck as the teams shake off those injury doubts. Gusto and Alderete with their 75% chances, it\u2019s like flipping a coin, mate!\n\nNow, while Charles has wrapped up the title quicker than a Champions League final can be decided, let\u2019s focus on the payout race. Alexander, David, and Sam are in a right tussle for those top three prize slots, and every point matters! Jason and Dominic will be giving it everything to make a name for themselves in this cup final, but for the other managers, it\u2019s like a final day thriller trying to hold onto that safety net before the drop. Can\u2019t wait to see how it unfolds!"
     },
     {
       "id": "form_injuries",
       "pundit_name": "Micah Richards",
       "pundit_image": "richards.jpg",
-      "headline": "Drama Unfolds: Final Week of Season Madness!",
-      "body": "What a season it\u2019s been for Charles\u2014224 points clear, absolutely on fire! But let's talk drama, because the real excitement is in that battle for second and third. Alexander's hanging on tight, only 16 points ahead of David, while Sam's lurking just 27 points behind David. It\u2019s a tense finish\u2014who's going to step up? And there's injury chaos too! Sam's missing Casemiro, which is a massive blow, while Alexander's got doubts over Aaronson and Jo\u00e3o Pedro. If they don\u2019t pull through, that payout race could flip faster than a pancake!\n\nNow, down at the bottom, poor Joe and Aron are sweating bullets! Joe's 49 points off safety, and I mean, come on, they really need a miracle! Aron, too\u2014127 points adrift, it\u2019s looking pretty bleak for him, isn\u2019t it? Just one week left to madness, and with players like Isak and Stach nursing knocks, it\u2019s just the sort of chaos that could see them scrambling for a last-minute escape. UNBELIEVABLE end to the season, honestly!"
+      "headline": "Title Race Wrapped Up, Drama Unfolds Below!",
+      "body": "What an UNBELIEVABLE season it\u2019s been! Charles has wrapped up the title \u2014 224 points clear! But now, the real drama is down the stretch! It\u2019s neck-and-neck for those payout spots, with Alexander just 16 points ahead of David and Sam lurking only 27 points behind. It\u2019s all to play for, and the pressure's on these managers! If anyone slips up, they could lose out on that sweet prize money!\n\nNow, look at the injuries \u2014 they\u2019re shaping the end of the season massively! Sam\u2019s missing Casemiro \u2014 that's a BIG blow for Soucek Madness. And we can\u2019t forget Joe, who\u2019s really in trouble without Richards and Stach. With only one gameweek left, every point will be crucial! The FPL managers are sweating, and it\u2019s a bit of a lottery to see who can put out a full squad! Give them some credit for managing their teams through this madness!"
     }
   ]
 }
