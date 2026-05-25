@@ -2,8 +2,8 @@
   "metadata": {
     "cup_name": "Fantasy Footballs Cup",
     "league_id": 286779,
-    "last_updated": "2026-05-24",
-    "current_gw": 37,
+    "last_updated": "2026-05-25",
+    "current_gw": 38,
     "season": "2025/26"
   },
   "groups": {
@@ -953,10 +953,13 @@
         "entry_id": 4789233,
         "name": "Inevitable"
       },
-      "score_a": null,
-      "score_b": null,
-      "winner": null,
-      "status": "upcoming"
+      "score_a": 47,
+      "score_b": 43,
+      "winner": {
+        "entry_id": 6366909,
+        "name": "HC XI II"
+      },
+      "status": "complete"
     }
   }
 }
